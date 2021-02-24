@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+	<!-- 회원가입 시 ebd_users테이블에 가입정보를 insert -->
+	<insert id="insert" parameterType="usersDto">
+		INSERT INTO ebd_users
+		(id, pwd, name, nick, gender, birth_year, birth_month, birth_day, email, phone, regdate)
+		VALUES(#{id}, #{pwd}, #{name}, #{nick}, #{gender}, #{birth_year}, #{birth_month}, #{birth_day}, #{email}, #{phone}, SYSDATE)
+	</insert>
+	<!-- 
+	isValid의 경우 boolean을 리턴해야하지만 resultType으로 boolean은 쓸 수 없다. 
+	select 해서 아이디가 제대로 리턴되면 String값이 리턴되고 
+	select 해서 아무 아이디도 리턴되지 않으면 null이 리턴된다. 
+	따라서 resultType으로 String을 써주어야한다.
+	-->
+	<select id="isValid" parameterType="usersDto" resultType="String">
+		SELECT id
+		FROM ebd_users
+		WHERE id=#{id} AND pwd=#{pwd}
+	</select>
+	
+	<!-- 현재 로그인한 아이디의 닉네임을 불러온다. -->
+	<select id="getNick" parameterType="String" resultType="String">
+		SELECT nick
+		FROM ebd_users
+		WHERE id=#{id}
+	</select>
+
+</mapper>
