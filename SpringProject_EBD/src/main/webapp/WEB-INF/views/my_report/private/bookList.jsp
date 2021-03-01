@@ -48,8 +48,7 @@
                 </td>
                 <!-- 
                 <td width="100"><input type="button" class="checkBtn" value="선택"/></td>
-                 -->
-                
+                 -->                
             </tr>
         </c:forEach>
     	</tbody>

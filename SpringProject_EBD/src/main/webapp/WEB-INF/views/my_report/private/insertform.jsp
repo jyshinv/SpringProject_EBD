@@ -44,6 +44,7 @@
 		<div>
 			<label for="stars">평점</label>
 			<select name="stars" id="stars">
+				<option value="">선택안함</option>
 				<option value="★">★</option>
 				<option value="★★">★★</option>
 				<option value="★★★">★★★</option>
