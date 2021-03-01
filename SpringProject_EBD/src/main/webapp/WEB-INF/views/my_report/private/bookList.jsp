@@ -37,9 +37,12 @@
                 <td width="300">${b.description}</td>
                 <td>
                 	<form action="insertform.do">
-                		<label for="title"></label>
-                		<input type="hidden" id="title" name="title" value="${b.title }"/>
-                		<label for=""></label>
+                		<label for="booktitle"></label>
+                		<input type="hidden" id="booktitle" name="booktitle" value="${b.title }"/>
+                		<label for="author"></label>
+                		<input type="hidden" id="author" name="author" value="${b.author }"/>
+                		<label for="link"></label>
+                		<input type="hidden" id="link" name="link" value="${b.link }"/>
                 		<input type="submit" value="선택"/>
                 	</form>
                 </td>
