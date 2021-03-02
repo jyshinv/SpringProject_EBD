@@ -15,6 +15,7 @@
 </head>
 <body>
 <div class="container">
+	<a href="${pageContext.request.contextPath}/my_report/private/list.do">독후감 목록가기</a>
 	<table class="table">
 		<tr>
 			<td>조회수 ${dto.viewcnt }</td>
