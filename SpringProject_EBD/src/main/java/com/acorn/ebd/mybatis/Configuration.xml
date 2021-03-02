@@ -7,15 +7,25 @@
 	<typeAliases>
 		<typeAlias type="com.acorn.ebd.users.dto.UsersDto"
 			alias="usersDto"/>
-		<typeAlias type="com.acorn.ebd.report.dto.ReportDto"
+		<typeAlias type="com.acorn.ebd.file.dto.FileDto"
+			alias="fileDto"/>
+		<typeAlias type="com.acorn.ebd.file.dto.FileCmtDto"
+			alias="fileCmtDto"/>
+		<typeAlias type="com.acorn.ebd.wording.dto.WordingDto" 
+			alias="wordingDto"/>
+    <typeAlias type="com.acorn.ebd.report.dto.ReportDto"
 			alias="reportDto"/>
 	</typeAliases>
+	
 
 	
 	<!-- Mapper xml 문서의 위치  설정 -->
 	<mappers>
 		<mapper resource="com/acorn/ebd/mybatis/UsersMapper.xml"/>
-		<mapper resource="com/acorn/ebd/mybatis/ReportMapper.xml"/>
+		<mapper resource="com/acorn/ebd/mybatis/FileMapper.xml"/>
+		<mapper resource="com/acorn/ebd/mybatis/FileCmtMapper.xml"/>
+		<mapper resource="com/acorn/ebd/mybatis/WordingMapper.xml"/>
+    <mapper resource="com/acorn/ebd/mybatis/ReportMapper.xml"/>
 	</mappers>
 
 

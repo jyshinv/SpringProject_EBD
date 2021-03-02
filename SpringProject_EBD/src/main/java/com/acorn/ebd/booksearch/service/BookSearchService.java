@@ -17,10 +17,11 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.acorn.ebd.booksearch.dto.BookSearchDto;
 
+
 @Service
-public class BookSearchService {
-    private static String clientID = "z9HsCJb2Jual6aisiihI";
-    private static String clientSecret = "fAi6NwQ8d5";
+public class BookSearchService{
+    private static String clientID = "_89jzo1ZUZlUayGJE89v";
+    private static String clientSecret = "ZJe0CknyEm";
  
     //display ==> 몇개 출력
     //start==>몇번쨰부터 (item)

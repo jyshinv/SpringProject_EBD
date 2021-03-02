@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+	<select id="getList" parameterType="fileDto" resultType="fileDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num,writer,title,orgfname,savefname,
+					fileSize,imgpath,content,viewcnt,regdate
+				FROM ebd_file
+				<choose>
+					<when test="title != null">
+						WHERE title LIKE '%'||#{title}||'%'
+					</when>
+					<when test="writer != null">
+						WHERE writer LIKE '%'||#{writer}||'%'
+					</when>
+				</choose>
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getCount" parameterType="fileDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM ebd_file
+		<choose>
+			<when test="title != null and orgfname != null">
+				WHERE title LIKE '%'||#{title}||'%' 
+				OR orfname LIKE '%'||#{orgfname}||'%'
+			</when>
+			<when test="title != null">
+				WHERE title LIKE '%'||#{title}||'%'
+			</when>
+			<when test="writer != null">
+				WHERE writer LIKE '%'||#{writer}||'%'
+			</when>
+		</choose>	
+	</select>
+	
+	<select id="getData" parameterType="int" resultType="fileDto">
+		SELECT num, writer, title, orgfname, savefname, fileSize, imgpath,
+			content, viewcnt, regdate
+		FROM
+			(SELECT num, writer, title, orgfname, savefname, fileSize, 
+				imgpath, content, viewcnt, regdate,
+				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
+				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
+			FROM ebd_file 
+			ORDER BY num DESC)
+		WHERE num=#{num}
+	</select>
+	
+	<insert id="insert" parameterType="fileDto">
+		INSERT INTO ebd_file
+		(num, writer, title, orgfname, savefname, fileSize, imgpath, content, viewcnt, regdate)
+		VALUES(ebd_file_seq.NEXTVAL, #{writer}, #{title}, #{orgfname}, #{savefname},
+			#{fileSize}, #{imgpath}, #{content}, 0 , SYSDATE )
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM ebd_file
+		WHERE num=#{num}
+	</delete>
+	
+	<!-- 일단 제목,내용만 수정 하게 하고
+			추후에 파일,이미지도 수정 가능하게 해보기 -->
+	<update id="update" parameterType="fileDto">
+		UPDATE ebd_file
+		SET title=#{title}, content=#{content}
+		WHERE num=#{num}  
+	</update>
+	
+	<update id="addViewCount" parameterType="int">
+		UPDATE ebd_file
+		SET viewcnt=viewcnt+1
+		WHERE num=#{num}
+	</update>
+	
+</mapper>
