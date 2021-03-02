@@ -11,7 +11,10 @@
 			alias="fileDto"/>
 		<typeAlias type="com.acorn.ebd.file.dto.FileCmtDto"
 			alias="fileCmtDto"/>
+		<typeAlias type="com.acorn.ebd.wording.dto.WordingDto" 
+			alias="wordingDto"/>
 	</typeAliases>
+	
 
 	
 	<!-- Mapper xml 문서의 위치  설정 -->
@@ -19,6 +22,7 @@
 		<mapper resource="com/acorn/ebd/mybatis/UsersMapper.xml"/>
 		<mapper resource="com/acorn/ebd/mybatis/FileMapper.xml"/>
 		<mapper resource="com/acorn/ebd/mybatis/FileCmtMapper.xml"/>
+		<mapper resource="com/acorn/ebd/mybatis/WordingMapper.xml"/>
 	</mappers>
 
 

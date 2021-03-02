@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="wording">
+	<!-- wording정보를 insert -->
+	<insert id="insert" parameterType="wordingDto">
+		INSERT INTO ebd_wording
+		(num, writer, title, author, content, viewcnt, regdate)
+		VALUES(ebd_wording_seq.NEXTVAL, #{writer}, #{title}, #{author}, #{content}, 0, SYSDATE)
+	</insert>
+	
+	<!--wording 목록을 select regdate컬럼은 두 테이블에 모두 존재하므로 어떤 테이블의 regdate인지 명시해주어야한다.(여기선 글 쓴 regdate가 필요)-->
+	<select id="getList" parameterType="wordingDto" resultType="wordingDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, writer, title, content, author, viewcnt, ebd_wording.regdate, profile
+				FROM ebd_wording, ebd_users 
+				<choose>
+					<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
+				 	<when test="title != null and content != null">
+				 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%' AND ebd_wording.writer = ebd_users.nick
+				 	</when>
+					<!--title이 null이 아니라면-->
+				 	<when test="title != null">
+				 		WHERE title LIKE '%' || #{title} || '%' AND ebd_wording.writer = ebd_users.nick
+				 	</when>
+					<!--writer이 null이 아니라면-->
+				 	<when test="writer != null">
+				 		WHERE writer LIKE '%' || #{writer} || '%' AND ebd_wording.writer = ebd_users.nick
+				 	</when>
+					<!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
+					<when test="title ==null and content ==null and writer ==null">
+						WHERE ebd_wording.writer = ebd_users.nick
+					</when>
+				</choose>
+				ORDER BY num DESC) result1) 
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getCount" parameterType="wordingDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM ebd_wording
+		<choose>
+			<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
+		 	<when test="title != null and content != null">
+		 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%'
+		 	</when>
+			<!--title이 null이 아니라면-->
+		 	<when test="title != null">
+		 		WHERE title LIKE '%' || #{title} || '%'
+		 	</when>
+			<!--writer이 null이 아니라면-->
+		 	<when test="writer != null">
+		 		WHERE writer LIKE '%' || #{writer} || '%'
+		 	</when>
+			<!-- 모두 null 이라면 WHERE절에 쿼리문이 들어가지 않는다. -->
+		</choose> 
+	</select>
+	
+	<!-- 하트를 클릭했을 때 로그인된 아이디정보와 하트를 클릭한 글의 num을 insert해준다. -->
+	<insert id="insertHeart" parameterType="wordingDto">
+		INSERT INTO ebd_wording_heart
+		(num, target_num, writer)
+		VALUES(ebd_wording_heart_seq.NEXTVAL, #{target_num}, #{id})
+	</insert>
+	
+	<!-- 하트를 해제 했을 때 로그인된 아이디정보와 하트를 클릭한 글의 num을 delete해준다. -->
+	<delete id="deleteHeart" parameterType="wordingDto">
+		DELETE FROM ebd_wording_heart
+		WHERE target_num=#{target_num} AND writer=#{id}
+	</delete>
+	
+	<!-- 로그인이 되어있다면 로그인된 아이디의 하트 테이블 정보를 select해준다. -->
+	<select id="selectHeartInfo" parameterType="String" resultType="wordingDto">
+		SELECT *
+		FROM ebd_wording_heart
+		WHERE writer=#{id}
+	</select>
+	
+
+
+</mapper>
