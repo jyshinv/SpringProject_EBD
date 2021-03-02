@@ -7,12 +7,18 @@
 	<typeAliases>
 		<typeAlias type="com.acorn.ebd.users.dto.UsersDto"
 			alias="usersDto"/>
+		<typeAlias type="com.acorn.ebd.file.dto.FileDto"
+			alias="fileDto"/>
+		<typeAlias type="com.acorn.ebd.file.dto.FileCmtDto"
+			alias="fileCmtDto"/>
 	</typeAliases>
 
 	
 	<!-- Mapper xml 문서의 위치  설정 -->
 	<mappers>
 		<mapper resource="com/acorn/ebd/mybatis/UsersMapper.xml"/>
+		<mapper resource="com/acorn/ebd/mybatis/FileMapper.xml"/>
+		<mapper resource="com/acorn/ebd/mybatis/FileCmtMapper.xml"/>
 	</mappers>
 
 
