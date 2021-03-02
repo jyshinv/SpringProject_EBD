@@ -16,6 +16,17 @@
 				ORDER BY num DESC)result)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
+	<select id="getPublicList" parameterType="reportDto" resultType="reportDto">
+		SELECT *
+		FROM
+			(SELECT result.*,ROWNUM AS rnum
+			FROM
+				(SELECT num, writer, booktitle, title, author, genre, stars, imgpath, link, content, viewcnt, regdate
+				FROM ebd_report
+				WHERE publicck=#{publicck}
+				ORDER BY num DESC)result)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}		
+	</select>
 	<select id="getData" parameterType="int" resultType="reportDto">
 		SELECT * 
 		FROM
@@ -35,4 +46,9 @@
 		DELETE FROM ebd_report
 		WHERE num=#{num}
 	</delete>
+	<update id="updatepublicck" parameterType="reportDto">
+		UPDATE ebd_report
+		SET publicck=#{publicck}
+		WHERE num=#{num}
+	</update>
 </mapper>

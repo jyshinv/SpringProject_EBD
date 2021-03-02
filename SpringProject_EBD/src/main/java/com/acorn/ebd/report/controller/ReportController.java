@@ -75,11 +75,19 @@ public class ReportController {
   		return mView;
   	}
   	
+  	//공개 독후감 글 하나 정보 요청 처리
+  	@RequestMapping("/public_report/detail")
+  	public ModelAndView detail_pub(@RequestParam int num, ModelAndView mView) {
+  		service.getDetail(num, mView);
+  		mView.setViewName("public_report/detail");
+  		return mView;
+  	}
+  	
   	//공개 독후감 글 목록 요청 처리
   	
   	@RequestMapping("/public_report/list")
   	public ModelAndView list2(ModelAndView mView, HttpServletRequest request) {
-  		service.getList(mView, request);
+  		service.getPublicList(mView, request);
   		mView.setViewName("public_report/list");
   		return mView;
   	}
@@ -89,6 +97,13 @@ public class ReportController {
   	public String delete(@RequestParam int num) {
   		service.deleteContent(num);
   		return "my_report/private/delete";
+  	}
+  	
+  	//독후감 공개 / 비공개 요청처리
+  	@RequestMapping("/my_report/private/updatepublicck")
+  	public String updatepublicck(ReportDto dto) {
+  		service.updatepublicck(dto);
+  		return "redirect:/my_report/private/detail.do?num="+dto.getNum();
   	}
   	
 }

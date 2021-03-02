@@ -5,40 +5,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/my_report/private/detail.jsp</title>
-<jsp:include page="../../include/resource.jsp"></jsp:include>
-<style>
-	img{
-		width:800px;
-	}
-</style>
+<title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="../../include/navbar.jsp"></jsp:include>
+<jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
-	<a href="${pageContext.request.contextPath}/my_report/private/list.do">독후감 목록가기</a>
+	<a href="${pageContext.request.contextPath}/public_report/list.do">독후감 목록가기</a>
 	<table class="table">
 		<tr>
 			<td>조회수 ${dto.viewcnt }</td>
 			<td>날짜 ${dto.regdate }</td>
 			<td>
-            <form action="updatepublicck.do">
-          		<label for="publicck"></label>
+            <form action="update.do">
           		<select name="publicck" id="publicck">
           		<c:choose>
           			<c:when test="${dto.publicck eq 'private' }">
-	          			<option value="private">비공개</option>
+	          			<option value="private" selected="selected">비공개</option>
           				<option value="public">공개</option>
           			</c:when>
           			<c:otherwise>
-          				<option value="public">공개</option>
+          				<option value="public" selected="selected">공개</option>
           				<option value="private">비공개</option>
           			</c:otherwise>
           		</c:choose>
           		</select>
-          		<label for="num"></label>
-          		<input type="hidden" value="${dto.num }" id="num" name="num"/>
-          		<button type="submit">저장</button>
+          		<input type="submit" value="선택"/>
           	</form>
        		</td>
 		</tr>
@@ -74,14 +65,6 @@
 			<td>${dto.content }</td>
 		</tr>
 	</table>
-	<c:if test="${dto.writer eq nick }">
-		<button>
-			<a href="${pageContext.request.contextPath }/my_report/private/updateform.do?num=${dto.num}"/>수정</a>
-		</button>
-		<button>
-			<a href="javascript:deleteConfirm()">삭제</a>
-		</button>
-	</c:if>
 	<nav>
 		<ul class="pagination justify-content-center">
 			<c:choose>
@@ -111,14 +94,5 @@
 		</ul>
 	</nav>
 </div>
-<script>
-	function deleteConfirm(){
-		var isDelete=confirm("이 글을 삭제 하시겠습니까?");
-		if(isDelete){
-			location.href="${pageContext.request.contextPath }/my_report/private/delete.do?num=${dto.num}";
-		}
-	}
-	
-</script>	
 </body>
 </html>

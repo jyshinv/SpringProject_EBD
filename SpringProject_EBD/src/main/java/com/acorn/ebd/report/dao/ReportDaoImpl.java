@@ -48,4 +48,16 @@ public class ReportDaoImpl implements ReportDao{
 		session.update("report.addViewCount", num);
 		
 	}
+
+	@Override
+	public void updatepublicck(ReportDto dto) {
+		session.update("report.updatepublicck", dto);
+		
+	}
+
+	@Override
+	public List<ReportDto> getPublicList(ReportDto dto) {
+		
+		return session.selectList("report.getPublicList", dto);
+	}
 }

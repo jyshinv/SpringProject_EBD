@@ -21,4 +21,10 @@ public interface ReportService {
 	
 	//독후감을 삭제하는 메소드
 	public void deleteContent(int num);
+	
+	//독후감 공개/비공개 여부를 결정하는 메소드
+	public void updatepublicck(ReportDto dto);
+	
+	//공개 독후감 목록을 불러오는 메소드
+	public void getPublicList(ModelAndView mView, HttpServletRequest request);
 }

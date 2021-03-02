@@ -19,4 +19,10 @@ public interface ReportDao {
 	
 	//독후감 삭제하기
 	public void delete(int num);	
+	
+	//독후감 공개 비공개 여부 수정하기
+	public void updatepublicck(ReportDto dto);
+	
+	//공개 독후감의 목록 불러오기
+	public List<ReportDto> getPublicList(ReportDto dto);
 }
