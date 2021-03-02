@@ -9,7 +9,7 @@
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	img{
-		width:500px;
+		width:800px;
 	}
 </style>
 </head>
@@ -17,13 +17,12 @@
 <div class="container">
 	<table class="table">
 		<tr>
-			<td>${dto.viewcnt }</td>
-			<td>${dto.regdate }</td>
+			<td>조회수 ${dto.viewcnt }</td>
+			<td>날짜 ${dto.regdate }</td>
 		</tr>
-		<tr>
-			<th></th>
-			<td><img src="${pageContext.request.contextPath }${dto.imgpath }"/></td>
-		</tr>
+		<center>
+			<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
+		</center>
 		<tr>
 			<th>제목</th>
 			<td>${dto.title }</td>
@@ -61,6 +60,34 @@
 			<a href="javascript:deleteConfirm()">삭제</a>
 		</button>
 	</c:if>
+	<nav>
+		<ul class="pagination justify-content-center">
+			<c:choose>
+				<c:when test="${dto.prevNum ne 0 }">
+					<li class="page-item mr-3">
+						<a class="page-link" href="detail.do?num=${dto.prevNum }">&larr; Prev</a>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item disabled mr-3">
+						<a class="page-link" href="javascript:">Prev</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${dto.nextNum ne 0 }">
+					<li class="page-item">
+						<a class="page-link" href="detail.do?num=${dto.nextNum }">Next &rarr;</a>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item disabled">
+						<a class="page-link" href="javascript:">Next</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
+	</nav>
 </div>
 <script>
 	function deleteConfirm(){
