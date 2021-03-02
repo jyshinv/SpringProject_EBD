@@ -59,8 +59,6 @@ public class ReportController {
        return mView;
     }
 
-  	
-  	
   	//마이 독후감 글 목록 요청 처리
   	@RequestMapping("/my_report/private/list")
   	public ModelAndView list(ModelAndView mView, HttpServletRequest request) {
@@ -74,6 +72,15 @@ public class ReportController {
   	public ModelAndView detail(@RequestParam int num, ModelAndView mView) {
   		service.getDetail(num, mView);
   		mView.setViewName("my_report/private/detail");
+  		return mView;
+  	}
+  	
+  	//공개 독후감 글 목록 요청 처리
+  	
+  	@RequestMapping("/public_report/list")
+  	public ModelAndView list2(ModelAndView mView, HttpServletRequest request) {
+  		service.getList(mView, request);
+  		mView.setViewName("public_report/list");
   		return mView;
   	}
   	

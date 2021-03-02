@@ -14,6 +14,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<a href="${pageContext.request.contextPath}/my_report/private/list.do">독후감 목록가기</a>
 	<table class="table">

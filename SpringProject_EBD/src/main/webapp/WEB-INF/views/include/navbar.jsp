@@ -68,7 +68,7 @@ nav요소는 div요소에 의미를 더한 요소이다.
 				<%--thisPage에 저장된 값이 "public_report"이면 active시켜라 포커싱된다. --%>
 				<li class="nav-item ${param.thisPage eq 'public_report' ? 'active':''}">
 					<%--글 목록 링크를 누르면 href로 설정한 곳으로 이동(요청) --%>
-					<a class="nav-link" href="${pageContext.request.contextPath }/pubic_report/list.do">public_report</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/public_report/list.do">public_report</a>
 				</li>
 				<%--thisPage에 저장된 값이 "market"이면 active시켜라 포커싱된다. --%>
 				<li class="nav-item ${param.thisPage eq 'market' ? 'active':''}">
