@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acorn.ebd.mybatis.FileCmtMapper">
+	<select id="getList" parameterType="fileCmtDto" resultType="fileCmtDto">
+	
+	</select>
+
+	<insert id="insert" parameterType="fileCmtDto">
+	
+	</insert>
+	
+	<update id="update" parameterType="fileCmtDto">
+	
+	</update>
+	
+	<update id="delete" parameterType="int">
+	<!-- no 에서 yes로 변경 -->
+	</update>
+	
+	<select id="getSeq" resultType="int">
+	
+	</select>
+	
+	<select id="getData" parameterType="int" resultType="fileCmtDto">
+	
+	</select>
+	
+	<select id="getCount" parameterType="int" resultType="int">
+	
+	</select>
+</mapper>
