@@ -60,4 +60,10 @@ public class ReportDaoImpl implements ReportDao{
 		
 		return session.selectList("report.getPublicList", dto);
 	}
+
+	@Override
+	public int getCount(ReportDto dto) {
+		int count = session.selectOne("report.getCount", dto);
+		return count;
+	}
 }

@@ -106,4 +106,12 @@ public class ReportController {
   		return "redirect:/my_report/private/detail.do?num="+dto.getNum();
   	}
   	
+  //독후감 공개 / 비공개 요청처리
+  	@RequestMapping(value="/public_report/updatepublicck2", method=RequestMethod.POST)
+  	public String updatepublicck2(ReportDto dto) {
+  		service.updatepublicck(dto);
+  		return "redirect:/my_report/private/detail.do?num="+dto.getNum();
+  	}
+  	//.do 요청을 하고 싶을 때는 redirect 사용
+  	
 }

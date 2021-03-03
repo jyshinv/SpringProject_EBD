@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
@@ -15,23 +16,20 @@
 		<tr>
 			<td>조회수 ${dto.viewcnt }</td>
 			<td>날짜 ${dto.regdate }</td>
+			<c:if test="${dto.writer eq nick}">
 			<td>
-            <form action="update.do">
+            <form action="updatepublicck2.do" method="post">
+            	<label for="publicck"></label>
           		<select name="publicck" id="publicck">
-          		<c:choose>
-          			<c:when test="${dto.publicck eq 'private' }">
-	          			<option value="private" selected="selected">비공개</option>
           				<option value="public">공개</option>
-          			</c:when>
-          			<c:otherwise>
-          				<option value="public" selected="selected">공개</option>
-          				<option value="private">비공개</option>
-          			</c:otherwise>
-          		</c:choose>
+	          			<option value="private">비공개</option>
           		</select>
+          		<label for="num"></label>
+          		<input type="hidden" value="${dto.num }" id="num" name="num"/>
           		<input type="submit" value="선택"/>
           	</form>
        		</td>
+       		</c:if>
 		</tr>
 		<center>
 			<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
