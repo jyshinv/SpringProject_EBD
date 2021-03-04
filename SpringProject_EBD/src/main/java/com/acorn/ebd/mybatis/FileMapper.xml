@@ -39,8 +39,7 @@
 	</select>
 	
 	<select id="getData" parameterType="int" resultType="fileDto">
-		SELECT num, writer, title, orgfname, savefname, fileSize, imgpath,
-			content, viewcnt, regdate
+		SELECT *
 		FROM
 			(SELECT num, writer, title, orgfname, savefname, fileSize, 
 				imgpath, content, viewcnt, regdate,

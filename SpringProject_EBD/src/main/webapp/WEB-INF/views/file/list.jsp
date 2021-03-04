@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>File List</title>
+<title>독후감 양식 파일 공유(업로드/다운로드) 리스트</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	.card{
@@ -17,9 +17,9 @@
 </style>
 </head>
 <body>
-<!-- 독후감 양식 파일 공유(업로드/다운로드) 리스트 -->
+
 <div class="container">
-	
+	<a href="${pageContext.request.contextPath }">홈으로 돌아가기</a>
 		
 	<!-- 검색기능 추가 -->
 	<form action="list.do" method="get">

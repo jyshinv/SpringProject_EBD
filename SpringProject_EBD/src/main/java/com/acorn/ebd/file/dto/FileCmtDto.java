@@ -4,12 +4,11 @@ public class FileCmtDto {
 	private int num;
 	private String writer;
 	private String content;
-	private String target_id; //댓글의 대상자
+	private String target_nick; //댓글의 대상자
 	private int ref_group; //원글의 글 번호
 	private int cmt_group; //댓글 내 에서의 그룹번호
 	private String deleted; //삭제된 댓글인지의 여부 
 	private String regdate;
-	private String profile; //프로필 이미지의 경로
 	
 	private int startRowNum;
 	private int endRowNum;
@@ -17,18 +16,17 @@ public class FileCmtDto {
 	//디폴트 생성자
 	public FileCmtDto() {}
 
-	public FileCmtDto(int num, String writer, String content, String target_id, int ref_group, int cmt_group,
-			String deleted, String regdate, String profile, int startRowNum, int endRowNum) {
+	public FileCmtDto(int num, String writer, String content, String target_nick, int ref_group, int cmt_group,
+			String deleted, String regdate, int startRowNum, int endRowNum) {
 		super();
 		this.num = num;
 		this.writer = writer;
 		this.content = content;
-		this.target_id = target_id;
+		this.target_nick = target_nick;
 		this.ref_group = ref_group;
 		this.cmt_group = cmt_group;
 		this.deleted = deleted;
 		this.regdate = regdate;
-		this.profile = profile;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 	}
@@ -57,12 +55,12 @@ public class FileCmtDto {
 		this.content = content;
 	}
 
-	public String getTarget_id() {
-		return target_id;
+	public String getTarget_nick() {
+		return target_nick;
 	}
 
-	public void setTarget_id(String target_id) {
-		this.target_id = target_id;
+	public void setTarget_nick(String target_nick) {
+		this.target_nick = target_nick;
 	}
 
 	public int getRef_group() {
@@ -97,14 +95,6 @@ public class FileCmtDto {
 		this.regdate = regdate;
 	}
 
-	public String getProfile() {
-		return profile;
-	}
-
-	public void setProfile(String profile) {
-		this.profile = profile;
-	}
-
 	public int getStartRowNum() {
 		return startRowNum;
 	}
@@ -120,6 +110,6 @@ public class FileCmtDto {
 	public void setEndRowNum(int endRowNum) {
 		this.endRowNum = endRowNum;
 	}
-	
+
 	
 }
