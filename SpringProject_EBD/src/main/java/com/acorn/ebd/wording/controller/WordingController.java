@@ -31,17 +31,17 @@ public class WordingController {
 	
 	//wording list 요청처리
 	@RequestMapping("/wording/list.do")
-	public ModelAndView list(ModelAndView mView, HttpServletRequest request, HttpSession session) {
+	public ModelAndView list(ModelAndView mView, HttpServletRequest request) {
 		//글 목록 요청
-		service.getList(mView, request, session);
+		service.getList(mView, request);
 		mView.setViewName("wording/list");
 		return mView;
 	}
 	
 	//wording ajax요청처리
 	@RequestMapping("/wording/ajax_page.do")
-	public ModelAndView ajaxPage(ModelAndView mView, HttpServletRequest request, HttpSession session) {
-		service.getList(mView, request, session);
+	public ModelAndView ajaxPage(ModelAndView mView, HttpServletRequest request) {
+		service.getList(mView, request);
 		mView.setViewName("wording/ajax_page");
 		return mView;
 	}

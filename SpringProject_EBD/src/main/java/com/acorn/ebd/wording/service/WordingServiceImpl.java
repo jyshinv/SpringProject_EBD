@@ -53,7 +53,7 @@ public class WordingServiceImpl implements WordingService {
 
 	//글 목록과 로그인된 아이디의 하트 클릭 정보(하트테이블)을 얻어오고 페이징 처리에 필요한 값을을 ModelAndView 객체에 담아주는 메소드
 	@Override
-	public void getList(ModelAndView mView, HttpServletRequest request, HttpSession session) {
+	public void getList(ModelAndView mView, HttpServletRequest request) {
 		//한 페이지에 몇개씩 표시할 것인지
 		final int PAGE_ROW_COUNT=10;
 		//하단 페이지를 몇개씩 표시할 것인지 (스크롤 페이징이라 필요없음)
@@ -139,13 +139,14 @@ public class WordingServiceImpl implements WordingService {
 		}
 		
 		
-		//로그인된 아이디 정보 불러오기
-		String id=(String)session.getAttribute("id");
+		//로그인된 아이디의 nick 정보 불러오기
+		String nick=(String)request.getSession().getAttribute("nick");
+		dto.setNick(nick);
 		List<WordingDto> list2=null;
 		//하트 정보(로그인 중일때만)
-		//id가 null인채로 wordingdao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
-		if(id != null) {
-			list2=wordingdao.getHeartInfo((String)session.getAttribute("id"));			
+		//nick이 null인채로 wordingdao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
+		if(nick != null) {
+			list2=wordingdao.getHeartInfo(dto);			
 		}
 		
 		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
@@ -163,9 +164,9 @@ public class WordingServiceImpl implements WordingService {
 	//하트를 눌렀을 때 하트테이블에 저장해주는 메소드
 	@Override
 	public void saveHeart(int target_num, HttpSession session) {
-		String id=(String)session.getAttribute("id");
+		String nick=(String)session.getAttribute("nick");
 		WordingDto dto=new WordingDto();
-		dto.setId(id);
+		dto.setNick(nick);
 		dto.setTarget_num(target_num);
 		wordingdao.insertHeart(dto);
 	}
@@ -173,9 +174,9 @@ public class WordingServiceImpl implements WordingService {
 	//하트 해제 시 하트테이블에서 삭제해주는 메소드
 	@Override
 	public void removeHeart(int target_num, HttpSession session) {
-		String id=(String)session.getAttribute("id");
+		String nick=(String)session.getAttribute("nick");
 		WordingDto dto=new WordingDto();
-		dto.setId(id);
+		dto.setNick(nick);
 		dto.setTarget_num(target_num);
 		wordingdao.deleteHeart(dto);
 		

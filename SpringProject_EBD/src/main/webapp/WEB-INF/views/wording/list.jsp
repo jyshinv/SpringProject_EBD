@@ -71,26 +71,24 @@
 	<div id="wordingList">
 		<c:forEach var="tmp" items="${list }">
 			<c:if test="${not empty id }">
-				<%isCheck=0; %>
-				<c:forEach var="tmp2" items="${list2 }">
-					<c:if test="${tmp.num eq tmp2.target_num }">
-						<%isCheck=1;%>
-		                <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
+				<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+					<c:if test="${list2[i].num eq list2[i].target_num }">
+						<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
 					</c:if>
+					<c:if test="${list2[i].num ne list2[i].target_num }">
+							<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>										
+					</c:if>					
 				</c:forEach>
-				<%if(isCheck == 0) {%>
-		                <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>							
-				<%} %>	
 				<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
 				<c:if test="${tmp.writer eq sessionScope.nick }">
 					<a href="private/updateform.do?num=${tmp.num }">| 수정</a>
 					<a href="private/delete.do?num=${tmp.num }">| 삭제</a>	
-				</c:if>
-						
+				</c:if>	
 			</c:if>
 			<p>
 				${tmp.num } ${tmp.writer } ${tmp.title } ${tmp.content } ${tmp.author } ${tmp.viewcnt } ${tmp.regdate }
 			</p>
+			<%isCheck++; %>
 		</c:forEach>
 		
 	</div>

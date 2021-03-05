@@ -10,16 +10,16 @@ public class WordingDto {
 	private String regdate;
 	private int startRowNum;
 	private int endRowNum;
-	private String profile; //프로필 이미지 경로
-	private int target_num;//하트를 단 글의 번호를 의미!!
-	private String id;//아이디
+	private String profile; //프로필 이미지 경로(users테이블의 profile)
+	private int target_num;//하트를 단 글의 번호를 의미!!(heart테이블의 target_num)
+	private String nick;//닉네임(heart테이블의 nick)
 	
 	public WordingDto() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public WordingDto(int num, String writer, String title, String author, String content, int viewcnt, String regdate,
-			String profile, int startRowNum, int endRowNum, int target_num, String id) {
+			String profile, int startRowNum, int endRowNum, int target_num, String nick) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -32,7 +32,7 @@ public class WordingDto {
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 		this.target_num = target_num;
-		this.id = id;
+		this.nick = nick;
 	}
 
 	public int getNum() {
@@ -123,12 +123,12 @@ public class WordingDto {
 		this.target_num = target_num;
 	}
 
-	public String getId() {
-		return id;
+	public String getNick() {
+		return nick;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 	
 	

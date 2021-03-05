@@ -47,8 +47,8 @@ public class WordingDaoImpl implements WordingDao {
 
 
 	@Override
-	public List<WordingDto> getHeartInfo(String id) {
-		List<WordingDto> list=session.selectList("wording.selectHeartInfo",id);
+	public List<WordingDto> getHeartInfo(WordingDto dto) {
+		List<WordingDto> list=session.selectList("wording.selectHeartInfo",dto);
 		return list;
 	}
 

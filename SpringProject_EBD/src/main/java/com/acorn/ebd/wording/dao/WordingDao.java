@@ -18,7 +18,7 @@ public interface WordingDao {
 	//하트 테이블에 정보를 delete하는 메소드
 	public void deleteHeart(WordingDto dto);
 	//하트 테이블 정보를 select하는 메소드
-	public List<WordingDto> getHeartInfo(String id);
+	public List<WordingDto> getHeartInfo(WordingDto dto);
 	//글 목록을 select하는 메소드
 	public WordingDto getData(int num);
 	//글을 update하는 메소드
