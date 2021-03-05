@@ -15,7 +15,12 @@
 				</c:forEach>
 				<%if(isCheck == 0) {%>
 		                <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>							
-				<%} %>				
+				<%} %>
+				<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
+				<c:if test="${tmp.writer eq sessionScope.nick }">
+					<a href="private/updateform.do?num=${tmp.num}">| 수정 </a><!-- get방식 요청 -->
+					<a href="private/delete.do">| 삭제</a>	
+				</c:if>				
 			</c:if>
 			<p>
 				${tmp.num } ${tmp.writer } ${tmp.title } ${tmp.content } ${tmp.author } ${tmp.viewcnt } ${tmp.regdate }

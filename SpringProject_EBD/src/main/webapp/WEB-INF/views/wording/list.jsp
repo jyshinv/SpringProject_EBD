@@ -56,7 +56,8 @@
 				<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
 				<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
 			</select>
-			<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
+			<label for="keyword"></label>
+			<input type="text" id="keyword" name="keyword" placeholder="검색어..." value="${keyword }"/>
 			<button type="submit">검색</button>
 	</form>
 	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
@@ -79,7 +80,13 @@
 				</c:forEach>
 				<%if(isCheck == 0) {%>
 		                <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>							
-				<%} %>				
+				<%} %>	
+				<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
+				<c:if test="${tmp.writer eq sessionScope.nick }">
+					<a href="private/updateform.do?num=${tmp.num }">| 수정</a>
+					<a href="private/delete.do?num=${tmp.num }">| 삭제</a>	
+				</c:if>
+						
 			</c:if>
 			<p>
 				${tmp.num } ${tmp.writer } ${tmp.title } ${tmp.content } ${tmp.author } ${tmp.viewcnt } ${tmp.regdate }
@@ -90,7 +97,8 @@
 </div>
 <div class="back-drop">
 	<!-- cpath/ 에서 '/'는 webapp을 의미한다. 웹앱 폴더의 svg폴더 안에 spinner-solid.svg가 들어있다.  -->
-	<img src="${pageContext.request.contextPath }/svg/spinner-solid.svg"/>
+	<img src="${pageContext.request.contextPath }/svg/spinner-solid.svg"/> 
+
 </div>
 <script>
 	
@@ -138,7 +146,7 @@
 				}
 				
 			});
-		} //end of if(isBottom)
+		}; //end of if(isBottom)
 	});
 	
 	//하트를 클릭할 때마다 호출되는 함수 등록

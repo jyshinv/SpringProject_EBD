@@ -20,5 +20,11 @@ public interface WordingService {
 	public void saveHeart(int target_num, HttpSession session);
 	//하트 해제 시 하트테이블에서 삭제해주는 메소드
 	public void removeHeart(int target_num, HttpSession session);
+	//글의 수정폼을 위한 detail을 얻어오는 메소드
+	public void getDetail(int num, ModelAndView mView);
+	//글 수정을 위한 메소드
+	public void update(WordingDto dto);
+	//글 삭제를 위한 메소드
+	public void delete(int num, HttpServletRequest request);
 	
 }

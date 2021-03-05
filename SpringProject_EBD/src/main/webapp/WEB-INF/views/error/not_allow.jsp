@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<div>
+	<h1>허용되지 않은 요청입니다.</h1>
+	<p>${exception.message }</p>
+	<a href="${pageContext.request.contextPath }/">홈으로 돌아가기</a>
+</div>
 </body>
 </html>

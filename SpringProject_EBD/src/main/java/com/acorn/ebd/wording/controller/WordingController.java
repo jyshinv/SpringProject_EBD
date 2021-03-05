@@ -29,7 +29,6 @@ public class WordingController {
 	@Autowired
 	private BookSearchService bservice;
 	
-
 	//wording list 요청처리
 	@RequestMapping("/wording/list.do")
 	public ModelAndView list(ModelAndView mView, HttpServletRequest request, HttpSession session) {
@@ -72,7 +71,7 @@ public class WordingController {
 	//required=false는 폼에서 넘어오는 값이 없을때에도 오류를 일으키지 않는다. 
 	@RequestMapping("/wording/private/insertform.do")
 	public ModelAndView insertform(@RequestParam(required = false)String title, String author, ModelAndView mView) {
-		
+		mView.setViewName("wording/private/insertform");
 		service.replaceInfo(title, author, mView);
 		return mView;
 	}
@@ -113,6 +112,29 @@ public class WordingController {
     public void deleteheart(@RequestParam String target_num, HttpSession session) {
     	int new_target_num = Integer.parseInt(target_num);
     	service.removeHeart(new_target_num, session);
+    }
+    
+    //수정 클릭 시 수정 폼 요청처리 
+    @RequestMapping("/wording/private/updateform.do")
+    public ModelAndView updateform(@RequestParam int num, ModelAndView mView) {
+    	service.getDetail(num, mView);
+    	mView.setViewName("wording/private/updateform");
+    	return mView;
+    }
+    
+    //수정 요청처리
+    @RequestMapping(value="/wording/private/update.do",method=RequestMethod.POST)
+    public String update(WordingDto dto) {
+    	service.update(dto);
+    	return "wording/private/update";
+    }
+    
+ 
+    //삭제 클릭 요청처리
+    @RequestMapping("/wording/private/delete.do")
+    public String delete(@RequestParam int num, HttpServletRequest request) {
+    	service.delete(num,request);
+    	return "wording/private/delete";
     }
     
     

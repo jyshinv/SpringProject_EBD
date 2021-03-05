@@ -19,15 +19,15 @@
 				<choose>
 					<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
 				 	<when test="title != null and content != null">
-				 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%' AND ebd_wording.writer = ebd_users.nick
+				 		WHERE (ebd_wording.writer = ebd_users.nick) AND (title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%') 
 				 	</when>
 					<!--title이 null이 아니라면-->
 				 	<when test="title != null">
-				 		WHERE title LIKE '%' || #{title} || '%' AND ebd_wording.writer = ebd_users.nick
+				 		WHERE (title LIKE '%' || #{title} || '%') AND ebd_wording.writer = ebd_users.nick
 				 	</when>
 					<!--writer이 null이 아니라면-->
 				 	<when test="writer != null">
-				 		WHERE writer LIKE '%' || #{writer} || '%' AND ebd_wording.writer = ebd_users.nick
+				 		WHERE (writer LIKE '%' || #{writer} || '%') AND ebd_wording.writer = ebd_users.nick
 				 	</when>
 					<!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
 					<when test="title ==null and content ==null and writer ==null">
@@ -44,15 +44,15 @@
 		<choose>
 			<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
 		 	<when test="title != null and content != null">
-		 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%'
+		 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%' 
 		 	</when>
 			<!--title이 null이 아니라면-->
 		 	<when test="title != null">
-		 		WHERE title LIKE '%' || #{title} || '%'
+		 		WHERE title LIKE '%' || #{title} || '%' 
 		 	</when>
 			<!--writer이 null이 아니라면-->
 		 	<when test="writer != null">
-		 		WHERE writer LIKE '%' || #{writer} || '%'
+		 		WHERE writer LIKE '%' || #{writer} || '%' 
 		 	</when>
 			<!-- 모두 null 이라면 WHERE절에 쿼리문이 들어가지 않는다. -->
 		</choose> 
@@ -77,6 +77,26 @@
 		FROM ebd_wording_heart
 		WHERE writer=#{id}
 	</select>
+	
+	<!-- 수정을 위한 detail -->
+	<select id="getData" parameterType="int" resultType="wordingDto">
+		SELECT * 
+		FROM ebd_wording
+		WHERE num=#{num}
+	</select>
+	
+	<!-- 글 update -->
+	<update id="update" parameterType="wordingDto">
+		UPDATE ebd_wording
+		SET content=#{content}
+		WHERE num=#{num}
+	</update>
+	
+	<!-- 글 delete -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM ebd_wording
+		WHERE num=#{num}
+	</delete>
 	
 
 

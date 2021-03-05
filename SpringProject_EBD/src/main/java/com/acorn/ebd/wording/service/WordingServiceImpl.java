@@ -39,7 +39,6 @@ public class WordingServiceImpl implements WordingService {
 		String bauthor=replaceInfo(author);
 		mView.addObject("title",btitle);
 		mView.addObject("author",bauthor);			
-		mView.setViewName("wording/private/insertform");
 	}
 
 	//새 글을 저장하는 메소드 
@@ -56,8 +55,8 @@ public class WordingServiceImpl implements WordingService {
 	@Override
 	public void getList(ModelAndView mView, HttpServletRequest request, HttpSession session) {
 		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=5;
-		//하단 페이지를 몇개씩 표시할 것인지
+		final int PAGE_ROW_COUNT=10;
+		//하단 페이지를 몇개씩 표시할 것인지 (스크롤 페이징이라 필요없음)
 		final int PAGE_DISPLAY_COUNT=5;
 
 		//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
@@ -106,7 +105,7 @@ public class WordingServiceImpl implements WordingService {
 		//만일 검색 키워드가 넘어온다면
 		if(!keyword.equals("")) {
 			//검색 조건이 무엇이냐에 따라 분기하기
-			if(condition.equals("title_cotent")) { //제목 + 내용 검색인 경우
+			if(condition.equals("title_content")) { //제목 + 내용 검색인 경우
 				//검색 키워드를 WordingDto에 담아서 전달한다.
 				dto.setTitle(keyword);
 				dto.setContent(keyword);
@@ -117,10 +116,12 @@ public class WordingServiceImpl implements WordingService {
 			}//다른 검색 조건을 추가하고 싶다면 아래 else if()를 계속 추가하면 된다. 
 		}
 		
+		
 		//위의 분기에 따라 dto에 담기는 내용이 다르고
 		//그 내용을 기준으로 조건이 다를때마다 다른 내용이 select 되도록 dynamic query를 구성한다.
 		//글 목록 얻어오기
 		list=wordingdao.getList(dto);
+		
 		//글의 개수 
 		totalRow=wordingdao.getCount(dto);
 		
@@ -129,8 +130,6 @@ public class WordingServiceImpl implements WordingService {
 		//하단 끝 페이지 번호
 		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 
-		//전체 row 의 갯수
-		//int totalRow=wordingdao.getCount();
 		
 		//전체 페이지의 갯수 구하기
 		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
@@ -181,6 +180,28 @@ public class WordingServiceImpl implements WordingService {
 		wordingdao.deleteHeart(dto);
 		
 	}
+
+	@Override
+	public void getDetail(int num, ModelAndView mView) {
+		WordingDto dto=wordingdao.getData(num);
+		mView.addObject("dto",dto);
+	}
+
+	@Override
+	public void update(WordingDto dto) {
+		wordingdao.update(dto);
+		
+	}
+
+	@Override
+	public void delete(int num, HttpServletRequest request) {
+		//AOP로 작성자가 아닌 다른 사람이 삭제하는 예외처리 막기  --> aop에서 필요한 정보 num과 request
+		
+		wordingdao.delete(num);
+		
+	}
+	
+	
 
 	
 
