@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>File Detail</title>
+<title>/file/detail</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	.btnStyle{

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>독후감 양식 파일 공유(업로드/다운로드) 리스트</title>
+<title>file/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	.card{
@@ -21,11 +21,12 @@
 <div class="container">
 	<a href="${pageContext.request.contextPath }">홈으로 돌아가기</a>
 		
-	<!-- 검색기능 추가 -->
+	
 	<form action="list.do" method="get">
 		<a href="${pageContext.request.contextPath }/file/private/insertform.do" class="btn btn-info">
 		파일 업로드</a>
 		
+		<!-- 검색 -->
 		<label for="condition"><strong>검색 조건</strong></label>
 		<select name="condition" id="condition">
 			<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>

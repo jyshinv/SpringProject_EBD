@@ -25,8 +25,6 @@ public class FileServiceImpl implements FileService{
 	@Autowired
 	private FileCmtDao cmtDao;
 	
-
-	
 	@Override
 	public void getList(HttpServletRequest request) {
 		//한 페이지에 나타낼 row 의 갯수
