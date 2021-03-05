@@ -6,7 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>책 명언/글귀</title>
-<jsp:include page="../include/resource.jsp"></jsp:include>
+
+
 <style>
 	.back-drop{
 		/* 일단 숨겨 놓는다. */
