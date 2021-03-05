@@ -57,6 +57,14 @@ public class EpisodeController {
     	int new_target_num = Integer.parseInt(target_num);
     	service.removeHeart(new_target_num, session);
     }
+    
+    //에피소드 디테일 클릭 요청 처리
+    @RequestMapping("/episode/detail.do")
+    public ModelAndView detail(EpisodeDto dto, ModelAndView mView, HttpSession session) {
+    	service.getData(dto, mView, session);
+    	mView.setViewName("episode/detail");
+    	return mView;
+    }
 	
 
 }

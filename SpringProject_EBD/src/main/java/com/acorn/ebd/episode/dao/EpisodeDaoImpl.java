@@ -49,4 +49,14 @@ public class EpisodeDaoImpl implements EpisodeDao {
 		return list;
 	}
 
+	@Override
+	public EpisodeDto getData(EpisodeDto dto) {
+		return session.selectOne("episode.getData",dto);
+	}
+
+	@Override
+	public EpisodeDto getHeartInfoDetail(EpisodeDto dto) {
+		return session.selectOne("episode.getHeartInfoDetail",dto);
+	}
+
 }

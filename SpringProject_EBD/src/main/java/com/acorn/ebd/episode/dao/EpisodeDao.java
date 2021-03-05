@@ -18,4 +18,8 @@ public interface EpisodeDao {
 	public void deleteHeart(WordingDto dto);
 	//하트 테이블 정보를 select하는 메소드
 	public List<EpisodeDto> getHeartInfo(EpisodeDto dto);
+	//에피소드 디테일에서 글 정보를 불러오는 메소드
+	public EpisodeDto getData(EpisodeDto dto);
+	//에피소드 디테일에서 하트정보를 불러오는 메소드
+	public EpisodeDto getHeartInfoDetail(EpisodeDto dto);
 }

@@ -92,10 +92,29 @@
 	</insert>
 	
 	<!-- 하트를 해제 했을 때 로그인된 아이디정보와 하트를 클릭한 글의 num을 delete해준다. -->
-	<delete id="deleteHeart" parameterType="wordingDto">
+	<delete id="deleteHeart" parameterType="episodeDto">
 		DELETE FROM ebd_episode_heart
 		WHERE target_num=#{target_num} AND writer=#{nick}
 	</delete>
+	
+	<!-- 에피소드 디테일 중 글 정보 -->
+	<select id="getData" parameterType="episodeDto" resultType="episodeDto">
+		SELECT * 
+		FROM
+			(SELECT num, writer, title, imgPath, regdate,
+				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
+				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
+			FROM ebd_episode
+			ORDER BY num DESC)
+		WHERE num=#{num}
+	</select>
+	
+	<!-- 에피소드 디테일 중 하트 정보  -->
+	<select id="getHeartInfoDetail" parameterType="episodeDto" resultType="episodeDto">
+		SELECT e.num, NVL(h.target_num,0) target_num
+		FROM ebd_episode e, ebd_episode_heart h
+		WHERE e.num = h.target_num(+) AND h.writer(+)=#{nick} AND e.num=#{num}				
+	</select>
 	
 	
 </mapper>

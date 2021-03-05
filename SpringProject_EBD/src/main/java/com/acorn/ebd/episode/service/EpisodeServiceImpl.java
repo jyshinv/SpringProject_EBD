@@ -138,6 +138,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 			list2=dao.getHeartInfo(dto);			
 		}
 		
+		
 		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
 		mView.addObject("list", list);
 		mView.addObject("list2", list2);
@@ -171,6 +172,27 @@ public class EpisodeServiceImpl implements EpisodeService {
 		dto.setNick(nick);
 		dto.setTarget_num(target_num);
 		dao.deleteHeart(dto);
+		
+	}
+
+	//에피소드 디테일을 불러오는 메소드 
+	@Override
+	public void getData(EpisodeDto dto, ModelAndView mView, HttpSession session) {
+		//글 정보를 불러올 getData
+		EpisodeDto dataDto=dao.getData(dto);
+		
+		//현재 로그인 되어있는 유저의 닉네임 저장
+		String nick=(String)session.getAttribute("nick");
+		dto.setNick(nick);
+		//하트 정보를 저장할 dto2를 만든다. 
+		EpisodeDto heartDto=null;
+		if(nick != null) { //닉네임이 null이 아닐때만 getHeartInfoDatail을 호출 null일 경우 전달하는 파라메터가 null이라는 오류를 낸다.
+			heartDto=dao.getHeartInfoDetail(dto);			
+		}
+		//글정보
+		mView.addObject("dataDto",dataDto);
+		//하트정보 
+		mView.addObject("heartDto",heartDto);
 		
 	}
 	

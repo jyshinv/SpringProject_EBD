@@ -18,5 +18,7 @@ public interface EpisodeService {
 	public void saveHeart(int target_num, HttpSession session);
 	//하트 해제 시 하트테이블에서 삭제해주는 메소드
 	public void removeHeart(int target_num, HttpSession session);
+	//에피소드 detail을 불러오는 메소드(하트정보 포함)
+	public void getData(EpisodeDto dto, ModelAndView mView, HttpSession session);
 	
 }
