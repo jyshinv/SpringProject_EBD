@@ -11,7 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn.ebd.exception.DBFailException;
+import com.acorn.ebd.report.dao.ReportCmtDao;
 import com.acorn.ebd.report.dao.ReportDao;
+import com.acorn.ebd.report.dto.ReportCmtDto;
 import com.acorn.ebd.report.dto.ReportDto;
 
 @Service
@@ -19,6 +22,9 @@ public class ReportServiceImpl implements ReportService{
 	
 	@Autowired
 	private ReportDao dao;
+	
+	@Autowired
+	private ReportCmtDao cmtdao;
 	
    //html요소를 없애주는 메소드 
    public String replaceInfo(String info) {
@@ -122,6 +128,36 @@ public class ReportServiceImpl implements ReportService{
 		ReportDto dto=dao.getData(num);
 		mView.addObject("dto", dto);
 		dao.addViewCount(num);
+		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
+		final int PAGE_ROW_COUNT=5;
+
+		//보여줄 페이지의 번호
+		int pageNum=1;
+
+		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+
+		//전체 row 의 갯수를 읽어온다.
+		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
+		int totalRow=cmtdao.getCount(num);
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=
+				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+
+		// CafeCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다.
+		ReportCmtDto commentDto=new ReportCmtDto();
+		commentDto.setStartRowNum(startRowNum);
+		commentDto.setEndRowNum(endRowNum);
+		//ref_group 번호도 담는다.
+		commentDto.setRef_group(num);
+
+		//DB 에서 댓글 목록을 얻어온다.
+		List<ReportCmtDto> commentList=cmtdao.getList(commentDto);
+		//ModelAndView 객체에 댓글 목록도 담아준다.
+				mView.addObject("commentList", commentList);
+				mView.addObject("totalPageCount", totalPageCount);		
 		
 	}
 
@@ -228,6 +264,101 @@ public class ReportServiceImpl implements ReportService{
 		mView.addObject("keyword", keyword);
 		mView.addObject("encodedK", encodedK);
 		mView.addObject("totalRow", totalRow);		
+	}
+
+	@Override
+	public void saveComment(HttpServletRequest request) {
+		//댓글 작성자
+		String writer=(String)request.getSession().getAttribute("nick");
+		//폼 전송되는 댓글의 정보 얻어내기
+		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
+		String target_nick=request.getParameter("target_nick");
+		String content=request.getParameter("content");
+		/*
+		 * 원글의 댓글은 comment_group 번호가 전송 안되고
+		 * 댓글의 댓글은 comment_group 번호가 전송이 된다. ***
+		 * 따라서 null 여부를 조사하면 원글의 댓글인지 댓글의 댓글인지 판별할 수 있다.
+		 */
+		String cmt_group=request.getParameter("cmt_group");
+		//새 댓글의 글번호는 미리 얻어낸다.
+		int seq=cmtdao.getSequence();
+		//저장할 새 댓글 정보를 dto 에 담기
+		ReportCmtDto dto=new ReportCmtDto();
+		dto.setNum(seq);
+		dto.setWriter(writer);
+		dto.setTarget_nick(target_nick);
+		dto.setContent(content);
+		dto.setRef_group(ref_group);
+		if(cmt_group==null) {//원글의 댓글인 경우
+			//댓글의 글번호 와 comment_group 번호를 같게 한다.
+			dto.setCmt_group(seq);
+		}else {//댓글의 댓글인 경우
+			//폼 전송된 comment_group 번호를 숫자로 바꿔서 dto 에 넣어준다.
+			dto.setCmt_group(Integer.parseInt(cmt_group));
+		}
+		//댓글 정보를 DB 에 저장한다.
+		cmtdao.insert(dto);
+		
+	}
+
+	@Override
+	public void deleteComment(HttpServletRequest request) {
+		//GET 방식 파라미터로 전달되는 삭제할 댓글 번호 
+		int num=Integer.parseInt(request.getParameter("num"));
+		//세션에 저장된 로그인된 아이디
+		String nick=(String)request.getSession().getAttribute("nick");
+		//댓글의 정보를 얻어와서 댓글의 작성자와 같은지 비교 한다.
+		String writer=cmtdao.getData(num).getWriter();
+		if(!writer.equals(nick)) {
+			throw new DBFailException("남의 댓글을 삭제할수 없습니다.");
+		}
+		cmtdao.delete(num);			
+		
+	}
+
+	@Override
+	public void updateComment(ReportCmtDto dto) {
+		cmtdao.update(dto);
+		
+	}
+
+	@Override
+	public void moreCommentList(HttpServletRequest request) {
+		//파라미터로 전달된 pageNum 과 ref_group 번호를 읽어온다. 
+		int pageNum=Integer.parseInt(request.getParameter("pageNum"));
+		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
+
+		ReportDto dto=dao.getData(ref_group);
+		request.setAttribute("dto", dto);
+
+		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
+		final int PAGE_ROW_COUNT=5;
+
+		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+
+		//전체 row 의 갯수를 읽어온다.
+		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
+		int totalRow=cmtdao.getCount(ref_group);
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=
+				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+
+		// CafeCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다.
+		ReportCmtDto commentDto=new ReportCmtDto();
+		commentDto.setStartRowNum(startRowNum);
+		commentDto.setEndRowNum(endRowNum);
+		//ref_group 번호도 담는다.
+		commentDto.setRef_group(ref_group);
+
+		//DB 에서 댓글 목록을 얻어온다.
+		List<ReportCmtDto> commentList=cmtdao.getList(commentDto);
+		//request 에 담아준다.
+		request.setAttribute("commentList", commentList);
+		request.setAttribute("totalPageCount", totalPageCount);		
+		
 	}
 
 }
