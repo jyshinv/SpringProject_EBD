@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.ebd.episode.dto.EpisodeDto;
 import com.acorn.ebd.episode.service.EpisodeService;
@@ -19,8 +20,10 @@ public class EpisodeController {
 	
 	//에피소드 list 요청처리
 	@RequestMapping("/episode/list.do")
-	public String list() {
-		return "episode/list";
+	public ModelAndView list(ModelAndView mView, HttpServletRequest request) {
+		service.getList(mView, request);
+		mView.setViewName("episode/list");
+		return mView;
 	}
 	
 	//에피소드 작성폼 요청 처리 
@@ -35,5 +38,6 @@ public class EpisodeController {
 		service.saveContent(dto, request);
 		return "episode/private/upload";
 	}
+	
 
 }

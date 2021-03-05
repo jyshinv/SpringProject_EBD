@@ -1,5 +1,7 @@
 package com.acorn.ebd.episode.dao;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -17,6 +19,16 @@ public class EpisodeDaoImpl implements EpisodeDao {
 	@Override
 	public void insert(EpisodeDto dto) {
 		session.insert("episode.insert",dto);
+	}
+
+	@Override
+	public List<EpisodeDto> getList(EpisodeDto dto) {
+		return session.selectList("episode.getList",dto);
+	}
+
+	@Override
+	public int getCount() {
+		return session.selectOne("episode.getCount");
 	}
 
 }

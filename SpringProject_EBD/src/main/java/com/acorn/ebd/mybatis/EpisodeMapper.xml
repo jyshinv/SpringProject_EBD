@@ -6,4 +6,51 @@
 		(num, writer, title, content , imgPath, viewcnt ,regdate)
 		VALUES(ebd_episode_seq.NEXTVAL, #{writer}, #{title}, #{content}, #{imgPath}, 0, SYSDATE)
 	</insert>
+	
+	<select id="getList" parameterType="episodeDto" resultType="episodeDto">
+		<!-- mybatis의 특징 중 하나는  dynamic query를 지원한다는 것이다 아래 query문을 통해 dynamic query문을 어떻게 구성하는지 알아보자 -->
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM		
+				(SELECT num, writer, title, content, imgpath , viewcnt, regdate
+				FROM ebd_episode
+				<choose>
+					<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
+				 	<when test="title != null and content != null">
+				 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%'
+				 	</when>
+					<!--title이 null이 아니라면-->
+				 	<when test="title != null">
+				 		WHERE title LIKE '%' || #{title} || '%'
+				 	</when>
+					<!--writer이 null이 아니라면-->
+				 	<when test="writer != null">
+				 		WHERE writer LIKE '%' || #{writer} || '%'
+				 	</when>
+					<!-- 모두 null 이라면 WHERE절에 쿼리문이 들어가지 않는다. -->
+				</choose>
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM ebd_episode
+		<choose>
+			<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
+		 	<when test="title != null and content != null">
+		 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%'
+		 	</when>
+			<!--title이 null이 아니라면-->
+		 	<when test="title != null">
+		 		WHERE title LIKE '%' || #{title} || '%'
+		 	</when>
+			<!--writer이 null이 아니라면-->
+		 	<when test="writer != null">
+		 		WHERE writer LIKE '%' || #{writer} || '%'
+		 	</when>
+			<!-- 모두 null 이라면 WHERE절에 쿼리문이 들어가지 않는다. -->
+		</choose> 
+	</select>
 </mapper>
