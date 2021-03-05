@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.ebd.episode.dao.EpisodeDao;
 import com.acorn.ebd.episode.dto.EpisodeDto;
+import com.acorn.ebd.wording.dto.WordingDto;
 
 @Service
 public class EpisodeServiceImpl implements EpisodeService {
@@ -125,12 +127,21 @@ public class EpisodeServiceImpl implements EpisodeService {
 		if(endPageNum > totalPageCount){
 			endPageNum=totalPageCount; //보정해 준다. 
 		}
+		
+		//로그인된 아이디의 nick 정보 불러오기
+		String nick=(String)request.getSession().getAttribute("nick");
+		dto.setNick(nick);
+		List<EpisodeDto> list2=null;
+		//하트 정보(로그인 중일때만)
+		//nick이 null인채로 wordingdao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
+		if(nick != null) {
+			list2=dao.getHeartInfo(dto);			
+		}
+		
 		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
 		mView.addObject("list", list);
+		mView.addObject("list2", list2);
 		mView.addObject("totalPageCount", totalPageCount);
-		//pageNum 도 추가로 담아주기
-		//view page에서 필요한 내용을 ModelAndView 객체에 담아준다.
-		mView.addObject("list",list);
 		mView.addObject("pageNum",pageNum);
 		mView.addObject("startPageNum",startPageNum);
 		mView.addObject("endPageNum",endPageNum);
@@ -139,6 +150,27 @@ public class EpisodeServiceImpl implements EpisodeService {
 		mView.addObject("encodedK",encodedK);
 		mView.addObject("totalRow",totalRow);
 		
+		
+	}
+	
+	//하트를 눌렀을 때 하트테이블에 저장해주는 메소드
+	@Override
+	public void saveHeart(int target_num, HttpSession session) {
+		String nick=(String)session.getAttribute("nick");
+		WordingDto dto=new WordingDto();
+		dto.setNick(nick);
+		dto.setTarget_num(target_num);
+		dao.insertHeart(dto);
+	}
+
+	//하트 해제 시 하트테이블에서 삭제해주는 메소드
+	@Override
+	public void removeHeart(int target_num, HttpSession session) {
+		String nick=(String)session.getAttribute("nick");
+		WordingDto dto=new WordingDto();
+		dto.setNick(nick);
+		dto.setTarget_num(target_num);
+		dao.deleteHeart(dto);
 		
 	}
 	

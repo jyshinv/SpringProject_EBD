@@ -34,6 +34,36 @@
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
+	<!-- 로그인이 되어있다면 로그인된 아이디의 하트 테이블 정보를 select해준다. -->
+	<select id="selectHeartInfo" parameterType="episodeDto" resultType="episodeDto">
+		SELECT *
+		FROM
+			(SELECT r1.*, ROWNUM AS rnum
+			FROM
+				(SELECT e.num, NVL(h.target_num,0) target_num
+				FROM ebd_episode e, ebd_episode_heart h
+				<choose>
+					<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
+				 	<when test="title != null and content != null">
+				 		WHERE (title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick}   
+				 	</when>
+					<!--title이 null이 아니라면-->
+				 	<when test="title != null">
+				 		WHERE (title LIKE '%' || #{title} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick}
+				 	</when>
+					<!--writer이 null이 아니라면-->
+				 	<when test="writer != null">
+				 		WHERE (e.writer LIKE '%' || #{writer} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick} 
+				 	</when>
+					<!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
+					<when test="title ==null and content ==null and writer ==null">
+						WHERE e.num = h.target_num(+) AND h.writer(+)=#{nick}
+					</when>
+				</choose>
+				ORDER BY num DESC) r1) 
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
 	<select id="getCount" resultType="int">
 		SELECT NVL(MAX(ROWNUM),0)
 		FROM ebd_episode
@@ -53,4 +83,19 @@
 			<!-- 모두 null 이라면 WHERE절에 쿼리문이 들어가지 않는다. -->
 		</choose> 
 	</select>
+	
+	<!-- 하트를 클릭했을 때 로그인된 닉네임 정보와 하트를 클릭한 글의 num을 insert해준다. -->
+	<insert id="insertHeart" parameterType="wordingDto">
+		INSERT INTO ebd_episode_heart
+		(num, target_num, writer)
+		VALUES(ebd_wording_heart_seq.NEXTVAL, #{target_num}, #{nick})
+	</insert>
+	
+	<!-- 하트를 해제 했을 때 로그인된 아이디정보와 하트를 클릭한 글의 num을 delete해준다. -->
+	<delete id="deleteHeart" parameterType="wordingDto">
+		DELETE FROM ebd_episode_heart
+		WHERE target_num=#{target_num} AND writer=#{nick}
+	</delete>
+	
+	
 </mapper>

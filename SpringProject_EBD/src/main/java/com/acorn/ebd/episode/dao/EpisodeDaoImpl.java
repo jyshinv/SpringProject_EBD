@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.acorn.ebd.episode.dto.EpisodeDto;
+import com.acorn.ebd.wording.dto.WordingDto;
 
 @Repository
 public class EpisodeDaoImpl implements EpisodeDao {
@@ -29,6 +30,23 @@ public class EpisodeDaoImpl implements EpisodeDao {
 	@Override
 	public int getCount() {
 		return session.selectOne("episode.getCount");
+	}
+	
+	@Override
+	public void insertHeart(WordingDto dto) {
+		session.insert("episode.insertHeart",dto);
+	}
+
+
+	@Override
+	public void deleteHeart(WordingDto dto) {
+		session.delete("episode.deleteHeart",dto);
+	}
+	
+	@Override
+	public List<EpisodeDto> getHeartInfo(EpisodeDto dto) {
+		List<EpisodeDto> list=session.selectList("episode.selectHeartInfo",dto);
+		return list;
 	}
 
 }
