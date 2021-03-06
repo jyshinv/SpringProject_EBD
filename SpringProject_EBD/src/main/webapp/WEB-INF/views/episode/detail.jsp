@@ -69,7 +69,7 @@
 			console.log("if문 들어왔다!"+target_num);
 			//insert 요청을 한다.(컨트롤러에서 responsebody사용)
 			$.ajax({
-				url:"${pageContext.request.contextPath }/wording/saveheart.do",
+				url:"${pageContext.request.contextPath }/episode/saveheart.do",
 				method:"GET",
 				data: "target_num="+target_num,
 				success:function(data){ //나중에 구현 : 하트 수를 반환
@@ -82,7 +82,7 @@
 		}else{//하트 눌림일 때 클릭하면 (하트를 해제한 효과)			
 			//delete 요청을 한다.(컨트롤러에서 responsebody사용)
 			$.ajax({
-				url:"${pageContext.request.contextPath }/wording/removeheart.do",
+				url:"${pageContext.request.contextPath }/episode/removeheart.do",
 				method:"GET",
 				data: "target_num="+target_num,
 				success:function(data){
