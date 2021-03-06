@@ -132,16 +132,22 @@ public class EpisodeServiceImpl implements EpisodeService {
 		String nick=(String)request.getSession().getAttribute("nick");
 		dto.setNick(nick);
 		List<EpisodeDto> list2=null;
+		List<EpisodeDto> list3=null;
 		//하트 정보(로그인 중일때만)
 		//nick이 null인채로 wordingdao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
 		if(nick != null) {
 			list2=dao.getHeartInfo(dto);			
+			//총 하트 개수 정보를 리턴해주는 메소드(로그인 중일때만)
+			list3=dao.getHeartCnt(dto);
 		}
+		
+		
 		
 		
 		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
 		mView.addObject("list", list);
 		mView.addObject("list2", list2);
+		mView.addObject("list3",list3);
 		mView.addObject("totalPageCount", totalPageCount);
 		mView.addObject("pageNum",pageNum);
 		mView.addObject("startPageNum",startPageNum);
@@ -184,15 +190,22 @@ public class EpisodeServiceImpl implements EpisodeService {
 		//현재 로그인 되어있는 유저의 닉네임 저장
 		String nick=(String)session.getAttribute("nick");
 		dto.setNick(nick);
-		//하트 정보를 저장할 dto2를 만든다. 
-		EpisodeDto heartDto=null;
+		//하트 정보를 저장할 변수 heart
+		int heart=0;
+		//하트 개수 정보를 저장할 변수 heartcnt
+		EpisodeDto heartcntDto=null;
 		if(nick != null) { //닉네임이 null이 아닐때만 getHeartInfoDatail을 호출 null일 경우 전달하는 파라메터가 null이라는 오류를 낸다.
-			heartDto=dao.getHeartInfoDetail(dto);			
+			heart = dao.getHeartInfoDetail(dto); //해당 닉네임이 하트를 클릭했으면 target_num이 return되고, 그게 아니면 아무것도 리턴하지 않는다.
+			heartcntDto=dao.getHeartCntDetail(dto);
 		}
+		
+		
 		//글정보
 		mView.addObject("dataDto",dataDto);
 		//하트정보 
-		mView.addObject("heartDto",heartDto);
+		mView.addObject("heart",heart);
+		//하트개수 정보
+		mView.addObject("heartcntDto",heartcntDto);
 		
 	}
 	

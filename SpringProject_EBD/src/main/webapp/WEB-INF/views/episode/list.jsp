@@ -96,7 +96,8 @@
 									</c:if>
 									<c:if test="${list2[i].num ne list2[i].target_num }">
 										<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>										
-									</c:if>						
+									</c:if>
+									<p>(${list3[i].heartcnt})</p>						
 								</c:forEach>
 							</p>
 						</c:if>

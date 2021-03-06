@@ -55,8 +55,21 @@ public class EpisodeDaoImpl implements EpisodeDao {
 	}
 
 	@Override
-	public EpisodeDto getHeartInfoDetail(EpisodeDto dto) {
+	public int getHeartInfoDetail(EpisodeDto dto) {
+		//해당 닉네임이 해당 글에 좋아요를 누르지 않으면 0, 눌렀으면 1이 리턴된다. 
 		return session.selectOne("episode.getHeartInfoDetail",dto);
+	}
+
+	@Override
+	public List<EpisodeDto> getHeartCnt(EpisodeDto dto) {
+		return session.selectList("episode.getHeartCnt",dto);
+	}
+
+	@Override
+	public EpisodeDto getHeartCntDetail(EpisodeDto dto) {
+		EpisodeDto checkDto=session.selectOne("episode.getHeartCntDatail",dto);
+		return checkDto;
+
 	}
 
 }

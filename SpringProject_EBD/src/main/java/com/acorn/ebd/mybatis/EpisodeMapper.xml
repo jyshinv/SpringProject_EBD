@@ -109,12 +109,50 @@
 		WHERE num=#{num}
 	</select>
 	
-	<!-- 에피소드 디테일 중 하트 정보  -->
-	<select id="getHeartInfoDetail" parameterType="episodeDto" resultType="episodeDto">
-		SELECT e.num, NVL(h.target_num,0) target_num
-		FROM ebd_episode e, ebd_episode_heart h
-		WHERE e.num = h.target_num(+) AND h.writer(+)=#{nick} AND e.num=#{num}				
+	<!-- 에피소드 디테일 중 하트 정보 해당 nick이 해당num번 글에 하트를 클릭했으면 1 클릭하지 않았으면 0을 select  -->
+	<select id="getHeartInfoDetail" parameterType="episodeDto" resultType="int">
+		select count(*) 
+		from ebd_episode_heart
+		where target_num=#{num} and writer=#{nick} 			
 	</select>
 	
+	<!-- 에피소드 리스트에 하트 개수 테이블을 리턴해주는 쿼리문 -->
+	<select id="getHeartCnt" parameterType="episodeDto" resultType="episodeDto" >
+		SELECT *
+		FROM
+			(SELECT r2.heartcnt, ROWNUM AS rnum
+			FROM
+				(SELECT NVL(r1.heartcnt,0) heartcnt
+            	 FROM (select target_num, count(*) heartcnt
+                 FROM ebd_episode_heart
+                 GROUP BY target_num) r1, ebd_episode e
+				<choose>
+					<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
+				 	<when test="title != null and content != null">
+				 		WHERE (title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%') AND r1.target_num(+) = e.num   
+				 	</when>
+					<!--title이 null이 아니라면-->
+				 	<when test="title != null">
+				 		WHERE (title LIKE '%' || #{title} || '%') AND r1.target_num(+) = e.num
+				 	</when>
+					<!--writer이 null이 아니라면-->
+				 	<when test="writer != null">
+				 		WHERE (e.writer LIKE '%' || #{writer} || '%') AND r1.target_num(+) = e.num
+				 	</when>
+					<!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
+					<when test="title ==null and content ==null and writer ==null">
+						WHERE r1.target_num(+) = e.num
+					</when>
+				</choose>
+				ORDER BY num DESC) r2) 
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getHeartCntDatail" parameterType="episodeDto" resultType="episodeDto">
+		SELECT target_num, count(*) heartcnt
+		FROM ebd_episode_heart 
+		WHERE target_num=#{num}
+		GROUP BY target_num
+	</select>
 	
 </mapper>
