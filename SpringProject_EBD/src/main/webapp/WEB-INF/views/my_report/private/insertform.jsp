@@ -6,6 +6,28 @@
 <head>
 <meta charset="UTF-8">
 <title>my_report/private/insertform.jsp</title>
+<jsp:include page="../../include/resource.jsp"></jsp:include>
+<style>
+    .btn-file{
+        position: relative;
+        overflow: hidden;
+    }
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+            right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        font-size: 100px;
+        text-align: right;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        cursor: inherit;
+        display: block;
+    }
+</style>
 </head>
 <body>
 <div class="container">
@@ -16,11 +38,11 @@
 		</div>
 		<div>
 			<label for="booktitle">도서명</label>
-			<input type="text" name="booktitle" id="booktitle" value="${empty booktitle ? "" : booktitle }"/>
+			<input type="text" name="booktitle" id="booktitle" value="${booktitle }"/>
 		</div>
 		<div>
 			<label for="author">저자명</label>
-			<input type="text" name="author" id="author" value="${empty author ? "" : author }"/>
+			<input type="text" name="author" id="author" value="${author }"/>
 		</div>
 		<div>
 			<label for="title">제목</label>
@@ -53,8 +75,11 @@
 			</select>
 		</div>
 		<div>
-			<label for="image">이미지 첨부</label>
-			<input type="file" name="image" id="image"/>
+			이미지<input type="text" id="fileName" placeholder="이미지를 첨부해주세요" disabled/>
+		    <label for="image" class="btn btn-primary btn-file">
+		        파일추가<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
+		    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+		    </label>
 		</div>
 		<div>
 			<label for="link">구매처 링크</label>
@@ -119,6 +144,14 @@
 		var nFontSize = 24;
 		oEditors.getById["content"].setDefaultFont(sDefaultFont, nFontSize);
 	}
+	
+   //이미지를 등록할 때마다 호출되는 함수 등록
+   function reviewUploadImg(fileObj){
+         var filePath = fileObj.value; //파일경로
+         var fileName = filePath.substring(filePath.lastIndexOf("\\")+1);//파일이름
+         var fileKind = fileName.split(".")[1];//파일유형
+         document.getElementById('fileName').value=fileName; //input text에 파일의 이름 들어감 
+      }
 </script>
 </body>
 </html>
