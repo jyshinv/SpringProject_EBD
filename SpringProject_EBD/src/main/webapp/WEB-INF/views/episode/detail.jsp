@@ -27,12 +27,7 @@
 					</c:choose>
 				</p>
 				<p>
-				<c:if test="${empty heartcntDto.heartcnt}">
-					(0)
-				</c:if>
-				<c:if test="${not empty heartcntDto.heartcnt }">
 					(${heartcntDto.heartcnt })
-				</c:if>
 				</p>
 			</c:if>
 			<p class="card-text">${dataDto.title }</p>

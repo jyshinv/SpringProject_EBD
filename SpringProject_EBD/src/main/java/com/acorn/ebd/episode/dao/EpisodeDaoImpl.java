@@ -73,8 +73,7 @@ public class EpisodeDaoImpl implements EpisodeDao {
 
 	@Override
 	public EpisodeDto getHeartCntDetail(EpisodeDto dto) {
-		EpisodeDto checkDto=session.selectOne("episode.getHeartCntDatail",dto);
-		return checkDto;
+		return session.selectOne("episode.getHeartCntDatail",dto);
 
 	}
 

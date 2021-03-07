@@ -57,7 +57,7 @@
 	</select>
 	
 	<!-- 하트를 클릭했을 때 로그인된 닉네임 정보와 하트를 클릭한 글의 num을 insert해준다. -->
-	<insert id="insertHeart" parameterType="wordingDto">
+	<insert id="insertHeart" parameterType="episodeDto">
 		INSERT INTO ebd_episode_heart
 		(num, target_num, writer)
 		VALUES(ebd_wording_heart_seq.NEXTVAL, #{target_num}, #{nick})
@@ -151,10 +151,11 @@
 	</select>
 	
 	<select id="getHeartCntDatail" parameterType="episodeDto" resultType="episodeDto">
-		SELECT target_num, count(*) heartcnt
-		FROM ebd_episode_heart 
-		WHERE target_num=#{num}
-		GROUP BY target_num
+		SELECT distinct NVL(r1.heartcnt,0) heartcnt
+		FROM (SELECT target_num, count(*) heartcnt
+      			FROM ebd_episode_heart
+      			GROUP BY target_num) r1, ebd_episode e
+		WHERE r1.target_num(+) = e.num and e.num=#{num}
 	</select>
 	
 </mapper>

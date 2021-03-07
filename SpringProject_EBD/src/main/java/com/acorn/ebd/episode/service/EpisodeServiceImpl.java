@@ -192,13 +192,13 @@ public class EpisodeServiceImpl implements EpisodeService {
 		dto.setNick(nick);
 		//하트 정보를 저장할 변수 heart
 		boolean isheartclick=false;
-		//하트 개수 정보를 저장할 변수 heartcnt
-		EpisodeDto heartcntDto=null;
 		if(nick != null) { //닉네임이 null이 아닐때만 getHeartInfoDatail을 호출 null일 경우 전달하는 파라메터가 null이라는 오류를 낸다.
 			isheartclick = dao.getHeartInfoDetail(dto); //해당 닉네임이 하트를 클릭했으면 target_num이 return되고, 그게 아니면 아무것도 리턴하지 않는다.
-			heartcntDto=dao.getHeartCntDetail(dto);
 		}
 		
+		//하트 개수 정보를 저장할 변수 heartcnt
+		EpisodeDto heartcntDto=null;
+		heartcntDto=dao.getHeartCntDetail(dto);
 		
 		//글정보
 		mView.addObject("dataDto",dataDto);
