@@ -111,9 +111,9 @@
 		WHERE num=#{num}
 	</select>
 	
-	<!-- 에피소드 디테일 중 하트 정보 해당 nick이 해당num번 글에 하트를 클릭했으면 1 클릭하지 않았으면 0을 select  -->
-	<select id="getHeartInfoDetail" parameterType="episodeDto" resultType="int">
-		select count(*) 
+	<!-- 에피소드 디테일 중 하트 정보 해당 nick이 해당num번 글에 하트를 클릭했으면 target_num이 리턴, 그렇지 않으면 null리턴  -->
+	<select id="getHeartInfoDetail" parameterType="episodeDto" resultType="episodeDto">
+		select target_num
 		from ebd_episode_heart
 		where target_num=#{num} and writer=#{nick} 			
 	</select>

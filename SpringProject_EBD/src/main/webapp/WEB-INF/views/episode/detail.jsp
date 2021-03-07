@@ -17,12 +17,14 @@
 			<!-- 로그인을 해야지만 하트를 누를 수 있다. -->
 			<c:if test="${not empty nick }">
 				<p>
-					<c:if test="${heart eq 1 }">
-						<a data-num="${dataDto.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
-					</c:if>
-					<c:if test="${heart eq 0 }">
-						<a data-num="${dataDto.num }" href="javascript:" class="heart-link" href="list.do">하트</a>
-					</c:if>
+					<c:choose>
+						<c:when test="${isheartclick eq true }">
+							<a data-num="${dataDto.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
+						</c:when>
+						<c:otherwise>
+							<a data-num="${dataDto.num }" href="javascript:" class="heart-link" href="list.do">하트</a>
+						</c:otherwise>
+					</c:choose>
 				</p>
 				<p>
 				<c:if test="${empty heartcntDto.heartcnt}">
