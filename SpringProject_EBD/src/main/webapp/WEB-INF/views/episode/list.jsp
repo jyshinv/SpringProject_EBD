@@ -89,14 +89,16 @@
 						<c:if test="${not empty id }">
 							<p>
 								<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
-								<!-- list2[n]의 num과 target_num이 같으면 하트를 누른 것이다. 하트 눌림~을 클릭해주자. 그렇지 않으면 하트를 누르지 않은 것 -->
+								<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
 								<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-									<c:if test="${list2[i].num eq list2[i].target_num }">
-										<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
-									</c:if>
-									<c:if test="${list2[i].num ne list2[i].target_num }">
-										<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>										
-									</c:if>
+									<c:choose>
+										<c:when test="${list2[i].target_num eq 0 }">
+											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>										
+										</c:when>
+										<c:otherwise>
+											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
+										</c:otherwise>
+									</c:choose>
 									<p>(${list3[i].heartcnt})</p>						
 								</c:forEach>
 							</p>
