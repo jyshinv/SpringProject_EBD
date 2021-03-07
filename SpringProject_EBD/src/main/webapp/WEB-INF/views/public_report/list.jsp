@@ -8,31 +8,139 @@
 <title>/public_report/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
-	/* card 이미지 부모요소의 높이 지정 */
-	.img-wrapper{
-		height: 250px;
-		/* transform 을 적용할대 0.3s 동안 순차적으로 적용하기 */
-		transition: transform 0.3s ease-out;
-		
-	}
-	/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
-	.img-wrapper:hover{
-		/* 원본 크기의 1.1 배로 확대 시키기*/
-		transform: scale(1.05);
-	}
-	
-	.card .card-text{
-		/* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
-		display:block;
-		white-space : nowrap;
-		text-overflow: ellipsis;
-		overflow: hidden;
-	}
-	#img{
-		object-fit: cover;
-		background-position:center;
-		
-	}
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500,900);
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+figure.snip1382 {
+  font-family: 'Source Sans Pro', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
+  min-width: 230px;
+  max-width: 315px;
+  max-height: 220px;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  font-size: 16px;
+}
+figure.snip1382 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+figure.snip1382 img {
+  max-width: 100%;
+}
+figure.snip1382:after,
+figure.snip1382:before,
+figure.snip1382 figcaption:after,
+figure.snip1382 figcaption:before {
+  background: #0a0a0a;
+  height: 25%;
+  position: absolute;
+  content: '';
+  opacity: 0;
+  -webkit-transition: all 0.35s steps(4);
+  transition: all 0.35s steps(4);
+  z-index: 1;
+  left: 50%;
+  right: 50%;
+}
+figure.snip1382:before {
+  top: 0;
+  -webkit-transition-delay: 0;
+  transition-delay: 0;
+}
+figure.snip1382:after {
+  top: 25%;
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
+figure.snip1382 figcaption:before {
+  top: 50%;
+  -webkit-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+  z-index: -1;
+}
+figure.snip1382 figcaption:after {
+  top: 75%;
+  -webkit-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+  z-index: -1;
+}
+figure.snip1382 figcaption {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 30px;
+}
+figure.snip1382 h2,
+figure.snip1382 p,
+figure.snip1382 .icons {
+  margin: 0;
+  width: 100%;
+  opacity: 0;
+}
+figure.snip1382 h2 {
+  font-weight: 900;
+  text-transform: uppercase;
+}
+figure.snip1382 p {
+  font-weight: 300;
+}
+figure.snip1382 .icons {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+}
+figure.snip1382 i {
+  padding: 0px 10px;
+  display: inline-block;
+  font-size: 24px;
+  color: #ffffff;
+  text-align: center;
+  opacity: 0.8;
+  text-decoration: none;
+}
+figure.snip1382 i:hover {
+  opacity: 1;
+}
+figure.snip1382:hover:after,
+figure.snip1382.hover:after,
+figure.snip1382:hover:before,
+figure.snip1382.hover:before,
+figure.snip1382:hover figcaption:after,
+figure.snip1382.hover figcaption:after,
+figure.snip1382:hover figcaption:before,
+figure.snip1382.hover figcaption:before {
+  left: 0;
+  right: 0;
+  opacity: 0.8;
+}
+figure.snip1382:hover figcaption h2,
+figure.snip1382.hover figcaption h2,
+figure.snip1382:hover figcaption p,
+figure.snip1382.hover figcaption p,
+figure.snip1382:hover figcaption .icons,
+figure.snip1382.hover figcaption .icons {
+  -webkit-transition-delay: 0.25s;
+  transition-delay: 0.25s;
+}
+figure.snip1382:hover figcaption h2,
+figure.snip1382.hover figcaption h2,
+figure.snip1382:hover figcaption .icons,
+figure.snip1382.hover figcaption .icons {
+  opacity: 1;
+}
+figure.snip1382:hover figcaption p,
+figure.snip1382.hover figcaption p {
+  opacity: 0.7;
+}
 </style>
 </head>
 <body>
@@ -40,79 +148,30 @@
 <div class="container">
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="tmp" items="${requestScope.list }">
-			<div class="col">
-				<div class="card" style="width: 18rem;">
+			<figure class="snip1382 hover">
+				<img src="${pageContext.request.contextPath }${tmp.imgpath}" >
+				<figcaption>
 					<a href="${pageContext.request.contextPath}/public_report/detail.do?num=${tmp.num}">
-						<img id="img" src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" >
-					</a>
-				 	<div class="card-body">
-					    <h5 class="card-title">${tmp.booktitle }</h5>
-					    <p class="card-text">by <strong>${tmp.writer }</strong></p>
-					    <p><small>${tmp.viewcnt }</small></p>
-					    <p><small>${tmp.regdate }</small></p>
-				 	</div>
-				</div>		
-			</div>
+				    	<h6>${tmp.booktitle }</h6>
+				    </a>
+				    <p><strong>${tmp.writer }</strong></p>
+				    <p><small>${tmp.viewcnt }</small></p>
+				    <p><small>${tmp.regdate }</small></p>
+				    <div class="icons">
+				      <a href="#"> <i class="ion-heart"></i></a>
+				    </div>				    
+				</figcaption>
+			</figure>
 		</c:forEach>
-	</div>
-	<nav>
-		<ul class="pagination justify-content-center">
-			<c:choose>
-				<c:when test="${startPageNum != 1 }">
-					<li class="page-item">
-						<a class="page-link" href="list.do?pageNum=${startPageNum-1 }&condition=${condition}&keyword=${encodedK}">Prev</a>
-					</li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item disabled">
-						<a class="page-link" href="javascript:">Prev</a>
-					</li>
-				</c:otherwise>
-			</c:choose>
-			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">
-				<c:choose>
-					<c:when test="${i eq requestScope.pageNum }">
-						<li class="page-item active">
-							<a class="page-link" href="list.do?pageNum=${i }&condition=${condition}&keyword=${encodedK}">${i }</a>
-						</li>
-					</c:when>
-					<c:otherwise>
-						<li class="page-item">
-							<a class="page-link" href="list.do?pageNum=${i }&condition=${condition}&keyword=${encodedK}">${i }</a>
-						</li>
-					</c:otherwise>
-				</c:choose>
-			</c:forEach>
-			<c:choose>
-				<c:when test="${endPageNum lt totalPageCount }">
-					<li class="page-item">
-						<a class="page-link" href="list.do?pageNum=${endPageNum+1 }&condition=${condition}&keyword=${encodedK}">Next</a>
-					</li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item disabled">
-						<a class="page-link" href="javascript:">Next</a>
-					</li>
-				</c:otherwise>
-			</c:choose>
-		</ul>
-	</nav>
-	<form action="list.do" method="get">
-		<label for="condition">검색조건</label>
-		<select name="condition" id="condition">
-			<option value="booktitle_author" ${condition eq 'booktitle_author' ? 'selected' : '' }>책제목+저자</option>
-			<option value="booktitle" ${condition eq 'booktitle' ? 'selected' : '' }>책제목</option>
-			<option value="author" ${condition eq 'author' ? 'selected' : '' }>저자</option>
-		</select>
-		<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
-		<button type="submit">검색</button>
-	</form>
-	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
-	<c:if test="${not empty keyword }">
-		<div class="alert alert-success">
-			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
-		</div>
-	</c:if>	
-</div>	
+	</div>		
+</div>
+<script>
+/* Demo purposes only */
+$(".hover").mouseleave(
+  function () {
+    $(this).removeClass("hover");
+  }
+);
+</script>
 </body>
 </html>
