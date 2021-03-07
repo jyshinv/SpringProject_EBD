@@ -95,85 +95,87 @@
 <jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<a href="${pageContext.request.contextPath}/public_report/list.do">독후감 목록가기</a>
-	<table class="table">
-		<tr>
-			<td>조회수 ${dto.viewcnt }</td>
-			<td>날짜 ${dto.regdate }</td>
-			<c:if test="${dto.writer eq nick}">
-			<td>
-            <form action="updatepublicck2.do" method="post">
-            	<label for="publicck"></label>
-          		<select name="publicck" id="publicck">
-          				<option value="public">공개</option>
-	          			<option value="private">비공개</option>
-          		</select>
-          		<label for="num"></label>
-          		<input type="hidden" value="${dto.num }" id="num" name="num"/>
-          		<input type="submit" value="선택"/>
-          	</form>
-       		</td>
-       		</c:if>
-		</tr>
-		<center>
-			<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
-		</center>
-		<tr>
-			<th>제목</th>
-			<td>${dto.title }</td>
-		</tr>
-		<tr>
-			<th>도서명</th>
-			<td>${dto.booktitle }</td>
-		</tr>
-		<tr>
-			<th>저자명</th>
-			<td>${dto.author }</td>
-		</tr>
-		<tr>
-			<th>장르</th>
-			<td>${dto.genre }</td>
-		</tr>
-		<tr>
-			<th>별점</th>
-			<td>${dto.stars }</td>
-		</tr>
-		<tr>
-			<th>구매처 링크</th>
-			<td><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
-		</tr>
-		<tr>
-			<th></th>
-			<td>${dto.content }</td>
-		</tr>
-	</table>
-	<nav>
-		<ul class="pagination justify-content-center">
-			<c:choose>
-				<c:when test="${dto.prevNum ne 0 }">
-					<li class="page-item mr-3">
-						<a class="page-link" href="detail.do?num=${dto.prevNum }">&larr; Prev</a>
-					</li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item disabled mr-3">
-						<a class="page-link" href="javascript:">Prev</a>
-					</li>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${dto.nextNum ne 0 }">
-					<li class="page-item">
-						<a class="page-link" href="detail.do?num=${dto.nextNum }">Next &rarr;</a>
-					</li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item disabled">
-						<a class="page-link" href="javascript:">Next</a>
-					</li>
-				</c:otherwise>
-			</c:choose>
-		</ul>
-	</nav>
+	<div class="card">
+		<table class="table">
+			<tr>
+				<th></th>
+				<td>조회수 ${dto.viewcnt }</td>
+				<td>날짜 ${dto.regdate }</td>
+				<c:if test="${dto.writer eq nick}">
+				<td>
+	            <form action="updatepublicck2.do" method="post">
+	            	<label for="publicck"></label>
+	          		<select name="publicck" id="publicck">
+	          				<option value="public">공개</option>
+		          			<option value="private">비공개</option>
+	          		</select>
+	          		<label for="num"></label>
+	          		<input type="hidden" value="${dto.num }" id="num" name="num"/>
+	          		<input type="submit" value="선택"/>
+	          	</form>
+	       		</td>
+	       		</c:if>
+			</tr>
+			<center>
+				<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
+			</center>
+			<tr>
+				<th>제목</th>
+				<td>${dto.title }</td>
+			</tr>
+			<tr>
+				<th>도서명</th>
+				<td>${dto.booktitle }</td>
+			</tr>
+			<tr>
+				<th>저자명</th>
+				<td>${dto.author }</td>
+			</tr>
+			<tr>
+				<th>장르</th>
+				<td>${dto.genre }</td>
+			</tr>
+			<tr>
+				<th>별점</th>
+				<td>${dto.stars }</td>
+			</tr>
+			<tr>
+				<th>구매처 링크</th>
+				<td><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
+			</tr>
+			<tr>
+				<td>${dto.content }</td>
+			</tr>
+		</table>
+		<nav>
+			<ul class="pagination justify-content-center">
+				<c:choose>
+					<c:when test="${dto.prevNum ne 0 }">
+						<li class="page-item mr-3">
+							<a class="page-link" href="detail.do?num=${dto.prevNum }">&larr; Prev</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled mr-3">
+							<a class="page-link" href="javascript:">Prev</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${dto.nextNum ne 0 }">
+						<li class="page-item">
+							<a class="page-link" href="detail.do?num=${dto.nextNum }">Next &rarr;</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled">
+							<a class="page-link" href="javascript:">Next</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+			</ul>
+		</nav>
+	</div>
 	<hr/>
 	<!-- 원글에 댓글을 작성하는 form -->
 	<form class="comment-form insert-form" action="private/comment_insert.do" method="post">

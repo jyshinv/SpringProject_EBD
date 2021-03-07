@@ -26,6 +26,9 @@ public interface ReportDao {
 	//공개 독후감의 목록 불러오기
 	public List<ReportDto> getPublicList(ReportDto dto);
 	
-	//독후감 검색 키워드 갯수 얻어오기
+	//독후감 검색 키워드 갯수 얻어오기 (공개독후감)
 	public int getCount(ReportDto dto);
+	
+	//독후감 검색 키워드 갯수 얻어오기 (비공개 독후감)
+	public int getCountTotal();
 }

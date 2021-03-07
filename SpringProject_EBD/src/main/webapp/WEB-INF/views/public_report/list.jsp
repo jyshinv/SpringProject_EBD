@@ -13,6 +13,7 @@
 		height: 250px;
 		/* transform 을 적용할대 0.3s 동안 순차적으로 적용하기 */
 		transition: transform 0.3s ease-out;
+		
 	}
 	/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
 	.img-wrapper:hover{
@@ -27,6 +28,11 @@
 		text-overflow: ellipsis;
 		overflow: hidden;
 	}
+	#img{
+		object-fit: cover;
+		background-position:center;
+		
+	}
 </style>
 </head>
 <body>
@@ -37,7 +43,7 @@
 			<div class="col">
 				<div class="card" style="width: 18rem;">
 					<a href="${pageContext.request.contextPath}/public_report/detail.do?num=${tmp.num}">
-						<img src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" >
+						<img id="img" src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" >
 					</a>
 				 	<div class="card-body">
 					    <h5 class="card-title">${tmp.booktitle }</h5>

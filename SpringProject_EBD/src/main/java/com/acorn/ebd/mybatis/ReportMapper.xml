@@ -24,6 +24,10 @@
             </when>
 		</choose>		
 	</select>
+	<select id="getCountTotal" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM ebd_report	
+	</select>	
 	<select id="getList" parameterType="reportDto" resultType="reportDto">
 		SELECT *
 		FROM

@@ -117,10 +117,21 @@ public class ReportServiceImpl implements ReportService{
 		//하단 끝 페이지 번호
 		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 		
+		//글의 갯수
+		int totalRow=dao.getCountTotal();
+		
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		//끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
+		if(endPageNum > totalPageCount){
+			endPageNum=totalPageCount; //보정해 준다. 
+		}
+		
 		mView.addObject("list", list);
 		mView.addObject("pageNum", pageNum);
 		mView.addObject("startPageNum", startPageNum);
-		mView.addObject("endPageNum", endPageNum);			
+		mView.addObject("endPageNum", endPageNum);		
+		mView.addObject("totalPageCount", totalPageCount);
 	}
 
 	@Override
