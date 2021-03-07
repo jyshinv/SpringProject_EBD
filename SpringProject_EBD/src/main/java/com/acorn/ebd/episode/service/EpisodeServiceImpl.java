@@ -3,6 +3,7 @@ package com.acorn.ebd.episode.service;
 import java.io.File;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -162,22 +163,33 @@ public class EpisodeServiceImpl implements EpisodeService {
 	
 	//하트를 눌렀을 때 하트테이블에 저장해주는 메소드
 	@Override
-	public void saveHeart(int target_num, HttpSession session) {
+	public int saveHeart(int target_num, HttpSession session) {
 		String nick=(String)session.getAttribute("nick");
-		WordingDto dto=new WordingDto();
+		EpisodeDto dto=new EpisodeDto();
 		dto.setNick(nick);
 		dto.setTarget_num(target_num);
 		dao.insertHeart(dto);
+		dto.setNum(target_num);//클릭한 글 번호가 글 번호 자체이다.
+		
+		//하트 개수 정보를 저장할 변수 heartcnt
+		int heartcnt=dao.getHeartCntDetail(dto);
+		return heartcnt;
 	}
 
 	//하트 해제 시 하트테이블에서 삭제해주는 메소드
 	@Override
-	public void removeHeart(int target_num, HttpSession session) {
+	public int removeHeart(int target_num, HttpSession session) {
 		String nick=(String)session.getAttribute("nick");
-		WordingDto dto=new WordingDto();
+		EpisodeDto dto=new EpisodeDto();
 		dto.setNick(nick);
 		dto.setTarget_num(target_num);
 		dao.deleteHeart(dto);
+		dto.setNum(target_num);//클릭한 글 번호가 글 번호 자체이다. 
+		
+		//하트 개수 정보를 저장할 변수 heartcnt
+		int heartcnt=dao.getHeartCntDetail(dto);
+		
+		return heartcnt;
 		
 	}
 
@@ -197,15 +209,14 @@ public class EpisodeServiceImpl implements EpisodeService {
 		}
 		
 		//하트 개수 정보를 저장할 변수 heartcnt
-		EpisodeDto heartcntDto=null;
-		heartcntDto=dao.getHeartCntDetail(dto);
+		int heartcnt=dao.getHeartCntDetail(dto);
 		
 		//글정보
 		mView.addObject("dataDto",dataDto);
 		//하트정보 
 		mView.addObject("isheartclick",isheartclick);
 		//하트개수 정보
-		mView.addObject("heartcntDto",heartcntDto);
+		mView.addObject("heartcnt",heartcnt);
 		
 	}
 	

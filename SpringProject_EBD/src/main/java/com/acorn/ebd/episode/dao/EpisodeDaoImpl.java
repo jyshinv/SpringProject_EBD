@@ -33,13 +33,13 @@ public class EpisodeDaoImpl implements EpisodeDao {
 	}
 	
 	@Override
-	public void insertHeart(WordingDto dto) {
+	public void insertHeart(EpisodeDto dto) {
 		session.insert("episode.insertHeart",dto);
 	}
 
 
 	@Override
-	public void deleteHeart(WordingDto dto) {
+	public void deleteHeart(EpisodeDto dto) {
 		session.delete("episode.deleteHeart",dto);
 	}
 	
@@ -72,7 +72,7 @@ public class EpisodeDaoImpl implements EpisodeDao {
 	}
 
 	@Override
-	public EpisodeDto getHeartCntDetail(EpisodeDto dto) {
+	public int getHeartCntDetail(EpisodeDto dto) {
 		return session.selectOne("episode.getHeartCntDatail",dto);
 
 	}

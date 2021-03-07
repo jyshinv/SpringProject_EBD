@@ -18,13 +18,13 @@ public class EpisodeDto {
 	private String profile; //프로필 이미지 경로(users테이블의 profile)
 	private int target_num;//하트를 단 글의 번호를 의미!!(heart테이블의 target_num)
 	private String nick;//닉네임(heart테이블의 nick)
-	private String heartcnt; //하트 카운트 메소드
+	private int heartcnt; //하트 카운트 메소드
 	public EpisodeDto() {
 		super();
 	}
 	public EpisodeDto(int num, String writer, String title, String content, String imgPath, String regdate,
 			int startRowNum, int endRowNum, int prevNum, int nextNum, MultipartFile image, int viewcnt, String profile,
-			int target_num, String nick, String heartcnt) {
+			int target_num, String nick, int heartcnt) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -133,12 +133,13 @@ public class EpisodeDto {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
-	public String getHeartcnt() {
+	public int getHeartcnt() {
 		return heartcnt;
 	}
-	public void setHeartcnt(String heartcnt) {
+	public void setHeartcnt(int heartcnt) {
 		this.heartcnt = heartcnt;
 	}
+	
 	
 	
 	

@@ -26,9 +26,7 @@
 						</c:otherwise>
 					</c:choose>
 				</p>
-				<p>
-					(${heartcntDto.heartcnt })
-				</p>
+				<p class="heart-cnt">(${heartcnt })</p>
 			</c:if>
 			<p class="card-text">${dataDto.title }</p>
 			<p class="card-text">by <strong>${dataDto.writer }</strong></p>
@@ -78,6 +76,7 @@
 				method:"GET",
 				data: "target_num="+target_num,
 				success:function(data){ //나중에 구현 : 하트 수를 반환
+					$(".heart-cnt").text("("+data.heartCnt+")");
 				}
 			});
 			$(this).text("하트눌림~"); //하트 눌림으로 바뀐다.
@@ -91,6 +90,7 @@
 				method:"GET",
 				data: "target_num="+target_num,
 				success:function(data){
+					$(".heart-cnt").text("("+data.heartCnt+")");
 				} 				
 			});
 			
@@ -98,6 +98,21 @@
 		}
 		
 	});
+	
+	//페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
+	//방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
+	$(window).bind("pageshow", function (event) {
+		if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
+			console.log('BFCahe로부터 detail 복원됨');
+			$(".heart-link").css("pointer-events","none");
+			location.reload();//새로고침하기
+		}
+		else {
+			console.log('새로 열린 detail 페이지');
+		}
+		
+	});
+	
 </script>
 </body>
 </html>

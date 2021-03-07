@@ -1,5 +1,8 @@
 package com.acorn.ebd.episode.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -45,17 +48,23 @@ public class EpisodeController {
 	//하트 클릭 요청처리
     @RequestMapping("/episode/saveheart.do")
     @ResponseBody
-    public void insertheart(@RequestParam String target_num, HttpSession session){
+    public Map<String, Object> insertheart(@RequestParam String target_num, HttpSession session){
     	int new_target_num = Integer.parseInt(target_num);
-    	service.saveHeart(new_target_num, session);
+    	int heartCnt = service.saveHeart(new_target_num, session);
+    	Map<String, Object> map=new HashMap<String, Object>();
+    	map.put("heartCnt",heartCnt);
+    	return map;
     }
     
     //하트눌림 클릭 요청처리(하트 해제)
     @RequestMapping("/episode/removeheart.do")
     @ResponseBody
-    public void deleteheart(@RequestParam String target_num, HttpSession session) {
+    public Map<String, Object> deleteheart(@RequestParam String target_num, HttpSession session) {
     	int new_target_num = Integer.parseInt(target_num);
-    	service.removeHeart(new_target_num, session);
+    	int heartCnt=service.removeHeart(new_target_num, session);
+    	Map<String, Object> map=new HashMap<String, Object>();
+    	map.put("heartCnt",heartCnt);
+    	return map;
     }
     
     //에피소드 디테일 클릭 요청 처리
