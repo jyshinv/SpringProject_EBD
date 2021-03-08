@@ -30,9 +30,9 @@ public class ReportDaoImpl implements ReportDao{
 
 	//독후감 하나의 정보 불러오기
 	@Override
-	public ReportDto getData(int num) {
+	public ReportDto getData(ReportDto dto) {
 
-		return session.selectOne("report.getData", num);
+		return session.selectOne("report.getData", dto);
 	}
 
 	//독후감 삭제하기
@@ -44,8 +44,8 @@ public class ReportDaoImpl implements ReportDao{
 	
 	//독후감 조회수 올리기
 	@Override
-	public void addViewCount(int num) {
-		session.update("report.addViewCount", num);
+	public void addViewCount(ReportDto dto) {
+		session.update("report.addViewCount", dto);
 		
 	}
 
@@ -72,4 +72,11 @@ public class ReportDaoImpl implements ReportDao{
 		int count = session.selectOne("report.getCountTotal");
 		return count;
 	}
+
+	@Override
+	public void updateData(ReportDto dto) {
+		session.update("report.update", dto);
+		
+	}
+
 }

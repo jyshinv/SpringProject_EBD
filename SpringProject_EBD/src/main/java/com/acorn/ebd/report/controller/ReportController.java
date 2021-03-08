@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,20 @@ public class ReportController {
 	@Autowired
 	private BookSearchService bservice;
 	
-	@RequestMapping("public_report/ajax_comment_list")
+	@RequestMapping(value = "/my_report/private/update", method = RequestMethod.POST)
+	public String update(ReportDto dto, HttpServletRequest request) {
+		service.updateData(dto, request);
+		return "my_report/private/update";
+	}
+	
+	@RequestMapping("/my_report/private/updateform")
+	public ModelAndView updateform(ReportDto dto, ModelAndView mView, HttpSession session) {
+		service.getDetail(dto, mView, session);
+		mView.setViewName("my_report/private/updateform");
+		return mView;
+	}
+	
+	@RequestMapping("/public_report/ajax_comment_list")
 	public ModelAndView ajaxCommentList(HttpServletRequest request, ModelAndView mView) {
 		service.moreCommentList(request);
 		mView.setViewName("public_report/ajax_comment_list");
@@ -104,16 +118,16 @@ public class ReportController {
   	
   	//마이 독후감 글 하나 정보 요청 처리
   	@RequestMapping("/my_report/private/detail")
-  	public ModelAndView detail(@RequestParam int num, ModelAndView mView) {
-  		service.getDetail(num, mView);
+  	public ModelAndView detail(ReportDto dto, ModelAndView mView, HttpSession session) {
+  		service.getDetail(dto, mView, session);
   		mView.setViewName("my_report/private/detail");
   		return mView;
   	}
   	
   	//공개 독후감 글 하나 정보 요청 처리
   	@RequestMapping("/public_report/detail")
-  	public ModelAndView detail_pub(@RequestParam int num, ModelAndView mView) {
-  		service.getDetail(num, mView);
+  	public ModelAndView detail_pub(ReportDto dto, ModelAndView mView, HttpSession session) {
+  		service.getDetail(dto, mView, session);
   		mView.setViewName("public_report/detail");
   		return mView;
   	}

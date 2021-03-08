@@ -63,7 +63,7 @@
 			result1)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}		
 	</select>
-	<select id="getData" parameterType="int" resultType="reportDto">
+	<select id="getData" parameterType="reportDto" resultType="reportDto">
 		SELECT * 
 		FROM
 			(SELECT num, writer, booktitle, title, author, genre, stars, publicck, imgpath, link, content, viewcnt, regdate,
@@ -73,7 +73,7 @@
 			ORDER BY num DESC)
 		WHERE num=#{num}
 	</select>
-	<update id="addViewCount" parameterType="int">
+	<update id="addViewCount" parameterType="reportDto">
 		UPDATE ebd_report
 		SET viewcnt=viewcnt+1
 		WHERE num=#{num}
@@ -86,5 +86,17 @@
 		UPDATE ebd_report
 		SET publicck=#{publicck}
 		WHERE num=#{num}
+	</update>
+	<update id="update" parameterType="reportDto">
+		UPDATE ebd_report
+	      <choose>
+	         <when test="imgpath != null">
+	            SET title=#{title }, imgpath=#{imgpath }, content=#{content }
+	         </when>
+	         <otherwise>
+	            SET title=#{title }, content=#{content }
+	         </otherwise>
+	      </choose>
+	     WHERE num=#{num}
 	</update>
 </mapper>

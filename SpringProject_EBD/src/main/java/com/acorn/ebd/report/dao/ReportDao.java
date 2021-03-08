@@ -12,10 +12,10 @@ public interface ReportDao {
 	public List<ReportDto> getList(ReportDto dto);
 	
 	//독후감 하나의 정보 얻어오기
-	public ReportDto getData(int num);
+	public ReportDto getData(ReportDto dto);
 	
 	//독후감 조회수 올리기
-	public void addViewCount(int num);
+	public void addViewCount(ReportDto dto);
 	
 	//독후감 삭제하기
 	public void delete(int num);	
@@ -31,4 +31,9 @@ public interface ReportDao {
 	
 	//독후감 검색 키워드 갯수 얻어오기 (비공개 독후감)
 	public int getCountTotal();
+	
+	//독후감을 수정하는 메소드
+	public void updateData(ReportDto dto);
+	
+	
 }

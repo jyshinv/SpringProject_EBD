@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -135,10 +136,10 @@ public class ReportServiceImpl implements ReportService{
 	}
 
 	@Override
-	public void getDetail(int num, ModelAndView mView) {
-		ReportDto dto=dao.getData(num);
-		mView.addObject("dto", dto);
-		dao.addViewCount(num);
+	public void getDetail(ReportDto dto, ModelAndView mView, HttpSession session) {
+		ReportDto dto1=dao.getData(dto);
+		mView.addObject("dto", dto1);
+		dao.addViewCount(dto);
 		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
 		final int PAGE_ROW_COUNT=5;
 
@@ -152,7 +153,7 @@ public class ReportServiceImpl implements ReportService{
 
 		//전체 row 의 갯수를 읽어온다.
 		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
-		int totalRow=cmtdao.getCount(num);
+		int totalRow=cmtdao.getCount(dto.getNum());
 		//전체 페이지의 갯수 구하기
 		int totalPageCount=
 				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
@@ -162,13 +163,18 @@ public class ReportServiceImpl implements ReportService{
 		commentDto.setStartRowNum(startRowNum);
 		commentDto.setEndRowNum(endRowNum);
 		//ref_group 번호도 담는다.
-		commentDto.setRef_group(num);
+		commentDto.setRef_group(dto.getNum());
 
+		
 		//DB 에서 댓글 목록을 얻어온다.
 		List<ReportCmtDto> commentList=cmtdao.getList(commentDto);
+		
+		String filename=dto1.getImgpath().substring(21);
+		
 		//ModelAndView 객체에 댓글 목록도 담아준다.
 				mView.addObject("commentList", commentList);
-				mView.addObject("totalPageCount", totalPageCount);		
+				mView.addObject("totalPageCount", totalPageCount);	
+				mView.addObject("filename",filename);
 		
 	}
 
@@ -338,8 +344,10 @@ public class ReportServiceImpl implements ReportService{
 		//파라미터로 전달된 pageNum 과 ref_group 번호를 읽어온다. 
 		int pageNum=Integer.parseInt(request.getParameter("pageNum"));
 		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
-
-		ReportDto dto=dao.getData(ref_group);
+		
+		ReportDto dto2=new ReportDto();
+		dto2.setNum(ref_group);
+		ReportDto dto=dao.getData(dto2);
 		request.setAttribute("dto", dto);
 
 		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
@@ -369,6 +377,56 @@ public class ReportServiceImpl implements ReportService{
 		//request 에 담아준다.
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("totalPageCount", totalPageCount);		
+		
+	}
+
+	@Override
+	public void updateData(ReportDto dto, HttpServletRequest request) {
+		//이미지가 비어있다면 MultipartFile image는 비어있는 상태이다.
+		//따라서 이미지 수정은 하지 않은 상태이므로 title과 content만 update한다. 
+		if(dto.getImgpath().isEmpty()) {
+		     dto.setImgpath(null);//수정을 하지 않으므로 imagePath를 비워준다. 
+		     dao.updateData(dto);
+		}else {//이미지가 비어있지 않으면 이미지 수정을 한 상태이므로, 기존 파일 파일시스템에서 삭제해주고 title, content, 이미지 모두 update한다. 
+		 
+		 // imgPath 는 /upload/~~ 로 저장되어있으므로 앞에 /upload/를 잘라준다. 
+		 String filename=dto.getImgpath().substring(8);
+		 System.out.println(filename);
+		 //기존의 파일은 파일시스템에서 삭제해준다.
+		 String path=request.getServletContext().getRealPath("/upload")+File.separator+filename;
+		 System.out.println("path="+path);
+		 new File(path).delete();
+		 
+		 
+		 //업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값 얻어오기 
+		 MultipartFile myFile=dto.getImage();
+		 //원본 파일명
+		 String orgFileName=myFile.getOriginalFilename();
+		 // webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)
+		 String realPath=request.getServletContext().getRealPath("/upload");
+		 System.out.println(realPath);
+		 //저장할 파일의 상세 경로
+		 String filePath=realPath+File.separator;
+		 //디렉토리를 만들 파일 객체 생성
+		 File upload=new File(filePath);
+		 if(!upload.exists()) {//만일 디렉토리가 존재하지 않으면 
+		upload.mkdir(); //만들어 준다.
+		 }
+		 //저장할 파일 명을 구성한다.(원본파일명에 타임밀리를 찍어서 더해줌으로써 겹치는 파일명이 없도록 한다.)
+		 String saveFileName=
+		       System.currentTimeMillis()+orgFileName;
+		 try {
+		    //upload 폴더에 파일을 저장한다.
+		    myFile.transferTo(new File(filePath+saveFileName));
+		    System.out.println(filePath+saveFileName);
+		 }catch(Exception e) {
+		    e.printStackTrace();
+		 }
+		 
+		 //dto 에 업로드된 파일의 정보를 담는다.
+		 dto.setImgpath("/upload/"+saveFileName);
+		 dao.updateData(dto);
+      }
 		
 	}
 

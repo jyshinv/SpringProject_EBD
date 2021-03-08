@@ -1,6 +1,7 @@
 package com.acorn.ebd.report.service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,7 +19,7 @@ public interface ReportService {
 	public void getList(ModelAndView mView, HttpServletRequest request);
 	
 	//독후감 하나의 정보를 불러오는 메소드
-	public void getDetail(int num, ModelAndView mView);
+	public void getDetail(ReportDto dto, ModelAndView mView, HttpSession session);
 	
 	//독후감을 삭제하는 메소드
 	public void deleteContent(int num);
@@ -40,4 +41,7 @@ public interface ReportService {
 	
 	//댓글을 추가 응답하는 메소드
 	public void moreCommentList(HttpServletRequest request);
+	
+	//마이리포트 수정하는 메소드
+	public void updateData(ReportDto dto, HttpServletRequest request);
 }
