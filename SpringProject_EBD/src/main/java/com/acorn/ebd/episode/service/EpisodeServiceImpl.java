@@ -95,7 +95,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		//인코딩된 키워드를 미리 만들어 둔다. 
 		String encodedK=URLEncoder.encode(keyword);
 
-		//startRowNum 과 endRowNum  을 GalleryDto 객체에 담고
+		//startRowNum 과 endRowNum  을 Episode 객체에 담고
 		EpisodeDto dto=new EpisodeDto();
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
@@ -121,7 +121,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 
 		//전체 row 의 갯수
-		int totalRow=dao.getCount();
+		int totalRow=dao.getCount(dto);
 		//전체 페이지의 갯수 구하기
 		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
 		//끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
@@ -149,11 +149,10 @@ public class EpisodeServiceImpl implements EpisodeService {
 		mView.addObject("list", list);
 		mView.addObject("list2", list2);
 		mView.addObject("list3",list3);
-		mView.addObject("totalPageCount", totalPageCount);
+		mView.addObject("totalPageCount",totalPageCount);
 		mView.addObject("pageNum",pageNum);
 		mView.addObject("startPageNum",startPageNum);
 		mView.addObject("endPageNum",endPageNum);
-		mView.addObject("totalPageCount",totalPageCount);
 		mView.addObject("condition",condition);
 		mView.addObject("encodedK",encodedK);
 		mView.addObject("totalRow",totalRow);

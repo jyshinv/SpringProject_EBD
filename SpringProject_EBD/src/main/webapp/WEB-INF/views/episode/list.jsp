@@ -29,38 +29,6 @@
 		overflow: hidden;
 	}
 	
-	/* img  가  가운데 정렬 되도록 */
-	.back-drop{
-		/* 일단 숨겨 놓는다. */
-		display:none;
-	
-		/* 화면 전체를 투명도가 있는 회색으로 덮기 위한  css*/
-		position: fixed;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		background-color: #cecece;
-		padding-top: 300px;
-		z-index: 10000;
-		opacity: 0.5;
-		text-align: center;
-	}
-	
-	.back-drop img{
-		width: 100px;
-		/* rotateAnimation 이라는 키프레임을 2초 동한 일정한 비율로  무한 반복하기 */
-		animation: rotateAnimation 2s ease-out infinite;
-	}
-	/* 회전하는 rotateAnimation 이라는 이름의 키프레임 정의하기 */
-	@keyframes rotateAnimation{
-		0%{
-			transform: rotate(0deg);
-		}
-		100%{
-			transform: rotate(360deg);
-		}
-	}
 </style>
 </head>
 <body>

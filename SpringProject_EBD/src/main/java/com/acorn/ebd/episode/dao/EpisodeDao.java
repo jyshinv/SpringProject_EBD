@@ -11,7 +11,7 @@ import com.acorn.ebd.wording.dto.WordingDto;
 public interface EpisodeDao {
 	public void insert(EpisodeDto dto);
 	public List<EpisodeDto> getList(EpisodeDto dto);
-	public int getCount();
+	public int getCount(EpisodeDto dto);
 	//하트 테이블에 정보를 insert하는 메소드
 	public void insertHeart(EpisodeDto dto);
 	//하트 테이블에 정보를 delete하는 메소드

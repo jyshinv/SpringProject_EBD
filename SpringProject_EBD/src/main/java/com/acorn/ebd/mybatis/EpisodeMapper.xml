@@ -36,7 +36,7 @@
 	
 	
 	
-	<select id="getCount" resultType="int">
+	<select id="getCount" parameterType="episodeDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM),0)
 		FROM ebd_episode
 		<choose>

@@ -28,8 +28,8 @@ public class EpisodeDaoImpl implements EpisodeDao {
 	}
 
 	@Override
-	public int getCount() {
-		return session.selectOne("episode.getCount");
+	public int getCount(EpisodeDto dto) {
+		return session.selectOne("episode.getCount",dto);
 	}
 	
 	@Override
