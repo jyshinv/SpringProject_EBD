@@ -26,4 +26,6 @@ public interface EpisodeDao {
 	public List<Integer> getHeartCnt(EpisodeDto dto);
 	//에피소드 디테일에서 하트개수 정보를 불러오는 메소드
 	public int getHeartCntDetail(int num);
+	//에피소드 수정 요청
+	public void updateData(EpisodeDto dto);
 }

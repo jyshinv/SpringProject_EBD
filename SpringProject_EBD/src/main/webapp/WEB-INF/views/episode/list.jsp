@@ -70,7 +70,7 @@
 									<p class="heart-cnt${tmp.num }">(${HeartCntList[i]})</p>						
 								</c:forEach>
 							</p>
-						</c:if>
+						</c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
 					</div>
 				</div>
 			</div>

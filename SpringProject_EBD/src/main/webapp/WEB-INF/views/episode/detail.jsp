@@ -27,7 +27,10 @@
 					</c:choose>
 				</p>
 				<p class="heart-cnt">(${heartcnt })</p>
+				<a href="private/updateform.do?num=${dataDto.num }">수정</a>
+				<a href="private/delete.do?num=${dataDto.num }" > | 삭제</a>
 			</c:if>
+			<p class="card-text">${dataDto.content }</p>
 			<p class="card-text">${dataDto.title }</p>
 			<p class="card-text">by <strong>${dataDto.writer }</strong></p>
 			<p><small>${dataDto.regdate }</small></p>

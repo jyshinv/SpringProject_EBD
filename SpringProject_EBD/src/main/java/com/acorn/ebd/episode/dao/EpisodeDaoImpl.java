@@ -77,4 +77,9 @@ public class EpisodeDaoImpl implements EpisodeDao {
 
 	}
 
+	@Override
+	public void updateData(EpisodeDto dto) {
+		session.update("episode.updateData",dto);
+	}
+
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -73,6 +74,21 @@ public class EpisodeController {
     	service.getData(dto, mView, session);
     	mView.setViewName("episode/detail");
     	return mView;
+    }
+    
+    //에피소드 디테일에서 수정폼 요청 처리
+    @RequestMapping("/episode/private/updateform.do")
+    public ModelAndView updateform(EpisodeDto dto, ModelAndView mView, HttpSession session) {
+    	service.getData(dto, mView, session);
+    	mView.setViewName("episode/private/updateform");
+    	return mView;
+    }
+    
+    //에피소드 수정 폼에서 수정 클릭시 수정 요청 처리
+    @RequestMapping(value="/episode/private/update.do", method=RequestMethod.POST)
+    public String update(EpisodeDto dto, HttpServletRequest request) {
+    	service.updateData(dto, request);
+    	return "episode/private/update";
     }
 	
 

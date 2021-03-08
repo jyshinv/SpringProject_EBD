@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.ebd.episode.dto.EpisodeDto;
@@ -21,5 +22,7 @@ public interface EpisodeService {
 	public int removeHeart(int target_num, HttpSession session);
 	//에피소드 detail을 불러오는 메소드(하트정보 포함)
 	public void getData(EpisodeDto dto, ModelAndView mView, HttpSession session);
+	//에피소드 내용 수정 요청처리 
+	public void updateData(EpisodeDto dto, HttpServletRequest request);
 	
 }

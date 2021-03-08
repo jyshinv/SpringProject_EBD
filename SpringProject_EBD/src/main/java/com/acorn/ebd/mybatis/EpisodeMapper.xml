@@ -60,7 +60,7 @@
 	<select id="getData" parameterType="episodeDto" resultType="episodeDto">
 		SELECT * 
 		FROM
-			(SELECT num, writer, title, imgPath, regdate,
+			(SELECT num, writer, title, imgPath, regdate, content,
 				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
 				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
 			FROM ebd_episode
@@ -159,5 +159,18 @@
       			GROUP BY target_num) r1, ebd_episode e
 		WHERE r1.target_num(+) = e.num and e.num=#{num}
 	</select>
+	
+	<update id="updateData" parameterType="episodeDto">
+		UPDATE ebd_episode
+		<choose>
+			<when test="imgPath != null">
+				SET title=#{title }, imgPath=#{imgPath }, content=#{content }
+			</when>
+			<otherwise>
+				SET title=#{title }, content=#{content }
+			</otherwise>
+		</choose>
+		WHERE num=#{num}
+	</update>
 	
 </mapper>
