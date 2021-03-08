@@ -56,22 +56,35 @@
 		</choose> 
 	</select>
 	
+	<!-- 에피소드 디테일 중 글 정보 -->
+	<select id="getData" parameterType="episodeDto" resultType="episodeDto">
+		SELECT * 
+		FROM
+			(SELECT num, writer, title, imgPath, regdate,
+				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
+				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
+			FROM ebd_episode
+			ORDER BY num DESC)
+		WHERE num=#{num}
+	</select>
+	
+	<!-- 여기서 부터 하트와 관련된 쿼리문 -->
 	<!-- 하트를 클릭했을 때 로그인된 닉네임 정보와 하트를 클릭한 글의 num을 insert해준다. -->
 	<insert id="insertHeart" parameterType="episodeDto">
 		INSERT INTO ebd_episode_heart
 		(num, target_num, writer)
-		VALUES(ebd_wording_heart_seq.NEXTVAL, #{target_num}, #{nick})
+		VALUES(ebd_wording_heart_seq.NEXTVAL, #{num}, #{nick})
 	</insert>
 	
 	<!-- 하트를 해제 했을 때 로그인된 아이디정보와 하트를 클릭한 글의 num을 delete해준다. -->
 	<delete id="deleteHeart" parameterType="episodeDto">
 		DELETE FROM ebd_episode_heart
-		WHERE target_num=#{target_num} AND writer=#{nick}
+		WHERE target_num=#{num} AND writer=#{nick}
 	</delete>
 	
 	<!-- 로그인이 되어있다면 로그인된 닉네임의 하트 테이블 정보를 select해준다. -->
-	<select id="selectHeartInfo" parameterType="episodeDto" resultType="episodeDto">
-		SELECT *
+	<select id="selectHeartInfo" parameterType="episodeDto" resultType="int">
+		SELECT target_num
 		FROM
 			(SELECT r1.target_num, ROWNUM AS rnum
 			FROM
@@ -99,28 +112,10 @@
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
-	<!-- 에피소드 디테일 중 글 정보 -->
-	<select id="getData" parameterType="episodeDto" resultType="episodeDto">
-		SELECT * 
-		FROM
-			(SELECT num, writer, title, imgPath, regdate,
-				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
-				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
-			FROM ebd_episode
-			ORDER BY num DESC)
-		WHERE num=#{num}
-	</select>
-	
-	<!-- 에피소드 디테일 중 하트 정보 해당 nick이 해당num번 글에 하트를 클릭했으면 target_num이 리턴, 그렇지 않으면 null리턴  -->
-	<select id="getHeartInfoDetail" parameterType="episodeDto" resultType="episodeDto">
-		select target_num
-		from ebd_episode_heart
-		where target_num=#{num} and writer=#{nick} 			
-	</select>
 	
 	<!-- 에피소드 리스트에 하트 개수 테이블을 리턴해주는 쿼리문 -->
-	<select id="getHeartCnt" parameterType="episodeDto" resultType="episodeDto" >
-		SELECT *
+	<select id="getHeartCnt" parameterType="episodeDto" resultType="int" >
+		SELECT heartcnt
 		FROM
 			(SELECT r2.heartcnt, ROWNUM AS rnum
 			FROM
@@ -150,7 +145,14 @@
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
-	<select id="getHeartCntDatail" parameterType="episodeDto" resultType="int">
+	<!-- 에피소드 디테일 중 하트 정보 해당 nick이 해당num번 글에 하트를 클릭했으면 target_num이 리턴, 그렇지 않으면 null리턴  -->
+	<select id="getHeartInfoDetail" parameterType="episodeDto" resultType="String">
+		select target_num
+		from ebd_episode_heart
+		where target_num=#{num} and writer=#{nick} 			
+	</select>
+	
+	<select id="getHeartCntDatail" parameterType="int" resultType="int">
 		SELECT NVL(r1.heartcnt,0) heartcnt
 		FROM (SELECT target_num, count(*) heartcnt
       			FROM ebd_episode_heart

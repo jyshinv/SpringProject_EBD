@@ -60,14 +60,14 @@
 								<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
 								<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
 									<c:choose>
-										<c:when test="${list2[i].target_num eq 0 }">
+										<c:when test="${isHeartClickList[i] eq 0 }">
 											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>										
 										</c:when>
 										<c:otherwise>
 											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
 										</c:otherwise>
 									</c:choose>
-									<p class="heart-cnt${tmp.num }">(${list3[i].heartcnt})</p>						
+									<p class="heart-cnt${tmp.num }">(${HeartCntList[i]})</p>						
 								</c:forEach>
 							</p>
 						</c:if>

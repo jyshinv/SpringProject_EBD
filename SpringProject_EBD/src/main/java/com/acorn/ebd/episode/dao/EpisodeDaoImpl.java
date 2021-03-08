@@ -44,8 +44,8 @@ public class EpisodeDaoImpl implements EpisodeDao {
 	}
 	
 	@Override
-	public List<EpisodeDto> getHeartInfo(EpisodeDto dto) {
-		List<EpisodeDto> list=session.selectList("episode.selectHeartInfo",dto);
+	public List<Integer> getHeartInfo(EpisodeDto dto) {
+		List<Integer> list=session.selectList("episode.selectHeartInfo",dto);
 		return list;
 	}
 
@@ -57,7 +57,7 @@ public class EpisodeDaoImpl implements EpisodeDao {
 	@Override
 	public boolean getHeartInfoDetail(EpisodeDto dto) {
 		//해당 닉네임이 해당 글에 좋아요를 누르지 않으면 null, 눌렀으면 target_num 이 리턴된다. 
-		EpisodeDto isClicked=session.selectOne("episode.getHeartInfoDetail",dto);
+		String isClicked=session.selectOne("episode.getHeartInfoDetail",dto);
 		if(isClicked==null) {
 			return false; //해당 글에 하트를 안누름
 		}else {
@@ -67,13 +67,13 @@ public class EpisodeDaoImpl implements EpisodeDao {
 	}
 
 	@Override
-	public List<EpisodeDto> getHeartCnt(EpisodeDto dto) {
+	public List<Integer> getHeartCnt(EpisodeDto dto) {
 		return session.selectList("episode.getHeartCnt",dto);
 	}
 
 	@Override
-	public int getHeartCntDetail(EpisodeDto dto) {
-		return session.selectOne("episode.getHeartCntDatail",dto);
+	public int getHeartCntDetail(int num) {
+		return session.selectOne("episode.getHeartCntDatail",num);
 
 	}
 

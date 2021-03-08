@@ -132,14 +132,14 @@ public class EpisodeServiceImpl implements EpisodeService {
 		//로그인된 아이디의 nick 정보 불러오기
 		String nick=(String)request.getSession().getAttribute("nick");
 		dto.setNick(nick);
-		List<EpisodeDto> list2=null;
-		List<EpisodeDto> list3=null;
+		List<Integer> isHeartClickList=null;
+		List<Integer> HeartCntList=null;
 		//하트 정보(로그인 중일때만)
-		//nick이 null인채로 wordingdao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
+		//nick이 null인채로 episodedao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
 		if(nick != null) {
-			list2=dao.getHeartInfo(dto);			
+			isHeartClickList=dao.getHeartInfo(dto);			
 			//총 하트 개수 정보를 리턴해주는 메소드(로그인 중일때만)
-			list3=dao.getHeartCnt(dto);
+			HeartCntList=dao.getHeartCnt(dto);
 		}
 		
 		
@@ -147,8 +147,8 @@ public class EpisodeServiceImpl implements EpisodeService {
 		
 		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
 		mView.addObject("list", list);
-		mView.addObject("list2", list2);
-		mView.addObject("list3",list3);
+		mView.addObject("isHeartClickList", isHeartClickList);
+		mView.addObject("HeartCntList",HeartCntList);
 		mView.addObject("totalPageCount",totalPageCount);
 		mView.addObject("pageNum",pageNum);
 		mView.addObject("startPageNum",startPageNum);
@@ -166,12 +166,11 @@ public class EpisodeServiceImpl implements EpisodeService {
 		String nick=(String)session.getAttribute("nick");
 		EpisodeDto dto=new EpisodeDto();
 		dto.setNick(nick);
-		dto.setTarget_num(target_num);
+		dto.setNum(target_num);
 		dao.insertHeart(dto);
-		dto.setNum(target_num);//클릭한 글 번호가 글 번호 자체이다.
 		
 		//하트 개수 정보를 저장할 변수 heartcnt
-		int heartcnt=dao.getHeartCntDetail(dto);
+		int heartcnt=dao.getHeartCntDetail(target_num);
 		return heartcnt;
 	}
 
@@ -181,12 +180,11 @@ public class EpisodeServiceImpl implements EpisodeService {
 		String nick=(String)session.getAttribute("nick");
 		EpisodeDto dto=new EpisodeDto();
 		dto.setNick(nick);
-		dto.setTarget_num(target_num);
+		dto.setNum(target_num);
 		dao.deleteHeart(dto);
-		dto.setNum(target_num);//클릭한 글 번호가 글 번호 자체이다. 
 		
 		//하트 개수 정보를 저장할 변수 heartcnt
-		int heartcnt=dao.getHeartCntDetail(dto);
+		int heartcnt=dao.getHeartCntDetail(target_num);
 		
 		return heartcnt;
 		
@@ -208,7 +206,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		}
 		
 		//하트 개수 정보를 저장할 변수 heartcnt
-		int heartcnt=dao.getHeartCntDetail(dto);
+		int heartcnt=dao.getHeartCntDetail(dto.getNum());
 		
 		//글정보
 		mView.addObject("dataDto",dataDto);
