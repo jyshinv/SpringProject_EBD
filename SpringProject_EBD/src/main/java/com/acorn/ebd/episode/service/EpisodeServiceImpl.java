@@ -258,6 +258,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		//파일정보
 		mView.addObject("filename",filename);
 		
+		
 	}
 	
 	public void updateData(EpisodeDto dto, HttpServletRequest request) {
@@ -408,6 +409,11 @@ public class EpisodeServiceImpl implements EpisodeService {
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("totalPageCount", totalPageCount);			
 		
+	}
+
+	@Override
+	public void deleteDetail(int num) {
+		dao.deleteDetail(num);
 	}
 	
 }

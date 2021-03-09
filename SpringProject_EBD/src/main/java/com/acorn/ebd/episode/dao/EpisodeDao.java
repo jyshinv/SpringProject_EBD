@@ -28,4 +28,6 @@ public interface EpisodeDao {
 	public int getHeartCntDetail(int num);
 	//에피소드 수정 요청
 	public void updateData(EpisodeDto dto);
+	//에피소드 글 삭제 요청처리
+	public void deleteDetail(int num);
 }

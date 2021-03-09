@@ -82,4 +82,10 @@ public class EpisodeDaoImpl implements EpisodeDao {
 		session.update("episode.updateData",dto);
 	}
 
+	@Override
+	public void deleteDetail(int num) {
+		session.delete("episode.deleteDetail",num);
+		
+	}
+
 }

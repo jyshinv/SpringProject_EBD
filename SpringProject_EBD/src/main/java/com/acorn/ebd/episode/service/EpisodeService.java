@@ -33,5 +33,7 @@ public interface EpisodeService {
 	public void updateComment(EpisodeCmtDto dto);
 	//새로운 댓글 List를 불러오는 메소드 
 	public void moreCommentList(HttpServletRequest request);
+	//에피소드 내용 삭제 요청처리
+	public void deleteDetail(int num);
 	
 }

@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<script>
+	alert("삭제 완료");
+	//episode의 list로 이동
+	location.href="${pageContext.request.contextPath }/episode/list.do";
+</script>
 </body>
 </html>

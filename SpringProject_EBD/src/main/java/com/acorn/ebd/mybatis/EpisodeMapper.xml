@@ -166,4 +166,9 @@
 		WHERE num=#{num}
 	</update>
 	
+	<delete id="deleteDetail" parameterType="int">
+		DELETE FROM ebd_episode
+		WHERE num=#{num}
+	</delete>
+	
 </mapper>

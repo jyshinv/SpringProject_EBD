@@ -99,7 +99,6 @@
 		<div class="card-body">
 			<!-- 로그인을 해야지만 하트를 누를 수 있다. -->
 			<c:if test="${not empty nick }">
-				<p>
 					<c:choose>
 						<c:when test="${isheartclick eq true }">
 							<a data-num="${dataDto.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
@@ -108,8 +107,7 @@
 							<a data-num="${dataDto.num }" href="javascript:" class="heart-link" href="list.do">하트</a>
 						</c:otherwise>
 					</c:choose>
-				</p>
-				<p class="heart-cnt">(${heartcnt })</p>
+				<span class="heart-cnt">(${heartcnt })</span>
 				<a href="private/updateform.do?num=${dataDto.num }">수정</a>
 				<a href="private/delete.do?num=${dataDto.num }" > | 삭제</a>
 			</c:if>

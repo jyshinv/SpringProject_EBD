@@ -89,6 +89,7 @@ public class EpisodeController {
     @RequestMapping(value="/episode/private/update.do", method=RequestMethod.POST)
     public String update(EpisodeDto dto, HttpServletRequest request) {
     	service.updateData(dto, request);
+    	request.setAttribute("num", dto.getNum());
     	return "episode/private/update";
     }
     
@@ -146,6 +147,13 @@ public class EpisodeController {
   		service.moreCommentList(request);
   		mView.setViewName("episode/ajax_comment_list");
   		return mView;
+  	}
+  	
+  	//episode 글 삭제 요청처리 
+  	@RequestMapping("/episode/private/delete.do")
+  	public String delete(int num, HttpServletRequest request) {
+  		service.deleteDetail(num);
+  		return "episode/private/delete";
   	}
 	
 
