@@ -11,7 +11,6 @@ public class WordingDto {
 	private int startRowNum;
 	private int endRowNum;
 	private String profile; //프로필 이미지 경로(users테이블의 profile)
-	private int target_num;//하트를 단 글의 번호를 의미!!(heart테이블의 target_num)
 	private String nick;//닉네임(heart테이블의 nick)
 	
 	public WordingDto() {
@@ -19,7 +18,7 @@ public class WordingDto {
 	}
 
 	public WordingDto(int num, String writer, String title, String author, String content, int viewcnt, String regdate,
-			String profile, int startRowNum, int endRowNum, int target_num, String nick) {
+			String profile, int startRowNum, int endRowNum, String nick) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -31,7 +30,6 @@ public class WordingDto {
 		this.profile = profile;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
-		this.target_num = target_num;
 		this.nick = nick;
 	}
 
@@ -113,14 +111,6 @@ public class WordingDto {
 
 	public void setEndRowNum(int endRowNum) {
 		this.endRowNum = endRowNum;
-	}
-
-	public int getTarget_num() {
-		return target_num;
-	}
-
-	public void setTarget_num(int target_num) {
-		this.target_num = target_num;
 	}
 
 	public String getNick() {

@@ -142,43 +142,57 @@ public class WordingServiceImpl implements WordingService {
 		//로그인된 아이디의 nick 정보 불러오기
 		String nick=(String)request.getSession().getAttribute("nick");
 		dto.setNick(nick);
-		List<WordingDto> list2=null;
+		List<Integer> heartInfoList=null;
+		List<Integer> heartCntList=null;
 		//하트 정보(로그인 중일때만)
 		//nick이 null인채로 wordingdao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
 		if(nick != null) {
-			list2=wordingdao.getHeartInfo(dto);			
+			heartInfoList=wordingdao.getHeartInfo(dto);	
 		}
+		//총 하트 개수 정보를 리턴해주는 메소드(로그인 중일때만)
+		heartCntList=wordingdao.getHeartCnt(dto);
 		
 		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
 		mView.addObject("list", list);//글 목록
-		mView.addObject("list2",list2);//로그인된 아이디의 하트 테이블 정보 
+		mView.addObject("heartInfoList",heartInfoList);//로그인된 아이디의 하트 테이블 정보 
 		mView.addObject("totalPageCount", totalPageCount);
 		mView.addObject("condition",condition);
 		mView.addObject("keyword",keyword);
 		mView.addObject("totalRow",totalRow);
 		//pageNum 도 추가로 담아주기
 		mView.addObject("pageNum", pageNum);
+		mView.addObject("heartCntList",heartCntList);
 		
 	}
 	
 	//하트를 눌렀을 때 하트테이블에 저장해주는 메소드
 	@Override
-	public void saveHeart(int target_num, HttpSession session) {
+	public int saveHeart(int target_num, HttpSession session) {
 		String nick=(String)session.getAttribute("nick");
 		WordingDto dto=new WordingDto();
 		dto.setNick(nick);
-		dto.setTarget_num(target_num);
+		dto.setNum(target_num);
 		wordingdao.insertHeart(dto);
+		
+		//하트 개수 정보를 저장할 변수 heartcnt
+		int heartcnt=wordingdao.getHeartCntDetail(target_num);
+		
+		return heartcnt;
 	}
 
 	//하트 해제 시 하트테이블에서 삭제해주는 메소드
 	@Override
-	public void removeHeart(int target_num, HttpSession session) {
+	public int removeHeart(int target_num, HttpSession session) {
 		String nick=(String)session.getAttribute("nick");
 		WordingDto dto=new WordingDto();
 		dto.setNick(nick);
-		dto.setTarget_num(target_num);
+		dto.setNum(target_num);
 		wordingdao.deleteHeart(dto);
+		
+		//하트 개수 정보를 저장할 변수 heartcnt
+		int heartcnt=wordingdao.getHeartCntDetail(target_num);
+		
+		return heartcnt;
 		
 	}
 

@@ -7,12 +7,16 @@
 	<c:forEach var="tmp" items="${list }">
 		<c:if test="${not empty id }">
 			<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-				<c:if test="${list2[i].num eq list2[i].target_num }">
-					<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
-				</c:if>
-				<c:if test="${list2[i].num ne list2[i].target_num }">
+				<!-- heartInfoList가 0이면 하트를 누르지 않은 것이다.  -->
+				<c:choose>
+					<c:when test="${heartInfoList[i] eq 0 }">
 						<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>										
-				</c:if>					
+					</c:when>
+					<c:otherwise>
+						<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
+					</c:otherwise>
+				</c:choose>
+				<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>					
 			</c:forEach>
 			<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
 			<c:if test="${tmp.writer eq sessionScope.nick }">

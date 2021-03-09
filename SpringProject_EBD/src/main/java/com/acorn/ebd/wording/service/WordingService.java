@@ -17,9 +17,9 @@ public interface WordingService {
 	//글 목록과 로그인된 아이디의 하트 클릭 정보(하트테이블)을 얻어오고 페이징 처리에 필요한 값을을 ModelAndView 객체에 담아주는 메소드
 	public void getList(ModelAndView mView, HttpServletRequest request);
 	//하트를 눌렀을 때 하트테이블에 저장해주는 메소드
-	public void saveHeart(int target_num, HttpSession session);
+	public int saveHeart(int target_num, HttpSession session);
 	//하트 해제 시 하트테이블에서 삭제해주는 메소드
-	public void removeHeart(int target_num, HttpSession session);
+	public int removeHeart(int target_num, HttpSession session);
 	//글의 수정폼을 위한 detail을 얻어오는 메소드
 	public void getDetail(int num, ModelAndView mView);
 	//글 수정을 위한 메소드

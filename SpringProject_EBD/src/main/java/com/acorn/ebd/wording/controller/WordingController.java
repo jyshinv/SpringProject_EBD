@@ -101,17 +101,23 @@ public class WordingController {
     //하트 클릭 요청처리
     @RequestMapping("/wording/saveheart.do")
     @ResponseBody
-    public void insertheart(@RequestParam String target_num, HttpSession session){
+    public Map<String, Object> insertheart(@RequestParam String target_num, HttpSession session){
     	int new_target_num = Integer.parseInt(target_num);
-    	service.saveHeart(new_target_num, session);
+    	int heartCnt=service.saveHeart(new_target_num, session);
+    	Map<String, Object> map=new HashMap<String, Object>();
+    	map.put("heartCnt",heartCnt);
+    	return map;
     }
     
     //하트눌림 클릭 요청처리(하트 해제)
     @RequestMapping("/wording/removeheart.do")
     @ResponseBody
-    public void deleteheart(@RequestParam String target_num, HttpSession session) {
+    public Map<String, Object> deleteheart(@RequestParam String target_num, HttpSession session) {
     	int new_target_num = Integer.parseInt(target_num);
-    	service.removeHeart(new_target_num, session);
+    	int heartCnt=service.removeHeart(new_target_num, session);
+    	Map<String, Object> map=new HashMap<String, Object>();
+    	map.put("heartCnt",heartCnt);
+    	return map;
     }
     
     //수정 클릭 시 수정 폼 요청처리 

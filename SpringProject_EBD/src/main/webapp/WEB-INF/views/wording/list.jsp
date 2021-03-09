@@ -73,12 +73,16 @@
 		<c:forEach var="tmp" items="${list }">
 			<c:if test="${not empty id }">
 				<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-					<c:if test="${list2[i].num eq list2[i].target_num }">
-						<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
-					</c:if>
-					<c:if test="${list2[i].num ne list2[i].target_num }">
+					<!-- heartInfoList가 0이면 하트를 누르지 않은 것이다.  -->
+					<c:choose>
+						<c:when test="${heartInfoList[i] eq 0 }">
 							<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>										
-					</c:if>					
+						</c:when>
+						<c:otherwise>
+							<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
+						</c:otherwise>
+					</c:choose>
+					<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>					
 				</c:forEach>
 				<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
 				<c:if test="${tmp.writer eq sessionScope.nick }">
@@ -152,7 +156,7 @@
 	$(document).on("click",".heart-link",function(){
 		//글 번호를 불러온다.
 		var target_num=$(this).attr("data-num");
-
+	
 		if($(this).text()=="하트"){ //하트일때 클릭하면
 			console.log("if문 들어왔다!"+target_num);
 			//insert 요청을 한다.(컨트롤러에서 responsebody사용)
@@ -161,6 +165,7 @@
 				method:"GET",
 				data: "target_num="+target_num,
 				success:function(data){ //나중에 구현 : 하트 수를 반환
+					$(".heart-cnt"+target_num).text("("+data.heartCnt+")");
 				}
 			});
 			$(this).text("하트눌림~"); //하트 눌림으로 바뀐다.
@@ -174,12 +179,28 @@
 				method:"GET",
 				data: "target_num="+target_num,
 				success:function(data){
+					$(".heart-cnt"+target_num).text("("+data.heartCnt+")");
 				} 				
 			});
 			
 			$(this).text("하트");//하트로 바뀐다. 
 		}
 		
+	});
+	
+	//페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
+	//방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
+	$(window).bind("pageshow", function (event) {
+		//파이어폭스와 사파리에서는 persisted를 통해서 뒤로가기 감지가 가능하지만 익스와 크롬에서는 불가  ||뒤의 코드를 추가한다. 
+		if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
+			console.log('BFCahe로부터 복원됨');
+			$(".heart-link").css("pointer-events","none");
+			location.reload();//새로고침 
+			
+		}
+		else {
+			console.log('새로 열린 페이지');
+		}
 	});
 	
 </script>
