@@ -32,7 +32,13 @@
 	
 	<select id="getData" parameterType="int" resultType="marketDto">
 		SELECT *
-		FROM ebd_market
+		FROM
+			(SELECT num, writer, title, salesType, salesStatus,
+				imgpath, content, viewcnt, regdate,
+				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
+				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
+			FROM ebd_market 
+			ORDER BY num DESC)
 		WHERE num=#{num}
 	</select>
 	

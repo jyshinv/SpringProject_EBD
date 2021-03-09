@@ -24,7 +24,6 @@ public class FileCmtDaoImpl implements FileCmtDao{
 	public void insert(FileCmtDto dto) {
 		session.insert("fileCmt.insert", dto);
 		
-		
 	}
 
 	@Override

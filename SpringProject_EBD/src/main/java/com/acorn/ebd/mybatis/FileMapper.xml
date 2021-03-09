@@ -63,11 +63,10 @@
 		WHERE num=#{num}
 	</delete>
 	
-	<!-- 일단 제목,내용만 수정 하게 하고
-			추후에 파일,이미지도 수정 가능하게 해보기 -->
 	<update id="update" parameterType="fileDto">
 		UPDATE ebd_file
-		SET title=#{title}, content=#{content}
+		SET title=#{title}, content=#{content}, imgpath=#{imgpath}, 
+			orgfname=#{orgfname}, savefname=#{savefname}, fileSize=#{fileSize}
 		WHERE num=#{num}  
 	</update>
 	

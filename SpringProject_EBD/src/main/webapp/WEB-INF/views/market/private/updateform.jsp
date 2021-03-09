@@ -18,10 +18,25 @@
 	 	<div class="form-group">
 	 		<label for="salesType">유형</label>
 	 		<select class="form-control" name="salesType" id="salesType">
-	 			<option>${dto.salesType }</option>
-				<option>도서 나눔</option>
-				<option>도서 교환</option>
-				<option>도서 판매</option>	 		
+	 		
+				<c:choose>
+					<c:when test="${dto.salesType  eq '도서 나눔' } ">
+						<option>${dto.salesType}</option>
+						<option>도서 교환</option>
+						<option>도서 판매</option>
+					</c:when>
+					<c:when test="${dto.salesType  eq '도서 교환' } ">
+						<option>${dto.salesType}</option>
+						<option>도서 나눔</option>
+						<option>도서 판매</option>
+					</c:when>
+					<c:otherwise>
+						<option>${dto.salesType}</option>
+						<option>도서 나눔</option>
+						<option>도서 교환</option>
+					</c:otherwise>
+				</c:choose>
+					 	
 	 		</select>
 	 	</div>
 	 	
@@ -29,9 +44,18 @@
 	 	<div class="form-group">
 	 		<label for="salesStatus">판매상태</label>
 	 		<select class="form-control" name="salesStatus" id="salesStatus">
-	 			<option>${dto.salesStatus }</option>
-				<option>판매 중</option>
-				<option>판매 완료</option>
+	 		
+	 			<c:choose>
+					<c:when test="${dto.salesStatus eq '판매 중' }">
+						<option>${dto.salesStatus}</option>
+						<option>판매 완료</option>
+					</c:when>
+					<c:otherwise>
+						<option>${dto.salesStatus}</option>
+						<option>판매 중</option>
+					</c:otherwise>
+				</c:choose>
+	 			
 	 		</select>
 	 	</div>
 	 	

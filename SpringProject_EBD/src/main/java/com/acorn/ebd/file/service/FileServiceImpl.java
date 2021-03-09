@@ -50,7 +50,6 @@ public class FileServiceImpl implements FileService{
 		//보여줄 페이지 데이터의 끝 ResultSet row 번호
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
 		
-		
 		//검색 키워드에 관련된 처리 
 		String keyword=request.getParameter("keyword"); //검색 키워드
 		String condition=request.getParameter("condition"); //검색 조건
@@ -117,6 +116,9 @@ public class FileServiceImpl implements FileService{
 		mview.addObject("dto",dto);
 		// 글 조회수를 증가 시킨다.
 		fdao.addViewCount(num);
+	
+		//수정폼에서 저장한 이미지의 오리지널 파일명을 불러오기 위해 문자열을 자른다.
+		String filename=dto.getImgpath().substring(21);
 		
 		/* 디테일 페이지의 댓글 페이징 처리 관련 비즈니스 로직 */
 		final int PAGE_ROW_COUNT=5;
@@ -124,7 +126,7 @@ public class FileServiceImpl implements FileService{
 		//보여줄 페이지의 번호
 		int pageNum=1;
 		 
-		//보여줄 페이지 데티어의 시작 ResultSet row번호
+		//보여줄 페이지 데이터의 시작 ResultSet row번호
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
 		//보여줄 페이지 데이터 끝 ResultSte row번호
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
@@ -149,6 +151,8 @@ public class FileServiceImpl implements FileService{
 		//ModelandView객체에 댓글 목록을 담아준다.
 		mview.addObject("cmtList", cmtList);
 		mview.addObject("totalPageCount", totalPageCount);
+		
+		mview.addObject("filename", filename); //이미지
 	}
 	
 	@Override
@@ -167,6 +171,7 @@ public class FileServiceImpl implements FileService{
 		
 		// webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)
 		String realPath=request.getServletContext().getRealPath("/upload");
+		System.out.println(realPath);
 		
 		//저장할 파일의 상세 경로
 		String filePath=realPath+File.separator;
@@ -227,11 +232,123 @@ public class FileServiceImpl implements FileService{
 	}
 	
 	@Override
-	public void updateFile(FileDto dto) {
-		fdao.update(dto);
+	public void updateFile(FileDto dto, HttpServletRequest request) {
 		
+		//이미지가 비어있다면 MultipartFile image는 비어있는 상태이다.
+		//따라서 이미지 수정은 하지 않은 상태이므로 title과 content만 update한다. 
+		  if(dto.getMyImg().isEmpty()) {
+		     //dto.setImgPath(null);//수정을 하지 않으므로 imagePath를 비워준다. 
+		     fdao.update(dto);
+		  }else {//이미지가 비어있지 않으면 이미지 수정을 한 상태이므로, 기존 파일 파일시스템에서 삭제해주고 title, content, 이미지 모두 update한다. 
+			  
+			 // imgPath 는 /upload/~~ 로 저장되어있으므로 앞에 /upload/를 잘라준다. 
+			 String filename=dto.getImgpath().substring(8);
+			 System.out.println(filename);
+			 
+			 //기존의 파일은 파일시스템에서 삭제해준다.
+			 String path=request.getServletContext().getRealPath("/upload")+File.separator+filename;
+			 System.out.println("path="+path);
+			         new File(path).delete();
+			  
+			 //업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값 얻어오기 
+			 MultipartFile myFile=dto.getMyImg();
+			 //원본 파일명
+			 String orgFileName=myFile.getOriginalFilename();
+			 // webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)
+			 String realPath=request.getServletContext().getRealPath("/upload");
+			 System.out.println(realPath);
+			 //저장할 파일의 상세 경로
+			 String filePath=realPath+File.separator;
+			 
+			 //디렉토리를 만들 파일 객체 생성
+			 File upload=new File(filePath);
+			 if(!upload.exists()) {//만일 디렉토리가 존재하지 않으면 
+				 upload.mkdir(); //만들어 준다.
+			 }
+			 
+			 //저장할 파일 명을 구성한다.(원본파일명에 타임밀리를 찍어서 더해줌으로써 겹치는 파일명이 없도록 한다.)
+			 String saveFileName=
+			       System.currentTimeMillis()+orgFileName;
+			 
+			 try {
+			    //upload 폴더에 파일을 저장한다.
+			    myFile.transferTo(new File(filePath+saveFileName));
+			    System.out.println(filePath+saveFileName);
+			 }catch(Exception e) {
+			    e.printStackTrace();
+			 }
+			 
+			//dto 에 업로드된 파일의 정보를 담는다.
+			dto.setImgpath("/upload/"+saveFileName);
+			 
+			//dao를 이용해서 DB 수정하기
+			fdao.update(dto);
+			
+		  }
+		  
+		  if(dto.getMyFile().isEmpty()) {
+		     //dto.setImgPath(null);//수정을 하지 않으므로 imagePath를 비워준다. 
+		     fdao.update(dto);
+		  }else {//파일이 비어있지 않으면 이미지 수정을 한 상태이므로, 기존 파일 파일시스템에서 삭제해주고 title, content, 이미지 모두 update한다. 
+			  
+			 // imgPath 는 /upload/~~ 로 저장되어있으므로 앞에 /upload/를 잘라준다. 
+			 //String filename2=dto.getImgpath().substring(8);
+			// System.out.println(filename2);
+			 
+			 String savefname2=dto.getSavefname();
+			 //기존의 파일은 파일시스템에서 삭제해준다.
+			 String path2=request.getServletContext().getRealPath("/upload")+File.separator+savefname2;
+			 System.out.println("path="+path2);
+			         new File(path2).delete();
+			  
+			 //업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값 얻어오기 
+			 MultipartFile myFile=dto.getMyFile();
+			 
+			 //원본 파일명
+			 String orgfname=myFile.getOriginalFilename();
+			 
+			//파일의 크기
+			long fileSize=myFile.getSize();
+				
+			 // webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)
+			 String realPath2=request.getServletContext().getRealPath("/upload");
+			 System.out.println(realPath2);
+			 
+			 //저장할 파일의 상세 경로
+			 String filePath2=realPath2+File.separator;
+			 
+			 //디렉토리를 만들 파일 객체 생성
+			 File upload=new File(filePath2);
+			 if(!upload.exists()) {//만일 디렉토리가 존재하지 않으면 
+				 upload.mkdir(); //만들어 준다.
+			 }
+			 
+			 //저장할 파일 명을 구성한다.(원본파일명에 타임밀리를 찍어서 더해줌으로써 겹치는 파일명이 없도록 한다.)
+			 String savefname=
+			       System.currentTimeMillis()+orgfname;
+			 
+			 try {
+			    //upload 폴더에 파일을 저장한다.
+			    myFile.transferTo(new File(filePath2+savefname));
+			    System.out.println(filePath2+savefname);
+			 }catch(Exception e) {
+			    e.printStackTrace();
+			 }
+			 
+			//dto 에 업로드된 파일의 정보를 담는다.
+			dto.setOrgfname(orgfname);
+			dto.setSavefname(savefname);
+			dto.setFileSize(fileSize);
+			
+			//dao를 이용해서 DB 수정하기
+			fdao.update(dto);
+			     
+		  }
 	}
 
+	/*
+	 * 	여기서부터는 댓글 관련 서비스
+	 */
 	@Override
 	public void saveCmt(HttpServletRequest request) {
 		//댓글 작성자(로그인된 아이디)
@@ -260,7 +377,7 @@ public class FileServiceImpl implements FileService{
 		dto.setRef_group(ref_group);
 		
 		if(cmt_group == null) {//원글의 댓글인 경우 
-			//댓글의 글번호와 comment_group 번호를 같게 한다.
+			//댓글의 글번호와 cmt_group 번호를 같게 한다.
 			dto.setCmt_group(seq2);
 		}else {//댓글의 댓글인 경우 
 			//폼 전송된 comment_group 번호를 숫자로 바꿔서 dto 에 넣어준다.
@@ -289,7 +406,7 @@ public class FileServiceImpl implements FileService{
 		// 댓글의 정보(닉네임)를 얻어와서 댓글의 작성자와 같은지 비교
 		// 작성자의 정보를 가져오고
 		String writer=cmtDao.getData(num).getWriter();
-		if(!writer.equals("nick")) {
+		if(!writer.equals(nick)) {
 			// 예외처리
 			throw new DBFailException("남의 댓글을 삭제 할 수 없습니다.");
 		}
@@ -297,7 +414,7 @@ public class FileServiceImpl implements FileService{
 				
 	}
 
-	@Override //댓글 추가 응답
+	@Override //댓글 추가 목록 응답
 	public void moreCmtList(HttpServletRequest request) {
 		
 		// 파라미터로 전달된 pageNum과 
@@ -338,9 +455,6 @@ public class FileServiceImpl implements FileService{
 		// request에 담아준다.
 		request.setAttribute("cmtList", cmtList);
 		request.setAttribute("totalPageCount", totalPageCount);
-		
-		
-		
 		
 	}
 	

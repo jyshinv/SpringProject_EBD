@@ -18,7 +18,7 @@ public interface FileService {
 	// 삭제
 	public void deleteFile(int num, HttpServletRequest request);
 	// 수정 
-	public void updateFile(FileDto dto);
+	public void updateFile(FileDto dto, HttpServletRequest request);
 	
 	//댓글
 	public void saveCmt(HttpServletRequest request);

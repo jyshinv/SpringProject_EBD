@@ -81,9 +81,9 @@ public class FileController {
 	}
 	
 	//파일 수정 요청 처리
-	@RequestMapping("/file/private/update")
-	public String update(@ModelAttribute("dto") FileDto dto) {
-		fileService.updateFile(dto);
+	@RequestMapping(value = "/file/private/update", method = RequestMethod.POST)
+	public String update(FileDto dto,HttpServletRequest request) {
+		fileService.updateFile(dto, request);
 		return "file/private/update";
 	}
 	
@@ -96,7 +96,7 @@ public class FileController {
 	}
 	
 	//새 댓글 저장 요청 처리
-	@RequestMapping(value = "file/private/cmt_insert", method = RequestMethod.POST)
+	@RequestMapping(value = "/file/private/cmt_insert.do", method = RequestMethod.POST)
 	public String cmtInsert(HttpServletRequest request, @RequestParam int ref_group) {
 		//새 댓글 저장
 		fileService.saveCmt(request);
@@ -106,8 +106,7 @@ public class FileController {
 	}
 	
 	//댓글 수정 ajax 요청에 대한 요청 처리 
-	@RequestMapping(value = "/file/private/cmt_update", 
-			method=RequestMethod.POST)
+	@RequestMapping(value = "/file/private/cmt_update.do", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> cmtUpdate(FileCmtDto dto){
 		//댓글을 수정 반영하고 
@@ -122,12 +121,22 @@ public class FileController {
 	}
 		
 	// 댓글 삭제 요청 처리
-	@RequestMapping("file/private/cmt_delete")
+	@RequestMapping("/file/private/cmt_delete.do")
 	public ModelAndView cmtDelete(HttpServletRequest request,
 			ModelAndView mview, @RequestParam int ref_group) {
 		
 		fileService.deleteCmt(request);
 		mview.setViewName("redirect:/file/detail.do?num="+ref_group);
+		return mview;
+	}
+	
+	// 추가 댓글 목록 (ajax)
+	@RequestMapping("/file/ajax_cmt_list")
+	public ModelAndView ajaxCmtList(HttpServletRequest request, 
+				ModelAndView mview) {
+		
+		fileService.moreCmtList(request);
+		mview.setViewName("file/ajax_cmt_list");
 		return mview;
 	}
 

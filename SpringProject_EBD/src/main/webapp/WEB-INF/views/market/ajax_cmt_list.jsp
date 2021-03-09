@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
- <c:forEach var="tmp" items="${cmtList }">
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<c:forEach var="tmp" items="${cmtList }">
 	<c:choose>
 		<c:when test="${tmp.deleted eq 'yes' }">
 			<li>삭제된 댓글 입니다.</li>
 		</c:when>
 		
 		<c:otherwise>						<!-- num과 cmt_group가 같지 않다면 -->
-			<li id="comment${tmp.num }" <c:if test="${tmp.num ne tmp.cmt_group }">style="padding-left:50px;"</c:if>>
+			<li id="cmt${tmp.num }" <c:if test="${tmp.num ne tmp.cmt_group }">style="padding-left:50px;"</c:if>>
 				<!-- num과 cmt_group가 같지 않다면 -->
 				<c:if test="${tmp.num ne tmp.cmt_group }"><svg class="reply-icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-return-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
  						<path fill-rule="evenodd" d="M10.146 5.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 9l-2.647-2.646a.5.5 0 0 1 0-.708z"/>
