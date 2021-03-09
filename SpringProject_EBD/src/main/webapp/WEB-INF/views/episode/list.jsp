@@ -29,6 +29,10 @@
 		overflow: hidden;
 	}
 	
+	.heart-link{
+		font-size : 2em;
+	}
+	
 </style>
 </head>
 <body>
@@ -61,10 +65,10 @@
 								<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
 									<c:choose>
 										<c:when test="${isHeartClickList[i] eq 0 }">
-											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>										
+											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>										
 										</c:when>
 										<c:otherwise>
-											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
+											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
 										</c:otherwise>
 									</c:choose>
 									<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>						
@@ -145,7 +149,7 @@
 		//글 번호를 불러온다.
 		var target_num=$(this).attr("data-num");
 	
-		if($(this).text()=="하트"){ //하트일때 클릭하면
+		if($(this).text()=="♡"){ //하트일때 클릭하면
 			console.log("if문 들어왔다!"+target_num);
 			//insert 요청을 한다.(컨트롤러에서 responsebody사용)
 			$.ajax({
@@ -156,7 +160,7 @@
 					$(".heart-cnt"+target_num).text("("+data.heartCnt+")");
 				}
 			});
-			$(this).text("하트눌림~"); //하트 눌림으로 바뀐다.
+			$(this).text("♥"); //하트 눌림으로 바뀐다.
 			
 			
 		
@@ -171,7 +175,7 @@
 				} 				
 			});
 			
-			$(this).text("하트");//하트로 바뀐다. 
+			$(this).text("♡");//하트로 바뀐다. 
 		}
 		
 	});

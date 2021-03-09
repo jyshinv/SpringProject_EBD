@@ -89,6 +89,10 @@
 		z-index: 1000;
 		display: none; /* 일단 숨겨 놓기 */
 	}	
+	
+	.heart-link{
+		font-size : 2em;
+	}
 </style>
 </head>
 <body>
@@ -101,15 +105,15 @@
 			<c:if test="${not empty nick }">
 					<c:choose>
 						<c:when test="${isheartclick eq true }">
-							<a data-num="${dataDto.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
+							<a data-num="${dataDto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
 						</c:when>
 						<c:otherwise>
-							<a data-num="${dataDto.num }" href="javascript:" class="heart-link" href="list.do">하트</a>
+							<a data-num="${dataDto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
 						</c:otherwise>
 					</c:choose>
 				<span class="heart-cnt">(${heartcnt })</span>
-				<a href="private/updateform.do?num=${dataDto.num }">수정</a>
-				<a href="private/delete.do?num=${dataDto.num }" > | 삭제</a>
+				| <a href="private/updateform.do?num=${dataDto.num }">수정</a>
+				| <a href="private/delete.do?num=${dataDto.num }" > 삭제</a>
 			</c:if>
 			<p class="card-text">${dataDto.content }</p>
 			<p class="card-text">${dataDto.title }</p>
@@ -227,7 +231,7 @@
 		//글 번호를 불러온다.
 		var target_num=$(this).attr("data-num");
 	
-		if($(this).text()=="하트"){ //하트일때 클릭하면
+		if($(this).text()=="♡"){ //하트일때 클릭하면
 			
 			//insert 요청을 한다.(컨트롤러에서 responsebody사용)
 			$.ajax({
@@ -238,7 +242,7 @@
 					$(".heart-cnt").text("("+data.heartCnt+")");
 				}
 			});
-			$(this).text("하트눌림~"); //하트 눌림으로 바뀐다.
+			$(this).text("♥"); //하트 눌림으로 바뀐다.
 			
 			
 		
@@ -253,7 +257,7 @@
 				} 				
 			});
 			
-			$(this).text("하트");//하트로 바뀐다. 
+			$(this).text("♡");//하트로 바뀐다. 
 		}
 		
 	});
