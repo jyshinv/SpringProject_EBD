@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn.ebd.episode.dao.EpisodeCmtDao;
 import com.acorn.ebd.episode.dao.EpisodeDao;
+import com.acorn.ebd.episode.dto.EpisodeCmtDto;
 import com.acorn.ebd.episode.dto.EpisodeDto;
 import com.acorn.ebd.wording.dto.WordingDto;
 
@@ -23,6 +25,9 @@ public class EpisodeServiceImpl implements EpisodeService {
 
 	@Autowired
 	private EpisodeDao dao;
+	
+	@Autowired
+	private EpisodeCmtDao episodeCmtDao;
 
 	@Override
 	public void saveContent(EpisodeDto dto, HttpServletRequest request) {
@@ -193,6 +198,8 @@ public class EpisodeServiceImpl implements EpisodeService {
 	public void getData(EpisodeDto dto, ModelAndView mView, HttpSession session) {
 		//글 정보를 불러올 getData
 		EpisodeDto dataDto=dao.getData(dto);
+		//글정보
+		mView.addObject("dataDto",dataDto);
 		
 		//현재 로그인 되어있는 유저의 닉네임 저장
 		String nick=(String)session.getAttribute("nick");
@@ -209,8 +216,41 @@ public class EpisodeServiceImpl implements EpisodeService {
 		//수정폼에서 저장한 이미지의 오리지널 파일명을 불러오기 위해 문자열을 자른다.
 		String filename=dataDto.getImgPath().substring(21);
 		
-		//글정보
-		mView.addObject("dataDto",dataDto);
+		
+		/*아래는 댓글 펭징 처리 관련 비즈니스 로직 입니다.*/
+		final int PAGE_ROW_COUNT=5;
+
+		//보여줄 페이지의 번호
+		int pageNum=1;
+
+		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+
+		//전체 row 의 갯수를 읽어온다.
+		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
+		int totalRow=episodeCmtDao.getCount(dto.getNum());
+		
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=
+				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+
+		// CafeCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다.
+		EpisodeCmtDto commentDto=new EpisodeCmtDto();
+		commentDto.setStartRowNum(startRowNum);
+		commentDto.setEndRowNum(endRowNum);
+		//ref_group 번호도 담는다.
+		commentDto.setRef_group(dto.getNum());
+
+		//DB 에서 댓글 목록을 얻어온다.
+		List<EpisodeCmtDto> commentList=episodeCmtDao.getList(commentDto);
+		
+		//ModelAndView 객체 댓글 목록도 담아온다.
+		mView.addObject("commentList", commentList);
+		mView.addObject("totalPageCount", totalPageCount);
+		
+		
 		//하트정보 
 		mView.addObject("isheartclick",isheartclick);
 		//하트개수 정보
@@ -224,7 +264,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		//이미지가 비어있다면 MultipartFile image는 비어있는 상태이다.
 		//따라서 이미지 수정은 하지 않은 상태이므로 title과 content만 update한다. 
 		if(dto.getImage().isEmpty()) {
-			dto.setImgPath(null);//수정을 하지 않으므로 imagePath를 비워준다. 
+			//dto.setImgPath(null);//수정을 하지 않으므로 imagePath를 비워준다. 
 			dao.updateData(dto);
 		}else {//이미지가 비어있지 않으면 이미지 수정을 한 상태이므로, 기존 파일 파일시스템에서 삭제해주고 title, content, 이미지 모두 update한다. 
 			
@@ -266,6 +306,108 @@ public class EpisodeServiceImpl implements EpisodeService {
 			dto.setImgPath("/upload/"+saveFileName);
 			dao.updateData(dto);
 		}
+	}
+
+	//댓글관련 
+	@Override
+	public void saveComment(HttpServletRequest request) {
+		//댓글 작성자(로그인된 아이디의 닉네임)
+		String writer=(String)request.getSession().getAttribute("nick");
+		//폼 전송되는 댓글의 정보 얻어내기
+		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
+		String target_nick=request.getParameter("target_nick");
+		String content=request.getParameter("content");
+		/*
+		 * 원글의 댓글은 comment_group 번호가 전송이 안되고
+		 * 댓글의 댓글은 comment_group 번호가 전송이 된다.
+		 * 따라서 null 여부를 조사하면 원글의 댓글인지 댓글의 댓글인지 판별할수 있다.
+		 */
+		String cmt_group=request.getParameter("cmt_group");
+		//새 댓글의 글번호는 미리 얻어낸다.
+		int seq=episodeCmtDao.getSequence();
+		//저장할 새 댓글 정보를 dto 에 담기
+		EpisodeCmtDto dto=new EpisodeCmtDto();
+		dto.setNum(seq);
+		dto.setWriter(writer);
+		dto.setTarget_nick(target_nick);
+		dto.setContent(content);
+		dto.setRef_group(ref_group);
+		if(cmt_group == null) {//원글의 댓글인 경우 
+			//댓글의 글번호와 comment_group 번호를 같게 한다.
+			dto.setCmt_group(seq);
+		}else {//댓글의 댓글인 경우 
+			//폼 전송된 comment_group 번호를 숫자로 바꿔서 dto 에 넣어준다.
+			dto.setCmt_group(Integer.parseInt(cmt_group));
+		}
+		//댓글 정보를 DB 에 저장한다.
+		episodeCmtDao.insert(dto);
+		
+	}
+
+	@Override
+	public void deleteComment(HttpServletRequest request) {
+		//GET 방식 파라미터로 전달되는 삭제할 댓글 번호 
+		int num=Integer.parseInt(request.getParameter("num"));
+		//세션에 저장된 로그인된 아이디
+		String nick=(String)request.getSession().getAttribute("nick");
+		//댓글의 정보를 얻어와서 댓글의 작성자와 같은지 비교 한다.
+		String writer=episodeCmtDao.getData(num).getWriter();
+//		if(!writer.equals(id)) {
+//			throw new DBFailException("남의 댓글을 삭제할수 없습니다.");
+//		}
+		episodeCmtDao.delete(num);
+		
+	}
+
+	@Override
+	public void updateComment(EpisodeCmtDto dto) {
+		episodeCmtDao.update(dto);
+	}
+
+	@Override
+	public void moreCommentList(HttpServletRequest request) {
+		//파라미터로 전달된 pageNum 과 ref_group 번호를 읽어온다. 
+		int pageNum=Integer.parseInt(request.getParameter("pageNum"));
+		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
+
+		//num에 ref_group번호를 담아 dao.getData 메소드를 호출해서 원하는 데이터를 불러온다.
+		EpisodeDto tmp=new EpisodeDto();
+		tmp.setNum(ref_group);
+		EpisodeDto dataDto=dao.getData(tmp);
+		request.setAttribute("dataDto", dataDto);
+
+		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
+		final int PAGE_ROW_COUNT=5;
+
+		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+
+		//전체 row 의 갯수를 읽어온다.
+		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
+		int totalRow=episodeCmtDao.getCount(ref_group);
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=
+				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+
+		//CafeCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다.
+		EpisodeCmtDto commentDto=new EpisodeCmtDto();
+		commentDto.setStartRowNum(startRowNum);
+		commentDto.setEndRowNum(endRowNum);
+		//ref_group 번호도 담는다.
+		commentDto.setRef_group(ref_group);
+
+
+		//DB 에서 댓글 목록을 얻어온다.
+		List<EpisodeCmtDto> commentList=episodeCmtDao.getList(commentDto);
+		if(commentList==null) {
+			System.out.println("null이야 ㅜㅜ ");
+		}
+		//request 에 담아준다.
+		request.setAttribute("commentList", commentList);
+		request.setAttribute("totalPageCount", totalPageCount);			
+		
 	}
 	
 }

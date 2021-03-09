@@ -59,7 +59,5 @@
    		var fileKind = fileName.split(".")[1];//파일유형
    		document.getElementById('fileName').value=fileName; //input text에 파일의 이름 들어감 
    	}
-	
-	
 </script>
 </html>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn.ebd.episode.dto.EpisodeCmtDto;
 import com.acorn.ebd.episode.dto.EpisodeDto;
 
 public interface EpisodeService {
@@ -24,5 +25,13 @@ public interface EpisodeService {
 	public void getData(EpisodeDto dto, ModelAndView mView, HttpSession session);
 	//에피소드 내용 수정 요청처리 
 	public void updateData(EpisodeDto dto, HttpServletRequest request);
+	//댓글 저장 메소드
+	public void saveComment(HttpServletRequest request);
+	//댓글 삭제 메소드
+	public void deleteComment(HttpServletRequest request);
+	//댓글 수정 메소드 
+	public void updateComment(EpisodeCmtDto dto);
+	//새로운 댓글 List를 불러오는 메소드 
+	public void moreCommentList(HttpServletRequest request);
 	
 }

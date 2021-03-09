@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn.ebd.episode.dto.EpisodeCmtDto;
 import com.acorn.ebd.episode.dto.EpisodeDto;
 import com.acorn.ebd.episode.service.EpisodeService;
 
@@ -90,6 +91,62 @@ public class EpisodeController {
     	service.updateData(dto, request);
     	return "episode/private/update";
     }
+    
+    /*에피소드 댓글 관련 처리*/
+    //새 댓글 저장 요청 처리
+    @RequestMapping(value="/episode/private/comment_insert", method=RequestMethod.POST)
+  	public String commentInsert(HttpServletRequest request,
+  			@RequestParam int ref_group) {
+  		//새 댓글을 저장하고
+  		service.saveComment(request);
+  		//글 자세히 보기로 다시 리다일렉트 이동 시킨다.
+  		//ref_group 은 자세히 보기 했던 글번호 
+  		return "redirect:/episode/detail.do?num="+ref_group;
+  	}
+    
+    //댓글 삭제 기능
+  	@RequestMapping("/episode/private/comment_delete")
+  	public ModelAndView commentDelete(HttpServletRequest request,
+  			ModelAndView mView, @RequestParam int ref_group) {
+  		service.deleteComment(request);
+  		mView.setViewName("redirect:/episode/detail.do?num="+ref_group);
+  		return mView;
+  	}
+  	
+  	//댓글 수정 ajax 요청에 대한 요청 처리
+  	@RequestMapping(value = "/episode/private/comment_update", 
+  			method=RequestMethod.POST)
+  	@ResponseBody
+  	public Map<String, Object> commentUpdate(EpisodeCmtDto dto){
+  		
+  		
+  		//핵심 비즈니스 로직과 상관없는 코드1
+  		long startTime=System.currentTimeMillis(); //시작시간
+  		
+  		//핵심 비즈니스 로직
+  		//댓글을 수정 반영하고 
+  		service.updateComment(dto);
+  		//JSON 문자열을 클라이언트에게 응답한다.
+  		Map<String, Object> map=new HashMap<>();
+  		map.put("num", dto.getNum());
+  		map.put("content", dto.getContent());
+  		
+  		//핵심 비즈니스 로직과 상관없는 코드2
+  		long endTime=System.currentTimeMillis(); //시작시간
+  		long time=endTime-startTime; //소요시간(처리하는데 소요된 시간을 의미)
+  		System.out.println("소요시간:"+time+" 입니다.");//처리하는데 걸린 시간 출력
+  		
+  		//핵심 비즈니스 로직 
+  		return map;
+  	}
+  	
+  	@RequestMapping("/episode/ajax_comment_list")
+  	public ModelAndView ajaxCommentList(HttpServletRequest request,
+  			ModelAndView mView) {
+  		service.moreCommentList(request);
+  		mView.setViewName("episode/ajax_comment_list");
+  		return mView;
+  	}
 	
 
 }
