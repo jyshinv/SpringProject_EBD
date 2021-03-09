@@ -134,22 +134,20 @@ public class EpisodeServiceImpl implements EpisodeService {
 		String nick=(String)request.getSession().getAttribute("nick");
 		dto.setNick(nick);
 		List<Integer> isHeartClickList=null;
-		List<Integer> HeartCntList=null;
+		List<Integer> heartCntList=null;
 		//하트 정보(로그인 중일때만)
 		//nick이 null인채로 episodedao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
 		if(nick != null) {
 			isHeartClickList=dao.getHeartInfo(dto);			
-			//총 하트 개수 정보를 리턴해주는 메소드(로그인 중일때만)
-			HeartCntList=dao.getHeartCnt(dto);
 		}
-		
-		
+		//총 하트 개수 정보를 리턴해주는 메소드
+		heartCntList=dao.getHeartCnt(dto);
 		
 		
 		//view page 에서 필요한 내용을 ModelAndView 객체에 담아준다
 		mView.addObject("list", list);
 		mView.addObject("isHeartClickList", isHeartClickList);
-		mView.addObject("HeartCntList",HeartCntList);
+		mView.addObject("heartCntList",heartCntList);
 		mView.addObject("totalPageCount",totalPageCount);
 		mView.addObject("pageNum",pageNum);
 		mView.addObject("startPageNum",startPageNum);
@@ -186,7 +184,6 @@ public class EpisodeServiceImpl implements EpisodeService {
 		
 		//하트 개수 정보를 저장할 변수 heartcnt
 		int heartcnt=dao.getHeartCntDetail(target_num);
-		
 		return heartcnt;
 		
 	}
