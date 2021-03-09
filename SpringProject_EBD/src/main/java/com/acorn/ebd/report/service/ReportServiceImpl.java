@@ -384,11 +384,13 @@ public class ReportServiceImpl implements ReportService{
 	public void updateData(ReportDto dto, HttpServletRequest request) {
 		//이미지가 비어있다면 MultipartFile image는 비어있는 상태이다.
 		//따라서 이미지 수정은 하지 않은 상태이므로 title과 content만 update한다. 
-		if(dto.getImgpath().isEmpty()) {
-		     dto.setImgpath(null);//수정을 하지 않으므로 imagePath를 비워준다. 
+		if(dto.getImage().isEmpty()) {
+			//이름이 중복되게 하지 않기 위해 null 사용
+		     dto.setImgpath(null);//수정을 하지 않으므로 imagePath를 비워준다. 수정하든 안하든 원래 이미지 경로가 가기 때문에 imagepath를 비워주어야 한다.
 		     dao.updateData(dto);
 		}else {//이미지가 비어있지 않으면 이미지 수정을 한 상태이므로, 기존 파일 파일시스템에서 삭제해주고 title, content, 이미지 모두 update한다. 
 		 
+		//실제 파일 시스템에서 파일을 삭제하는 부분
 		 // imgPath 는 /upload/~~ 로 저장되어있으므로 앞에 /upload/를 잘라준다. 
 		 String filename=dto.getImgpath().substring(8);
 		 System.out.println(filename);
@@ -397,7 +399,7 @@ public class ReportServiceImpl implements ReportService{
 		 System.out.println("path="+path);
 		 new File(path).delete();
 		 
-		 
+		 //실제 파일 시스템에 파일을 집어넣는 부분
 		 //업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값 얻어오기 
 		 MultipartFile myFile=dto.getImage();
 		 //원본 파일명
@@ -423,8 +425,8 @@ public class ReportServiceImpl implements ReportService{
 		    e.printStackTrace();
 		 }
 		 
-		 //dto 에 업로드된 파일의 정보를 담는다.
-		 dto.setImgpath("/upload/"+saveFileName);
+		 //dto 에 업로드된 파일의 정보를 담는다. DB 에만 값을 집어넣는 부분
+		 dto.setImgpath("/upload/"+saveFileName);//새로 만들어줌.
 		 dao.updateData(dto);
       }
 		

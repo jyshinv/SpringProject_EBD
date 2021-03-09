@@ -33,7 +33,7 @@
 <div class="container">
 	<form action="update.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="num" value="${dto.num }"/>
-		<input type="hidden" name="imgpath" value="${dto.imgpath}"/>
+		<input type="hidden" name="imgpath" value="${dto.imgpath}"/><!-- 기존의 경로 불러옴 -->
 		<div>
 			<label for="booktitle">도서명</label>
 			<input type="text" name="booktitle" id="booktitle" value="${dto.booktitle }" disabled/>
@@ -54,11 +54,11 @@
 				<option value="${dto.stars }" selected>${dto.stars }</option>
 			</select>
 		</div>
-		<div>
+		<div><!-- input 은 그저 보여주기용 텍스트일 뿐 -->
 			이미지<input type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
 		    <label for="image" class="btn btn-primary btn-file">
 		        이미지 변경<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
-		    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+		    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/><!-- 수정한 이미지와 경로 담김 -->
 		    </label>
 		</div>
 		<div>
