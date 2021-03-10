@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>my_report/private/insertform.jsp</title>
+<title>/my_report/private/updateform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
     .btn-file{
@@ -31,65 +31,45 @@
 </head>
 <body>
 <div class="container">
-	<form action="insert.do" method="post" enctype="multipart/form-data">
-		<div>
-			<label for="search">책검색</label>
-			<button><a href="${pageContext.request.contextPath }/my_report/private/bookList.do">검색</a></button>
-		</div>
+	<form action="update.do" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="num" value="${dto.num }"/>
+		<input type="hidden" name="imgpath" value="${dto.imgpath}"/><!-- 기존의 경로 불러옴 -->
 		<div>
 			<label for="booktitle">도서명</label>
-			<input type="text" name="booktitle" id="booktitle" value="${booktitle }"/>
+			<input type="text" name="booktitle" id="booktitle" value="${dto.booktitle }" disabled/>
 		</div>
 		<div>
 			<label for="author">저자명</label>
-			<input type="text" name="author" id="author" value="${author }"/>
-		</div>
-		<div>
-			<label for="title">제목</label>
-			<input type="text" name="title" id="title" />
+			<input type="text" name="author" id="author" value="${dto.author }" disabled/>
 		</div>
 		<div>
 			<label for="genre">장르</label>
-			<select name="genre" id="genre">
-				<option value="">선택안함</option>
-				<option value="소설">소설</option>
-				<option value="시">시</option>
-				<option value="수필">수필</option>
-				<option value="역사">역사</option>
-				<option value="예술">예술</option>
-				<option value="종교">종교</option>
-				<option value="인문">인문</option>
-				<option value="철학">철학</option>
-				<option value="자기계발">자기계발</option>
+			<select name="genre" id="genre" disabled>
+				<option value="${dto.genre}" selected>${dto.genre}</option>
 			</select>
 		</div>
 		<div>
 			<label for="stars">평점</label>
-			<select name="stars" id="stars">
-				<option value="">선택안함</option>
-				<option value="★">★</option>
-				<option value="★★">★★</option>
-				<option value="★★★">★★★</option>
-				<option value="★★★★">★★★★</option>
-				<option value="★★★★★">★★★★★</option>
+			<select name="stars" id="stars" disabled>
+				<option value="${dto.stars }" selected>${dto.stars }</option>
 			</select>
 		</div>
-		<div>
-			이미지<input type="text" id="fileName" placeholder="이미지를 첨부해주세요" disabled/>
+		<div><!-- input 은 그저 보여주기용 텍스트일 뿐 -->
+			이미지<input type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
 		    <label for="image" class="btn btn-primary btn-file">
-		        파일추가<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
-		    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+		        이미지 변경<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
+		    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/><!-- 수정한 이미지와 경로 담김 -->
 		    </label>
 		</div>
 		<div>
-			<label for="link">구매처 링크</label>
-			<input type="text" name="link" id="link" value="${empty link ? "" : link }"/>
+			<label for="title">제목</label>
+			<input type="text" name="title" id="title" value="${dto.title }"/>
 		</div>
 		<div>
 			<label for="content"></label>
-			<textarea name="content" id="content"></textarea>
+			<textarea name="content" id="content">${dto.content }</textarea>
 		</div>
-		<button type="submit" onclick="submitContents(this);">저장</button>
+		<button type="submit" onclick="submitContents(this);">수정</button>
 	</form>
 </div>
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
