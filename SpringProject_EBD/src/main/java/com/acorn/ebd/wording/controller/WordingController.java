@@ -29,20 +29,19 @@ public class WordingController {
 	@Autowired
 	private BookSearchService bservice;
 	
-
 	//wording list 요청처리
 	@RequestMapping("/wording/list.do")
-	public ModelAndView list(ModelAndView mView, HttpServletRequest request, HttpSession session) {
+	public ModelAndView list(ModelAndView mView, HttpServletRequest request) {
 		//글 목록 요청
-		service.getList(mView, request, session);
+		service.getList(mView, request);
 		mView.setViewName("wording/list");
 		return mView;
 	}
 	
 	//wording ajax요청처리
 	@RequestMapping("/wording/ajax_page.do")
-	public ModelAndView ajaxPage(ModelAndView mView, HttpServletRequest request, HttpSession session) {
-		service.getList(mView, request, session);
+	public ModelAndView ajaxPage(ModelAndView mView, HttpServletRequest request) {
+		service.getList(mView, request);
 		mView.setViewName("wording/ajax_page");
 		return mView;
 	}
@@ -72,7 +71,7 @@ public class WordingController {
 	//required=false는 폼에서 넘어오는 값이 없을때에도 오류를 일으키지 않는다. 
 	@RequestMapping("/wording/private/insertform.do")
 	public ModelAndView insertform(@RequestParam(required = false)String title, String author, ModelAndView mView) {
-		
+		mView.setViewName("wording/private/insertform");
 		service.replaceInfo(title, author, mView);
 		return mView;
 	}
@@ -102,17 +101,46 @@ public class WordingController {
     //하트 클릭 요청처리
     @RequestMapping("/wording/saveheart.do")
     @ResponseBody
-    public void insertheart(@RequestParam String target_num, HttpSession session){
+    public Map<String, Object> insertheart(@RequestParam String target_num, HttpSession session){
     	int new_target_num = Integer.parseInt(target_num);
-    	service.saveHeart(new_target_num, session);
+    	int heartCnt=service.saveHeart(new_target_num, session);
+    	Map<String, Object> map=new HashMap<String, Object>();
+    	map.put("heartCnt",heartCnt);
+    	return map;
     }
     
     //하트눌림 클릭 요청처리(하트 해제)
     @RequestMapping("/wording/removeheart.do")
     @ResponseBody
-    public void deleteheart(@RequestParam String target_num, HttpSession session) {
+    public Map<String, Object> deleteheart(@RequestParam String target_num, HttpSession session) {
     	int new_target_num = Integer.parseInt(target_num);
-    	service.removeHeart(new_target_num, session);
+    	int heartCnt=service.removeHeart(new_target_num, session);
+    	Map<String, Object> map=new HashMap<String, Object>();
+    	map.put("heartCnt",heartCnt);
+    	return map;
+    }
+    
+    //수정 클릭 시 수정 폼 요청처리 
+    @RequestMapping("/wording/private/updateform.do")
+    public ModelAndView updateform(@RequestParam int num, ModelAndView mView) {
+    	service.getDetail(num, mView);
+    	mView.setViewName("wording/private/updateform");
+    	return mView;
+    }
+    
+    //수정 요청처리
+    @RequestMapping(value="/wording/private/update.do",method=RequestMethod.POST)
+    public String update(WordingDto dto) {
+    	service.update(dto);
+    	return "wording/private/update";
+    }
+    
+ 
+    //삭제 클릭 요청처리
+    @RequestMapping("/wording/private/delete.do")
+    public String delete(@RequestParam int num, HttpServletRequest request) {
+    	service.delete(num,request);
+    	return "wording/private/delete";
     }
     
     

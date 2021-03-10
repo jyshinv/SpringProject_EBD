@@ -5,9 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>수정완료</title>
 </head>
 <body>
-
+<script>
+	alert("수정 완료");
+	//episode의 list로 이동
+	location.href="${pageContext.request.contextPath }/episode/detail.do?num=${num}";
+</script>
 </body>
 </html>

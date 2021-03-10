@@ -47,9 +47,40 @@ public class WordingDaoImpl implements WordingDao {
 
 
 	@Override
-	public List<WordingDto> getHeartInfo(String id) {
-		List<WordingDto> list=session.selectList("wording.selectHeartInfo",id);
+	public List<Integer> getHeartInfo(WordingDto dto) {
+		List<Integer> list=session.selectList("wording.selectHeartInfo",dto);
 		return list;
+	}
+
+
+	@Override
+	public WordingDto getData(int num) {
+		return session.selectOne("wording.getData",num);
+	}
+
+
+	@Override
+	public void update(WordingDto dto) {
+		session.update("wording.update",dto);
+		
+	}
+
+
+	@Override
+	public void delete(int num) {
+		session.delete("wording.delete",num);
+	}
+
+
+	@Override
+	public List<Integer> getHeartCnt(WordingDto dto) {
+		return session.selectList("wording.getHeartCnt",dto);
+	}
+	
+	@Override
+	public int getHeartCntDetail(int num) {
+		return session.selectOne("wording.getHeartCntDatail",num);
+
 	}
 
 	

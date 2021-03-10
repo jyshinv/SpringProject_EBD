@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>책 명언/글귀</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+
 <style>
 	.back-drop{
 		/* 일단 숨겨 놓는다. */
@@ -40,6 +41,10 @@
 			transform: rotate(360deg);
 		}
 	}
+	
+	.heart-link{
+		font-size : 2em;
+	}
 </style>
 </head>
 <body>
@@ -56,7 +61,8 @@
 				<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
 				<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
 			</select>
-			<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
+			<label for="keyword"></label>
+			<input type="text" id="keyword" name="keyword" placeholder="검색어..." value="${keyword }"/>
 			<button type="submit">검색</button>
 	</form>
 	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
@@ -70,27 +76,36 @@
 	<div id="wordingList">
 		<c:forEach var="tmp" items="${list }">
 			<c:if test="${not empty id }">
-				<%isCheck=0; %>
-				<c:forEach var="tmp2" items="${list2 }">
-					<c:if test="${tmp.num eq tmp2.target_num }">
-						<%isCheck=1;%>
-		                <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트눌림~</a>
-					</c:if>
+				<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+					<!-- heartInfoList가 0이면 하트를 누르지 않은 것이다.  -->
+					<c:choose>
+						<c:when test="${heartInfoList[i] eq 0 }">
+							<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>										
+						</c:when>
+						<c:otherwise>
+							<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+						</c:otherwise>
+					</c:choose>
+					<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>					
 				</c:forEach>
-				<%if(isCheck == 0) {%>
-		                <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">하트</a>							
-				<%} %>				
+				<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
+				<c:if test="${tmp.writer eq sessionScope.nick }">
+					<a href="private/updateform.do?num=${tmp.num }">| 수정</a>
+					<a href="private/delete.do?num=${tmp.num }">| 삭제</a>	
+				</c:if>	
 			</c:if>
 			<p>
 				${tmp.num } ${tmp.writer } ${tmp.title } ${tmp.content } ${tmp.author } ${tmp.viewcnt } ${tmp.regdate }
 			</p>
+			<%isCheck++; %>
 		</c:forEach>
 		
 	</div>
 </div>
 <div class="back-drop">
 	<!-- cpath/ 에서 '/'는 webapp을 의미한다. 웹앱 폴더의 svg폴더 안에 spinner-solid.svg가 들어있다.  -->
-	<img src="${pageContext.request.contextPath }/svg/spinner-solid.svg"/>
+	<img src="${pageContext.request.contextPath }/svg/spinner-solid.svg"/> 
+
 </div>
 <script>
 	
@@ -138,15 +153,15 @@
 				}
 				
 			});
-		} //end of if(isBottom)
+		}; //end of if(isBottom)
 	});
 	
 	//하트를 클릭할 때마다 호출되는 함수 등록
 	$(document).on("click",".heart-link",function(){
 		//글 번호를 불러온다.
 		var target_num=$(this).attr("data-num");
-
-		if($(this).text()=="하트"){ //하트일때 클릭하면
+	
+		if($(this).text()=="♡"){ //하트일때 클릭하면
 			console.log("if문 들어왔다!"+target_num);
 			//insert 요청을 한다.(컨트롤러에서 responsebody사용)
 			$.ajax({
@@ -154,9 +169,10 @@
 				method:"GET",
 				data: "target_num="+target_num,
 				success:function(data){ //나중에 구현 : 하트 수를 반환
+					$(".heart-cnt"+target_num).text("("+data.heartCnt+")");
 				}
 			});
-			$(this).text("하트눌림~"); //하트 눌림으로 바뀐다.
+			$(this).text("♥"); //하트 눌림으로 바뀐다.
 			
 			
 		
@@ -167,12 +183,28 @@
 				method:"GET",
 				data: "target_num="+target_num,
 				success:function(data){
+					$(".heart-cnt"+target_num).text("("+data.heartCnt+")");
 				} 				
 			});
 			
-			$(this).text("하트");//하트로 바뀐다. 
+			$(this).text("♡");//하트로 바뀐다. 
 		}
 		
+	});
+	
+	//페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
+	//방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
+	$(window).bind("pageshow", function (event) {
+		//파이어폭스와 사파리에서는 persisted를 통해서 뒤로가기 감지가 가능하지만 익스와 크롬에서는 불가  ||뒤의 코드를 추가한다. 
+		if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
+			console.log('BFCahe로부터 복원됨');
+			$(".heart-link").css("pointer-events","none");
+			location.reload();//새로고침 
+			
+		}
+		else {
+			console.log('새로 열린 페이지');
+		}
 	});
 	
 </script>

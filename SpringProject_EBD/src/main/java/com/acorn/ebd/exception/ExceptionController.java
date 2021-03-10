@@ -10,6 +10,17 @@ Spring Framework가 동작한다는 것은 *.do 요청을 처리하는 Dispatche
 */
 @ControllerAdvice
 public class ExceptionController {
+	
+	//NotAllowException type의 예외가 발생하면 호출되는 메소드  
+	@ExceptionHandler(NotAllowException.class)
+	public ModelAndView notAllow(NotAllowException ne) {
+		ModelAndView mView=new ModelAndView();
+		mView.addObject("exception", ne);
+		mView.setViewName("error/not_allow");
+		return mView;
+	}
+	
+	
 	//DBFailException type의 예외가 발생하면 호출되는 메소드 
 	@ExceptionHandler(DBFailException.class)
 	public ModelAndView dbFail(DBFailException e) { //발생한 예외 객체가 전달된다.

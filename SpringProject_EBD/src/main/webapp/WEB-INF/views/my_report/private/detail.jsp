@@ -21,6 +21,26 @@
 		<tr>
 			<td>조회수 ${dto.viewcnt }</td>
 			<td>날짜 ${dto.regdate }</td>
+			<td>
+            <form action="updatepublicck.do">
+          		<label for="publicck"></label>
+          		<select name="publicck" id="publicck">
+          		<c:choose>
+          			<c:when test="${dto.publicck eq 'private' }">
+	          			<option value="private">비공개</option>
+          				<option value="public">공개</option>
+          			</c:when>
+          			<c:otherwise>
+          				<option value="public">공개</option>
+          				<option value="private">비공개</option>
+          			</c:otherwise>
+          		</c:choose>
+          		</select>
+          		<label for="num"></label>
+          		<input type="hidden" value="${dto.num }" id="num" name="num"/>
+          		<button type="submit">저장</button>
+          	</form>
+       		</td>
 		</tr>
 		<center>
 			<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
@@ -47,7 +67,7 @@
 		</tr>
 		<tr>
 			<th>구매처 링크</th>
-			<td>${dto.link }</td>
+			<td><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
 		</tr>
 		<tr>
 			<th></th>
@@ -98,6 +118,7 @@
 			location.href="${pageContext.request.contextPath }/my_report/private/delete.do?num=${dto.num}";
 		}
 	}
+	
 </script>	
 </body>
 </html>

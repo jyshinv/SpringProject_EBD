@@ -1,15 +1,21 @@
 package com.acorn.ebd.report.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.ebd.booksearch.service.BookSearchService;
+import com.acorn.ebd.report.dto.ReportCmtDto;
 import com.acorn.ebd.report.dto.ReportDto;
 import com.acorn.ebd.report.service.ReportService;
 
@@ -20,6 +26,49 @@ public class ReportController {
 
 	@Autowired
 	private BookSearchService bservice;
+	
+	@RequestMapping(value = "/my_report/private/update", method = RequestMethod.POST)
+	public String update(ReportDto dto, HttpServletRequest request) {
+		service.updateData(dto, request);
+		return "my_report/private/update";
+	}
+	
+	@RequestMapping("/my_report/private/updateform")
+	public ModelAndView updateform(ReportDto dto, ModelAndView mView, HttpSession session) {
+		service.getDetail(dto, mView, session);
+		mView.setViewName("my_report/private/updateform");
+		return mView;
+	}
+	
+	@RequestMapping("/public_report/ajax_comment_list")
+	public ModelAndView ajaxCommentList(HttpServletRequest request, ModelAndView mView) {
+		service.moreCommentList(request);
+		mView.setViewName("public_report/ajax_comment_list");
+		return mView;
+	}
+	
+	@RequestMapping(value = "/public_report/private/comment_update", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> commentUpdate(ReportCmtDto dto){
+		service.updateComment(dto);
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("num", dto.getNum());
+		map.put("content", dto.getContent());
+		return map;
+	}
+	
+	@RequestMapping("/public_report/private/comment_delete")
+	public ModelAndView commentDelete(HttpServletRequest request, ModelAndView mView, @RequestParam int ref_group) {
+		service.deleteComment(request);
+		mView.setViewName("redirect:/public_report/detail.do?num="+ref_group);
+		return mView;
+	}
+	
+	@RequestMapping(value = "/public_report/private/comment_insert", method = RequestMethod.POST)
+	public String commentInsert(HttpServletRequest request, @RequestParam int ref_group) {
+		service.saveComment(request);
+		return "redirect:/public_report/detail.do?num="+ref_group;
+	}
 	
     //키워드가 있을때도 있고 없을때도있음 
     //있을때는 가져가고 없을때는 안가져가고 
@@ -69,9 +118,17 @@ public class ReportController {
   	
   	//마이 독후감 글 하나 정보 요청 처리
   	@RequestMapping("/my_report/private/detail")
-  	public ModelAndView detail(@RequestParam int num, ModelAndView mView) {
-  		service.getDetail(num, mView);
+  	public ModelAndView detail(ReportDto dto, ModelAndView mView, HttpSession session) {
+  		service.getDetail(dto, mView, session);
   		mView.setViewName("my_report/private/detail");
+  		return mView;
+  	}
+  	
+  	//공개 독후감 글 하나 정보 요청 처리
+  	@RequestMapping("/public_report/detail")
+  	public ModelAndView detail_pub(ReportDto dto, ModelAndView mView, HttpSession session) {
+  		service.getDetail(dto, mView, session);
+  		mView.setViewName("public_report/detail");
   		return mView;
   	}
   	
@@ -79,7 +136,7 @@ public class ReportController {
   	
   	@RequestMapping("/public_report/list")
   	public ModelAndView list2(ModelAndView mView, HttpServletRequest request) {
-  		service.getList(mView, request);
+  		service.getPublicList(mView, request);
   		mView.setViewName("public_report/list");
   		return mView;
   	}
@@ -90,5 +147,20 @@ public class ReportController {
   		service.deleteContent(num);
   		return "my_report/private/delete";
   	}
+  	
+  	//독후감 공개 / 비공개 요청처리
+  	@RequestMapping("/my_report/private/updatepublicck")
+  	public String updatepublicck(ReportDto dto) {
+  		service.updatepublicck(dto);
+  		return "redirect:/my_report/private/detail.do?num="+dto.getNum();
+  	}
+  	
+  //독후감 공개 / 비공개 요청처리
+  	@RequestMapping(value="/public_report/updatepublicck2", method=RequestMethod.POST)
+  	public String updatepublicck2(ReportDto dto) {
+  		service.updatepublicck(dto);
+  		return "redirect:/my_report/private/detail.do?num="+dto.getNum();
+  	}
+  	//.do 요청을 하고 싶을 때는 redirect 사용
   	
 }

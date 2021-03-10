@@ -6,17 +6,64 @@
 		(num, writer, booktitle, author, title, genre, stars, imgpath, link, content, viewcnt, regdate)
 		VALUES(ebd_report_seq.NEXTVAL, #{writer}, #{booktitle}, #{author}, #{title}, #{genre}, #{stars}, #{imgpath}, #{link}, #{content}, 0, SYSDATE)
 	</insert>
+	<select id="getCount" parameterType="reportDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM ebd_report
+		<choose>
+			<when test="booktitle != null and author != null">
+				WHERE (booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%') and publicck=#{publicck}
+			</when>
+			<when test="booktitle != null">
+				WHERE (booktitle LIKE '%'||#{booktitle}||'%') and publicck=#{publicck}
+			</when>
+			<when test="author != null">
+				WHERE (author LIKE '%'||#{author}||'%') and publicck=#{publicck}
+			</when>
+			<when test="author == null and booktitle==null">
+               WHERE publicck=#{publicck}
+            </when>
+		</choose>		
+	</select>
+	<select id="getCountTotal" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM ebd_report	
+	</select>	
 	<select id="getList" parameterType="reportDto" resultType="reportDto">
 		SELECT *
 		FROM
 			(SELECT result.*,ROWNUM AS rnum
 			FROM
 				(SELECT num, writer, booktitle, title, author, genre, stars, imgpath, link, content, viewcnt, regdate
-				FROM ebd_report
+				FROM ebd_report			
 				ORDER BY num DESC)result)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
-	<select id="getData" parameterType="int" resultType="reportDto">
+	<select id="getPublicList" parameterType="reportDto" resultType="reportDto">
+		SELECT *
+		FROM 
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM 
+				(SELECT num, writer, booktitle, title, author, genre, stars, imgpath, link, content, viewcnt, regdate, publicck
+				FROM ebd_report
+				<choose>
+					<when test="booktitle != null and author != null">
+						WHERE (booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%') and publicck=#{publicck}
+					</when>
+					<when test="booktitle != null">
+						WHERE (booktitle LIKE '%'||#{booktitle}||'%') and publicck=#{publicck}
+					</when>
+					<when test="author != null">
+						WHERE (author LIKE '%'||#{author}||'%') and publicck=#{publicck}
+					</when>
+					<when test="author == null and booktitle==null">
+	                  WHERE publicck=#{publicck}
+	               </when>
+				</choose>
+				ORDER BY num DESC)
+			result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}		
+	</select>
+	<select id="getData" parameterType="reportDto" resultType="reportDto">
 		SELECT * 
 		FROM
 			(SELECT num, writer, booktitle, title, author, genre, stars, publicck, imgpath, link, content, viewcnt, regdate,
@@ -26,7 +73,7 @@
 			ORDER BY num DESC)
 		WHERE num=#{num}
 	</select>
-	<update id="addViewCount" parameterType="int">
+	<update id="addViewCount" parameterType="reportDto">
 		UPDATE ebd_report
 		SET viewcnt=viewcnt+1
 		WHERE num=#{num}
@@ -35,4 +82,21 @@
 		DELETE FROM ebd_report
 		WHERE num=#{num}
 	</delete>
+	<update id="updatepublicck" parameterType="reportDto">
+		UPDATE ebd_report
+		SET publicck=#{publicck}
+		WHERE num=#{num}
+	</update>
+	<update id="update" parameterType="reportDto">
+		UPDATE ebd_report
+	      <choose>
+	         <when test="imgpath != null">
+	            SET title=#{title }, imgpath=#{imgpath }, content=#{content }
+	         </when>
+	         <otherwise>
+	            SET title=#{title }, content=#{content }
+	         </otherwise>
+	      </choose>
+	     WHERE num=#{num}
+	</update>
 </mapper>
