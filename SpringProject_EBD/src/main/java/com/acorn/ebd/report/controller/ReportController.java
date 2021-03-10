@@ -155,12 +155,34 @@ public class ReportController {
   		return "redirect:/my_report/private/detail.do?num="+dto.getNum();
   	}
   	
-  //독후감 공개 / 비공개 요청처리
+  	//독후감 공개 / 비공개 요청처리
   	@RequestMapping(value="/public_report/updatepublicck2", method=RequestMethod.POST)
   	public String updatepublicck2(ReportDto dto) {
   		service.updatepublicck(dto);
   		return "redirect:/my_report/private/detail.do?num="+dto.getNum();
   	}
   	//.do 요청을 하고 싶을 때는 redirect 사용
+  	
+  	//하트 클릭 요청처리
+    @RequestMapping("/public_report/saveheart.do")
+    @ResponseBody
+    public Map<String, Object> insertheart(@RequestParam String target_num, HttpSession session){
+       int new_target_num = Integer.parseInt(target_num);
+       int heartCnt = service.saveHeart(new_target_num, session);
+       Map<String, Object> map=new HashMap<String, Object>();
+       map.put("heartCnt",heartCnt);
+       return map;
+    }
+    
+    //하트눌림 클릭 요청처리(하트 해제)
+    @RequestMapping("/public_report/removeheart.do")
+    @ResponseBody
+    public Map<String, Object> deleteheart(@RequestParam String target_num, HttpSession session) {
+       int new_target_num = Integer.parseInt(target_num);
+       int heartCnt=service.removeHeart(new_target_num, session);
+       Map<String, Object> map=new HashMap<String, Object>();
+       map.put("heartCnt",heartCnt);
+       return map;
+    }
   	
 }

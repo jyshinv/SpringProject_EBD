@@ -88,7 +88,10 @@
 		text-align: center; /* 이미지를 좌우로 가운데  정렬 */
 		z-index: 1000;
 		display: none; /* 일단 숨겨 놓기 */
-	}		
+	}	
+	.heart-link{
+      	font-size : 2em;
+    }	
 </style>
 </head>
 <body>
@@ -119,6 +122,21 @@
 			<center>
 				<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
 			</center>
+			<!-- 로그인을 해야지만 하트를 누를 수 있다. -->
+			<tr>
+	         	<c:if test="${not empty nick }">
+		            <c:choose>
+		               <c:when test="${isheartclick eq true }">
+		                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+		               </c:when>
+		               <c:otherwise>
+		   
+		                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
+		               </c:otherwise>
+		            </c:choose>
+	            	<span class="heart-cnt">(${heartcnt })</span>
+	            </c:if>							
+			</tr>
 			<tr>
 				<th>제목</th>
 				<td>${dto.title }</td>
@@ -397,8 +415,57 @@
 				}
 			});
 		}
-	});		
+	});	
 	
+	//하트를 클릭할 때마다 호출되는 함수 등록
+	   $(document).on("click",".heart-link",function(){
+	      //글 번호를 불러온다.
+	      var target_num=$(this).attr("data-num");
+	   
+	      if($(this).text()=="♡"){ //하트일때 클릭하면
+	         
+	         //insert 요청을 한다.(컨트롤러에서 responsebody사용)
+	         $.ajax({
+	            url:"${pageContext.request.contextPath }/public_report/saveheart.do",
+	            method:"GET",
+	            data: "target_num="+target_num,
+	            success:function(data){ //나중에 구현 : 하트 수를 반환
+	               $(".heart-cnt").text("("+data.heartCnt+")");
+	            }
+	         });
+	         $(this).text("♥"); //하트 눌림으로 바뀐다.
+	         
+	         
+	      
+	      }else{//하트 눌림일 때 클릭하면 (하트를 해제한 효과)         
+	         //delete 요청을 한다.(컨트롤러에서 responsebody사용)
+	         $.ajax({
+	            url:"${pageContext.request.contextPath }/public_report/removeheart.do",
+	            method:"GET",
+	            data: "target_num="+target_num,
+	            success:function(data){
+	               $(".heart-cnt").text("("+data.heartCnt+")");
+	            }             
+	         });
+	         
+	         $(this).text("♡");//하트로 바뀐다. 
+	      }
+	      
+	   });
+	   
+	 //페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
+	   //방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
+	   $(window).bind("pageshow", function (event) {
+	      if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	         console.log('BFCahe로부터 detail 복원됨');
+	         $(".heart-link").css("pointer-events","none");
+	         location.reload();//새로고침하기
+	      }
+	      else {
+	         console.log('새로 열린 detail 페이지');
+	      }
+	      
+	   });
 </script>
 </body>
 </html>

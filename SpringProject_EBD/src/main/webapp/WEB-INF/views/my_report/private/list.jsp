@@ -16,6 +16,7 @@
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
 <jsp:include page="../../include/mydiarynav.jsp"></jsp:include>
+
 	<div class="container">
 		<span>
 			<a href="${pageContext.request.contextPath}/my_report/private/insertform.do">
@@ -23,11 +24,13 @@
 			</a>
 		</span>
 		<c:forEach var="tmp" items="${requestScope.list }">
-			<span>
-				<a href="${pageContext.request.contextPath}/my_report/private/detail.do?num=${tmp.num }">
-					<img src="${pageContext.request.contextPath }${tmp.imgpath}" class="rounded float-start"/>
-				</a>
-			</span>
+			<c:if test="${nick eq tmp.writer }">
+				<span>
+					<a href="${pageContext.request.contextPath}/my_report/private/detail.do?num=${tmp.num }">
+						<img src="${pageContext.request.contextPath }${tmp.imgpath}" class="rounded float-start"/>
+					</a>
+				</span>
+			</c:if>
 		</c:forEach>
 		<nav>
 		<ul class="pagination justify-content-center">

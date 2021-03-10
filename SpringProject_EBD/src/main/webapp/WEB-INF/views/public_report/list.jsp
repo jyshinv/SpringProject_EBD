@@ -33,12 +33,19 @@
 		background-position:center;
 		
 	}
+	.heart-link{
+      font-size : 2em;
+   }
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp"></jsp:include>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="public_report" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<div class="row row-cols-1 row-cols-md-3 g-4">
+		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
+      	<%int isCheck=0; %>
 		<c:forEach var="tmp" items="${requestScope.list }">
 			<div class="col">
 				<div class="card" style="width: 18rem;">
@@ -48,11 +55,31 @@
 				 	<div class="card-body">
 					    <h5 class="card-title">${tmp.booktitle }</h5>
 					    <p class="card-text">by <strong>${tmp.writer }</strong></p>
+					    <!-- 로그인이 된 사용자만 볼 수 있다. -->
+		                  <c:if test="${not empty id }">
+		                     <p>
+		                        <!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
+		                        <!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
+		                        <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+		                           <c:choose>
+		                              <c:when test="${isHeartClickList[i] eq 0 }">
+		                                 <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
+		                              </c:when>
+		                              <c:otherwise>
+		                                 <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+		                              </c:otherwise>
+		                           </c:choose>
+		                           <span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>                  
+		                        </c:forEach>
+		                     </p>
+		                  </c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
 					    <p><small>${tmp.viewcnt }</small></p>
 					    <p><small>${tmp.regdate }</small></p>
 				 	</div>
 				</div>		
 			</div>
+		<!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
+      	<%isCheck++; %>
 		</c:forEach>
 	</div>
 	<nav>
@@ -114,5 +141,56 @@
 		</div>
 	</c:if>	
 </div>	
+<script>
+	//하트를 클릭할 때마다 호출되는 함수 등록
+	$(document).on("click",".heart-link",function(){
+		//글 번호를 불러온다.
+		   var target_num=$(this).attr("data-num");
+	
+	   if($(this).text()=="♡"){ //하트일때 클릭하면
+	      console.log("if문 들어왔다!"+target_num);
+	      //insert 요청을 한다.(컨트롤러에서 responsebody사용)
+	      $.ajax({
+	         url:"${pageContext.request.contextPath }/public_report/saveheart.do",
+	         method:"GET",
+	         data: "target_num="+target_num,
+	         success:function(data){ //나중에 구현 : 하트 수를 반환
+	            $(".heart-cnt"+target_num).text("("+data.heartCnt+")");
+	         }
+	      });
+	      $(this).text("♥"); //하트 눌림으로 바뀐다.
+	  
+	   }else{//하트 눌림일 때 클릭하면 (하트를 해제한 효과)         
+	      //delete 요청을 한다.(컨트롤러에서 responsebody사용)
+	      console.log("else문 들어왔다!"+target_num);
+	      $.ajax({
+	         url:"${pageContext.request.contextPath }/public_report/removeheart.do",
+	         method:"GET",
+	         data: "target_num="+target_num,
+	         success:function(data){
+	            $(".heart-cnt"+target_num).text("("+data.heartCnt+")");
+	         }             
+	      });
+	      
+	      $(this).text("♡");//하트로 바뀐다. 
+	   }
+	   
+	});
+
+	//페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
+	//방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
+	$(window).bind("pageshow", function (event) {
+	   //파이어폭스와 사파리에서는 persisted를 통해서 뒤로가기 감지가 가능하지만 익스와 크롬에서는 불가  ||뒤의 코드를 추가한다. 
+	   if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	      console.log('BFCahe로부터 복원됨');
+	      $(".heart-link").css("pointer-events","none");
+	      location.reload();//새로고침 
+	      
+	   }
+	   else {
+	      console.log('새로 열린 페이지');
+	   }
+	});
+</script>
 </body>
 </html>

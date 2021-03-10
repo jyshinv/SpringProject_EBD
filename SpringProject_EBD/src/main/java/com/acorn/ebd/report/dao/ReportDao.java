@@ -35,5 +35,23 @@ public interface ReportDao {
 	//독후감을 수정하는 메소드
 	public void updateData(ReportDto dto);
 	
+	//하트를 저장하는 메소드
+	public void insertHeart(ReportDto dto);
+	
+	//디테일에서 하트 갯수를 불러오는 메소드
+	public int getHeartCntDetail(int target_num);
+
+	//하트를 삭제하는 메소드
+	public void deleteHeart(ReportDto dto);
+	
+	//리스트에서 하트 정보를 불러오는 메소드
+	public List<Integer> getHeartInfo(ReportDto dto);
+	
+	//리스트에서 하트 갯수 정보를 불러오는 메소드
+	public List<Integer> getHeartCnt(ReportDto dto);
+	
+	//디테일에서 하트 정보를 불러오는 메소드
+	public boolean getHeartInfoDetail(ReportDto dto);
+	
 	
 }
