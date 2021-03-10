@@ -13,6 +13,9 @@ public class MarketDto {
 	private int viewCnt;
 	private String regdate;
 	
+	private String nick;
+	private String profile;
+	
 	//업로드 되는 이미지의 정보를 담을 필드
 	private MultipartFile myImg; 
 	
@@ -26,8 +29,8 @@ public class MarketDto {
 	public MarketDto() {}
 
 	public MarketDto(int num, String writer, String title, String salesType, String salesStatus, String imgpath,
-			String content, int viewCnt, String regdate, MultipartFile myImg, int startRowNum, int endRowNum,
-			int prevNum, int nextNum) {
+			String content, int viewCnt, String regdate, String nick, String profile, MultipartFile myImg,
+			int startRowNum, int endRowNum, int prevNum, int nextNum) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -38,6 +41,8 @@ public class MarketDto {
 		this.content = content;
 		this.viewCnt = viewCnt;
 		this.regdate = regdate;
+		this.nick = nick;
+		this.profile = profile;
 		this.myImg = myImg;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
@@ -117,6 +122,22 @@ public class MarketDto {
 		this.regdate = regdate;
 	}
 
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
 	public MultipartFile getMyImg() {
 		return myImg;
 	}
@@ -156,6 +177,8 @@ public class MarketDto {
 	public void setNextNum(int nextNum) {
 		this.nextNum = nextNum;
 	}
+
+	
 
 	
 

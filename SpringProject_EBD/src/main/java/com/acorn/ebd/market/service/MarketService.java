@@ -1,6 +1,7 @@
 package com.acorn.ebd.market.service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,7 +12,7 @@ public interface MarketService {
 	
 	public void insert(HttpServletRequest request, MarketDto dto);
 	public void getList(HttpServletRequest request);
-	public void getDetail(ModelAndView mview, int num);
+	public void getDetail(ModelAndView mview, int num, HttpSession session);
 	
 	public void update(MarketDto dto, HttpServletRequest request);
 	public void updateStatus(MarketDto dto); //디테일페이지에서 수정적용
@@ -22,5 +23,9 @@ public interface MarketService {
 	public void updateCmt(MarketCmtDto dto);
 	public void deleteCmt(HttpServletRequest request);
 	public void moreCmtList(HttpServletRequest request);
+	
+	//하트 관련 메소드
+	public int saveHeart(int target_num, HttpSession session);
+	public int removeHeart(int target_num, HttpSession session);
 	
 }

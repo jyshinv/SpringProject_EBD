@@ -63,7 +63,46 @@ public class MarketDaoImpl implements MarketDao{
 	public void updateStatus(MarketDto dto) {
 		session.update("market.updateStatus",dto);
 	}
-	
-	
 
+	//하트
+	@Override
+	public void insertHeart(MarketDto dto) {
+		session.insert("market.insertH",dto);
+		
+	}
+
+	@Override
+	public void deleteHeart(MarketDto dto) {
+		session.delete("market.deleteHeart",dto);
+		
+	}
+
+	@Override
+	public int getHeartCntDetail(int num) {
+		 return session.selectOne("market.getHeartCntDetail",num);
+	}
+
+	@Override
+	public List<Integer> getHeartInfo(MarketDto dto) {
+		List<Integer> list=session.selectList("market.selectHeartInfo",dto);
+	    return list;
+	}
+
+	@Override
+	public List<Integer> getHeartCnt(MarketDto dto) {
+		return session.selectList("market.getHeartCnt",dto);
+	}
+
+	@Override
+	public boolean getHeartInfoDetail(MarketDto dto) {
+		//해당 닉네임이 해당 글에 좋아요를 누르지 않으면 null, 눌렀으면 target_num 이 리턴된다. 
+	    String isClicked=session.selectOne("market.getHeartInfoDetail",dto);
+	      
+	    if(isClicked==null) {
+	       return false; //해당 글에 하트를 안누름
+	    }else {
+	       return true;
+	    }
+	}
+	
 }
