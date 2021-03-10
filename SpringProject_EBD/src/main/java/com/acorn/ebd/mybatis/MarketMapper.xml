@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="market">
+
+	<insert id="insert" parameterType="marketDto">
+		INSERT INTO ebd_market
+		(num, writer, title, salesType, salesStatus, imgpath, content, viewcnt, regdate)
+		VALUES(ebd_market_seq.NEXTVAL, #{writer}, #{title}, #{salesType},
+				#{salesStatus}, #{imgpath}, #{content}, 0 , SYSDATE)
+	</insert>
+	
+	<!-- 검색조건을 판매중/판매완료 로 나누고 싶음 -->
+	<select id="getList" parameterType="marketDto" resultType="marketDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, writer, title, salesType, salesStatus,
+					imgpath, content, viewcnt, regdate
+				FROM ebd_market
+				<choose>
+					<when test="title != null">
+						WHERE title LIKE '%'||#{title}||'%'
+					</when>
+					<when test="writer != null">
+						WHERE writer LIKE '%'||#{writer}||'%'
+					</when>
+				</choose>
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getData" parameterType="int" resultType="marketDto">
+		SELECT *
+		FROM
+			(SELECT num, writer, title, salesType, salesStatus,
+				imgpath, content, viewcnt, regdate,
+				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
+				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
+			FROM ebd_market 
+			ORDER BY num DESC)
+		WHERE num=#{num}
+	</select>
+	
+	<update id="update" parameterType="marketDto">
+		UPDATE ebd_market
+		SET title=#{title}, salesType=#{salesType}, salesStatus=#{salesStatus}, 
+			imgpath=#{imgpath}, content=#{content}
+		WHERE num=#{num}
+	</update>
+	
+	<update id="updateStatus" parameterType="fileDto">
+		UPDATE ebd_market
+		SET salesStatus=#{salesStatus}
+		WHERE num=#{num}
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM ebd_market
+		WHERE num=#{num}
+	</delete>
+	
+	<!-- 글 조회수 -->
+	<update id="addViewCnt" parameterType="int">
+		UPDATE ebd_market
+		SET viewcnt=viewcnt+1
+		WHERE num=#{num}
+	</update>
+	
+	<!-- 전체 글 갯수 -->
+	<select id="getCount" parameterType="marketDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM ebd_market
+		<choose>
+			<when test="title != null">
+				WHERE title LIKE '%'||#{title}||'%'
+			</when>
+			<when test="writer != null">
+				WHERE writer LIKE '%'||#{writer}||'%'
+			</when>
+		</choose>	
+	</select>
+	
+</mapper>

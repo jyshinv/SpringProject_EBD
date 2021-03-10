@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/file/private/insert.jsp</title>
+<title>/market/private/delete</title>
 </head>
 <body>
-<script>
-	alert("업로드 완료!");
-	location.href="${pageContext.request.contextPath}/file/list.do";
-</script>
+<!-- 글 삭제 알림 -->
 </body>
 </html>

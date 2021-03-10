@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- 독후감 양식 파일 공유(업로드/다운로드) 디테일 댓글 -->
+<script>
+	alert("수정 완료! ");
+	location.href="${pageContext.request.contextPath}/market/list.do";
+</script>
 </body>
 </html>

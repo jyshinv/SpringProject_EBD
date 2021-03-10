@@ -16,44 +16,48 @@ public class FileCmtDaoImpl implements FileCmtDao{
 
 	@Override
 	public List<FileCmtDto> getList(FileCmtDto dto) {
-		// TODO Auto-generated method stub
-		return null;
+		List<FileCmtDto> list=session.selectList("fileCmt.getList", dto);
+		return list;
 	}
 
 	@Override
 	public void insert(FileCmtDto dto) {
-		// TODO Auto-generated method stub
+		session.insert("fileCmt.insert", dto);
 		
 	}
 
 	@Override
 	public void update(FileCmtDto dto) {
-		// TODO Auto-generated method stub
+		session.update("fileCmt.update", dto);
 		
 	}
 
 	@Override
 	public void delete(int num) {
-		// TODO Auto-generated method stub
+		// 댓글 삭제는 deleted 칼럼의 내용을 'yes'로 수정하는 작업을 한다.
+		session.update("fileCmt.delete",num);
 		
 	}
 
+	/*
+	 *  새로운 댓글을 저장한 직후에 바로 해당 댓글의 번호가 필요 하기 때문에
+	 *  댓글의 글번호는 미리 얻어내서 작업을 해야한다. 
+	 *  따라서 새 댓글의 글번호를 리턴해주는 메소드가 필요하다. 
+	 */
 	@Override
 	public int getSeq() {
-		// TODO Auto-generated method stub
-		return 0;
+		int seq = session.selectOne("fileCmt.getSeq");
+		return seq;
 	}
 
 	@Override
 	public FileCmtDto getData(int num) {
-		// TODO Auto-generated method stub
-		return null;
+		return session.selectOne("fileCmt.getData", num);
 	}
 
 	@Override
 	public int getCount(int ref_group) {
-		// TODO Auto-generated method stub
-		return 0;
+		return session.selectOne("fileCmt.getCount", ref_group);
 	}
 	
 	

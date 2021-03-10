@@ -4,12 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/file/private/insert.jsp</title>
+<title>/market/private/update</title>
 </head>
 <body>
+<!-- 글 수정 완료 알림 -->
 <script>
-	alert("업로드 완료!");
-	location.href="${pageContext.request.contextPath}/file/list.do";
+	alert("수정 완료! ");
+	location.href="${pageContext.request.contextPath}/market/list.do";
 </script>
 </body>
 </html>

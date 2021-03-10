@@ -5,10 +5,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn.ebd.file.dto.FileCmtDto;
 import com.acorn.ebd.file.dto.FileDto;
 
 public interface FileService {
-	// 파일 리스트 
+	// 파일 리스트
 	public void getList(HttpServletRequest request);
 	// 디테일 
 	public void getDetail(int num, ModelAndView mview);
@@ -17,7 +18,12 @@ public interface FileService {
 	// 삭제
 	public void deleteFile(int num, HttpServletRequest request);
 	// 수정 
-	public void updateFile(FileDto dto);
+	public void updateFile(FileDto dto, HttpServletRequest request);
 	
 	//댓글
+	public void saveCmt(HttpServletRequest request);
+	public void updateCmt(FileCmtDto dto);
+	public void deleteCmt(HttpServletRequest request);
+	public void moreCmtList(HttpServletRequest request);
+	
 }

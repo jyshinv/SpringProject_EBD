@@ -1,22 +1,21 @@
-package com.acorn.ebd.file.dto;
+package com.acorn.ebd.market.dto;
 
-public class FileCmtDto {
+public class MarketCmtDto {
 	private int num;
 	private String writer;
 	private String content;
-	private String target_nick; //댓글의 대상자
-	private int ref_group; //원글의 글 번호
-	private int cmt_group; //댓글 내 에서의 그룹번호
-	private String deleted; //삭제된 댓글인지의 여부 
+	private String target_nick; //댓글의 대상자 (닉네임)
+	private int ref_group; //원 댓글의 글 번호
+	private int cmt_group; //댓글 내에서의 그룹 번호
+	private String deleted; // 식제된 댓글인지의 여부 'yse' or 'no'
 	private String regdate;
 	
 	private int startRowNum;
 	private int endRowNum;
 	
-	//디폴트 생성자
-	public FileCmtDto() {}
+	public MarketCmtDto() {}
 
-	public FileCmtDto(int num, String writer, String content, String target_nick, int ref_group, int cmt_group,
+	public MarketCmtDto(int num, String writer, String content, String target_nick, int ref_group, int cmt_group,
 			String deleted, String regdate, int startRowNum, int endRowNum) {
 		super();
 		this.num = num;
@@ -111,5 +110,7 @@ public class FileCmtDto {
 		this.endRowNum = endRowNum;
 	}
 
+	
+	
 	
 }

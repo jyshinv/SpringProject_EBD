@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="file">
+
 	<select id="getList" parameterType="fileDto" resultType="fileDto">
 		SELECT *
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM
-				(SELECT num,writer,title,orgfname,savefname,
-					fileSize,imgpath,content,viewcnt,regdate
+				(SELECT num, writer, title, orgfname, savefname,
+					fileSize, imgpath, content, viewcnt, regdate
 				FROM ebd_file
 				<choose>
 					<when test="title != null">
@@ -39,8 +40,7 @@
 	</select>
 	
 	<select id="getData" parameterType="int" resultType="fileDto">
-		SELECT num, writer, title, orgfname, savefname, fileSize, imgpath,
-			content, viewcnt, regdate
+		SELECT *
 		FROM
 			(SELECT num, writer, title, orgfname, savefname, fileSize, 
 				imgpath, content, viewcnt, regdate,
@@ -63,11 +63,10 @@
 		WHERE num=#{num}
 	</delete>
 	
-	<!-- 일단 제목,내용만 수정 하게 하고
-			추후에 파일,이미지도 수정 가능하게 해보기 -->
 	<update id="update" parameterType="fileDto">
 		UPDATE ebd_file
-		SET title=#{title}, content=#{content}
+		SET title=#{title}, content=#{content}, imgpath=#{imgpath}, 
+			orgfname=#{orgfname}, savefname=#{savefname}, fileSize=#{fileSize}
 		WHERE num=#{num}  
 	</update>
 	

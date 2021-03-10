@@ -88,11 +88,11 @@
 	-->
 	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<beans:property name="order" value="0"/>
-	</beans:bean>	
-	
+	</beans:bean>
+
 	<!-- 어노테이션 기반으로 aop 적용할 수 있도록 설정 -->
 	<aop:aspectj-autoproxy/>
+
 	
-	
-	
+
 </beans:beans>

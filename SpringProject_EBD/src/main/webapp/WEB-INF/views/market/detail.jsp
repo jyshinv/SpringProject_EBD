@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/file/detail.jsp</title>
+<title>/market/detail</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* 글 내용을 출력할 div 에 적용할 css */
@@ -86,9 +86,7 @@
 </style>
 </head>
 <body>
-<!-- 독후감 양식 파일 공유(업로드/다운로드) 디테일 -->
 <div class="container">
-	
 	<div class="card mb-3">
 		<!-- 프로필 이미지 -->
 		
@@ -97,28 +95,55 @@
 		  	alt="Card image cap">
 		  	  	
 		<div class="card-body">
-	  		<p class="card-text">
-	  			<strong>파일명</strong> ${dto.orgfname } <strong>|</strong> 
-	  			<fmt:formatNumber value="${dto.fileSize }" pattern="#,###"/><strong>byte</strong>
-	  			<a class="btn btn-secondary" href="download.do?num=${dto.num }">다운로드 </a>
-	  		</p>
-	  		<p class="card-text">${dto.title }</p>
+	  		<p class="card-text">${dto.salesType } <strong>|</strong> ${dto.salesStatus }</p>
+	  		<!-- 디테일 페이지에서 수정 할 수 있게 만들기 -->
+	  		<c:if test="${dto.writer eq nick }">
+	  			<p class="card-text">
+		  			<form action="${pageContext.request.contextPath }/market/private/updateStatus.do" method="post">
+		  				<input type="hidden" name="num" value="${dto.num }"/>
+		  				<table>
+		  					<td>
+		  						
+		  						<select class="form-control" name="salesStatus" id="salesStatus">
+						 			<c:choose>
+										<c:when test="${dto.salesStatus eq '판매 중' }">
+											<option>${dto.salesStatus}</option>
+											<option>판매 완료</option>
+										</c:when>
+										<c:otherwise>
+											<option>${dto.salesStatus}</option>
+											<option>판매 중</option>
+										</c:otherwise>
+									</c:choose>
+						 		</select>
+						 		
+		  					</td>
+		  					<td>
+		  						<button class="btn btn-secondary" type="submit">판매상태 저장 하기</button>
+		  					</td>
+		  				</table>
+		  				<p class="card-text"><small class="text-muted">판매 유형을 변경 하고 싶으시면 변경해주세요</small></p>
+		  			</form>
+		  		</p>
+	  		</c:if>
+	  	
+	  		<p class="card-text"><strong>${dto.title }</strong></p>
 		    <p class="card-text">${dto.content }</p>
 		    <p class="card-text"><small class="text-muted">${dto.regdate }</small></p>
-		</div>
-		 
-	 	<!-- 작성자만 보이게-->
-	    <c:if test="${dto.writer eq nick }">
-		    <div class="btnStyle">
-		    	<a href="${pageContext.request.contextPath }/file/private/updateform.do?num=${dto.num}" class="btn btn-dark" >
-			 		수정</a>
-				<a href="${pageContext.request.contextPath }/file/private/delete.do?num=${dto.num}" class="btn btn-dark">
-					삭제</a>
-		    </div>
-	    </c:if>		
+		</div>	
 	</div>
 	
-	<!-- 페이징 -->
+	<!-- 작성자만 보이게-->
+    <c:if test="${dto.writer eq nick }">
+	    <div class="btnStyle">
+	    	<a href="${pageContext.request.contextPath }/market/private/updateform.do?num=${dto.num}" class="btn btn-dark" >
+		 		수정</a>
+			<a href="${pageContext.request.contextPath }/market/private/delete.do?num=${dto.num}" class="btn btn-dark">
+				삭제</a>
+	    </div>
+    </c:if>	
+    
+    <!-- 페이징 -->
 	<nav>
 		<ul class="pagination justify-content-center">
 			<c:choose>
@@ -262,7 +287,7 @@
 		var isDelete=confirm("댓글을 삭제 하시겠습니까?");
 		if(isDelete){
 			location.href="${pageContext.request.contextPath }"+
-			"/file/private/cmt_delete.do?num="+num+"&ref_group=${dto.num}";
+			"/market/private/cmt_delete.do?num="+num+"&ref_group=${dto.num}";
 		}
 	});
 	
@@ -273,7 +298,7 @@
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
 			location.href="${pageContext.request.contextPath }/users/loginform.do?"+
-					"url=${pageContext.request.contextPath }/file/detail.do?num=${dto.num}";
+					"url=${pageContext.request.contextPath }/market/detail.do?num=${dto.num}";
 		}
 		
 		var selector="#comment"+$(this).attr("data-num");
@@ -294,7 +319,7 @@
 		if(isLogin == false){
 			alert("로그인 페이지로 이동합니다.")
 			location.href="${pageContext.request.contextPath }/users/loginform.do?"+
-					"url=${pageContext.request.contextPath }/file/detail.do?num=${dto.num}";
+					"url=${pageContext.request.contextPath }/market/detail.do?num=${dto.num}";
 			return false; //폼 전송 막기 		
 		}
 	});
