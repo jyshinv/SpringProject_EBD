@@ -414,7 +414,6 @@ public class ReportServiceImpl implements ReportService{
 		//따라서 이미지 수정은 하지 않은 상태이므로 title과 content만 update한다. 
 		if(dto.getImage().isEmpty()) {
 			//이름이 중복되게 하지 않기 위해 null 사용
-		     dto.setImgpath(null);//수정을 하지 않으므로 imagePath를 비워준다. 수정하든 안하든 원래 이미지 경로가 가기 때문에 imagepath를 비워주어야 한다.
 		     dao.updateData(dto);
 		}else {//이미지가 비어있지 않으면 이미지 수정을 한 상태이므로, 기존 파일 파일시스템에서 삭제해주고 title, content, 이미지 모두 update한다. 
 		 
