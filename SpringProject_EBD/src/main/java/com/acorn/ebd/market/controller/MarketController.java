@@ -121,9 +121,9 @@ public class MarketController {
 	
 	// 마켓 글쓰기 수정
 	@RequestMapping(value= "/market/private/update", method = RequestMethod.POST)
-	public String update(@ModelAttribute("dto") MarketDto dto) {
+	public String update(MarketDto dto, HttpServletRequest request) {
 		
-		marketService.update(dto);
+		marketService.update(dto, request);
 		return "market/private/update";
 	}
 	

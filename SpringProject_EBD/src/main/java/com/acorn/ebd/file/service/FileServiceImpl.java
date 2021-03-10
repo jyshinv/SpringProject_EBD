@@ -151,7 +151,6 @@ public class FileServiceImpl implements FileService{
 		//ModelandView객체에 댓글 목록을 담아준다.
 		mview.addObject("cmtList", cmtList);
 		mview.addObject("totalPageCount", totalPageCount);
-		
 		mview.addObject("filename", filename); //이미지
 	}
 	

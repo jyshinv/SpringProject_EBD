@@ -154,8 +154,6 @@ public class MarketServiceImpl implements MarketService {
 
 	@Override
 	public void getDetail(ModelAndView mview, int num) {
-		// 이전글, 다음글 페이징 
-		
 		// 번호를 이용해서 정보를 얻어온다.
 		MarketDto dto=new MarketDto();
 		dto=marketDao.getData(num);
@@ -163,6 +161,9 @@ public class MarketServiceImpl implements MarketService {
 		mview.addObject("dto", dto);
 		// 글 조회수 증가 
 		marketDao.addViewCnt(num);
+		
+		//수정폼에서 저장한 이미지의 오리지널 파일명을 불러오기 위해 문자열을 자른다.
+		String filename=dto.getImgpath().substring(21);
 		
 		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
 		final int PAGE_ROW_COUNT=5;
@@ -194,13 +195,66 @@ public class MarketServiceImpl implements MarketService {
 		//ModelAndView 객체에 댓글 목록도 담아준다.
 		mview.addObject("cmtList", cmtList);
 		mview.addObject("totalPageCount", totalPageCount);
-		
+		mview.addObject("filename", filename); //이미지
 	}
 
 	@Override
-	public void update(MarketDto dto) {
-		marketDao.update(dto);
-		
+	public void update(MarketDto dto, HttpServletRequest request) {
+		//이미지가 비어있다면 MultipartFile image는 비어있는 상태이다.
+		//따라서 이미지 수정은 하지 않은 상태이므로 title과 content만 update한다. 
+		  if(dto.getMyImg().isEmpty()) {
+		     //dto.setImgPath(null); //수정을 하지 않으므로 imagePath를 비워준다. 
+		     marketDao.update(dto);
+		     
+		  }else {//이미지가 비어있지 않으면 이미지 수정을 한 상태이므로, 기존 파일 파일시스템에서 삭제해주고 title, content, 이미지 모두 update한다. 
+			  
+			 // imgPath 는 /upload/~~ 로 저장되어있으므로 앞에 /upload/를 잘라준다. 
+			 String filename=dto.getImgpath().substring(8);
+			 System.out.println(filename);
+			 
+			 //기존의 파일은 파일시스템에서 삭제해준다.
+			 String path=request.getServletContext().getRealPath("/upload")+File.separator+filename;
+			 System.out.println("path="+path);
+			         new File(path).delete();
+			  
+			 //업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값 얻어오기 
+			 MultipartFile myFile=dto.getMyImg();
+			 
+			 //원본 파일명
+			 String orgFileName=myFile.getOriginalFilename();
+			 
+			 // webapp/upload 폴더 까지의 실제 경로(서버의 파일시스템 상에서의 경로)
+			 String realPath=request.getServletContext().getRealPath("/upload");
+			 System.out.println(realPath);
+			 
+			 //저장할 파일의 상세 경로
+			 String filePath=realPath+File.separator;
+			 
+			 //디렉토리를 만들 파일 객체 생성
+			 File upload=new File(filePath);
+			 if(!upload.exists()) {//만일 디렉토리가 존재하지 않으면 
+				 upload.mkdir(); //만들어 준다.
+			 }
+			 
+			 //저장할 파일 명을 구성한다.(원본파일명에 타임밀리를 찍어서 더해줌으로써 겹치는 파일명이 없도록 한다.)
+			 String saveFileName=System.currentTimeMillis()+orgFileName;
+			 
+			 try {
+			    //upload 폴더에 파일을 저장한다.
+			    myFile.transferTo(new File(filePath+saveFileName));
+			    System.out.println(filePath+saveFileName);
+			 }catch(Exception e) {
+			    e.printStackTrace();
+			 }
+			 
+			//dto 에 업로드된 파일의 정보를 담는다.
+			dto.setImgpath("/upload/"+saveFileName);
+			 
+			//dao를 이용해서 DB 수정하기
+			marketDao.update(dto);
+			
+		  }
+		  
 	}
 
 	@Override

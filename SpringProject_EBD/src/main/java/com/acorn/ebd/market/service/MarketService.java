@@ -13,7 +13,7 @@ public interface MarketService {
 	public void getList(HttpServletRequest request);
 	public void getDetail(ModelAndView mview, int num);
 	
-	public void update(MarketDto dto);
+	public void update(MarketDto dto, HttpServletRequest request);
 	public void updateStatus(MarketDto dto); //디테일페이지에서 수정적용
 	public void delete(int num);
 	

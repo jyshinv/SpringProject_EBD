@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>File insert</title>
+<title>/file/private/insert.jsp</title>
 </head>
 <body>
 <script>

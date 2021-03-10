@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>File insertFrom</title>
+<title>/file/private/insertform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	.head{
@@ -62,36 +62,35 @@
 	 --%>
 	 
 	 <form action="insert.do" method="post" enctype="multipart/form-data">
-	 	
 	 	<div class="form-group">
 	 		<label for="title">제목</label>
-	 		<input class="form-control" type="text" id="title" name="title" />
+	 		<input class="form-control" type="text" id="title" name="title" placeholder="제목을 입력해 주세요." />
 	 	</div>
 	 	
 	 	<!-- 파일 업로드  -->
 	 	<div>
 	 		첨부 파일 : <input type="text" id="fileName2" placeholder="파일을 첨부해주세요" disabled/>
 	 		
-	 		<label for="myFile" class="btn btn-primary btn-file">첨부할 파일 선택
+	 		<label for="myFile" class="btn btn-primary btn-sm btn-file">첨부할 파일 선택
 	 			<input type="file" name="myFile" id="myFile" onchange="reviewUploadImg2(this);" />
 	 		</label>
 	 		<br />
-	 		<small class="text-muted">공유할 독후감 양식파일을 넣어주세요</small>
+	 		<small class="text-muted">공유할 독후감 양식파일을 넣어주세요.</small>
 	 	</div>
 	 	
 	 	<!-- 이미지 업로드 -->
 	 	<div>
 	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" disabled/>
 	 	
-	 		<label for="myImg" class="btn btn-primary btn-file">첨부할 이미지 선택
+	 		<label for="myImg" class="btn btn-primary btn-sm btn-file">첨부할 이미지 선택
 	 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
 	 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 	 		</label>
 	 		<br />
-	 		<small class="text-muted">예시 사진을 넣어주세요</small>
+	 		<small class="text-muted">예시 사진을 넣어주세요.</small>
 	 	</div>
 	 	<br />
-	 	<!-- 스마트 에디터 보류 일단은 textarea로 구현 -->
+	 	
 	 	<div class="form-group">
 	 		<label for="content"></label>
 		    <textarea class="form-control" type="text"  name="content" id="content"></textarea>

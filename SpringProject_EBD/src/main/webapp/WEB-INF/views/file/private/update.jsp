@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>/file/private/update.jsp</title>
 </head>
 <body>
 <!-- 독후감 양식 파일 업로드(게시글) 수정-->

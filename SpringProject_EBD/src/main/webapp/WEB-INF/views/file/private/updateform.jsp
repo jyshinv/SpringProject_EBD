@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>/file/private/updateform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	.head{
@@ -48,28 +48,8 @@
 <div class="container">
 	<!-- 독후감 양식 파일 업로드(게시글) 추가 폼-->
 	<h1 class="head" >독후감 수정 페이지 입니다.</h1>
-	
-	<%--
-			[ 파일 업로드 폼 작성법 ]
-			1. method="post"
-			2. 폼에 enctype="multipart/form-data" 속성 추가
-			3. <input type="file" /> 을 이용한다.  
-	
-			[ SmartEditor 를 사용하기 위한 설정 ]
-			
-			1. WebContent 에 SmartEditor  폴더를 복사해서 붙여 넣기
-			2. WebContent 에 upload 폴더 만들어 두기
-			3. WebContent/WEB-INF/lib 폴더에 
-			   commons-io.jar 파일과 commons-fileupload.jar 파일 붙여 넣기
-			4. <textarea id="content" name="content"> 
-			   content 가 아래의 javascript 에서 사용 되기때문에 다른 이름으로 바꾸고 
-			      싶으면 javascript 에서  content 를 찾아서 모두 다른 이름으로 바꿔주면 된다. 
-			5. textarea 의 크기가 SmartEditor  의 크기가 된다.
-			6. 폼을 제출하고 싶으면  submitContents(this) 라는 javascript 가 
-		      	폼 안에 있는 버튼에서 실행되면 된다.
-	 --%>
-	 
-	 <form action="update.do" method="post" enctype="multipart/form-data">
+		 
+	<form action="update.do" method="post" enctype="multipart/form-data">
 	 	<input type="hidden" name="num" value="${dto.num }"/>
 	 	<input type="hidden" name="imgpath" value="${dto.imgpath }" } />
 	 	
@@ -85,8 +65,8 @@
 	 	
 	 	<!-- 파일 업로드  -->
 	 	<div>
-	 		첨부 파일 : <input type="text" id="fileName2" placeholder="수정할 파일을 첨부" value="${dto.orgfname }" disabled/>
-	 		<label for="myFile" class="btn btn-primary btn-file" >첨부할 파일 선택
+	 		첨부 파일 : <input type="text" id="fileName2" placeholder="파일을 첨부해주세요" value="${dto.orgfname }" disabled/>
+	 		<label for="myFile" class="btn btn-primary btn-sm btn-file" >첨부할 파일 선택
 	 			<input type="file" name="myFile" id="myFile" value="${filename2 }" onchange="reviewUploadImg2(this);"/>
 	 		</label>
 	 		<br />
@@ -95,8 +75,8 @@
 	 	
 	 	<!-- 이미지 업로드 -->
 	 	<div>
-	 		이미지 : <input type="text" id="fileName" placeholder="수정할 이미지를 첨부" value="${filename }" disabled/>
-	 		<label for="myImg" class="btn btn-primary btn-file">첨부할 이미지 선택
+	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" disabled/>
+	 		<label for="myImg" class="btn btn-primary btn-sm btn-file">첨부할 이미지 선택
 	 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
 	 			accept=".jpg, .jpeg, .png, .JPG, .JPEG" />
 	 		</label>
