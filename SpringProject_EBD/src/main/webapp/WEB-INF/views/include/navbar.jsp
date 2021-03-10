@@ -103,6 +103,7 @@ nav요소는 div요소에 의미를 더한 요소이다.
 				<%--로그인 된 아이디가 있을 때 아이디를 클릭하면 info.do요청을 하도록 한다. --%>
 				<c:otherwise>
 					<span class="navbar-text">
+						<a href="${pageContext.request.contextPath }/my_report/private/list.do">My Diary</a>
 						<a href="${pageContext.request.contextPath }/users/private/info.do">${sessionScope.id }</a>
 						<a href="#">${sessionScope.nick }</a>
 						<a class="btn btn-warning btn-sm" href="${pageContext.request.contextPath }/users/logout.do">로그아웃</a>
