@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="episodeCmt">
+	<!-- regdate는 users와 두 테이블 둘다에 존재하므로 테이블명.regdate 로 어떤 regdate를 쓸 지  확실히 지정해 주어야한다.-->
+	<select id="getList" parameterType="episodeCmtDto" resultType="episodeCmtDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, writer, content, target_nick, ref_group,
+					cmt_group, deleted, regdate
+				FROM ebd_episode_cmt
+				WHERE ref_group=#{ref_group}
+				ORDER BY cmt_group DESC, num ASC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}	
+	</select>
+	
+	<insert id="insert" parameterType="episodeCmtDto">
+		INSERT INTO ebd_episode_cmt
+		(num, writer, content, target_nick, ref_group, cmt_group, regdate)
+		VALUES(#{num}, #{writer}, #{content}, #{target_nick}, #{ref_group},
+			#{cmt_group}, SYSDATE)
+	</insert>
+	<update id="update" parameterType="episodeCmtDto">
+		UPDATE ebd_episode_cmt
+		SET content=#{content}
+		WHERE num=#{num}
+	</update>
+	<update id="delete" parameterType="int">
+		UPDATE ebd_episode_cmt
+		SET deleted='yes'
+		WHERE num=#{num}
+	</update>
+	<select id="getSequence" resultType="int">
+		SELECT ebd_episode_cmt_seq.NEXTVAL
+		FROM DUAL
+	</select>
+	<select id="getData" parameterType="int" resultType="episodeCmtDto">
+		SELECT num,writer,content,ref_group, cmt_group,deleted,regdate
+		FROM ebd_episode_cmt
+		WHERE num=#{num}
+	</select>
+	<select id="getCount" parameterType="int" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM ebd_episode_cmt
+		WHERE ref_group=#{ref_group}
+	</select>
+</mapper>

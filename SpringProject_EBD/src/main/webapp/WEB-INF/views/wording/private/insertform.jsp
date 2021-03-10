@@ -13,11 +13,11 @@
 		책검색<input type="submit" value="검색" />
 	</form>
 	<form action="insert.do" method="post">
-		<label for="title"></label>책제목
-		<input type="text" name="title" id="title" value="${empty title ? "" : title }"/><br />			
-		<label for="author"></label>작가
-		<input type="text" name="author" id="author" value="${empty author ? "" : author }" /><br />
-		<label for="content"></label>내용
+		<label for="title">책 제목</label>
+		<input type="text" name="title" id="title" value="${title }"/><br />			
+		<label for="author">작가</label>
+		<input type="text" name="author" id="author" value="${author }" /><br />
+		<label for="content">내용</label>
 		<input type="text" name="content" id="content" /><br />
 		<input type="submit" value="입력하기" />
 	</form>
