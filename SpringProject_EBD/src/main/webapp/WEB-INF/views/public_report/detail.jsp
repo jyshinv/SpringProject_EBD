@@ -122,7 +122,7 @@
 			<center>
 				<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
 			</center>
-			<!-- 로그인을 해야지만 하트를 누를 수 있다. -->
+			<!-- 로그인을 해야지만 하트를 누를 수 있다. 반복문이 아니어서 isCheck가 필요없다. -->
 			<tr>
 	         	<c:if test="${not empty nick }">
 		            <c:choose>

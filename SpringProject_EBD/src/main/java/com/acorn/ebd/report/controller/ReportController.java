@@ -163,7 +163,7 @@ public class ReportController {
   	}
   	//.do 요청을 하고 싶을 때는 redirect 사용
   	
-  	//하트 클릭 요청처리
+  	//하트 클릭 요청처리 responseBody 를 적으면 return map 이 자동으로 list.jsp saveheart function(data)로 가진다.
     @RequestMapping("/public_report/saveheart.do")
     @ResponseBody
     public Map<String, Object> insertheart(@RequestParam String target_num, HttpSession session){

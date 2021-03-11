@@ -45,7 +45,7 @@
 <div class="container">
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
-      	<%int isCheck=0; %>
+      	<%int isCheck=0; %><!-- 이중 for문에서 for문이 똑같은 숫자로 돌게 하기 위해 isCheck 사용 이해 안되면 노트에 적어보거나 따로 코딩해서 돌려보기 -->
 		<c:forEach var="tmp" items="${requestScope.list }">
 			<div class="col">
 				<div class="card" style="width: 18rem;">
@@ -183,7 +183,7 @@
 	   //파이어폭스와 사파리에서는 persisted를 통해서 뒤로가기 감지가 가능하지만 익스와 크롬에서는 불가  ||뒤의 코드를 추가한다. 
 	   if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
 	      console.log('BFCahe로부터 복원됨');
-	      $(".heart-link").css("pointer-events","none");
+	      $(".heart-link").css("pointer-events","none");//클릭이 안되게 막는다.
 	      location.reload();//새로고침 
 	      
 	   }
