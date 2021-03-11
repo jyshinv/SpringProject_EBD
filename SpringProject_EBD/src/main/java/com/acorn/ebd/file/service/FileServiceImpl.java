@@ -25,13 +25,13 @@ public class FileServiceImpl implements FileService{
 	@Autowired
 	private FileCmtDao cmtDao;
 	
+	// 전체 글 목록
 	@Override
 	public void getList(HttpServletRequest request) {
 		//한 페이지에 나타낼 row 의 갯수
-		final int PAGE_ROW_COUNT=10;
+		final int PAGE_ROW_COUNT=5;
 		//하단 디스플레이 페이지 갯수
 		final int PAGE_DISPLAY_COUNT=5;
-		
 		//보여줄 페이지의 번호
 		int pageNum=1;
 		

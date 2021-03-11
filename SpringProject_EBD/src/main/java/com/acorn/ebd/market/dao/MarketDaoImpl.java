@@ -14,30 +14,35 @@ public class MarketDaoImpl implements MarketDao{
 	@Autowired
 	private SqlSession session;
 	
+	// 글 추가
 	@Override
 	public void insert(MarketDto dto) {
 		session.insert("market.insert", dto);
 		
 	}
 
+	// 글 수정
 	@Override
 	public void update(MarketDto dto) {
 		session.update("market.update", dto);
 		
 	}
 
+	// 글 삭제
 	@Override
 	public void delete(int num) {
 		session.delete("market.delete",num);
 		
 	}
 
+	// 글 조회수 증가 
 	@Override
 	public void addViewCnt(int num) {
 		session.update("market.addViewCnt",num);
 		
 	}
 
+	// 전체 글 목록
 	@Override
 	public List<MarketDto> getList(MarketDto dto) {
 		// 파일 목록을 담아서
@@ -45,7 +50,8 @@ public class MarketDaoImpl implements MarketDao{
 		// 리턴 
 		return list;
 	}
-
+	
+	// num번의 글
 	@Override
 	public MarketDto getData(int num) {
 		
@@ -53,10 +59,11 @@ public class MarketDaoImpl implements MarketDao{
 		return dto;
 	}
 
+	// 전체 글 갯수
 	@Override
 	public int getCount(MarketDto dto) {
 		int num=session.selectOne("market.getCount", dto);
-		return 0;
+		return num;
 	}
 
 	@Override

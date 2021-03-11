@@ -69,7 +69,7 @@
 	 	
 	 	<!-- 파일 업로드  -->
 	 	<div>
-	 		첨부 파일 : <input type="text" id="fileName2" placeholder="파일을 첨부해주세요" disabled/>
+	 		첨부 파일 : <input type="text" id="fileName2" placeholder="파일을 첨부해주세요" />
 	 		
 	 		<label for="myFile" class="btn btn-primary btn-sm btn-file">첨부할 파일 선택
 	 			<input type="file" name="myFile" id="myFile" onchange="reviewUploadImg2(this);" />
@@ -80,7 +80,7 @@
 	 	
 	 	<!-- 이미지 업로드 -->
 	 	<div>
-	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" disabled/>
+	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
 	 	
 	 		<label for="myImg" class="btn btn-primary btn-sm btn-file">첨부할 이미지 선택
 	 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"

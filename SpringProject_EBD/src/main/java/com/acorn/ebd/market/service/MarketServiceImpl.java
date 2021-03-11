@@ -25,6 +25,7 @@ public class MarketServiceImpl implements MarketService {
 	@Autowired
 	private MarketCmtDao cmtDao;
 
+	// 글&파일 추가
 	@Override
 	public void insert(HttpServletRequest request, MarketDto dto) {
 		
@@ -70,13 +71,14 @@ public class MarketServiceImpl implements MarketService {
 		
 	}
 
+	// 전체 글 목록
 	@Override
 	public void getList(HttpServletRequest request) {
 		// 검색기능이 지금은 제목/내용 인데
 		// 판매상태랑 판매유형을 추가하고싶음 
 		
 		//한 페이지에 나타낼 row 의 갯수
-		final int PAGE_ROW_COUNT=9;
+		final int PAGE_ROW_COUNT=6;
 		//하단 디스플레이 페이지 갯수
 		final int PAGE_DISPLAY_COUNT=5;
 		
@@ -142,17 +144,20 @@ public class MarketServiceImpl implements MarketService {
 		}
 		
 		//로그인된 아이디의 nick 정보 불러오기
-	      String nick=(String)request.getSession().getAttribute("nick");
-	      dto.setNick(nick);
-	      List<Integer> isHeartClickList=null;
-	      List<Integer> heartCntList=null;
-	      //하트 정보(로그인 중일때만)
-	      //nick이 null인채로 episodedao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
-	      if(nick != null) {
-	         isHeartClickList=marketDao.getHeartInfo(dto);         
-	      }
-	      //총 하트 개수 정보를 리턴해주는 메소드
-	      heartCntList=marketDao.getHeartCnt(dto);
+		String nick=(String)request.getSession().getAttribute("nick");
+		dto.setNick(nick);
+		
+		List<Integer> isHeartClickList=null;
+		List<Integer> heartCntList=null;
+		
+		//하트 정보(로그인 중일때만)
+		//nick이 null인채로 episodedao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
+		if(nick != null) {
+			isHeartClickList=marketDao.getHeartInfo(dto);         
+		}
+		
+		//총 하트 개수 정보를 리턴해주는 메소드
+		heartCntList=marketDao.getHeartCnt(dto);
 		
 		//EL 에서 사용할 값을 미리 request 에 담아두기
 		request.setAttribute("marketList", marketList);

@@ -13,8 +13,8 @@ public class MarketDto {
 	private int viewCnt;
 	private String regdate;
 	
-	private String nick;
-	private String profile;
+	private String nick; //프로필 이미지 경로(users테이블의 profile)
+	private String profile; //닉네임(heart테이블의 nick)
 	
 	//업로드 되는 이미지의 정보를 담을 필드
 	private MultipartFile myImg; 

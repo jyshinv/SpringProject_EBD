@@ -25,7 +25,9 @@ import com.acorn.ebd.market.service.MarketServiceImpl;
 public class MarketController {
 	@Autowired
 	private MarketService marketService;
-	// String 데이터 하나 ModelAndView 데이터를 여러개
+	// String 데이터 하나 ModelAndView 데이터를 여러개 ?
+	
+	
 	
 	//하트 클릭 요청처리
     @RequestMapping("/market/saveheart.do")
@@ -38,7 +40,7 @@ public class MarketController {
        return map;
     }
     
-  //하트눌림 클릭 요청처리(하트 해제)
+    //하트눌림 클릭 요청처리(하트 해제)
     @RequestMapping("/market/removeheart.do")
     @ResponseBody
     public Map<String, Object> deleteheart(@RequestParam String target_num, HttpSession session) {
@@ -157,6 +159,7 @@ public class MarketController {
 		return "market/private/updateStatus";
 	}
 	
+	// 마켓 글 삭제 
 	@RequestMapping("/market/private/delete")
 	public String delete(@RequestParam int num) {
 		

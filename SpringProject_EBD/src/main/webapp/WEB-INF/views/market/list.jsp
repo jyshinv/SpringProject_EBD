@@ -145,26 +145,52 @@
 	</div>
 	
 	<!-- 하단에 페이징 -->
-	<div class="page-display">
-		<ul class="pagination pagination-sm justify-content-center">
-		<c:if test="${startPageNum ne 1 }">
-			<li class="page-item"><a class="page-link" href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a></li>
-		</c:if>
-		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+	<nav>
+		<ul class="pagination justify-content-center">
 			<c:choose>
-				<c:when test="${i eq pageNum }">
-					<li class="page-item active"><a class="page-link" href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a></li>
+				<%-- 시작페이지가 1과 같지 않다면 --%>
+				<c:when test="${startPageNum ne 1 }">
+					<li class="page-item">
+						<a class="page-link" href="list.do?pageNum=${startPageNum-1 }">Prev</a>
+					</li>
 				</c:when>
-				<c:otherwise>
-					<li class="page-item"><a class="page-link" href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a></li>
+				<%-- 시작페이지가 1과 같다면 --%>
+				<c:otherwise>	
+					<li class="page-item disabled">
+						<a class="page-link" href="javascript:">Prev</a>
+					</li>
 				</c:otherwise>
 			</c:choose>
-		</c:forEach>
-		<c:if test="${endPageNum lt totalPageCount }">
-			<li class="page-item"><a class="page-link" href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">Next</a></li>
-		</c:if>
+			<%-- 반복 --%>
+			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">
+				<c:choose>
+					<c:when test="${i eq requestScope.pageNum }">
+						<li class="page-item active">
+							<a class="page-link" href="list.do?pageNum=${i }">${i }</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item">
+							<a class="page-link" href="list.do?pageNum=${i }">${i }</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			
+			<c:choose>
+				<c:when test="${endPageNum lt totalPageCount }">
+					<li class="page-item">
+						<a class="page-link" href="list.do?pageNum=${endPageNum+1 }">Next</a>
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item disabled">
+						<a class="page-link" href="javascript:">Next</a>
+					</li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
-	</div>
+	</nav>
 	
 </div>
 <script>
