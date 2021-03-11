@@ -36,7 +36,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp"></jsp:include>
+<jsp:include page="../include/navbar2.jsp"></jsp:include>
 <div class="container">
 	<a href="private/uploadform.do">에피소드 작성하러 가기</a>	
 	<h1>에피소드 목록 입니다.</h1>

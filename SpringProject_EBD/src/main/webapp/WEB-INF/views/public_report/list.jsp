@@ -36,7 +36,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp"></jsp:include>
+<jsp:include page="../include/navbar2.jsp"></jsp:include>
 <div class="container">
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="tmp" items="${requestScope.list }">

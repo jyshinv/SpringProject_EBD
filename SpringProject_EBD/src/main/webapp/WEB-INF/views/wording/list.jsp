@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>책 명언/글귀</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
-
 <style>
 	.back-drop{
 		/* 일단 숨겨 놓는다. */
@@ -48,7 +47,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp"></jsp:include>
+<jsp:include page="../include/navbar2.jsp"></jsp:include>
 <h1>책/명언 페이지 입니다.</h1>
 <a href="private/insertform.do">책 명언/글귀 작성하러 가기</a>
 

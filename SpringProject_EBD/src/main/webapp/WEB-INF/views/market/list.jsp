@@ -65,10 +65,9 @@
 </style>
 </head>
 <body>
+<jsp:include page="../include/navbar2.jsp"></jsp:include>
 <div class="container">
-	<a href="${pageContext.request.contextPath }">홈으로 돌아가기</a>
 	<br />
-	
 	<table>
 		<td>
 			<a href="private/insertform.do" class="btn btn-info">중고거래 글 쓰러가기</a>
@@ -95,8 +94,9 @@
 			</td>
 		</form>
 	</table>
-	
+	<!-- 목록 -->
 	<div class="row" id="galleryList">
+	
 		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
       	<%int isCheck=0; %>
 	
@@ -109,7 +109,6 @@
 					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imgpath }">
 				</div>
 				
-				
 				<div class="card-body">
 					<h5 class="card-title">
 						<a href="${pageContext.request.contextPath }/market/detail.do?num=${tmp.num}">${tmp.title }</a>
@@ -120,26 +119,27 @@
 				</div>
 				
 				<!-- 로그인이 된 사용자만 볼 수 있다. -->
-                  <c:if test="${not empty id }">
-                     <p>
-                        <!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
-                        <!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
-                        <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-                           <c:choose>
-                              <c:when test="${isHeartClickList[i] eq 0 }">
-                                 <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
-                              </c:when>
-                              <c:otherwise>
-                                 <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
-                              </c:otherwise>
-                           </c:choose>
-                           <span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>                  
-                        </c:forEach>
-                     </p>
-                  </c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
-                  
-                  <!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
-     			<%isCheck++; %>
+				<c:if test="${not empty id }">
+					<p>
+						<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
+						<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
+						<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+							<c:choose>
+								<c:when test="${isHeartClickList[i] eq 0 }">
+									<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
+								</c:when>
+								<c:otherwise>
+									<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+								</c:otherwise>
+							</c:choose>
+							<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>                  
+						</c:forEach>
+					</p>
+				</c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
+				
+				<!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
+				<%isCheck++; %>
+				
 			</div>
 		</c:forEach>
 	</div>

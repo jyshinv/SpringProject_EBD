@@ -14,7 +14,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="../../include/navbar.jsp"></jsp:include>
+<jsp:include page="../../include/navbar2.jsp"></jsp:include>
 	<div class="container">
 		<span>
 			<a href="${pageContext.request.contextPath}/my_report/private/insertform.do">

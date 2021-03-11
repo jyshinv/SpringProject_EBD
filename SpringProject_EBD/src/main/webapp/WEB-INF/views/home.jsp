@@ -9,7 +9,8 @@
 <jsp:include page="include/resource.jsp"></jsp:include>
 </head>
 <body>
-<jsp:include page="include/navbar.jsp"></jsp:include>
+<jsp:include page="include/navbar2.jsp"></jsp:include>
+<jsp:include page="include/navbar3.jsp"></jsp:include>
 <div class="container">
 </div>
 </body>

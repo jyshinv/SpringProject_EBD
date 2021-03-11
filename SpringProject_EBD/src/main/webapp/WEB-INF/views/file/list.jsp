@@ -17,7 +17,7 @@
 </style>
 </head>
 <body>
-
+<jsp:include page="../include/navbar2.jsp"></jsp:include>
 <div class="container">
 	<a href="${pageContext.request.contextPath }">홈으로 돌아가기</a>
 		
