@@ -30,4 +30,6 @@ public interface EpisodeDao {
 	public void updateData(EpisodeDto dto);
 	//에피소드 글 삭제 요청처리
 	public void deleteDetail(int num);
+	//에피소드 뷰카운트 증가 요청처리 
+	public void addViewCount(int num);
 }

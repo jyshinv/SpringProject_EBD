@@ -171,4 +171,10 @@
 		WHERE num=#{num}
 	</delete>
 	
+	<update id="addViewCount" parameterType="int">
+		UPDATE ebd_episode
+		SET viewcnt=viewcnt+1
+		WHERE num=#{num}
+	</update>
+	
 </mapper>
