@@ -170,16 +170,23 @@
 	<jsp:param value="public_report" name="thisPage"/>
 </jsp:include>
 <div class="container">
-	<form action="list.do" method="get">
-		<label for="condition">검색조건</label>
-		<select name="condition" id="condition">
-			<option value="booktitle_author" ${condition eq 'booktitle_author' ? 'selected' : '' }>책제목+저자</option>
-			<option value="booktitle" ${condition eq 'booktitle' ? 'selected' : '' }>책제목</option>
-			<option value="author" ${condition eq 'author' ? 'selected' : '' }>저자</option>
-		</select>
-		<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
-		<button type="submit">검색</button>
-	</form>
+		<form action="list.do" method="get">
+			<div class="row justify-content-md-center" style="margin:10px;">
+				<div class="col-2">
+					<select class="form-control" name="condition" id="condition">
+						<option value="booktitle_author" ${condition eq 'booktitle_author' ? 'selected' : '' }>책제목+저자</option>
+						<option value="booktitle" ${condition eq 'booktitle' ? 'selected' : '' }>책제목</option>
+						<option value="author" ${condition eq 'author' ? 'selected' : '' }>저자</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+					<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
+				</div>
+				<span>
+					<button class="btn btn-primary" type="submit">검색</button>
+				</span>
+			</div>
+		</form>
 	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
 	<c:if test="${not empty keyword }">
 		<div class="alert alert-success">
