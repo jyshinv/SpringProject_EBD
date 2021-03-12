@@ -112,8 +112,11 @@
 						</c:otherwise>
 					</c:choose>
 				<span class="heart-cnt">(${heartcnt })</span>
-				| <a href="private/updateform.do?num=${dataDto.num }">수정</a>
-				| <a href="private/delete.do?num=${dataDto.num }" > 삭제</a>
+				<!-- 작성자와 닉네임이 같으면 수정과 삭제를 출력 -->
+				<c:if test="${dataDto.writer eq nick }">
+					| <a href="private/updateform.do?num=${dataDto.num }">수정</a>
+					| <a href="private/delete.do?num=${dataDto.num }" > 삭제</a>
+				</c:if>
 			</c:if>
 			<p class="card-text">${dataDto.content }</p>
 			<p class="card-text">${dataDto.title }</p>
