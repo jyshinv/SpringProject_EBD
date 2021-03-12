@@ -11,80 +11,63 @@
 <body>
 <div class="container-fluid">
 	<div class="container" style="margin-bottom:10px;">
-		<center>
-			<input class="form-control col-6" type="text" name="keyword" >
-			<button class="btn btn-primary col-1" type="submit" >검색</button>
-		</center>
-	</div>
-    <table id="search-api" class="table">
+        <form action="bookList.do">
+           <div class="row justify-content-md-center">
+              <div class="col-md-8">
+                  <input class="form-control" type="text" name="keyword" >
+              </div>
+              <span>
+                  <input class="btn btn-primary" type="submit" value="검색">
+              <span>
+           </div>              
+        </form>        
+    </div>
+    <table class="table" id="search-api">
     	<thead>
     		<div class="container">
 		       	<tr class="text-center">
-		       		<div class="col">
-			       		<th>책표지</th>
-		       		</div>
-		       		<div class="col">
-			       		<th>책제목</th>
-		       		</div>
-		       		<div class="col">
-			       		<th>저자</th>
-		       		</div>
-		       		<div class="col">
-			       		<th>출판사</th>
-		       		</div>
-		       		<div class="col">
-			       		<th>구매처 링크</th>
-		       		</div>
-		       		<div class="col">
-			       		<th>책소개</th>
-		       		</div>
-					<div class="col">
-			       		<th>선택</th>
-		       		</div>		       		
+		       		<th>책표지</th>
+		       		<th>책제목</th>
+		       		<th>저자</th>
+		       		<th>출판사</th>
+		       		<th>책소개</th>
+		       		<th>구매처 링크</th>
+		       		<th>선택</th>
 		       	</tr>
     		</div>
     	</thead>
     	<tbody>
-    	<div class="container">
-	        <c:forEach items="${bookList}" var ="b">
-	            <tr class="text-center">
-	            	<div class="col">
-		                <td width="100"><img src="${b.image}"/></td>
-	            	</div>
-	            	<div class="col">
-		                <td width="200">${b.title}</td>
-	            	</div>
-	            	<div class="col">
-		                <td width="100">${b.author}</td>
-	            	</div>
-	            	<div class="col">
-		                <td width="100">${b.publisher }</td>
-	            	</div>
-	            	<div class="col">
-		                <td width="200">${b.link }</td>
-	            	</div>
-	            	<div class="col">
-		                <td width="300">${b.description}</td>
-	            	</div>
-	                <td>
-	                	<form action="insertform.do">
-	                		<label for="booktitle"></label>
-	                		<input type="hidden" id="booktitle" name="booktitle" value="${b.title }"/>
-	                		<label for="author"></label>
-	                		<input type="hidden" id="author" name="author" value="${b.author }"/>
-	                		<label for="link"></label>
-	                		<input type="hidden" id="link" name="link" value="${b.link }"/>
-	                		<input class="btn btn-primary" type="submit" value="선택"/>
-	                	</form>
-	                </td>
-	                <!-- 
-	                <td width="100"><input type="button" class="checkBtn" value="선택"/></td>
-	                 -->                
-	            </tr>
-	        </c:forEach>
-    	</div>
+        <c:forEach items="${bookList}" var ="b">
+            <tr class="text-center">
+                <td width="100"><img src="${b.image}"/></td>
+                <td width="200">${b.title}</td>
+                <td width="100">${b.author}</td>
+                <td width="100">${b.publisher }</td>
+                <td width="400">${b.description}</td>
+                <td width="200">
+                	<a href="${b.link }">${b.link }</a>
+                </td>
+                <td width="100">
+                	<form action="insertform.do">
+                		<label for="booktitle"></label>
+                		<input type="hidden" id="booktitle" name="booktitle" value="${b.title }"/>
+                		<label for="author"></label>
+                		<input type="hidden" id="author" name="author" value="${b.author }"/>
+                		<label for="link"></label>
+                		<input type="hidden" id="link" name="link" value="${b.link }"/>
+                		<input class="btn btn-primary" type="submit" value="선택"/>
+                	</form>
+                </td>
+                <!-- 
+                <td width="100"><input type="button" class="checkBtn" value="선택"/></td>
+                 -->                
+            </tr>
+        </c:forEach>
     	</tbody>
     </table>
+    
+    <div id="result"></div>
+    <div id="result2"></div>
 </div>
 <!-- 
 <div id="result"></div>

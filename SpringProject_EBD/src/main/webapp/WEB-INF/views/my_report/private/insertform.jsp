@@ -27,11 +27,17 @@
         cursor: inherit;
         display: block;
     }
+    .row{
+    	margin-bottom:5px;
+    }
 </style>
 </head>
 <body>
 <div class="container">
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
+	<div class="text-center" style="margin:50px;">
+		<h1>당신이 남기고 싶은 책은 무엇인가요?</h1>
+	</div>
 	<form action="insert.do" method="post" enctype="multipart/form-data" class="form-group">
 		<div class="row">
 			<div class="col-2">
