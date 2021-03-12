@@ -6,25 +6,41 @@
 <head>
 <meta charset="UTF-8">
 <title>/my_report/private/bookList.jsp</title>
+<jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body>
-    <center>
-        <form action="bookList.do">
-            <input type="text" name="keyword" >
-            <input type="submit" value="검색">
-        </form>        
-    </center>
-    <table id="search-api" style="border:1px red solid">
+<div class="container-fluid">
+	<div class="row">
+		<input class="form-control col-6" type="text" name="keyword" >
+		<button class="btn btn-primary col-1" type="submit" >검색</button>
+	</div>
+    <table id="search-api" class="table">
     	<thead>
-	       	<tr>
-	       		<th>책표지</th>
-	       		<th>책제목</th>
-	       		<th>저자</th>
-	       		<th>출판사</th>
-	       		<th>구매처 링크</th>
-	       		<th>책소개</th>
-	       		<th>선택</th>
-	       	</tr>
+    		<div class="container">
+		       	<tr class="text-center">
+		       		<div class="col">
+			       		<th>책표지</th>
+		       		</div>
+		       		<div class="col">
+			       		<th>책제목</th>
+		       		</div>
+		       		<div class="col">
+			       		<th>저자</th>
+		       		</div>
+		       		<div class="col">
+			       		<th>출판사</th>
+		       		</div>
+		       		<div class="col">
+			       		<th>구매처 링크</th>
+		       		</div>
+		       		<div class="col">
+			       		<th>책소개</th>
+		       		</div>
+					<div class="col-1">
+			       		<th>선택</th>
+		       		</div>		       		
+		       	</tr>
+    		</div>
     	</thead>
     	<tbody>
         <c:forEach items="${bookList}" var ="b">
@@ -53,10 +69,11 @@
         </c:forEach>
     	</tbody>
     </table>
-    
-    <div id="result"></div>
-    <div id="result2"></div>
 </div>
+<!-- 
+<div id="result"></div>
+<div id="result2"></div>
+ -->   
 <script>
 	/*
 	//테이블의 Row 클릭시 값 가져오기
