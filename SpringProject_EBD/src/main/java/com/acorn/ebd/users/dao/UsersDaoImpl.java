@@ -58,6 +58,26 @@ public class UsersDaoImpl implements UsersDao {
 		return nick;
 	}
 
+	@Override
+	public boolean isExistId(String id) {
+		UsersDto dto=session.selectOne("users.isExistId",id);
+		if(dto==null) { //아이디가 존재하지 않으므로
+			return false;  //존재하지 않는다는 의미의 false
+		}else {
+			return true; //존재한다는 의미로 true
+		}
+	}
+
+	@Override
+	public boolean isExistNick(String nick) {
+		UsersDto dto=session.selectOne("users.isExistNick",nick);
+		if(dto==null) { //아이디가 존재하지 않으므로
+			return false;  //존재하지 않는다는 의미의 false
+		}else {
+			return true; //존재한다는 의미로 true
+		}
+	}
+
 	
 
 }

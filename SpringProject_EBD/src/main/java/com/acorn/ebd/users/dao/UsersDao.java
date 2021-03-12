@@ -11,4 +11,8 @@ public interface UsersDao {
 	public String getNick(String id);
 	//해당 id와 일치하는 비밀번호가 있는지 여부를 리턴해줌 
 	public String getPwd(String id);
+	//아이디 중복체크
+	public boolean isExistId(String id);
+	//닉네임 중복체크 
+	public boolean isExistNick(String nick);
 }

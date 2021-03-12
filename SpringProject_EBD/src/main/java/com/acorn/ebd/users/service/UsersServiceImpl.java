@@ -145,4 +145,16 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 
+	@Override
+	public boolean isExistId(String id) {
+		//id존재 여부를 리터해준다.
+		return dao.isExistId(id);
+	}
+
+	@Override
+	public boolean isExistNick(String nick) {
+		//nick존재 여부를 리턴해준다.
+		return dao.isExistNick(nick);
+	}
+
 }

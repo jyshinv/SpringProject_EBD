@@ -13,14 +13,19 @@
 	<c:choose>
 		<c:when test="${requestScope.isValid}">
 			<p>
-				<strong>${requestScope.id }</strong> 님 로그인 되었습니다.
-				<a href="${requestScope.url}">확인</a>
+				<script>
+					alert('${requestScope.id }(${nick }) 님 로그인 되었습니다.');
+					location.href="${requestScope.url}";
+				</script>
 			</p>
 		</c:when>
 		<c:otherwise>
 			<p>
 				아이디 혹은 비밀번호가 틀려요!
-				<a href="loginform.do?url=${requestScope.encodedUrl}">다시 시도</a>
+				<script>
+					alert('아이디 비밀번호가 틀립니다!');
+					location.href="loginform.do?url=${requestScope.encodedUrl}";
+				</script>
 			</p>
 		</c:otherwise>
 	</c:choose>

@@ -1,5 +1,8 @@
 package com.acorn.ebd.users.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.ebd.users.dto.UsersDto;
@@ -63,5 +68,30 @@ public class UsersController {
 		return "users/logout"; 
 	}
 	
+	@RequestMapping("/users/checkid.do")
+	@ResponseBody
+	public Map<String, Object> checkid(@RequestParam String inputId,
+			ModelAndView mView) {
+	
+		//서비스를 이용해서 해당 아이디가 존재하는지 여부를 알아낸다.
+		boolean isExist=service.isExistId(inputId);
+		// {"isExist":true} or {"isExist":false} 를 응답하기 위한 Map 구성
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("isExist", isExist);
+		return map;
+	}
+	
+	@RequestMapping("/users/checknick.do")
+	@ResponseBody
+	public Map<String, Object> checknick(@RequestParam String inputNick,
+			ModelAndView mView) {
+	
+		//서비스를 이용해서 해당 닉네임이 존재하는지 여부를 알아낸다.
+		boolean isExist=service.isExistNick(inputNick);
+		// {"isExist":true} or {"isExist":false} 를 응답하기 위한 Map 구성
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("isExist", isExist);
+		return map;
+	}
 
 }

@@ -13,11 +13,13 @@
 	select 해서 아무 아이디도 리턴되지 않으면 null이 리턴된다. 
 	따라서 resultType으로 String을 써주어야한다.
 	-->
+	<!--  
 	<select id="isValid" parameterType="usersDto" resultType="String">
 		SELECT id
 		FROM ebd_users
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
+	-->
 	
 	<!-- 현재 로그인한 아이디의 닉네임을 불러온다. -->
 	<select id="getNick" parameterType="String" resultType="String">
@@ -26,11 +28,27 @@
 		WHERE id=#{id}
 	</select>
 	
-	<!-- 암호화 복호화를 배우고 나서 쓰는 쿼리문 -->
+	<!-- 해당 id에 해당하는 pwd를 select -->
 	<select id="getPwd" parameterType="String" resultType="String">
 		SELECT pwd
-		FROM users
+		FROM ebd_users
 		WHERE id=#{id }
 	</select>
+	
+	<!-- 해당 아이디에 해당하는 users테이블 로우를 select 없으면 null을 리턴 -->
+	<select id="isExistId" parameterType="String" resultType="usersDto">
+		SELECT *
+		FROM ebd_users
+		WHERE id=#{id}
+	</select>
+	
+	<!-- 해당 닉네임에 해당하는 users테이블 로우를 select 없으면 null을 리턴 -->
+	<select id="isExistNick" parameterType="String" resultType="usersDto">
+		SELECT *
+		FROM ebd_users
+		WHERE nick=#{nick}
+	</select>
 
+
+	
 </mapper>

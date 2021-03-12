@@ -14,4 +14,8 @@ public interface UsersService {
 	public void loginformLogic(HttpServletRequest request, ModelAndView mView);
 	//로그인 관련 처리를 하는 메소드
 	public void loginLogic(HttpServletRequest request, HttpServletResponse response);
+	//아이디 중복체크
+	public boolean isExistId(String id);
+	//닉네임 중복체크
+	public boolean isExistNick(String nick);
 }

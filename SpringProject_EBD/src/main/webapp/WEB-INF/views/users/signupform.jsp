@@ -19,24 +19,28 @@
 		해당기능 사용하지 않기 위해서는 novalidate 를 form 에 명시해야 한다. 
 	 -->
 	<form action="signup.do" method="post" id="myForm" novalidate>
-		<div class="form-group">
+		<div class="form-group" id="form-id">
 			<input class="form-control" type="text" name="id" id="id" placeholder="아이디" />
 			<small class="form-text text-muted"><b>영소문자</b>로 시작하고 <b>영소문자,대문자,숫자</b>만 사용가능합니다.(<b>5~15글자</b> 이내)</small>
-			<div class="invalid-feedback">사용할 수 없는 아이디 입니다</div>
+			<div class="invalid-feedback">사용할 수 없는 아이디 입니다.</div>
+			<div class="valid-feedback">사용 가능한 아이디 입니다.</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group" id="form-nick">
 			<input class="form-control" type="text" name="nick" id="nick" placeholder="닉네임" />
 			<small class="form-text text-muted"><b>5~15글자</b> 이내로 입력해주세요</small>
-			<div class="invalid-feedback">사용할 수 없는 닉네임 입니다</div>
+			<div class="invalid-feedback">사용할 수 없는 닉네임 입니다.</div>
+			<div class="valid-feedback">사용 가능한 닉네임 입니다.</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group" id="form-pwd">
 			<input class="form-control" type="password" name="pwd" id="pwd" placeholder="비밀번호" />
 			<small class="form-text text-muted"><b>영소문자+숫자 </b>조합으로 <b>5~15글자</b> 이내로 입력해주세요</small>
 			<div class="invalid-feedback">비밀번호를 확인 하세요 (영소문자+숫자 조합으로 5~15글자 이내로 입력해주세요)</div>
+			<div class="valid-feedback">사용가능한 비밀번호 입니다.</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group" id="form-pwd2">
 			<input class="form-control" type="password" id="pwd2" placeholder="비밀번호 확인" />
 			<div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
+			<div class="valid-feedback">비밀번호가 일치합니다.</div>
 		</div>
 		<div class="form-group">
 			<input class="form-control" type="text" name="name" id="name" placeholder="이름" />
@@ -86,10 +90,12 @@
 		<div class="form-group">
 			<input class="form-control" type="email" name="email" id="email" placeholder="이메일 예)ebd@acorn.com" />
 			<div class="invalid-feedback">이메일 형식을 확인해주세요.</div>
+			<div class="valid-feedback">사용가능한 이메일 입니다.</div>
 		</div>
 		<div class="form-group">
-			<input class="form-control" type="text" name="phone" id="phone" placeholder="핸드폰 - 없이 입력.." />
+			<input class="form-control" type="text" name="phone" id="phone" placeholder="연락처를 - 없이 입력해주세요" />
 			<div class="invalid-feedback">숫자만 입력해주세요.</div>
+			<div class="valid-feedback">사용가능한 연락처 입니다.</div>
 		</div>		
 		<button class="btn btn-outline-primary" type="submit">가입</button>
 	</form>
@@ -137,6 +143,12 @@
 		
 		//폼 전체의 유효성 여부를 얻어낸다. 
 		isFormValid = isIdValid&isNickValid&isPwdValid&isEmailValid&isPhoneValid&isOtherValid;
+		console.log('isIdValie'+isValidId);
+		console.log('isNickValie'+isValidId);
+		console.log('isPwdValie'+isValidId);
+		console.log('isEmailValie'+isValidId);
+		console.log('isPhoneValie'+isValidId);
+		console.log('isOtherValie'+isValidId);
 		
 		//true가 아니면 모두 입력해주세요 라는 알림창과 함께 폼전송을 막는다. 
 		if(!isFormValid){
@@ -149,15 +161,17 @@
 	//아이디 중복 & 유효성 검사
 	$("#id").on("input", function(){
 		//입력한 아이디을 읽어온다.
-		let id=$("#id").val();
+		let inputId=$("#id").val();
 		
 		//일단 모든 검증 클래스를 제거하고
 		$("#id").removeClass("is-valid is-invalid");
 		
 		//아이디가 정규표현식에 매칭되지 않으면
-		if(!reg_id.test(id)){
+		if(!reg_id.test(inputId)){
 			//아이디가 유효하지 않는다고 표시하고
 			$("#id").addClass("is-invalid");
+			$("#form-id").children(".invalid-feedback").text("영소문자로 시작하고 영소문자, 대문자, 숫자만 사용해주세요 (5~15글자 이내)");
+			//$(".invalid-feedback").text("영소문자로 시작하고 영소문자, 대문자, 숫자만 사용해주세요 (5~15글자 이내)");
 			isIdValid=false;
 			//함수를 여기서 종료한다.
 			return;
@@ -168,31 +182,38 @@
 			method : "GET",
 			data:"inputId="+inputId,
 			success:function(responseData){
-				if(reponsdeData.isExist){//이미 존재하는 아이디인 경우 
+				console.log(responseData.isExist);
+				if(responseData.isExist){//이미 존재하는 아이디인 경우
+					$("#id").removeClass("is-valid is-invalid");
 					$("#id").addClass("is-invalid");
+					$("#form-id").children(".invalid-feedback").text("이미 존재하는 아이디입니다.");
 					isIdValid=false;
 				}else{ //존재하지 않는 아이디 즉 사용하지 않는 아이디인 경우
+					$("#id").removeClass("is-valid is-invalid");
 					$("#id").addClass("is-valid");
 					//아이디가 유효하다고 표시한다.
 					isIdValid=true;
 				}
 			}
 		})
+		
+	
 	});
 	
 	
 	//닉네임 중복 & 유효성 검사
 	$("#nick").on("input", function(){
 		//입력한 닉네임을 읽어온다.
-		let nick=$("#nick").val();
+		let inputNick= $("#nick").val();
 		
 		//일단 모든 검증 클래스를 제거하고
 		$("#nick").removeClass("is-valid is-invalid");
 		
 		//닉네임이 정규표현식에 매칭되지 않으면
-		if(!reg_nick.test(nick)){
+		if(!reg_nick.test(inputNick)){
 			//닉네임이 유효하지 않는다고 표시하고
 			$("#nick").addClass("is-invalid");
+			$("#form-nick").children(".invalid-feedback").text("5글자~15글자 이내로 입력해주세요.");
 			isNickValid=false;
 			//함수를 여기서 종료한다.
 			return;
@@ -203,12 +224,15 @@
 			method : "GET",
 			data:"inputNick="+inputNick,
 			success:function(responseData){
-				if(reponsdeData.isExist){//이미 존재하는 닉네임인 경우 
+				if(responseData.isExist){//이미 존재하는 닉네임인 경우
+					$("#nick").removeClass("is-valid is-invalid");
 					$("#nick").addClass("is-invalid");
+					$("#form-nick").children(".invalid-feedback").text("이미 존재하는 닉네임입니다.");
 					isNickValid=false;
-				}else{ //존재하지 않는 아이디 즉 사용하지 않는 닉네임인 경우
+				}else{ //존재하지 않는 닉네임 즉 사용하지 않는 닉네임인 경우
+					$("#nick").removeClass("is-valid is-invalid");
 					$("#nick").addClass("is-valid");
-					//아이디가 유효하다고 표시한다.
+					//닉네임이 유효하다고 표시한다.
 					isNickValid=true;
 				}
 			}
@@ -228,11 +252,16 @@
 		if(!reg_pwd.test(pwd)){
 			//비밀번호가 유효하지 않는다고 표시하고
 			$("#pwd").addClass("is-invalid");
+			$("#form-pwd").children(".invalid-feedback").text("영소문자+숫자 조합으로 5~15글자 이내로 입력해주세요.");
 			isPwdValid=false;
 			//함수를 여기서 종료한다.
 			return;
+		}else{
+			//매칭되면
+			$("#pwd").addClass("is-valid");
 		}
 		
+
 		//두 비밀번호가 같은지 확인하고
 		if(pwd==pwd2){//만일 같으면
 			//유효하다는 클래스를 추가한다.
@@ -261,7 +290,11 @@
 			isEmailValid=false;
 			//함수를 여기서 종료한다.
 			return;
+		}else{
+			isEmailValid=true;
+			$("#email").addClass("is-valid");			
 		}
+		
 		
 	});
 	
@@ -274,12 +307,15 @@
 		$("#phone").removeClass("is-valid is-invalid");
 		
 		//핸드폰 번호가 정규표현식에 매칭되지 않으면
-		if(!reg_phone.test(email)){
+		if(!reg_phone.test(phone)){
 			//핸드폰 번호가 유효하지 않는다고 표시하고
 			$("#phone").addClass("is-invalid");
 			isPhoneValid=false;
 			//함수를 여기서 종료한다.
 			return;
+		}else{
+			isPhoneValid=true;
+			$("#phone").addClass("is-valid");
 		}
 		
 	});
