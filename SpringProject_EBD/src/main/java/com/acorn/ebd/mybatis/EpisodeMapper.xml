@@ -73,7 +73,7 @@
 	<insert id="insertHeart" parameterType="episodeDto">
 		INSERT INTO ebd_episode_heart
 		(num, target_num, writer)
-		VALUES(ebd_wording_heart_seq.NEXTVAL, #{num}, #{nick})
+		VALUES(ebd_episode_heart_seq.NEXTVAL, #{num}, #{nick})
 	</insert>
 	
 	<!-- 하트를 해제 했을 때 로그인된 아이디정보와 하트를 클릭한 글의 num을 delete해준다. -->
