@@ -31,65 +31,105 @@
 </head>
 <body>
 <div class="container">
-	<form action="insert.do" method="post" enctype="multipart/form-data">
-		<div>
-			<label for="search">책검색</label>
-			<button><a href="${pageContext.request.contextPath }/my_report/private/bookList.do">검색</a></button>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
+	<form action="insert.do" method="post" enctype="multipart/form-data" class="form-group">
+		<div class="row">
+			<div class="col-2">
+				<label for="search" class="col-form-label">책검색</label>
+			</div >
+			<div class="col">
+				<button class="btn btn-primary"><a href="${pageContext.request.contextPath }/my_report/private/bookList.do" style="color:white">검색</a></button>
+			</div >
 		</div>
-		<div>
-			<label for="booktitle">도서명</label>
-			<input type="text" name="booktitle" id="booktitle" value="${booktitle }"/>
+		<div class="row">
+			<div class="col-2">
+				<label for="booktitle" class="col-form-label">도서명</label>
+			</div >
+			<div class="col">
+				<input class="form-control" type="text" name="booktitle" id="booktitle" value="${booktitle }"/>
+			</div >
 		</div>
-		<div>
-			<label for="author">저자명</label>
-			<input type="text" name="author" id="author" value="${author }"/>
+		<div class="row">
+			<div class="col-2">
+				<label for="author" class="col-form-label">저자명</label>
+			</div >
+			<div class="col">
+				<input class="form-control" type="text" name="author" id="author" value="${author }"/>
+			</div >
 		</div>
-		<div>
-			<label for="title">제목</label>
-			<input type="text" name="title" id="title" />
+		<div class="row">
+			<div class="col-2">
+				<label for="title" class="col-form-label">제목</label>
+			</div >
+			<div class="col">
+				<input class="form-control" type="text" name="title" id="title" />
+			</div >
 		</div>
-		<div>
-			<label for="genre">장르</label>
-			<select name="genre" id="genre">
-				<option value="">선택안함</option>
-				<option value="소설">소설</option>
-				<option value="시">시</option>
-				<option value="수필">수필</option>
-				<option value="역사">역사</option>
-				<option value="예술">예술</option>
-				<option value="종교">종교</option>
-				<option value="인문">인문</option>
-				<option value="철학">철학</option>
-				<option value="자기계발">자기계발</option>
-			</select>
+		<div class="row">
+			<div class="col-2">
+				<label for="genre" class="col-form-label">장르</label>
+			</div >
+			<div class="col">
+				<select class="form-control" name="genre" id="genre">
+					<option value="">선택안함</option>
+					<option value="소설">소설</option>
+					<option value="시">시</option>
+					<option value="수필">수필</option>
+					<option value="역사">역사</option>
+					<option value="예술">예술</option>
+					<option value="종교">종교</option>
+					<option value="인문">인문</option>
+					<option value="철학">철학</option>
+					<option value="자기계발">자기계발</option>
+				</select>
+			</div >
 		</div>
-		<div>
-			<label for="stars">평점</label>
-			<select name="stars" id="stars">
-				<option value="">선택안함</option>
-				<option value="★">★</option>
-				<option value="★★">★★</option>
-				<option value="★★★">★★★</option>
-				<option value="★★★★">★★★★</option>
-				<option value="★★★★★">★★★★★</option>
-			</select>
+		<div class="row">
+			<div class="col-2">
+				<label for="stars" class="col-form-label">평점</label>
+			</div >
+			<div class="col">
+				<select class="form-control" name="stars" id="stars">
+					<option value="">선택안함</option>
+					<option value="★">★</option>
+					<option value="★★">★★</option>
+					<option value="★★★">★★★</option>
+					<option value="★★★★">★★★★</option>
+					<option value="★★★★★">★★★★★</option>
+				</select>
+			</div >
 		</div>
-		<div>
-			이미지<input type="text" id="fileName" placeholder="이미지를 첨부해주세요" disabled/>
-		    <label for="image" class="btn btn-primary btn-file">
-		        파일추가<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
-		    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
-		    </label>
+		<div class="row">
+			<div class="col-2">
+				<label for="image" class="col-form-label">이미지 첨부</label>
+			</div >
+			<div class="col-8" style="padding-right:0px;">
+				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
+			</div >
+			<div class="col" style="padding-left:0px;">
+				<label for="image" class="btn btn-primary btn-file" style="margin-bottom:0px;">파일첨부
+					<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
+			    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+				</label>
+			</div>
 		</div>
-		<div>
-			<label for="link">구매처 링크</label>
-			<input type="text" name="link" id="link" value="${empty link ? "" : link }"/>
+		<div class="row">
+			<div class="col-2">
+				<label for="link" class="col-form-label">구매처 링크</label>
+			</div >
+			<div class="col">
+				<input class="form-control" type="text" name="link" id="link" value="${link }"/>
+			</div >
 		</div>
-		<div>
-			<label for="content"></label>
-			<textarea name="content" id="content"></textarea>
+		<div class="row">
+			<div class="col">
+				<label for="content"></label>
+				<textarea class="form-control" name="content" id="content"></textarea>
+			</div>
 		</div>
-		<button type="submit" onclick="submitContents(this);">저장</button>
+		<div class="text-center" style="margin-top:50px; margin-bottom:50px;">
+			<button class="btn btn-primary" type="submit" onclick="submitContents(this);">독후감 저장</button>
+		</div>
 	</form>
 </div>
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
