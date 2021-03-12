@@ -45,6 +45,22 @@
 	<jsp:param value="public_report" name="thisPage"/>
 </jsp:include>
 <div class="container">
+	<form action="list.do" method="get">
+		<label for="condition">검색조건</label>
+		<select name="condition" id="condition">
+			<option value="booktitle_author" ${condition eq 'booktitle_author' ? 'selected' : '' }>책제목+저자</option>
+			<option value="booktitle" ${condition eq 'booktitle' ? 'selected' : '' }>책제목</option>
+			<option value="author" ${condition eq 'author' ? 'selected' : '' }>저자</option>
+		</select>
+		<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
+		<button type="submit">검색</button>
+	</form>
+	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
+	<c:if test="${not empty keyword }">
+		<div class="alert alert-success">
+			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
+		</div>
+	</c:if>
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
       	<%int isCheck=0; %><!-- 이중 for문에서 for문이 똑같은 숫자로 돌게 하기 위해 isCheck 사용 이해 안되면 노트에 적어보거나 따로 코딩해서 돌려보기 -->
@@ -133,23 +149,7 @@
 				</c:otherwise>
 			</c:choose>
 		</ul>
-	</nav>
-	<form action="list.do" method="get">
-		<label for="condition">검색조건</label>
-		<select name="condition" id="condition">
-			<option value="booktitle_author" ${condition eq 'booktitle_author' ? 'selected' : '' }>책제목+저자</option>
-			<option value="booktitle" ${condition eq 'booktitle' ? 'selected' : '' }>책제목</option>
-			<option value="author" ${condition eq 'author' ? 'selected' : '' }>저자</option>
-		</select>
-		<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
-		<button type="submit">검색</button>
-	</form>
-	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
-	<c:if test="${not empty keyword }">
-		<div class="alert alert-success">
-			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
-		</div>
-	</c:if>	
+	</nav>	
 </div>	
 <script>
 	//하트를 클릭할 때마다 호출되는 함수 등록
