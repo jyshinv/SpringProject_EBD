@@ -18,15 +18,24 @@
 	/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
 	.img-wrapper:hover{
 		/* 원본 크기의 1.1 배로 확대 시키기*/
-		transform: scale(1.05);
+		/*transform: scale(1.05);*/
+		opacity: 0.3;
 	}
-	
 	.card .card-title{
 		/* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
 		display:block;
 		white-space : nowrap;
-		text-overflow: ellipsis;
-		overflow: hidden;
+		text-overflow: clip;
+		overflow: auto;
+		color:white;
+	}
+	.card{
+		margin:5px;
+	}
+	.card-body{
+	    padding-top: 10px;
+	    padding-bottom: 10px;
+	    height: 50px;
 	}
 	#img{
 		object-fit: cover;
@@ -37,7 +46,122 @@
 	/*
       font-size : 2em;
     */  
-   }
+   	}
+   	
+	/*hover 기능 css*/  
+	 
+	.snip1273 {
+	  width: 100%;
+	  color: #ffffff;
+	  text-align: justify;
+	  background-color: #000000;
+	  font-size: 16px;
+	}
+	
+	/*
+	.snip1273 * {
+	  -webkit-box-sizing: border-box;
+	  box-sizing: border-box;
+	  -webkit-transition: all 0.4s ease-in;
+	  transition: all 0.4s ease-in;
+	}
+	*/
+	/*
+	.snip1273 img {
+	  position: relative;
+	  max-width: 100%;
+	  vertical-align: top;
+	}
+	*/
+	.snip1273 figcaption {
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	  width: 100%;
+	  height: 100%;
+	  z-index: 1;
+	  opacity: 0;
+	  padding: 20px 30px;
+	}
+	/* 이미지 경계선에 효과가 들어오는 css */
+	.snip1273 figcaption:before,
+	.snip1273 figcaption:after {
+	  width: 5px;
+	  height: 0;
+	}	
+	.snip1273 figcaption:before {
+	  right: 0;
+	  top: 0;
+	}
+	.snip1273 figcaption:after {
+	  left: 0;
+	  bottom: 0;
+	}
+	
+	.snip1273 h5{
+	  line-height: 5em;
+	}
+	
+	.snip1273 h5 {
+	  margin: 0 0 5px;
+	  font-weight: 700;
+	  text-transform: uppercase;
+	}
+	.snip1273:before,
+	.snip1273:after,
+	.snip1273 figcaption:before,
+	.snip1273 figcaption:after {
+	  position: absolute;
+	  content: '';
+	  background-color: #ffffff;
+	  z-index: 1;
+	  -webkit-transition: all 0.4s ease-in;
+	  transition: all 0.4s ease-in;
+	  opacity: 0.8;
+	}
+	.snip1273:before,
+	.snip1273:after {
+	  height: 1px;
+	  width: 0%;
+	}
+	.snip1273:before {
+	  top: 0;
+	  left: 0;
+	}
+	.snip1273:after {
+	  bottom: 0;
+	  right: 0;
+	}
+	.snip1273:hover img,
+	.snip1273.hover img {
+	  opacity: 0.4;
+	}
+	.snip1273:hover figcaption,
+	.snip1273.hover figcaption {
+	  opacity: 1;
+	}
+	.snip1273:hover figcaption:before,
+	.snip1273.hover figcaption:before,
+	.snip1273:hover figcaption:after,
+	.snip1273.hover figcaption:after {
+	  height: 100%;
+	}
+	.snip1273:hover:before,
+	.snip1273.hover:before,
+	.snip1273:hover:after,
+	.snip1273.hover:after {
+	  width: 100%;
+	}
+	.snip1273:hover:before,
+	.snip1273.hover:before,
+	.snip1273:hover:after,
+	.snip1273.hover:after,
+	.snip1273:hover figcaption:before,
+	.snip1273.hover figcaption:before,
+	.snip1273:hover figcaption:after,
+	.snip1273.hover figcaption:after {
+	  opacity: 0.1;
+	}		
 </style>
 </head>
 <body>
@@ -61,17 +185,24 @@
 			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
 		</div>
 	</c:if>
-	<div class="row row-cols-1 row-cols-md-3 g-4">
+	<div class="row row-cols-1 row-cols-md-4">
 		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
       	<%int isCheck=0; %><!-- 이중 for문에서 for문이 똑같은 숫자로 돌게 하기 위해 isCheck 사용 이해 안되면 노트에 적어보거나 따로 코딩해서 돌려보기 -->
 		<c:forEach var="tmp" items="${requestScope.list }">
 			<div class="col">
 				<div class="card" style="width: 18rem;">
-					<a href="${pageContext.request.contextPath}/public_report/detail.do?num=${tmp.num}">
-						<img id="img" src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" >
-					</a>
+					<div style="height:255px;">
+						<figure class="snip1273 hover">
+							<img id="img" src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" >
+							<a href="${pageContext.request.contextPath}/public_report/detail.do?num=${tmp.num}">
+							<figcaption class=" card-img-top img-wrapper" style="height:240px;">
+								<!-- <h5 class="card-title">${tmp.booktitle }</h5> -->							
+								<MARQUEE behavior="scroll" class="card-title">${tmp.booktitle }</MARQUEE>
+							</figcaption>						
+							</a>
+						</figure>
+					</div>
 				 	<div class="card-body">
-					    <h5 class="card-title">${tmp.booktitle }</h5>
 					    <div class="row">
 					    <p class="card-text col"><strong>${tmp.writer }</strong></p>
 					    <span class="col text-right">
@@ -201,6 +332,13 @@
 	      console.log('새로 열린 페이지');
 	   }
 	});
+	
+	/* Demo purposes only */
+	$(".hover").mouseleave(
+	  function () {
+	    $(this).removeClass("hover");
+	  }
+	);	
 </script>
 </body>
 </html>
