@@ -27,6 +27,9 @@
         cursor: inherit;
         display: block;
     }
+    .row{
+    	margin-bottom:5px;
+    }
 </style>
 </head>
 <body>
@@ -34,42 +37,73 @@
 	<form action="update.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="num" value="${dto.num }"/>
 		<input type="hidden" name="imgpath" value="${dto.imgpath}"/><!-- 기존의 경로 불러옴 -->
-		<div>
-			<label for="booktitle">도서명</label>
-			<input type="text" name="booktitle" id="booktitle" value="${dto.booktitle }" disabled/>
+		<div class="row">
+			<div class="col-2">
+				<label for="booktitle" class="col-form-label">도서명</label>
+			</div >
+			<div class="col">
+				<input class="form-control" type="text" name="booktitle" id="booktitle" value="${dto.booktitle }" disabled/>
+			</div >
 		</div>
-		<div>
-			<label for="author">저자명</label>
-			<input type="text" name="author" id="author" value="${dto.author }" disabled/>
+		<div class="row">
+			<div class="col-2">
+				<label for="author" class="col-form-label">저자명</label>
+			</div >
+			<div class="col">
+				<input class="form-control" type="text" name="author" id="author" value="${dto.author }" disabled/>
+			</div >
 		</div>
-		<div>
-			<label for="genre">장르</label>
-			<select name="genre" id="genre" disabled>
-				<option value="${dto.genre}" selected>${dto.genre}</option>
-			</select>
+		<div class="row">
+			<div class="col-2">
+				<label for="genre" class="col-form-label">장르</label>
+			</div >
+			<div class="col">
+				<select class="form-control" name="genre" id="genre" disabled>
+					<option value="${dto.genre}" selected>${dto.genre}</option>
+				</select>
+			</div >
 		</div>
-		<div>
-			<label for="stars">평점</label>
-			<select name="stars" id="stars" disabled>
-				<option value="${dto.stars }" selected>${dto.stars }</option>
-			</select>
+		<div class="row">
+			<div class="col-2">
+				<label for="stars" class="col-form-label">평점</label>
+			</div >
+			<div class="col">
+				<select class="form-control" name="stars" id="stars" disabled>
+					<option value="${dto.stars }" selected>${dto.stars }</option>
+				</select>
+			</div >
 		</div>
-		<div><!-- input 은 그저 보여주기용 텍스트일 뿐 -->
-			이미지<input type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
-		    <label for="image" class="btn btn-primary btn-file">
-		        이미지 변경<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
-		    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/><!-- 수정한 이미지와 경로 담김 -->
-		    </label>
+		<div class="row">
+			<div class="col-2">
+				<label for="image" class="col-form-label">이미지 첨부</label>
+			</div >
+			<div class="col-8" style="padding-right:0px;">
+				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
+			</div >
+			<div class="col" style="padding-left:0px;">
+				<label for="image" class="btn btn-primary btn-file" style="margin-bottom:0px;">파일수정
+					<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
+			    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+				</label>
+			</div>
 		</div>
-		<div>
-			<label for="title">제목</label>
-			<input type="text" name="title" id="title" value="${dto.title }"/>
+		<div class="row">
+			<div class="col-2">
+				<label for="title" class="col-form-label">제목</label>
+			</div >
+			<div class="col">
+				<input class="form-control" type="text" name="title" id="title" value="${dto.title }"/>
+			</div >
 		</div>
-		<div>
-			<label for="content"></label>
-			<textarea name="content" id="content">${dto.content }</textarea>
+		<div class="row">
+			<div class="col">
+				<label for="content"></label>
+				<textarea class="form-control" name="content" id="content">${dto.content }</textarea>
+			</div>
 		</div>
-		<button type="submit" onclick="submitContents(this);">수정</button>
+		<div class="text-center" style="margin-top:50px; margin-bottom:50px;">
+			<button class="btn btn-primary" type="submit" onclick="submitContents(this);">독후감 수정</button>
+		</div>
 	</form>
 </div>
 <script src="${pageContext.request.contextPath }/SmartEditor/js/HuskyEZCreator.js"></script>
