@@ -21,7 +21,7 @@
 		transform: scale(1.05);
 	}
 	
-	.card .card-text{
+	.card .card-title{
 		/* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
 		display:block;
 		white-space : nowrap;
@@ -34,7 +34,9 @@
 		
 	}
 	.heart-link{
+	/*
       font-size : 2em;
+    */  
    }
 </style>
 </head>
@@ -54,27 +56,35 @@
 					</a>
 				 	<div class="card-body">
 					    <h5 class="card-title">${tmp.booktitle }</h5>
-					    <p class="card-text">by <strong>${tmp.writer }</strong></p>
-					    <!-- 로그인이 된 사용자만 볼 수 있다. -->
-		                  <c:if test="${not empty id }">
-		                     <p>
-		                        <!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
-		                        <!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
-		                        <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-		                           <c:choose>
-		                              <c:when test="${isHeartClickList[i] eq 0 }">
-		                                 <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
-		                              </c:when>
-		                              <c:otherwise>
-		                                 <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
-		                              </c:otherwise>
-		                           </c:choose>
-		                           <span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>                  
-		                        </c:forEach>
-		                     </p>
-		                  </c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
-					    <p><small>${tmp.viewcnt }</small></p>
-					    <p><small>${tmp.regdate }</small></p>
+					    <div class="row">
+					    <p class="card-text col"><strong>${tmp.writer }</strong></p>
+					    <span class="col text-right">
+						    <!-- 로그인이 된 사용자만 볼 수 있다. -->
+			                  <c:if test="${not empty id }">
+			                     <span style="margin-right:5px;">
+			                        <!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
+			                        <!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
+			                        <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+			                           <c:choose>
+			                              <c:when test="${isHeartClickList[i] eq 0 }">
+			                                 <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
+			                              </c:when>
+			                              <c:otherwise>
+			                                 <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+			                              </c:otherwise>
+			                           </c:choose>
+			                           <span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>                  
+			                        </c:forEach>
+			                     </span>
+			                  </c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
+					    	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+</svg>
+					    	<small>${tmp.viewcnt }</small>
+					    </span>
+					    <!-- <p><small>${tmp.regdate }</small></p> -->
+					    </div>
 				 	</div>
 				</div>		
 			</div>
@@ -155,7 +165,7 @@
 	         method:"GET",
 	         data: "target_num="+target_num,
 	         success:function(data){ //나중에 구현 : 하트 수를 반환
-	            $(".heart-cnt"+target_num).text("("+data.heartCnt+")");
+	            $(".heart-cnt"+target_num).text(data.heartCnt);
 	         }
 	      });
 	      $(this).text("♥"); //하트 눌림으로 바뀐다.
@@ -168,7 +178,7 @@
 	         method:"GET",
 	         data: "target_num="+target_num,
 	         success:function(data){
-	            $(".heart-cnt"+target_num).text("("+data.heartCnt+")");
+	            $(".heart-cnt"+target_num).text(data.heartCnt);
 	         }             
 	      });
 	      
