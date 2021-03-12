@@ -25,5 +25,12 @@
 		FROM ebd_users
 		WHERE id=#{id}
 	</select>
+	
+	<!-- 암호화 복호화를 배우고 나서 쓰는 쿼리문 -->
+	<select id="getPwd" parameterType="String" resultType="String">
+		SELECT pwd
+		FROM users
+		WHERE id=#{id }
+	</select>
 
 </mapper>

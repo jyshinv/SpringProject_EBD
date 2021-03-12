@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,7 +23,12 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public void addUser(UsersDto dto) {
-		
+		//비밀번호를 암호화할 객체 생성
+		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+		//입력한 비밀번호를 암호화 한다.
+		String encodedPwd=encoder.encode(dto.getPwd());
+		//UsersDto에 다시 넣어준다.
+		dto.setPwd(encodedPwd);
 		dao.insert(dto);
 		
 	}
@@ -79,15 +86,30 @@ public class UsersServiceImpl implements UsersService {
 		UsersDto dto=new UsersDto();
 		dto.setId(id);
 		dto.setPwd(pwd);
+		
+		//2.유효한 정보인지 여부를 담을 지역 변수를 만들고 초기값 false를 지정한다.
+		boolean isValid=false;
+				
+		//3.아이디를 이용해서 암호화 된 비밀번호를 SELECT 한다.
+		String savedPwd=dao.getPwd(id);
+		
+		//4.비밀번호가 만일 null 이 아니면(존재하는 아이디)
+		if(savedPwd != null) {
+			//5. 폼 전송되는 비밀번호와 일치하는지 확인한다.
+			isValid=BCrypt.checkpw(pwd, savedPwd);
+		}
+
 		//2.DB에 실제로 존재하는 (유효한) 정보인지 확인한다.
-		boolean isValid=dao.isValid(dto);
+		//boolean isValid=dao.isValid(dto);
+		
+		String nick=null;
 		//3.유효한 정보이면 로그인 처리를 하고 응답 그렇지 않으면 아이디 혹은 비밀번호가 틀렸다고 응답
 		if(isValid) {
 			//login의 메소드로 HttpSession session을 설정해줘도 좋지만 request객체가 있기 때문에 이런식으로 로그인 처리를 해준다.
 			//HttpSession객체를 이용해 로그인처리를 한다.
 			request.getSession().setAttribute("id", id); 
-			String nick=dao.getNick(dto.getId());
-			request.getSession().setAttribute("nick", nick);
+			nick=dao.getNick(id); //해당 id의 닉네임을 불러온다. 			
+			request.getSession().setAttribute("nick", nick);//session영역에 저장한다. 
 			
 		}
 		
@@ -116,6 +138,7 @@ public class UsersServiceImpl implements UsersService {
 		}
 		//view page에서 필요한 데이터를 request에 담고 
 		request.setAttribute("id", id);
+		request.setAttribute("nick", nick);
 		request.setAttribute("encodedUrl", encodedUrl);
 		request.setAttribute("url", url);
 		request.setAttribute("isValid", isValid);

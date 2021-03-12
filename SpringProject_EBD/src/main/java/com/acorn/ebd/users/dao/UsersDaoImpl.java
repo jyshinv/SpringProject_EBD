@@ -25,21 +25,31 @@ public class UsersDaoImpl implements UsersDao {
 		
 	}
 
+//	@Override
+//	public boolean isValid(UsersDto dto) {
+//		/*
+//		mapper namespace => users
+//		sql id => isValid
+//		parameterType => UsersDto
+//		resultType => String
+//		 */
+//		String id=session.selectOne("users.isValid",dto);
+//		if(id==null) { //잘못된 아이디와 비밀번호
+//			return false; 
+//		}else { //유효한 아이디와 비밀먼호
+//			return true;
+//		}
+//	}
+	
+	//해당 id에 해당하는 비밀번호를 리턴
 	@Override
-	public boolean isValid(UsersDto dto) {
-		/*
-		mapper namespace => users
-		sql id => isValid
-		parameterType => UsersDto
-		resultType => String
-		 */
-		String id=session.selectOne("users.isValid",dto);
-		if(id==null) { //잘못된 아이디와 비밀번호
-			return false; 
-		}else { //유효한 아이디와 비밀먼호
-			return true;
-		}
+	public String getPwd(String id) {
+		//아이디를 이용해서 저장된 비밀번호를 SELECT해서
+		String pwd=session.selectOne("users.getPwd", id);
+		//리턴해준다.
+		return pwd;
 	}
+	
 
 	//닉네임을 가져옴
 	@Override
@@ -47,7 +57,7 @@ public class UsersDaoImpl implements UsersDao {
 		String nick=session.selectOne("users.getNick",id);
 		return nick;
 	}
-	
+
 	
 
 }
