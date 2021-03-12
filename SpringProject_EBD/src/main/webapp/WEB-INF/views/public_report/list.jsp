@@ -221,7 +221,7 @@
 			                                 <a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
 			                              </c:otherwise>
 			                           </c:choose>
-			                           <span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>                  
+			                           <span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>                  
 			                        </c:forEach>
 			                     </span>
 			                  </c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->

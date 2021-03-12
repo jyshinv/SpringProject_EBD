@@ -5,20 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>/public_report/detail</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* 글 내용을 출력할 div 에 적용할 css */
 	.contents{
 		width: 100%;
 		border: 1px dotted #cecece;
-	}
-	/* 댓글 프로필 이미지를 작은 원형으로 만든다. */
-	.profile-image{
-		width: 50px;
-		height: 50px;
-		border: 1px solid #cecece;
-		border-radius: 50%;
 	}
 	/* ul 요소의 기본 스타일 제거 */
 	.comments ul{
@@ -97,15 +90,28 @@
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
-	<a href="${pageContext.request.contextPath}/public_report/list.do">독후감 목록가기</a>
 	<div class="card">
 		<table class="table">
 			<tr>
-				<th></th>
-				<td>조회수 ${dto.viewcnt }</td>
-				<td>날짜 ${dto.regdate }</td>
-				<c:if test="${dto.writer eq nick}">
+				<th>조회수</th>
+				<td>${dto.viewcnt }</td>
+			</tr>
+			<tr>
+				<th>날짜</th>
+				<td>${dto.regdate }</td>
+			</tr>
+			<tr>
+			<th></th>
+			<td>
+				<center>
+					<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
+				</center>
+			</td>
+			</tr>
+			<tr>
+				<th>공개여부</th>
 				<td>
+				<c:if test="${dto.writer eq nick}">
 	            <form action="updatepublicck2.do" method="post">
 	            	<label for="publicck"></label>
 	          		<select name="publicck" id="publicck">
@@ -116,26 +122,25 @@
 	          		<input type="hidden" value="${dto.num }" id="num" name="num"/>
 	          		<input type="submit" value="선택"/>
 	          	</form>
-	       		</td>
 	       		</c:if>
+	       		</td>
 			</tr>
-			<center>
-				<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
-			</center>
 			<!-- 로그인을 해야지만 하트를 누를 수 있다. 반복문이 아니어서 isCheck가 필요없다. -->
 			<tr>
-	         	<c:if test="${not empty nick }">
-		            <c:choose>
-		               <c:when test="${isheartclick eq true }">
-		                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
-		               </c:when>
-		               <c:otherwise>
-		   
-		                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
-		               </c:otherwise>
-		            </c:choose>
-	            	<span class="heart-cnt">(${heartcnt })</span>
-	            </c:if>							
+				<th>좋아요</th>
+				<td>
+		         	<c:if test="${not empty nick }">
+			            <c:choose>
+			               <c:when test="${isheartclick eq true }">
+			                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+			               </c:when>
+			               <c:otherwise> 
+			                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
+			               </c:otherwise>
+			            </c:choose>
+		            	<span class="heart-cnt">(${heartcnt })</span>
+		            </c:if>							
+				</td>
 			</tr>
 			<tr>
 				<th>제목</th>
