@@ -39,6 +39,14 @@
 		<input type="hidden" name="imgpath" value="${dto.imgpath}"/><!-- 기존의 경로 불러옴 -->
 		<div class="row">
 			<div class="col-2">
+				<label for="title" class="col-form-label">제목</label>
+			</div >
+			<div class="col">
+				<input class="form-control" type="text" name="title" id="title" value="${dto.title }"/>
+			</div >
+		</div>
+		<div class="row">
+			<div class="col-2">
 				<label for="booktitle" class="col-form-label">도서명</label>
 			</div >
 			<div class="col">
@@ -86,14 +94,6 @@
 			    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 				</label>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-2">
-				<label for="title" class="col-form-label">제목</label>
-			</div >
-			<div class="col">
-				<input class="form-control" type="text" name="title" id="title" value="${dto.title }"/>
-			</div >
 		</div>
 		<div class="row">
 			<div class="col">

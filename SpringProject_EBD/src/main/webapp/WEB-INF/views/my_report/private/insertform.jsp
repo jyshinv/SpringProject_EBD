@@ -49,6 +49,14 @@
 		</div>
 		<div class="row">
 			<div class="col-2">
+				<label for="title" class="col-form-label">제목</label>
+			</div >
+			<div class="col">
+				<input class="form-control" type="text" name="title" id="title" />
+			</div >
+		</div>
+		<div class="row">
+			<div class="col-2">
 				<label for="booktitle" class="col-form-label">도서명</label>
 			</div >
 			<div class="col">
@@ -61,14 +69,6 @@
 			</div >
 			<div class="col">
 				<input class="form-control" type="text" name="author" id="author" value="${author }"/>
-			</div >
-		</div>
-		<div class="row">
-			<div class="col-2">
-				<label for="title" class="col-form-label">제목</label>
-			</div >
-			<div class="col">
-				<input class="form-control" type="text" name="title" id="title" />
 			</div >
 		</div>
 		<div class="row">
@@ -107,6 +107,14 @@
 		</div>
 		<div class="row">
 			<div class="col-2">
+				<label for="link" class="col-form-label">구매처 링크</label>
+			</div >
+			<div class="col">
+				<input class="form-control" type="text" name="link" id="link" value="${link }"/>
+			</div >
+		</div>
+		<div class="row">
+			<div class="col-2">
 				<label for="image" class="col-form-label">이미지 첨부</label>
 			</div >
 			<div class="col-8" style="padding-right:0px;">
@@ -118,14 +126,6 @@
 			    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 				</label>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-2">
-				<label for="link" class="col-form-label">구매처 링크</label>
-			</div >
-			<div class="col">
-				<input class="form-control" type="text" name="link" id="link" value="${link }"/>
-			</div >
 		</div>
 		<div class="row">
 			<div class="col">
