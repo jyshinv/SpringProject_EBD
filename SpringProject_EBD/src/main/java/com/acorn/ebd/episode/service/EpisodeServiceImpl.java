@@ -404,9 +404,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 
 		//DB 에서 댓글 목록을 얻어온다.
 		List<EpisodeCmtDto> commentList=episodeCmtDao.getList(commentDto);
-		if(commentList==null) {
-			System.out.println("null이야 ㅜㅜ ");
-		}
+		
 		//request 에 담아준다.
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("totalPageCount", totalPageCount);			
