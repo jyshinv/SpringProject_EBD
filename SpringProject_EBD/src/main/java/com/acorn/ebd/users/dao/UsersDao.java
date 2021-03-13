@@ -21,4 +21,6 @@ public interface UsersDao {
 	public void update(UsersDto dto);
 	//프로필 수정 요청처리 
 	public void updateProfile(UsersDto dto);
+	//비밀번호 수정 요청처리
+	public void updatePwd(UsersDto dto);
 }

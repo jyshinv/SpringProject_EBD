@@ -70,6 +70,13 @@
 		SET profile=#{profile}
 		WHERE id=#{id}
 	</update>
+	
+	 <!--비밀번호 수정 updatePwd문 -->
+	<update id="updatePwd" parameterType="usersDto">
+		UPDATE ebd_users
+		SET pwd=#{newpwd}
+		WHERE id=#{id} 
+	</update>
 
 
 	

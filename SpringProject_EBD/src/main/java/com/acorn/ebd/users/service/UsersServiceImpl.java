@@ -225,4 +225,36 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 
+	@Override
+	public void updateUserPwd(ModelAndView mView, UsersDto dto, HttpSession session) {
+		//로그인 된 아이디를 읽어와서
+		String id=(String)session.getAttribute("id");
+		
+		//1. 예전 비밀번호가 맞는지 확인한다.
+		//아이디를 이용해서 암호화 된 비밀번호를 SELECT 한다.
+		String savedPwd=dao.getPwd(id);
+	
+		//2.폼 전송되는 예전 비밀번호와 일치하는지 확인한다.
+		boolean isValid=BCrypt.checkpw(dto.getPwd(), savedPwd);
+			
+		//3. 만일 맞다면
+		if(isValid) {
+			//4. 새 비밀번호를 암호화해서
+			String newPwd=new BCryptPasswordEncoder().encode(dto.getNewpwd());
+			
+			//5. dto에 아이디와 새 비밀번호를 담아서 
+			dto.setId(id);
+			dto.setNewpwd(newPwd);
+			//6.수정 반영한다. 
+			dao.updatePwd(dto);
+			//7.로그아웃 처리를 한다.
+			session.removeAttribute("id");
+			session.removeAttribute("nick");
+		}
+		
+		//성공여부를 ModelAndView객체에 담는다.
+		mView.addObject("isSuccess",isValid);
+		
+	}
+
 }

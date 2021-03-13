@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -128,6 +129,21 @@ public class UsersController {
 		service.saveProfile(image, request);
 		//회원 수정페이지로 다시 리다이렉트 시키기 
 		return "redirect:/users/private/updateform.do";
+	}
+	
+	//비밀번호 수정 폼 요청처리
+	@RequestMapping("/users/private/pwd_updateform.do")//.do는 생략가능
+	public String pwd_updateform() {
+		return "users/private/pwd_updateform";
+	}
+	
+	//비밀번호 수정 요청 처리
+	@RequestMapping(value="/users/private/pwd_update", method=RequestMethod.POST)
+	public ModelAndView pwd_update(ModelAndView mView, UsersDto dto, HttpSession session) {
+		//UsersDto에는 폼전송된 아이디, 구비밀번호, 새비밀번호가 담여있다.
+		service.updateUserPwd(mView, dto, session);
+		mView.setViewName("users/private/pwd_update");
+		return mView;
 	}
 	
 	

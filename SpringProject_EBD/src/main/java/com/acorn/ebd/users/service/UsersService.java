@@ -26,4 +26,6 @@ public interface UsersService {
 	public void updateUser(UsersDto dto, HttpSession session);
 	//프로필 업로드 요청처리 
 	public void saveProfile(MultipartFile image, HttpServletRequest request);
+	//비밀번호 업데이트 요청처리 
+	public void updateUserPwd(ModelAndView mView, UsersDto dto, HttpSession session);
 }
