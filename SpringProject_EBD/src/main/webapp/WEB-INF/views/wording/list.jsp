@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>책 명언/글귀</title>
+<!-- kakao api를 사용하기 위한 sdk를 추가해주기 -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 
 <style>
@@ -44,6 +46,14 @@
 	
 	.heart-link{
 		font-size : 2em;
+	}
+	
+	/* 프로필 이미지를 작은 원형으로 만든다 */
+	#profileImage{
+		width: 50px;
+		height: 50px;
+		border: 1px solid #cecece;
+		border-radius: 50%;
 	}
 </style>
 </head>
@@ -95,8 +105,25 @@
 				</c:if>	
 			</c:if>
 			<p>
-				${tmp.num } ${tmp.writer } ${tmp.title } ${tmp.content } ${tmp.author } ${tmp.viewcnt } ${tmp.regdate }
+				<c:choose>
+					<c:when test="${empty tmp.profile }">
+						<!-- 비어있다면 기본이미지 -->
+						<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+				  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+						</svg>
+					</c:when>
+					<c:otherwise>
+						<!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
+						<img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
+					</c:otherwise>
+				</c:choose>
+				${tmp.writer } ${tmp.title } ${tmp.content } ${tmp.author } ${tmp.regdate }
+				<!-- 카카오 이미지 링크 넣기 -->
+				<a class="kakao-link" href="javascript:" data-profile="${tmp.profile }" data-title="${tmp.title }" data-content="${tmp.content }" data-author="${tmp.author }" >
+					<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png" />
+				</a>
 			</p>
+			
 			<%isCheck++; %>
 		</c:forEach>
 		
@@ -204,10 +231,36 @@
 		}
 		else {
 			console.log('새로 열린 페이지');
+			//Kakao.init: Already initialized 에러를 막기위해 페이지가 새로 열렸을 때만 initialized되도록 한다. 
+			Kakao.init('f2390c73f2911395fe314495c387c880'); // 초기화 + 카카오 디벨로퍼에 플랫폼까지 등록해주어야 한다.
 		}
 	});
 	
+	//카카오톡 공유하기 버튼을 클릭할 경우 
+	$(document).on("click",".kakao-link",function(){
+		//보낼 내용을 불러온다. 
+		let title=$(this).attr("data-title");
+		let content=$(this).attr("data-content");
+		let author=$(this).attr("data-author");
+		let msg = '['+title+']\n\n'+content+' by'+author; 
+		
+
+	    Kakao.Link.sendDefault({
+	      objectType: 'text',
+	      text: msg,
+	      link: {
+	        mobileWebUrl: 'https://developers.kakao.com/docs/js/kakaotalklink#텍스트-템플릿-보내기',
+	        webUrl: 'https://developers.kakao.com/docs/js/kakaotalklink#텍스트-템플릿-보내기',
+	      },
+	    })
+		 
+		
+	});
+	
+	
+	
 </script>
+
 
 
 </body>
