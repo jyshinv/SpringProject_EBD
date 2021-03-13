@@ -74,7 +74,7 @@
 </div>
 <script>
 	function deleteConfirm(){
-		let isDelete=confirm(" 회원님 탈퇴 하시겠습니까?");
+		let isDelete=confirm("회원님 탈퇴 하시겠습니까? 탈퇴하시면 모든 정보가 지워집니다.");
 		if(isDelete){
 			location.href="${pageContext.request.contextPath }/users/private/delete.do";
 		}

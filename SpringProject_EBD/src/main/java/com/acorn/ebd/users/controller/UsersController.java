@@ -146,6 +146,13 @@ public class UsersController {
 		return mView;
 	}
 	
+	//회원탈퇴 요청차리
+	@RequestMapping("users/private/delete.do")//.do는 생략가능
+	public String delete(HttpSession session) {
+		service.deleteUser(session);
+		return "users/private/delete";
+	}
+	
 	
 	
 

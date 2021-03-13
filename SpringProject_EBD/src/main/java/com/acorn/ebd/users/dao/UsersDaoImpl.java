@@ -99,6 +99,11 @@ public class UsersDaoImpl implements UsersDao {
 		int count=session.update("users.updatePwd",dto);
 	}
 
+	@Override
+	public void delete(String id) {
+		session.delete("users.delete",id);
+	}
+
 	
 
 }

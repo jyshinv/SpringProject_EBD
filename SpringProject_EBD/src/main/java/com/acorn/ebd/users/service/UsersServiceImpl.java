@@ -257,4 +257,15 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 
+	@Override
+	public void deleteUser(HttpSession session) {
+		//로그인된 아이디를 읽어와서
+		String id=(String)session.getAttribute("id");
+		//탈퇴시킨다.
+		dao.delete(id);
+		//로그아웃 처리 
+		session.removeAttribute("id");
+		
+	}
+
 }

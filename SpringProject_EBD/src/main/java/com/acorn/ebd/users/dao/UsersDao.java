@@ -23,4 +23,6 @@ public interface UsersDao {
 	public void updateProfile(UsersDto dto);
 	//비밀번호 수정 요청처리
 	public void updatePwd(UsersDto dto);
+	//회원 탈퇴 요청
+	public void delete(String id);
 }
