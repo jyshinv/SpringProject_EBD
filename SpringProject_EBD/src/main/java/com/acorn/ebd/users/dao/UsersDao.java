@@ -15,4 +15,10 @@ public interface UsersDao {
 	public boolean isExistId(String id);
 	//닉네임 중복체크 
 	public boolean isExistNick(String nick);
+	//개인정보 요청처리
+	public UsersDto getData(String id);
+	//개인정보 수정 요청처리
+	public void update(UsersDto dto);
+	//프로필 수정 요청처리 
+	public void updateProfile(UsersDto dto);
 }

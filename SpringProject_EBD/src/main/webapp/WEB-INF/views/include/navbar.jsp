@@ -104,7 +104,7 @@ nav요소는 div요소에 의미를 더한 요소이다.
 				<c:otherwise>
 					<span class="navbar-text">
 						<a href="${pageContext.request.contextPath }/users/private/info.do">${sessionScope.id }</a>
-						<a href="#">${sessionScope.nick }</a>
+						<a href="${pageContext.request.contextPath }/users/private/info.do">${sessionScope.nick }</a>
 						<a class="btn btn-warning btn-sm" href="${pageContext.request.contextPath }/users/logout.do">로그아웃</a>
 					</span>
 				</c:otherwise>

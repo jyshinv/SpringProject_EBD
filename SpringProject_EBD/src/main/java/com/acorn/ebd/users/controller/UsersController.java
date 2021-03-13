@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.ebd.users.dto.UsersDto;
@@ -68,6 +69,7 @@ public class UsersController {
 		return "users/logout"; 
 	}
 	
+	//아이디 중복 여부 확인 요청처리
 	@RequestMapping("/users/checkid.do")
 	@ResponseBody
 	public Map<String, Object> checkid(@RequestParam String inputId,
@@ -81,6 +83,7 @@ public class UsersController {
 		return map;
 	}
 	
+	//닉네임 중복 여부 확인 요청처리
 	@RequestMapping("/users/checknick.do")
 	@ResponseBody
 	public Map<String, Object> checknick(@RequestParam String inputNick,
@@ -93,5 +96,41 @@ public class UsersController {
 		map.put("isExist", isExist);
 		return map;
 	}
+	
+	
+	//개인정보보기 요청처리
+	@RequestMapping("/users/private/info.do")
+	public ModelAndView info(ModelAndView mView, HttpSession session) {
+		service.getInfo(session, mView);
+		mView.setViewName("/users/private/info");
+		return mView;
+	}
+	
+	//개인정보 업데이트 폼 요청처리
+	@RequestMapping("/users/private/updateform.do")
+	public ModelAndView updateform(ModelAndView mView, HttpSession session) {
+		service.getInfo(session, mView);
+		mView.setViewName("users/private/updateform");
+		return mView;
+	}
+	
+	//개인정보 수정 요청 처리
+	@RequestMapping(value="/users/private/update", method=RequestMethod.POST)
+	public ModelAndView update(UsersDto dto, HttpSession session, ModelAndView mView) {
+		service.updateUser(dto, session);
+		mView.setViewName("users/private/update");
+		return mView;
+	}
+	
+	//프로필 이미지 업데이트 요청처리 
+	@RequestMapping("/users/private/profile_upload.do")
+	public String profile_upload(MultipartFile image, HttpServletRequest request) {
+		service.saveProfile(image, request);
+		//회원 수정페이지로 다시 리다이렉트 시키기 
+		return "redirect:/users/private/updateform.do";
+	}
+	
+	
+	
 
 }

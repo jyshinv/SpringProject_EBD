@@ -25,12 +25,6 @@
 			<div class="invalid-feedback">사용할 수 없는 아이디 입니다.</div>
 			<div class="valid-feedback">사용 가능한 아이디 입니다.</div>
 		</div>
-		<div class="form-group" id="form-nick">
-			<input class="form-control" type="text" name="nick" id="nick" placeholder="닉네임" />
-			<small class="form-text text-muted"><b>5~15글자</b> 이내로 입력해주세요</small>
-			<div class="invalid-feedback">사용할 수 없는 닉네임 입니다.</div>
-			<div class="valid-feedback">사용 가능한 닉네임 입니다.</div>
-		</div>
 		<div class="form-group" id="form-pwd">
 			<input class="form-control" type="password" name="pwd" id="pwd" placeholder="비밀번호" />
 			<small class="form-text text-muted"><b>영소문자+숫자 </b>조합으로 <b>5~15글자</b> 이내로 입력해주세요</small>
@@ -44,6 +38,12 @@
 		</div>
 		<div class="form-group">
 			<input class="form-control" type="text" name="name" id="name" placeholder="이름" />
+		</div>
+		<div class="form-group" id="form-nick">
+			<input class="form-control" type="text" name="nick" id="nick" placeholder="닉네임" />
+			<small class="form-text text-muted"><b>5~15글자</b> 이내로 입력해주세요</small>
+			<div class="invalid-feedback">사용할 수 없는 닉네임 입니다.</div>
+			<div class="valid-feedback">사용 가능한 닉네임 입니다.</div>
 		</div>
 		<div class="form-group">
 			<fieldset>

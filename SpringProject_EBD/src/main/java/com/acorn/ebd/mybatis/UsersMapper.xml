@@ -48,6 +48,28 @@
 		FROM ebd_users
 		WHERE nick=#{nick}
 	</select>
+	
+	<!-- 개인정보를 return -->
+	<select id="getData" parameterType="String" resultType="usersDto">
+		SELECT pwd, name, gender, birth_year, birth_month, birth_day, email, phone, profile,
+			TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate
+		FROM ebd_users
+		WHERE id=#{id}
+	</select>
+	
+	<!-- 개인정보 수정 -->
+	<update id="update" parameterType="usersDto">
+		UPDATE ebd_users
+		SET email=#{email}, phone=#{phone}, nick=#{nick}
+		WHERE id=#{id}
+	</update>
+	
+	<!-- 프로필 수정 -->
+	<update id="updateProfile" parameterType="usersDto">
+		UPDATE ebd_users
+		SET profile=#{profile}
+		WHERE id=#{id}
+	</update>
 
 
 	

@@ -1,15 +1,18 @@
 package com.acorn.ebd.users.service;
 
+import java.io.File;
 import java.net.URLEncoder;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.ebd.users.dao.UsersDao;
@@ -155,6 +158,71 @@ public class UsersServiceImpl implements UsersService {
 	public boolean isExistNick(String nick) {
 		//nick존재 여부를 리턴해준다.
 		return dao.isExistNick(nick);
+	}
+
+	@Override
+	public void getInfo(HttpSession session, ModelAndView mView) {
+		//로그인 된 아이디를 읽어와서
+		String id=(String)session.getAttribute("id");
+		//개인정보를 읽어온다.
+		UsersDto dto=dao.getData(id);
+		//읽어온 정보를 ModelAndView 객체에 담아준다.
+		mView.addObject("dto",dto);
+		
+	}
+
+	@Override
+	public void updateUser(UsersDto dto, HttpSession session) {
+		//로그인된 아이디를 읽어온다.
+		String id=(String)session.getAttribute("id");
+		//dto에 담는다.
+		dto.setId(id);
+		//dao를 이용해서 DB에 수정 반영한다.
+		dao.update(dto);
+		
+		//변경된 닉네임을 불러온 후 세션영역에 다시 담아준다.
+		String nick=dao.getNick(id); //해당 id의 닉네임을 불러온다. 			
+		session.setAttribute("nick", nick);//session영역에 저장한다. 
+		
+	}
+
+	@Override
+	public void saveProfile(MultipartFile image, HttpServletRequest request) {
+		//원본 파일명
+		String orgFileName=image.getOriginalFilename();
+		
+		//파일의 크기는 여기에서 필요없다.
+		//long fileSize=image.getSize();
+		
+		//파일을 저장할 실제 경로 "webapp/upload"
+		String realPath=request.getServletContext().getRealPath("/upload");
+		File upload=new File(realPath);
+		if(!upload.exists()) { //만일 존재하지 않으면
+			upload.mkdir();//폴더를 만든다.
+		}
+		//저장할 파일명을 구성한다. 1977.1.1 0시를 기준으로 경과시간이 1000분의1초 단위로 나온다.
+		//똑같은 이름의 파일을 저장하더라도 파일이름에 중복이 생기지 않도록 currentTimeMillis를 쓴다. 
+		String saveFileName=System.currentTimeMillis()+orgFileName;
+		//저장할 파일의 전체 경로를 구성한다.
+		//윈도우 :\, linux:/이기 때문에 separator을 이용해주어야한다.
+		String path=realPath+File.separator+saveFileName;
+		try {
+			//임시폴더에 업로드 된 파일을 원하는 위치에 원하는 파일명으로 이동시킨다.
+			image.transferTo(new File(path));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		//DB에 저장할 이미지의 경로
+		String profile="/upload/"+saveFileName;
+		//로그인된 아이디
+		String id=(String)request.getSession().getAttribute("id");
+		//수정할 정보를 dto에 담기
+		UsersDto dto=new UsersDto();
+		dto.setId(id);
+		dto.setProfile(profile);
+		//dao를 이용해서 수정 반영하기
+		dao.updateProfile(dto);
+		
 	}
 
 }

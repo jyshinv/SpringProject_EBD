@@ -2,7 +2,9 @@ package com.acorn.ebd.users.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.ebd.users.dto.UsersDto;
@@ -18,4 +20,10 @@ public interface UsersService {
 	public boolean isExistId(String id);
 	//닉네임 중복체크
 	public boolean isExistNick(String nick);
+	//개인정보 보기 요청처리
+	public void getInfo(HttpSession session, ModelAndView mView);
+	//개인정보 업데이트 요청처리 
+	public void updateUser(UsersDto dto, HttpSession session);
+	//프로필 업로드 요청처리 
+	public void saveProfile(MultipartFile image, HttpServletRequest request);
 }

@@ -10,8 +10,8 @@
 <style>
 	/* 프로필 이미지를 작은 원형으로 만든다 */
 	#profileImage{
-		width: 50px;
-		height: 50px;
+		width: 100px;
+		height: 100px;
 		border: 1px solid #cecece;
 		border-radius: 50%;
 	}
@@ -24,52 +24,58 @@
 <body>
 <div class="container">
 	<h1>회원정보 수정 </h1>
-	<a id="profileLink" href="javascript:">
-		<c:choose>
-			<c:when test="${empty dto.profile }">
-				<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-	  				<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-				</svg>
-			</c:when>
-			<c:otherwise>
-				<img id="profileImage" 
-					src="${pageContext.request.contextPath }${dto.profile}" />
-			</c:otherwise>
-		</c:choose>
-	</a>
-	<form action="#">
-		<div>
-			<!--  <label for="id">아이디</label>-->
-			<input type="text" id="id" value=""  placeholder="아이디" disabled/>
-		</div>
-		<div>
-			<!--  <label for="name">이름</label>-->
-			<input type="text" id="id" value="${name}"  placeholder="이름"disabled />
-		</div>
-		<div>
-			<!-- <label for="nickname">닉네임</label> -->
-			<input type="text" id="nickname" value="${nickname}"  placeholder="닉네임"/>
-		</div>
-		<div>
-			<!--  <label for="email">이메일</label>-->
-			<input type="text" id="email" name="email" value="${dto.email }"  placeholder="이메일"/>
-		</div>
-		<div>
-			<!--  <label for="phonenumber">핸드폰번호</label>-->
-			<input type="number" id="phonenumber" name="phonenumber"  placeholder="핸드폰번호 -없이 입력"/>
-			
-		
-		</div>
-		<button type="submit" class="btn btn-outline-primary">수정</button>
-		
-		
-		<!--<button type="reset">취소</button>-->
-	</form>
-	
-	<form action="#">
+	<!-- 프로필 수정 -->
+	<c:choose>
+		<c:when test="${empty dto.profile }">
+			<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+  				<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+			</svg>
+		</c:when>
+		<c:otherwise>
+			<img id="profileImage" 
+				src="${pageContext.request.contextPath }${dto.profile}" />
+		</c:otherwise>
+	</c:choose>
+	<button class="btn btn-outline-primary" id="profileLink" href="javascript:">수정하기</button>
+	<br />
+	<form action="profile_upload.do" method="post" 
+		enctype="multipart/form-data" id="profileForm">
 		<label for="image">프로필 이미지 선택</label>
 		<input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 		<button type="submit">업로드</button>
+	</form>
+	<br />
+	<!-- 개인정보 수정 -->
+	<form action="update.do" method="post" id="myForm" novalidate>
+		<div class="form-group" id="form-id">
+			<label for="id">아이디</label>
+			<input class="form-control" type="text" name="id" id="id" value="${id }" placeholder="아이디" disabled/>
+		</div>
+		<div class="form-group">
+			<label for="name">이름</label>
+			<input class="form-control" type="text" name="name" id="name" value="${dto.name }" placeholder="이름" disabled/>
+		</div>
+		<div class="form-group" id="form-nick">
+			<label for="nick">닉네임</label>
+			<input class="form-control" type="text" name="nick" id="nick" value="${nick }" placeholder="닉네임" />
+			<small class="form-text text-muted"><b>5~15글자</b> 이내로 입력해주세요</small>
+			<div class="invalid-feedback">사용할 수 없는 닉네임 입니다.</div>
+			<div class="valid-feedback">사용 가능한 닉네임 입니다.</div>
+		</div>
+		<div class="form-group">
+			<label for="email">이메일</label>
+			<input class="form-control" type="email" name="email" id="email" value="${dto.email }" placeholder="이메일 예)ebd@acorn.com" />
+			<div class="invalid-feedback">이메일 형식을 확인해주세요.</div>
+			<div class="valid-feedback">사용가능한 이메일 입니다.</div>
+		</div>
+		<div class="form-group">
+			<label for="email">연락처</label>
+			<input class="form-control" type="text" name="phone" id="phone" value="${dto.phone }" placeholder="연락처를 - 없이 입력해주세요" />
+			<div class="invalid-feedback">숫자만 입력해주세요.</div>
+			<div class="valid-feedback">사용가능한 연락처 입니다.</div>
+		</div>		
+		<button type="submit" class="btn btn-outline-primary">수정</button>
+		<button type="reset" class="btn btn-outline-primary">취소</button>
 	</form>
 </div>
 <script>
@@ -84,114 +90,142 @@
 		$("#profileForm").submit();
 	});
 	
+	//https://regexr.com/ 테스트는 여기서 해보기 
+	//닉네임을 검증할 정규 표현식 (모든 문자 가능 5~15글자 이내)
+	let reg_nick=/^.{5,15}$/;
+	//이메일을 검증할 정규 표현식(@가 포함되어 있는 지 검증, 이메일을 제대로 입력해주세요.)
+	let reg_email=/@/; 
+	//핸드폰을 검증할 정규 표현식(-를 제외하고 숫자만 입력해주세요)
+	let reg_phone=/[0-9]$/;
 	
+	//넘어온 값은 모두 저장 가능한 값이므로 true로 만들어준다.
+	//닉네임 유효성 여부를 관리할 변수 만들고 초기값 부여
+	let isNickValid=true;
+	//이메일 유효성 여부를 관리할 변수 만들고 초기값 부여
+	let isEmailValid=true;
+	//핸드폰 유효성 여부를 관리할 변수 만들고 초기값 부여
+	let isPhoneValid=true;
+	//폼 전체 유효성 여부를 관리할 변수 만들고 초기값 부여
+	let isFormValid=true;
 	
-	//update 
-	alert("수정 했습니다.");
-	location.href="${pageContext.request.contextPath }/users/private/info.do";
+	//넘어온 값은 모두 저장 가능한 값이므로 모든 폼을 valid로 만들어준다. 
+	$("#nick, #email, #phone").addClass("is-valid");
 
-	</script>
-	
-	
-	
-	
-	<!-- pwd_update -->
-	
-	<div class="container">
-	<h1>비밀번호 수정 </h1>
-	<form action="#">
-		<div>
-			<!-- <label for="pwd">기존 비밀번호</label>-->
-			<input type="password" name="pwd" id="pwd" placeholder="기존 비밀번호"/>
-		</div>
-		<div>
-			<!-- <label for="newPwd">새 비밀번호</label> -->
-			<input type="password" name="newPwd" id="newPwd" placeholder="새 비밀번호"/>
-		</div>
-		<div>
-			<!-- <label for="newPwd2">새 비밀번호 확인</label> -->
-			<input type="password" id="newPwd2" placeholder="새 비밀번호 확인"/>
-		</div>
-		<button type="submit" class="btn btn-outline-primary">수정</button>
-		<button type="reset" class="btn btn-outline-danger" >취소</button>
-	</form>
-	</div>
-	<script>
-		//폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
-		document.querySelector("#myForm")
-		.addEventListener("submit", function(event){
-			let pwd1=document.querySelector("#newPwd").value;
-			let pwd2=document.querySelector("#newPwd2").value;
-			//새 비밀번호와 비밀번호 확인이 일치하지 않으면 폼 전송을 막는다.
-			if(pwd1 != pwd2){
-				alert("비밀번호를 확인 하세요!");
-				event.preventDefault();//폼 전송 막기 
+	//폼에 submit이벤트가 일어났을 때 jquery를 활용해서 폼에 입력한 내용 검증하기
+	//id가 myForm인 요소에 submit이벤트가 일어났을 때 실행할 함수 등록 
+	$("#myForm").on("submit",function(){
+		
+		//폼 전체의 유효성 여부를 얻어낸다. 
+		isFormValid = isNickValid&isEmailValid&isPhoneValid;
+		
+		//true가 아니면 모두 입력해주세요 라는 알림창과 함께 폼전송을 막는다. 
+		if(!isFormValid){
+			alert('모두 입력해주세요'); //알림창
+			return false; //폼전송을 막는다. 
+		}
+		
+	});
+
+	//닉네임 중복 & 유효성 검사
+	$("#nick").on("input", function(){
+		//입력한 닉네임을 읽어온다.
+		let inputNick= $("#nick").val();
+		let inputBeforeNick="${nick }";
+		console.log(inputBeforeNick);
+		
+		//일단 모든 검증 클래스를 제거하고
+		$("#nick").removeClass("is-valid is-invalid");
+		
+		//닉네임이 정규표현식에 매칭되지 않으면
+		if(!reg_nick.test(inputNick)){
+			//닉네임이 유효하지 않는다고 표시하고
+			$("#nick").addClass("is-invalid");
+			$("#form-nick").children(".invalid-feedback").text("5글자~15글자 이내로 입력해주세요.");
+			isNickValid=false;
+			//함수를 여기서 종료한다.
+			return;
+		}
+		
+		//입력을 했으나 기존의 닉네임의 경우네는 기존의 닉네임이라고 알려준다. 
+		if(inputNick==inputBeforeNick){
+			$("#nick").removeClass("is-valid is-invalid");
+			$("#nick").addClass("is-valid");
+			$("#form-nick").children(".valid-feedback").text("기존의 닉네임입니다. 사용가능합니다.");
+			//닉네임이 유효하다고 표시한다.
+			isNickValid=true;
+			//함수를 여기서 종료한다.
+			return;
+		}
+
+		
+		$.ajax({
+			url: "${pageContext.request.contextPath }/users/checknick.do",
+			method : "GET",
+			data:"inputNick="+inputNick,
+			success:function(responseData){
+				if(responseData.isExist){//이미 존재하는 닉네임인 경우
+					$("#nick").removeClass("is-valid is-invalid");
+					$("#nick").addClass("is-invalid");
+					$("#form-nick").children(".invalid-feedback").text("이미 존재하는 닉네임입니다.");
+					isNickValid=false;
+				}else{ //존재하지 않는 닉네임 즉 사용하지 않는 닉네임인 경우
+					$("#nick").removeClass("is-valid is-invalid");
+					$("#nick").addClass("is-valid");
+					$("#form-nick").children(".valid-feedback").text("사용가능한 닉네임입니다.");
+					//닉네임이 유효하다고 표시한다.
+					isNickValid=true;
+				}
 			}
-		});
-	</script>
+		})
+	});
 	
 	
 	
-	<!-- 독후감양식!! -->
-	<form action="#">
-	<div>
-	<label for="booktitle">글 제목</label>
-	<input type="text" name="booktitle" id="booktitle" placeholder="내용을 입력해주세요"/>
-	</div>
-	<div>
-	<label for="attach_img">이미지 첨부</label>
-	<input type="text" name="attach_img" id="attach_img" placeholder="내용을 입력해주세요"/>
-	</div>
-	<div>
-	<label for="review_discussion">리뷰 및 의견 나누기</label>
-	<!-- 
-	<input type="review_discussion" name="review_discussion" id="review_discussion" placeholder="스마트 에디터" />
+	//이메일 유효성 검사
+	$("#email").on("input", function(){
+		//입력한 이메일을 읽어온다.
+		let email=$("#email").val();
+		
+		//일단 모든 검증 클래스를 제거하고
+		$("#email").removeClass("is-valid is-invalid");
+		
+		//이메일이 정규표현식에 매칭되지 않으면
+		if(!reg_email.test(email)){
+			//이메일이 유효하지 않는다고 표시하고
+			$("#email").addClass("is-invalid");
+			isEmailValid=false;
+			//함수를 여기서 종료한다.
+			return;
+		}else{
+			isEmailValid=true;
+			$("#email").addClass("is-valid");			
+		}
+		
+		
+	});
 	
-	input 보다 밑에 textarea가 맞겠죠??
-	
-	-->
-	
-	<textarea name="review_discussion" id="review_discussion" class='ta' cols="30" rows="16.5" placeholder="스마트 에디터" ></textarea>
-	</div>
-	
-	<button type="submit" class="btn btn-outline-primary">작성</button>
-	<button type="reset" class="btn btn-outline-danger" >취소</button>
-	</form>
-	
-	<!-- pwd_updateform -->
-	
-	<div class="container">
-	<h1>비밀번호 수정 </h1>
-	<form action="#">
-		<div>
-			<!-- <label for="pwd">기존 비밀번호</label>-->
-			<input type="password" name="pwd" id="pwd" placeholder="기존 비밀번호"/>
-		</div>
-		<div>
-			<!-- <label for="newPwd">새 비밀번호</label> -->
-			<input type="password" name="newPwd" id="newPwd" placeholder="새 비밀번호"/>
-		</div>
-		<div>
-			<!-- <label for="newPwd2">새 비밀번호 확인</label> -->
-			<input type="password" id="newPwd2" placeholder="새 비밀번호 확인"/>
-		</div>
-		<button type="submit" class="btn btn-outline-primary">수정</button>
-		<button type="reset" class="btn btn-outline-danger" >취소</button>
-	</form>
-	</div>
-	<script>
-		//폼에 submit 이벤트가 일어났을때 실행할 함수를 등록하고 
-		document.querySelector("#myForm")
-		.addEventListener("submit", function(event){
-			let pwd1=document.querySelector("#newPwd").value;
-			let pwd2=document.querySelector("#newPwd2").value;
-			//새 비밀번호와 비밀번호 확인이 일치하지 않으면 폼 전송을 막는다.
-			if(pwd1 != pwd2){
-				alert("비밀번호를 확인 하세요!");
-				event.preventDefault();//폼 전송 막기 
-			}
-		});
-	</script>
+	//핸드폰 번호 유효성 검사
+	$("#phone").on("input", function(){
+		//입력한 핸드폰 번호를 읽어온다.
+		let phone=$("#phone").val();
+		
+		//일단 모든 검증 클래스를 제거하고
+		$("#phone").removeClass("is-valid is-invalid");
+		
+		//핸드폰 번호가 정규표현식에 매칭되지 않으면
+		if(!reg_phone.test(phone)){
+			//핸드폰 번호가 유효하지 않는다고 표시하고
+			$("#phone").addClass("is-invalid");
+			isPhoneValid=false;
+			//함수를 여기서 종료한다.
+			return;
+		}else{
+			isPhoneValid=true;
+			$("#phone").addClass("is-valid");
+		}
+		
+	});
+</script>
 </body>
 </html>
 
