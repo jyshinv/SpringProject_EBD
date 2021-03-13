@@ -85,32 +85,49 @@
 	.heart-link{
       	font-size : 2em;
     }	
+    .card{
+    	padding-left:20px;
+    	padding-right:20px;
+    }
+    .centerimg img{
+    	max-width: 100%;
+    }
+    .marg{
+    	margin-bottom:20px;
+    }
 </style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<div class="card">
-		<table class="table">
-			<tr>
-				<th>조회수</th>
-				<td>${dto.viewcnt }</td>
-			</tr>
-			<tr>
-				<th>날짜</th>
-				<td>${dto.regdate }</td>
-			</tr>
-			<tr>
-			<th></th>
-			<td>
-				<center>
-					<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
-				</center>
-			</td>
-			</tr>
-			<tr>
-				<th>공개여부</th>
-				<td>
+		<div class="text-center marg">
+			<h1>${dto.title }</h1>
+		</div>
+		<div class="text-right marg">
+			<span><small>조회수 ${dto.viewcnt }</small></span>
+			<span><small>${dto.regdate }</small></span>
+		</div>
+		<div class="marg">
+			<center class="centerimg">
+				<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
+			</center>
+		</div>
+		<div class="row marg">
+			<div class="col text-left">
+				<c:if test="${not empty nick }">
+		            <c:choose>
+		               <c:when test="${isheartclick eq true }">
+		                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+		               </c:when>
+		               <c:otherwise> 
+		                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
+		               </c:otherwise>
+		            </c:choose>
+	            	<span class="heart-cnt">(${heartcnt })</span>
+	            </c:if>
+			</div>
+			<div class="col text-right marg">
 				<c:if test="${dto.writer eq nick}">
 	            <form action="updatepublicck2.do" method="post">
 	            	<label for="publicck"></label>
@@ -123,53 +140,33 @@
 	          		<input type="submit" value="선택"/>
 	          	</form>
 	       		</c:if>
-	       		</td>
-			</tr>
-			<!-- 로그인을 해야지만 하트를 누를 수 있다. 반복문이 아니어서 isCheck가 필요없다. -->
+			</div>
+		</div>
+		<table class="table">
 			<tr>
-				<th>좋아요</th>
-				<td>
-		         	<c:if test="${not empty nick }">
-			            <c:choose>
-			               <c:when test="${isheartclick eq true }">
-			                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
-			               </c:when>
-			               <c:otherwise> 
-			                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
-			               </c:otherwise>
-			            </c:choose>
-		            	<span class="heart-cnt">(${heartcnt })</span>
-		            </c:if>							
-				</td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td>${dto.title }</td>
-			</tr>
-			<tr>
-				<th>도서명</th>
+				<th scope="row">도서명</th>
 				<td>${dto.booktitle }</td>
 			</tr>
 			<tr>
-				<th>저자명</th>
+				<th scope="row">저자명</th>
 				<td>${dto.author }</td>
 			</tr>
 			<tr>
-				<th>장르</th>
+				<th scope="row">장르</th>
 				<td>${dto.genre }</td>
 			</tr>
 			<tr>
-				<th>별점</th>
+				<th scope="row">별점</th>
 				<td>${dto.stars }</td>
 			</tr>
 			<tr>
-				<th>구매처 링크</th>
+				<th scope="row">구매처 링크</th>
 				<td><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
 			</tr>
-			<tr>
-				<td>${dto.content }</td>
-			</tr>
 		</table>
+			<div class="marg">
+				${dto.content }
+			</div>
 		<nav>
 			<ul class="pagination justify-content-center">
 				<c:choose>
