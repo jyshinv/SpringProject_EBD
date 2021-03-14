@@ -5,20 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>/public_report/detail</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* 글 내용을 출력할 div 에 적용할 css */
 	.contents{
 		width: 100%;
 		border: 1px dotted #cecece;
-	}
-	/* 댓글 프로필 이미지를 작은 원형으로 만든다. */
-	.profile-image{
-		width: 50px;
-		height: 50px;
-		border: 1px solid #cecece;
-		border-radius: 50%;
 	}
 	/* ul 요소의 기본 스타일 제거 */
 	.comments ul{
@@ -88,21 +81,81 @@
 		text-align: center; /* 이미지를 좌우로 가운데  정렬 */
 		z-index: 1000;
 		display: none; /* 일단 숨겨 놓기 */
-	}		
+	}	
+	.heart-link{
+      	font-size : 2em;
+    }	
+    .card{
+    	padding-left:20px;
+    	padding-right:20px;
+    }
+    .centerimg img{
+    	max-width: 100%;
+    }
+    .marg{
+    	margin-bottom:20px;
+    }
+    #checkBtn{
+    	padding-top:0px;
+    	padding-bottom:10px;
+    	padding-left:0px;
+    	padding-right:0px;
+    }
 </style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
-	<a href="${pageContext.request.contextPath}/public_report/list.do">독후감 목록가기</a>
 	<div class="card">
-		<table class="table">
-			<tr>
-				<th></th>
-				<td>조회수 ${dto.viewcnt }</td>
-				<td>날짜 ${dto.regdate }</td>
+		<div class="text-center marg">
+			<h1>${dto.title }</h1>
+		</div>
+		<!-- &nbsp; 공백 태그 -->
+		<div class="text-right marg">
+			<span>
+				<small>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+					  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+					  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+					</svg> 
+					<span>
+						&nbsp;${dto.viewcnt }
+					</span>
+				</small>
+			</span>
+			&nbsp;&nbsp;
+			<span>
+				<small>
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
+					  <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+					  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+					  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+					</svg> 
+					<span>&nbsp;${dto.regdate }</span>
+				</small>
+			</span>
+		</div>
+		<div class="marg">
+			<center class="centerimg">
+				<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
+			</center>
+		</div>
+		<div class="row marg">
+			<div class="col text-left">
+				<c:if test="${not empty nick }">
+		            <c:choose>
+		               <c:when test="${isheartclick eq true }">
+		                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+		               </c:when>
+		               <c:otherwise> 
+		                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
+		               </c:otherwise>
+		            </c:choose>
+	            	<span class="heart-cnt">(${heartcnt })</span>
+	            </c:if>
+			</div>
+			<div class="col text-right marg">
 				<c:if test="${dto.writer eq nick}">
-				<td>
 	            <form action="updatepublicck2.do" method="post">
 	            	<label for="publicck"></label>
 	          		<select name="publicck" id="publicck">
@@ -111,42 +164,41 @@
 	          		</select>
 	          		<label for="num"></label>
 	          		<input type="hidden" value="${dto.num }" id="num" name="num"/>
-	          		<input type="submit" value="선택"/>
+	          		<button type="submit" class="btn btn-link" id="checkBtn">
+	          			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+						  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+						  <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+						</svg>
+	          		</button>
 	          	</form>
-	       		</td>
 	       		</c:if>
-			</tr>
-			<center>
-				<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
-			</center>
+			</div>
+		</div>
+		<table class="table">
 			<tr>
-				<th>제목</th>
-				<td>${dto.title }</td>
-			</tr>
-			<tr>
-				<th>도서명</th>
+				<th scope="row">도서명</th>
 				<td>${dto.booktitle }</td>
 			</tr>
 			<tr>
-				<th>저자명</th>
+				<th scope="row">저자명</th>
 				<td>${dto.author }</td>
 			</tr>
 			<tr>
-				<th>장르</th>
+				<th scope="row">장르</th>
 				<td>${dto.genre }</td>
 			</tr>
 			<tr>
-				<th>별점</th>
+				<th scope="row">별점</th>
 				<td>${dto.stars }</td>
 			</tr>
 			<tr>
-				<th>구매처 링크</th>
+				<th scope="row">구매처 링크</th>
 				<td><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
 			</tr>
-			<tr>
-				<td>${dto.content }</td>
-			</tr>
 		</table>
+			<div class="marg">
+				${dto.content }
+			</div>
 		<nav>
 			<ul class="pagination justify-content-center">
 				<c:choose>
@@ -397,8 +449,57 @@
 				}
 			});
 		}
-	});		
+	});	
 	
+	//하트를 클릭할 때마다 호출되는 함수 등록
+	   $(document).on("click",".heart-link",function(){
+	      //글 번호를 불러온다.
+	      var target_num=$(this).attr("data-num");
+	   
+	      if($(this).text()=="♡"){ //하트일때 클릭하면
+	         
+	         //insert 요청을 한다.(컨트롤러에서 responsebody사용)
+	         $.ajax({
+	            url:"${pageContext.request.contextPath }/public_report/saveheart.do",
+	            method:"GET",
+	            data: "target_num="+target_num,
+	            success:function(data){ //나중에 구현 : 하트 수를 반환
+	               $(".heart-cnt").text("("+data.heartCnt+")");
+	            }
+	         });
+	         $(this).text("♥"); //하트 눌림으로 바뀐다.
+	         
+	         
+	      
+	      }else{//하트 눌림일 때 클릭하면 (하트를 해제한 효과)         
+	         //delete 요청을 한다.(컨트롤러에서 responsebody사용)
+	         $.ajax({
+	            url:"${pageContext.request.contextPath }/public_report/removeheart.do",
+	            method:"GET",
+	            data: "target_num="+target_num,
+	            success:function(data){
+	               $(".heart-cnt").text("("+data.heartCnt+")");
+	            }             
+	         });
+	         
+	         $(this).text("♡");//하트로 바뀐다. 
+	      }
+	      
+	   });
+	   
+	 //페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
+	   //방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
+	   $(window).bind("pageshow", function (event) {
+	      if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	         console.log('BFCahe로부터 detail 복원됨');
+	         $(".heart-link").css("pointer-events","none");
+	         location.reload();//새로고침하기
+	      }
+	      else {
+	         console.log('새로 열린 detail 페이지');
+	      }
+	      
+	   });
 </script>
 </body>
 </html>

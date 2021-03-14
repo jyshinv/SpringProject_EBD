@@ -22,12 +22,15 @@ public class ReportDto {
 	private int prevNum;
 	private int nextNum;
 	private MultipartFile image;
+	private String nick;
+	private String profile;
 	
 	public ReportDto() {}
 
 	public ReportDto(int num, String writer, String booktitle, String author, String title, String genre, String stars,
 			String imgpath, String link, String content, String viewcnt, String regdate, String publicck,
-			int startRowNum, int endRowNum, int prevNum, int nextNum, MultipartFile image) {
+			int startRowNum, int endRowNum, int prevNum, int nextNum, MultipartFile image, String nick,
+			String profile) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -47,6 +50,8 @@ public class ReportDto {
 		this.prevNum = prevNum;
 		this.nextNum = nextNum;
 		this.image = image;
+		this.nick = nick;
+		this.profile = profile;
 	}
 
 	public int getNum() {
@@ -192,5 +197,22 @@ public class ReportDto {
 	public void setImage(MultipartFile image) {
 		this.image = image;
 	}
+
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
 	
 }

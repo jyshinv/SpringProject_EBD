@@ -44,4 +44,10 @@ public interface ReportService {
 	
 	//마이리포트 수정하는 메소드
 	public void updateData(ReportDto dto, HttpServletRequest request);
+	
+	//하트 해제시 해당 테이블에서 target_num을 삭제해주는 메소드
+	public int removeHeart(int target_num, HttpSession session);
+	
+	//하트 추가시 해당 테이블에서 target_num과 nick 을 추가해주는 메소드
+	public int saveHeart(int target_num, HttpSession session);
 }

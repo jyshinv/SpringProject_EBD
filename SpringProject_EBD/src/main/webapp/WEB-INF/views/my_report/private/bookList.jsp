@@ -6,36 +6,48 @@
 <head>
 <meta charset="UTF-8">
 <title>/my_report/private/bookList.jsp</title>
+<jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <body>
-    <center>
+<div class="container-fluid">
+	<div class="container" style="margin-bottom:10px;">
         <form action="bookList.do">
-            <input type="text" name="keyword" >
-            <input type="submit" value="검색">
+           <div class="row justify-content-md-center">
+              <div class="col-md-8">
+                  <input class="form-control" type="text" name="keyword" >
+              </div>
+              <span>
+                  <input class="btn btn-primary" type="submit" value="검색">
+              <span>
+           </div>              
         </form>        
-    </center>
-    <table id="search-api" style="border:1px red solid">
+    </div>
+    <table class="table" id="search-api">
     	<thead>
-	       	<tr>
-	       		<th>책표지</th>
-	       		<th>책제목</th>
-	       		<th>저자</th>
-	       		<th>출판사</th>
-	       		<th>구매처 링크</th>
-	       		<th>책소개</th>
-	       		<th>선택</th>
-	       	</tr>
+    		<div class="container">
+		       	<tr class="text-center">
+		       		<th>책표지</th>
+		       		<th>책제목</th>
+		       		<th>저자</th>
+		       		<th>출판사</th>
+		       		<th>책소개</th>
+		       		<th>구매처 링크</th>
+		       		<th>선택</th>
+		       	</tr>
+    		</div>
     	</thead>
     	<tbody>
         <c:forEach items="${bookList}" var ="b">
-            <tr>
+            <tr class="text-center">
                 <td width="100"><img src="${b.image}"/></td>
                 <td width="200">${b.title}</td>
                 <td width="100">${b.author}</td>
                 <td width="100">${b.publisher }</td>
-                <td width="200">${b.link }</td>
-                <td width="300">${b.description}</td>
-                <td>
+                <td width="400">${b.description}</td>
+                <td width="200">
+                	<a href="${b.link }">${b.link }</a>
+                </td>
+                <td width="100">
                 	<form action="insertform.do">
                 		<label for="booktitle"></label>
                 		<input type="hidden" id="booktitle" name="booktitle" value="${b.title }"/>
@@ -43,7 +55,7 @@
                 		<input type="hidden" id="author" name="author" value="${b.author }"/>
                 		<label for="link"></label>
                 		<input type="hidden" id="link" name="link" value="${b.link }"/>
-                		<input type="submit" value="선택"/>
+                		<input class="btn btn-primary" type="submit" value="선택"/>
                 	</form>
                 </td>
                 <!-- 
@@ -57,6 +69,10 @@
     <div id="result"></div>
     <div id="result2"></div>
 </div>
+<!-- 
+<div id="result"></div>
+<div id="result2"></div>
+ -->   
 <script>
 	/*
 	//테이블의 Row 클릭시 값 가져오기
