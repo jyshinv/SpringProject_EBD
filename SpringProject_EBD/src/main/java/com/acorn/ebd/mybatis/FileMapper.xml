@@ -72,4 +72,90 @@
 		WHERE num=#{num}
 	</update>
 	
+	<!-- 하트를 클릭했을 때 로그인된 닉네임 정보와 하트를 클릭한 글의 num을 insert해준다. -->
+    <insert id="insertH" parameterType="fileDto">
+       INSERT INTO ebd_file_heart
+       (num, target_num, writer)
+       VALUES(ebd_file_heart_seq.NEXTVAL, #{num}, #{nick})
+    </insert>
+   
+    <!-- 하트를 해제 했을 때 로그인된 아이디정보와 하트를 클릭한 글의 num을 delete해준다. -->
+    <delete id="deleteHeart" parameterType="fileDto">
+       DELETE FROM ebd_file_heart
+       WHERE target_num=#{num} AND writer=#{nick}
+    </delete>
+    
+    <!-- 하트 갯수 디테일  -->
+    <select id="getHeartCntDetail" parameterType="int" resultType="int">
+       SELECT NVL(r1.heartcnt,0) heartcnt
+       FROM (SELECT target_num, count(*) heartcnt
+                FROM ebd_file_heart
+                GROUP BY target_num) r1, ebd_file e
+       WHERE r1.target_num(+) = e.num and e.num=#{num}
+    </select>
+   
+    <!-- 로그인이 되어있다면 로그인된 닉네임의 하트 테이블 정보를 select해준다. -->
+    <select id="selectHeartInfo" parameterType="fileDto" resultType="int">
+       SELECT target_num
+       FROM
+          (SELECT r1.target_num, ROWNUM AS rnum
+          FROM
+             (SELECT e.num, NVL(h.target_num,0) target_num
+             FROM ebd_file e, ebd_file_heart h
+             <choose>
+                <!--title이 null이 아니라면-->
+                <when test="title != null">
+                   WHERE (title LIKE '%' || #{title} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick}
+                </when>
+                <!--writer이 null이 아니라면-->
+                <when test="writer != null">
+                   WHERE (e.writer LIKE '%' || #{writer} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick} 
+                </when>
+                <!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
+                <when test="title ==null and writer ==null">
+                   WHERE e.num = h.target_num(+) AND h.writer(+)=#{nick}
+                </when>
+             </choose>
+             ORDER BY num DESC) r1) 
+       WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+    </select>
+   
+   	<!-- 하트 갯수  -->
+    <select id="getHeartCnt" parameterType="fileDto" resultType="int" >
+       SELECT heartcnt
+       FROM
+          (SELECT r2.heartcnt, ROWNUM AS rnum
+          FROM
+             (SELECT NVL(r1.heartcnt,0) heartcnt
+                 FROM (select target_num, count(*) heartcnt
+                 FROM ebd_file_heart
+                 GROUP BY target_num) r1, ebd_file e
+             <choose>
+                <!--title이 null이 아니라면-->
+                <when test="title != null">
+                   WHERE (title LIKE '%' || #{title} || '%') AND r1.target_num(+) = e.num
+                </when>
+                <!--writer이 null이 아니라면-->
+                <when test="writer != null">
+                   WHERE (e.writer LIKE '%' || #{writer} || '%') AND r1.target_num(+) = e.num
+                </when>
+                <!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
+                <when test="title ==null and writer ==null">
+                   WHERE r1.target_num(+) = e.num
+                </when>  
+            </choose>
+            ORDER BY num DESC) r2) 
+       WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+    </select>
+   
+    <!-- 디테일페이지 중 하트 정보 해당 nick이 해당num번 글에 하트를 클릭했으면 target_num이 리턴, 그렇지 않으면 null리턴  -->
+    <select id="getHeartInfoDetail" parameterType="fileDto" resultType="String">
+       SELECT target_num
+       FROM ebd_file_heart
+       WHERE target_num=#{num} and writer=#{nick}          
+    </select>
+   
+    
+    
+	
 </mapper>

@@ -71,7 +71,7 @@ public class MarketDaoImpl implements MarketDao{
 		session.update("market.updateStatus",dto);
 	}
 
-	//하트
+	//하트 관련 
 	@Override
 	public void insertHeart(MarketDto dto) {
 		session.insert("market.insertH",dto);

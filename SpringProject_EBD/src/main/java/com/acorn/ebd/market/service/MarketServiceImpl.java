@@ -417,14 +417,15 @@ public class MarketServiceImpl implements MarketService {
 	public int saveHeart(int target_num, HttpSession session) {
 		  
 		String nick=(String)session.getAttribute("nick");
-		  MarketDto dto=new MarketDto();
-	      dto.setNick(nick);
-	      dto.setNum(target_num);
-	      marketDao.insertHeart(dto);
+		MarketDto dto=new MarketDto();
+	    dto.setNick(nick);
+	    dto.setNum(target_num);
+	    marketDao.insertHeart(dto);
 	      
-	      //하트 개수 정보를 저장할 변수 heartcnt
-	      int heartcnt=marketDao.getHeartCntDetail(target_num);
-	      return heartcnt;
+	    //하트 개수 정보를 저장할 변수 heartcnt
+	    int heartcnt=marketDao.getHeartCntDetail(target_num);
+	     
+	    return heartcnt;
 	}
 	
 	//하트 해제 시 하트테이블에서 삭제해주는 메소드
@@ -436,11 +437,10 @@ public class MarketServiceImpl implements MarketService {
 		dto.setNick(nick);
 		dto.setNum(target_num);
 	      
-	      marketDao.deleteHeart(dto);
+	    marketDao.deleteHeart(dto);
 	      
-	      //하트 개수 정보를 저장할 변수 heartcnt
-	      int heartcnt=marketDao.getHeartCntDetail(target_num);
-	      return heartcnt;
+	    //하트 개수 정보를 저장할 변수 heartcnt
+	    int heartcnt=marketDao.getHeartCntDetail(target_num);      return heartcnt;
 	}
 		
 	

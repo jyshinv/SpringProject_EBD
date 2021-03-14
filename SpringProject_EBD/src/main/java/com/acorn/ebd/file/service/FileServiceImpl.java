@@ -17,6 +17,7 @@ import com.acorn.ebd.file.dao.FileCmtDao;
 import com.acorn.ebd.file.dao.FileDao;
 import com.acorn.ebd.file.dto.FileCmtDto;
 import com.acorn.ebd.file.dto.FileDto;
+import com.acorn.ebd.market.dto.MarketDto;
 
 @Service
 public class FileServiceImpl implements FileService{
@@ -92,6 +93,22 @@ public class FileServiceImpl implements FileService{
 			endPageNum=totalPageCount; //보정해준다. 
 		}
 		
+		//로그인된 아이디의 nick 정보 불러오기
+		String nick=(String)request.getSession().getAttribute("nick");
+		dto.setNick(nick);
+		
+		List<Integer> isHeartClickList=null;
+		List<Integer> heartCntList=null;
+		
+		//하트 정보(로그인 중일때만)
+		//nick이 null인채로 episodedao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
+		if(nick != null) {
+			isHeartClickList=fdao.getHeartInfo(dto);         
+		}
+		
+		//총 하트 개수 정보를 리턴해주는 메소드
+		heartCntList=fdao.getHeartCnt(dto);
+		
 		//EL 에서 사용할 값을 미리 request 에 담아두기
 		request.setAttribute("list", list);
 		request.setAttribute("startPageNum", startPageNum);
@@ -100,12 +117,15 @@ public class FileServiceImpl implements FileService{
 		request.setAttribute("totalPageCount", totalPageCount);
 		request.setAttribute("condition", condition);
 		request.setAttribute("keyword", keyword);
-		request.setAttribute("encodedK", encodedK);		
+		request.setAttribute("encodedK", encodedK);
+		
+		request.setAttribute("isHeartClickList", isHeartClickList);
+		request.setAttribute("heartCntList", heartCntList);
 		
 	}
 	
 	@Override
-	public void getDetail(int num, ModelAndView mview) {
+	public void getDetail(int num, ModelAndView mview, HttpSession session) {
 		// 글 번호(num)를 이용해서 정보를 얻어오고
 		FileDto dto=fdao.getData(num);
 		// 정보를 modelandview 객체에 담고
@@ -144,10 +164,27 @@ public class FileServiceImpl implements FileService{
 		
 		//DB에서 댓글 목록을 얻어온다.
 		List<FileCmtDto> cmtList=cmtDao.getList(cmtDto);
+		
+		//현재 로그인 되어있는 유저의 닉네임 저장
+	    String nick=(String)session.getAttribute("nick");
+	    dto.setNick(nick);
+	    
+	    //하트 정보를 저장할 변수 heart
+	    boolean isheartclick=false;
+	      if(nick != null) { //닉네임이 null이 아닐때만 getHeartInfoDatail을 호출 null일 경우 전달하는 파라메터가 null이라는 오류를 낸다.
+	         isheartclick = fdao.getHeartInfoDetail(dto); //해당 닉네임이 하트를 클릭했으면 target_num이 return되고, 그게 아니면 아무것도 리턴하지 않는다.
+	      }
+	      
+	    //하트 개수 정보를 저장할 변수 heartcnt
+	    int heartcnt=fdao.getHeartCntDetail(dto.getNum());
+		
 		//ModelandView객체에 댓글 목록을 담아준다.
 		mview.addObject("cmtList", cmtList);
 		mview.addObject("totalPageCount", totalPageCount);
 		mview.addObject("filename", filename); //이미지
+		
+		mview.addObject("heartcnt", heartcnt);
+		mview.addObject("isheartclick", isheartclick);
 	}
 	
 	@Override
@@ -452,8 +489,37 @@ public class FileServiceImpl implements FileService{
 		request.setAttribute("totalPageCount", totalPageCount);
 		
 	}
+
+	//하트 저장 - 하트를 눌렀을때 하트테이블에 저장해주는 메소드
+	@Override
+	public int saveHeart(int target_num, HttpSession session) {
+		String nick=(String)session.getAttribute("nick");
+		MarketDto dto=new MarketDto();
+	    dto.setNick(nick);
+	    dto.setNum(target_num);
+	    fdao.insertHeart(dto);
+	      
+	    //하트 개수 정보를 저장할 변수 heartcnt
+	    int heartcnt=fdao.getHeartCntDetail(target_num);
+	    
+	    return heartcnt;
+	}
 	
-	
-	
+	//하트 해제(삭제) - 하트테이블에서 삭제해주는 메소드
+	@Override
+	public int removeHeart(int target_num, HttpSession session) {
+		
+		String nick=(String)session.getAttribute("nick");
+		MarketDto dto=new MarketDto();
+		dto.setNick(nick);
+		dto.setNum(target_num);
+	      
+	    fdao.deleteHeart(dto);
+	      
+	    //하트 개수 정보를 저장할 변수 heartcnt
+	    int heartcnt=fdao.getHeartCntDetail(target_num);
+
+	    return heartcnt;
+	}
 	
 }

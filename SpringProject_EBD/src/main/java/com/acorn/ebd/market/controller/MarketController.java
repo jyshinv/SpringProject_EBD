@@ -25,10 +25,7 @@ import com.acorn.ebd.market.service.MarketServiceImpl;
 public class MarketController {
 	@Autowired
 	private MarketService marketService;
-	// String 데이터 하나 ModelAndView 데이터를 여러개 ?
-	
-	
-	
+
 	//하트 클릭 요청처리
     @RequestMapping("/market/saveheart.do")
     @ResponseBody

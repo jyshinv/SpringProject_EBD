@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.acorn.ebd.file.dto.FileDto;
+import com.acorn.ebd.market.dto.MarketDto;
 @Repository
 public class FileDaoImpl implements FileDao {
 
@@ -56,6 +57,50 @@ public class FileDaoImpl implements FileDao {
 	public void addViewCount(int num) {
 		// 글의 조회수 
 		session.update("file.addViewCount", num);
+	}
+
+	/* 하트 관련 */
+	
+	@Override
+	public void insertHeart(MarketDto dto) {
+		// 하트 저장 
+		session.insert("file.insertH",dto);
+		
+	}
+
+	@Override
+	public void deleteHeart(MarketDto dto) {
+		// 하트 삭제
+		session.delete("file.deleteHeart",dto);
+		
+	}
+
+	@Override
+	public List<Integer> getHeartInfo(FileDto dto) {
+		List<Integer> list=session.selectList("file.selectHeartInfo",dto);
+	    return list;
+	}
+
+	@Override
+	public List<Integer> getHeartCnt(FileDto dto) {
+		return session.selectList("file.getHeartCnt",dto);
+	}
+
+	@Override
+	public boolean getHeartInfoDetail(FileDto dto) {
+		//해당 닉네임이 해당 글에 좋아요를 누르지 않으면 null, 눌렀으면 target_num 이 리턴된다. 
+	    String isClicked=session.selectOne("file.getHeartInfoDetail",dto);
+	      
+	    if(isClicked==null) {
+	       return false; //해당 글에 하트를 안누름
+	    }else {
+	       return true;
+	    }
+	}
+	
+	@Override
+	public int getHeartCntDetail(int num) {
+		 return session.selectOne("file.getHeartCntDetail",num);
 	}
 
 }

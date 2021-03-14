@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,12 +25,34 @@ public class FileController {
 	@Autowired
 	private FileService fileService;
 	
+	//하트 클릭 요청처리 (insert)
+    @RequestMapping("/file/saveheart.do")
+    @ResponseBody
+    public Map<String, Object> insertheart(@RequestParam String target_num, HttpSession session){
+       int new_target_num = Integer.parseInt(target_num);
+       int heartCnt = fileService.saveHeart(new_target_num, session);
+       Map<String, Object> map=new HashMap<String, Object>();
+       map.put("heartCnt",heartCnt);
+       return map;
+    }
+    
+    //하트눌림 클릭 요청처리(하트 해제) (delete)
+    @RequestMapping("/file/removeheart.do")
+    @ResponseBody
+    public Map<String, Object> deleteheart(@RequestParam String target_num, HttpSession session) {
+       int new_target_num = Integer.parseInt(target_num);
+       int heartCnt=fileService.removeHeart(new_target_num, session);
+       Map<String, Object> map=new HashMap<String, Object>();
+       map.put("heartCnt",heartCnt);
+       return map;
+    }
+    
 	//파일 다운로드 요청 처리 
 	@RequestMapping("/file/download")
-	public ModelAndView download(@RequestParam int num, ModelAndView mview) {
+	public ModelAndView download(@RequestParam int num, ModelAndView mview, HttpSession session) {
 		
 		//mview에 다운로드할 파일이 정보를 담고
-		fileService.getDetail(num, mview);
+		fileService.getDetail(num, mview, session);
 		//view페이지로 이동해서 다운로드를 시켜준다.
 		mview.setViewName("fileDownView");
 		return mview;
@@ -74,8 +97,8 @@ public class FileController {
 	
 	//파일 수정 폼 요청 처리
 	@RequestMapping("/file/private/updateform")
-	public ModelAndView updateform(@RequestParam int num, ModelAndView mview) {
-		fileService.getDetail(num, mview);
+	public ModelAndView updateform(@RequestParam int num, ModelAndView mview, HttpSession session) {
+		fileService.getDetail(num, mview, session);
 		mview.setViewName("file/private/updateform");
 		return mview;
 	}
@@ -89,8 +112,8 @@ public class FileController {
 	
 	//디테일 요청 처리
 	@RequestMapping("/file/detail")
-	public ModelAndView detail(@RequestParam int num, ModelAndView mview) {
-		fileService.getDetail(num, mview);
+	public ModelAndView detail(@RequestParam int num, ModelAndView mview, HttpSession session) {
+		fileService.getDetail(num, mview, session);
 		mview.setViewName("file/detail");
 		return mview;
 	}

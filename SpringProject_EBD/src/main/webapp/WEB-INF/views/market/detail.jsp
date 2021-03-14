@@ -84,6 +84,7 @@
 		display: none; /* 일단 숨겨 놓기 */
 	}	
 	
+	/* 하트 스타일 */
 	.heart-link{
       font-size : 2em;
    }
