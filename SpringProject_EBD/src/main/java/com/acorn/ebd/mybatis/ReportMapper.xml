@@ -43,20 +43,25 @@
 		FROM 
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM 
-				(SELECT num, writer, booktitle, title, author, genre, stars, imgpath, link, content, viewcnt, regdate, publicck
-				FROM ebd_report
+				(SELECT num, writer, booktitle, title, author, genre, stars, imgpath, link, content, viewcnt, ebd_report.regdate, publicck, profile
+				
+				FROM ebd_report, ebd_users 
+				
 				<choose>
 					<when test="booktitle != null and author != null">
-						WHERE (booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%') and publicck=#{publicck}
+						WHERE (booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%') and publicck=#{publicck} AND (ebd_report.writer = ebd_users.nick)
+						
 					</when>
 					<when test="booktitle != null">
-						WHERE (booktitle LIKE '%'||#{booktitle}||'%') and publicck=#{publicck}
+						WHERE (booktitle LIKE '%'||#{booktitle}||'%') and publicck=#{publicck} AND ebd_report.writer = ebd_users.nick
+						
 					</when>
 					<when test="author != null">
-						WHERE (author LIKE '%'||#{author}||'%') and publicck=#{publicck}
+						WHERE (author LIKE '%'||#{author}||'%') and publicck=#{publicck} AND ebd_report.writer = ebd_users.nick
+						
 					</when>
 					<when test="author == null and booktitle==null">
-	                  WHERE publicck=#{publicck}
+	                  WHERE publicck=#{publicck} and ebd_report.writer = ebd_users.nick
 	               </when>
 				</choose>
 				ORDER BY num DESC)
@@ -64,14 +69,14 @@
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}		
 	</select>
 	<select id="getData" parameterType="reportDto" resultType="reportDto">
-		SELECT * 
+		SELECT r1.*, ebd_users.profile 
 		FROM
 			(SELECT num, writer, booktitle, title, author, genre, stars, publicck, imgpath, link, content, viewcnt, regdate,
 				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
 				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum
 			FROM ebd_report
-			ORDER BY num DESC)
-		WHERE num=#{num}
+			ORDER BY num DESC) r1, ebd_users
+		WHERE num=#{num} and r1.writer = ebd_users.nick
 	</select>
 	<update id="addViewCount" parameterType="reportDto">
 		UPDATE ebd_report

@@ -101,12 +101,32 @@
     	padding-left:0px;
     	padding-right:0px;
     }
+    /* 프로필 이미지를 작은 원형으로 만든다 */
+   #profileImage{
+      width: 50px;
+      height: 50px;
+      border: 1px solid #cecece;
+      border-radius: 50%;
+   }
 </style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<div class="card">
+		<c:choose>
+	        <c:when test="${empty dto.profile }">
+	           <!-- 비어있다면 기본이미지 -->
+	           <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+	                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+	           </svg>
+	        </c:when>
+	        <c:otherwise>
+	           <!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
+	           <img id="profileImage" src="${pageContext.request.contextPath }${dto.profile}"/>
+	        </c:otherwise>
+	     </c:choose>
+	     ${dto.writer }
 		<div class="text-center marg">
 			<h1>${dto.title }</h1>
 		</div>
@@ -142,6 +162,10 @@
 		</div>
 		<div class="row marg">
 			<div class="col text-left">
+				<c:if test="${empty id }">
+		           <span>♥</span>
+		           <span class="heart-cnt">${heartcnt }</span>
+		        </c:if>
 				<c:if test="${not empty nick }">
 		            <c:choose>
 		               <c:when test="${isheartclick eq true }">
@@ -151,7 +175,7 @@
 		                  <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
 		               </c:otherwise>
 		            </c:choose>
-	            	<span class="heart-cnt">(${heartcnt })</span>
+	            	<span class="heart-cnt">${heartcnt }</span>
 	            </c:if>
 			</div>
 			<div class="col text-right marg">
@@ -464,7 +488,7 @@
 	            method:"GET",
 	            data: "target_num="+target_num,
 	            success:function(data){ //나중에 구현 : 하트 수를 반환
-	               $(".heart-cnt").text("("+data.heartCnt+")");
+	               $(".heart-cnt").text(data.heartCnt);
 	            }
 	         });
 	         $(this).text("♥"); //하트 눌림으로 바뀐다.
@@ -478,7 +502,7 @@
 	            method:"GET",
 	            data: "target_num="+target_num,
 	            success:function(data){
-	               $(".heart-cnt").text("("+data.heartCnt+")");
+	               $(".heart-cnt").text(data.heartCnt);
 	            }             
 	         });
 	         
