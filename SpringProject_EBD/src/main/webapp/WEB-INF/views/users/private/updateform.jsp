@@ -58,9 +58,9 @@
 		<div class="form-group" id="form-nick">
 			<label for="nick">닉네임</label>
 			<input class="form-control" type="text" name="nick" id="nick" value="${nick }" placeholder="닉네임" />
-			<small class="form-text text-muted"><b>5~15글자</b> 이내로 입력해주세요</small>
-			<div class="invalid-feedback">사용할 수 없는 닉네임 입니다.</div>
-			<div class="valid-feedback">사용 가능한 닉네임 입니다.</div>
+			<small class="form-text text-muted">한글, 영소문자, 대문자, 숫자, 사용가능 (<b>1~15글자</b> 이내로 입력해주세요)</small>
+			<div class="invalid-feedback"></div>
+			<div class="valid-feedback"></div>
 		</div>
 		<div class="form-group">
 			<label for="email">이메일</label>
@@ -91,8 +91,8 @@
 	});
 	
 	//https://regexr.com/ 테스트는 여기서 해보기 
-	//닉네임을 검증할 정규 표현식 (모든 문자 가능 5~15글자 이내)
-	let reg_nick=/^.{5,15}$/;
+	//닉네임을 검증할 정규 표현식 (한글, 영소문자, 대문자 숫자 사용가능 1~15글자 이내)
+	let reg_nick=/^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣A-Za-z0-9]{1,15}$/;
 	//이메일을 검증할 정규 표현식(@가 포함되어 있는 지 검증, 이메일을 제대로 입력해주세요.)
 	let reg_email=/@/; 
 	//핸드폰을 검증할 정규 표현식(-를 제외하고 숫자만 입력해주세요)
@@ -109,7 +109,9 @@
 	let isFormValid=true;
 	
 	//넘어온 값은 모두 저장 가능한 값이므로 모든 폼을 valid로 만들어준다. 
+	$("#nick, #email, #phone").removeClass("is-valid is-invalid");
 	$("#nick, #email, #phone").addClass("is-valid");
+	$("#form-nick").children(".valid-feedback").text("사용가능한 닉네임입니다");
 
 	//폼에 submit이벤트가 일어났을 때 jquery를 활용해서 폼에 입력한 내용 검증하기
 	//id가 myForm인 요소에 submit이벤트가 일어났을 때 실행할 함수 등록 
@@ -140,7 +142,7 @@
 		if(!reg_nick.test(inputNick)){
 			//닉네임이 유효하지 않는다고 표시하고
 			$("#nick").addClass("is-invalid");
-			$("#form-nick").children(".invalid-feedback").text("5글자~15글자 이내로 입력해주세요.");
+			$("#form-nick").children(".invalid-feedback").text("한글, 영소문자, 대문자, 숫자만 사용가능 (1~15글자 이내로 입력해주세요)");
 			isNickValid=false;
 			//함수를 여기서 종료한다.
 			return;
@@ -148,7 +150,6 @@
 		
 		//입력을 했으나 기존의 닉네임의 경우네는 기존의 닉네임이라고 알려준다. 
 		if(inputNick==inputBeforeNick){
-			$("#nick").removeClass("is-valid is-invalid");
 			$("#nick").addClass("is-valid");
 			$("#form-nick").children(".valid-feedback").text("기존의 닉네임입니다. 사용가능합니다.");
 			//닉네임이 유효하다고 표시한다.

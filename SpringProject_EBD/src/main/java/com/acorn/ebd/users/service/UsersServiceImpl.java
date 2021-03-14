@@ -181,7 +181,7 @@ public class UsersServiceImpl implements UsersService {
 		dao.update(dto);
 		
 		//변경된 닉네임을 불러온 후 세션영역에 다시 담아준다.
-		String nick=dao.getNick(id); //해당 id의 닉네임을 불러온다. 			
+		String nick=dao.getNick(id); //해당 id의 닉네임을 불러온다. 
 		session.setAttribute("nick", nick);//session영역에 저장한다. 
 		
 	}

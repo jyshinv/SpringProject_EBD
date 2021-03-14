@@ -41,7 +41,7 @@
 		</div>
 		<div class="form-group" id="form-nick">
 			<input class="form-control" type="text" name="nick" id="nick" placeholder="닉네임" />
-			<small class="form-text text-muted"><b>5~15글자</b> 이내로 입력해주세요</small>
+			<small class="form-text text-muted">한글, 영소문자, 대문자, 숫자만 사용가능 (<b>1~15글자</b> 이내로 입력해주세요)</small>
 			<div class="invalid-feedback">사용할 수 없는 닉네임 입니다.</div>
 			<div class="valid-feedback">사용 가능한 닉네임 입니다.</div>
 		</div>
@@ -104,8 +104,8 @@
 	//https://regexr.com/ 테스트는 여기서 해보기 
 	//아이디를 검증할 정규 표현 식 (영소문자로 시작해야하고 영소문자,대문자,숫자만 사용가능합니다.5~15글자 이내)
 	let reg_id=/^[a-z]{1}[A-Za-z0-9]{4,14}$/;
-	//닉네임을 검증할 정규 표현식 (모든 문자 가능 5~15글자 이내)
-	let reg_nick=/^.{5,15}$/;
+	//닉네임을 검증할 정규 표현식 (한글, 영소문자, 대문자 숫자 사용가능 1~15글자 이내)
+	let reg_nick=/^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣A-Za-z0-9]{1,15}$/;
 	//비밀번호를 검증할 정규 표현 식(영소문자+숫자 조합으로 5~15글자 이내)
 	let reg_pwd=/^(?=.*[0-9]+)[a-z][a-z0-9]{5,15}$/;
 	//이메일을 검증할 정규 표현식(@가 포함되어 있는 지 검증, 이메일을 제대로 입력해주세요.)
@@ -143,12 +143,7 @@
 		
 		//폼 전체의 유효성 여부를 얻어낸다. 
 		isFormValid = isIdValid&isNickValid&isPwdValid&isEmailValid&isPhoneValid&isOtherValid;
-		console.log('isIdValie'+isValidId);
-		console.log('isNickValie'+isValidId);
-		console.log('isPwdValie'+isValidId);
-		console.log('isEmailValie'+isValidId);
-		console.log('isPhoneValie'+isValidId);
-		console.log('isOtherValie'+isValidId);
+		
 		
 		//true가 아니면 모두 입력해주세요 라는 알림창과 함께 폼전송을 막는다. 
 		if(!isFormValid){
@@ -171,7 +166,6 @@
 			//아이디가 유효하지 않는다고 표시하고
 			$("#id").addClass("is-invalid");
 			$("#form-id").children(".invalid-feedback").text("영소문자로 시작하고 영소문자, 대문자, 숫자만 사용해주세요 (5~15글자 이내)");
-			//$(".invalid-feedback").text("영소문자로 시작하고 영소문자, 대문자, 숫자만 사용해주세요 (5~15글자 이내)");
 			isIdValid=false;
 			//함수를 여기서 종료한다.
 			return;
@@ -213,7 +207,7 @@
 		if(!reg_nick.test(inputNick)){
 			//닉네임이 유효하지 않는다고 표시하고
 			$("#nick").addClass("is-invalid");
-			$("#form-nick").children(".invalid-feedback").text("5글자~15글자 이내로 입력해주세요.");
+			$("#form-nick").children(".invalid-feedback").text("한글, 영소문자, 대문자, 숫자만 사용가능 (1~15글자 이내로 입력해주세요)");
 			isNickValid=false;
 			//함수를 여기서 종료한다.
 			return;
