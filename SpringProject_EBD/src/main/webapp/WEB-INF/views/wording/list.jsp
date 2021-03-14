@@ -9,7 +9,6 @@
 <!-- kakao api를 사용하기 위한 sdk를 추가해주기 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <jsp:include page="../include/resource.jsp"></jsp:include>
-
 <style>
 	.back-drop{
 		/* 일단 숨겨 놓는다. */
@@ -58,7 +57,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp"></jsp:include>
+<jsp:include page="../include/navbar2.jsp"></jsp:include>
 <h1>책/명언 페이지 입니다.</h1>
 <a href="private/insertform.do">책 명언/글귀 작성하러 가기</a>
 

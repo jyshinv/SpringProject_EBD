@@ -15,6 +15,9 @@ public class FileDto {
 	private int viewcnt;
 	private String regdate;
 	
+	private String nick; //프로필 이미지 경로(users테이블의 profile)
+	private String profile; //닉네임(heart테이블의 nick)
+	
 	//페이징 처리를 위한
 	private int startRowNum;
 	private int endRowNum;
@@ -29,8 +32,8 @@ public class FileDto {
 	public FileDto() {}
 
 	public FileDto(int num, String writer, String title, String orgfname, String savefname, long fileSize,
-			String imgpath, String content, int viewcnt, String regdate, int startRowNum, int endRowNum, int prevNum,
-			int nextNum, MultipartFile myFile, MultipartFile myImg) {
+			String imgpath, String content, int viewcnt, String regdate, String nick, String profile, int startRowNum,
+			int endRowNum, int prevNum, int nextNum, MultipartFile myFile, MultipartFile myImg) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -42,6 +45,8 @@ public class FileDto {
 		this.content = content;
 		this.viewcnt = viewcnt;
 		this.regdate = regdate;
+		this.nick = nick;
+		this.profile = profile;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 		this.prevNum = prevNum;
@@ -130,6 +135,22 @@ public class FileDto {
 		this.regdate = regdate;
 	}
 
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
 	public int getStartRowNum() {
 		return startRowNum;
 	}
@@ -177,6 +198,8 @@ public class FileDto {
 	public void setMyImg(MultipartFile myImg) {
 		this.myImg = myImg;
 	}
+
+	
 
 	
 	

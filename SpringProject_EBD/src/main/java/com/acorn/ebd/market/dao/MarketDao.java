@@ -16,5 +16,13 @@ public interface MarketDao {
 	public MarketDto getData (int num);
 	public int getCount(MarketDto dto);
 	
+	//하트 관련
+	public void insertHeart(MarketDto dto);
+	public void deleteHeart(MarketDto dto);
+	public int getHeartCntDetail(int num);
+	public List<Integer> getHeartInfo(MarketDto dto);
+	public List<Integer> getHeartCnt(MarketDto dto);
+	public boolean getHeartInfoDetail(MarketDto dto);
+	
 	
 }

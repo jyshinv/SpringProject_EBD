@@ -12,7 +12,7 @@ public interface FileService {
 	// 파일 리스트
 	public void getList(HttpServletRequest request);
 	// 디테일 
-	public void getDetail(int num, ModelAndView mview);
+	public void getDetail(int num, ModelAndView mview, HttpSession session);
 	// 파일 & 이미지 추가
 	public void addFile(FileDto dto, HttpServletRequest request);
 	// 삭제
@@ -25,5 +25,9 @@ public interface FileService {
 	public void updateCmt(FileCmtDto dto);
 	public void deleteCmt(HttpServletRequest request);
 	public void moreCmtList(HttpServletRequest request);
+	
+	//하트 
+	public int saveHeart(int target_num, HttpSession session);
+	public int removeHeart(int target_num, HttpSession session);
 	
 }

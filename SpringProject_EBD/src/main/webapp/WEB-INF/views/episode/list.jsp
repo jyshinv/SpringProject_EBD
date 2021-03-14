@@ -36,7 +36,7 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp"></jsp:include>
+<jsp:include page="../include/navbar2.jsp"></jsp:include>
 <div class="container">
 	<a href="private/uploadform.do">에피소드 작성하러 가기</a>	
 	<h1>에피소드 목록 입니다.</h1>
@@ -89,39 +89,44 @@
 		<%isCheck++; %>			
 		</c:forEach>
 	</div>
+	
 	<!-- 페이징 -->
 	<nav>
 		<ul class="pagination justify-content-center">
 			<c:choose>
-				<c:when test="${startPageNum != 1 }">
+				<%-- 시작페이지가 1과 같지 않다면 --%>
+				<c:when test="${startPageNum ne 1 }">
 					<li class="page-item">
-						<a class="page-link" href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a>
+						<a class="page-link" href="list.do?pageNum=${startPageNum-1 }">Prev</a>
 					</li>
 				</c:when>
-				<c:otherwise>
+				<%-- 시작페이지가 1과 같다면 --%>
+				<c:otherwise>	
 					<li class="page-item disabled">
 						<a class="page-link" href="javascript:">Prev</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
-			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+			
+			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">
 				<c:choose>
-					<c:when test="${i eq pageNum }">
+					<c:when test="${i eq requestScope.pageNum }">
 						<li class="page-item active">
-							<a class="page-link" href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+							<a class="page-link" href="list.do?pageNum=${i }">${i }</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
-							<a class="page-link" href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
+							<a class="page-link" href="list.do?pageNum=${i }">${i }</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
+			
 			<c:choose>
 				<c:when test="${endPageNum lt totalPageCount }">
 					<li class="page-item">
-						<a class="page-link" href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">Next</a>
+						<a class="page-link" href="list.do?pageNum=${endPageNum+1 }">Next</a>
 					</li>
 				</c:when>
 				<c:otherwise>
@@ -132,6 +137,7 @@
 			</c:choose>
 		</ul>
 	</nav>
+	
 	<!-- 검색 -->
 	<form action="list.do" method="get">
 		<label for="condition">검색조건</label>

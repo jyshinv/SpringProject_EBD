@@ -74,7 +74,7 @@
 	 	
 	 	<div class="form-group">
 	 		<label for="salesStatus">판매상태</label>
-	 		<select class="form-control" name="salesStatus" id="salesStatus" >
+	 		<select class="form-control" name="salesStatus" id="salesStatus" disabled >
 				<option selected >판매 중</option>
 				<option>판매 완료</option>
 	 		</select>
@@ -82,7 +82,7 @@
 	 	
 	 	<!-- 이미지 업로드 -->
 	 	<div>
-	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" disabled/>
+	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
 	 		
 	 		<label for="myImg" class="btn btn-primary btn-sm btn-file" >첨부할 이미지 선택
 	 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"

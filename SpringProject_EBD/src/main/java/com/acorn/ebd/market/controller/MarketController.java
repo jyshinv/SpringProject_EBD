@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,9 +25,29 @@ import com.acorn.ebd.market.service.MarketServiceImpl;
 public class MarketController {
 	@Autowired
 	private MarketService marketService;
-	// String 데이터 하나 ModelAndView 데이터를 여러개
-	
-	
+
+	//하트 클릭 요청처리
+    @RequestMapping("/market/saveheart.do")
+    @ResponseBody
+    public Map<String, Object> insertheart(@RequestParam String target_num, HttpSession session){
+       int new_target_num = Integer.parseInt(target_num);
+       int heartCnt = marketService.saveHeart(new_target_num, session);
+       Map<String, Object> map=new HashMap<String, Object>();
+       map.put("heartCnt",heartCnt);
+       return map;
+    }
+    
+    //하트눌림 클릭 요청처리(하트 해제)
+    @RequestMapping("/market/removeheart.do")
+    @ResponseBody
+    public Map<String, Object> deleteheart(@RequestParam String target_num, HttpSession session) {
+       int new_target_num = Integer.parseInt(target_num);
+       int heartCnt=marketService.removeHeart(new_target_num, session);
+       Map<String, Object> map=new HashMap<String, Object>();
+       map.put("heartCnt",heartCnt);
+       return map;
+    }
+    
 	// 새 댓글 저장 요청 처리
 	@RequestMapping(value = "/market/private/cmt_insert.do",
 				method = RequestMethod.POST)
@@ -85,9 +106,9 @@ public class MarketController {
 	
 	// 마켓 글 디테일 
 	@RequestMapping("/market/detail")
-	public ModelAndView getDetail(HttpServletRequest request, ModelAndView mview, int num) {
+	public ModelAndView getDetail(ModelAndView mview, int num,HttpSession session) {
 		
-		marketService.getDetail(mview, num);
+		marketService.getDetail(mview, num, session);
 		mview.setViewName("market/detail");
 		return mview;
 	}
@@ -112,9 +133,9 @@ public class MarketController {
 	
 	// 마켓 글쓰기 수정 폼
 	@RequestMapping("/market/private/updateform")
-	public ModelAndView updateform(ModelAndView mview, @RequestParam int num) {
+	public ModelAndView updateform(ModelAndView mview, @RequestParam int num, HttpSession session) {
 		// num번의 데이터를 가지고 와야하니까
-		marketService.getDetail(mview, num);
+		marketService.getDetail(mview, num, session);
 		mview.setViewName("market/private/updateform");
 		return mview;
 	}
@@ -135,6 +156,7 @@ public class MarketController {
 		return "market/private/updateStatus";
 	}
 	
+	// 마켓 글 삭제 
 	@RequestMapping("/market/private/delete")
 	public String delete(@RequestParam int num) {
 		

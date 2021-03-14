@@ -92,7 +92,7 @@
 	 	
 	 	<!-- 이미지 업로드 -->
 	 	<div class="form-group">
-	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" disabled/>
+	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
 	 		
 	 		<label for="myImg" class="btn btn-primary btn-sm btn-file" >첨부할 이미지 선택
 	 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
