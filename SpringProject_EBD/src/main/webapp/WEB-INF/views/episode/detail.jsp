@@ -123,6 +123,10 @@
 		<span>${dataDto.writer }</span>
 		<img class="card-img-top" src="${pageContext.request.contextPath }${dataDto.imgPath}"/>
 		<div class="card-body">
+			<c:if test="${empty id }">
+				<span>♥</span>
+				<span class="heart-cnt">(${heartcnt })</span>
+			</c:if>
 			<!-- 로그인을 해야지만 하트를 누를 수 있다. -->
 			<c:if test="${not empty nick }">
 					<c:choose>
