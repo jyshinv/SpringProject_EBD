@@ -13,11 +13,13 @@
 	select 해서 아무 아이디도 리턴되지 않으면 null이 리턴된다. 
 	따라서 resultType으로 String을 써주어야한다.
 	-->
+	<!--  
 	<select id="isValid" parameterType="usersDto" resultType="String">
 		SELECT id
 		FROM ebd_users
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
+	-->
 	
 	<!-- 현재 로그인한 아이디의 닉네임을 불러온다. -->
 	<select id="getNick" parameterType="String" resultType="String">
@@ -25,5 +27,63 @@
 		FROM ebd_users
 		WHERE id=#{id}
 	</select>
+	
+	<!-- 해당 id에 해당하는 pwd를 select -->
+	<select id="getPwd" parameterType="String" resultType="String">
+		SELECT pwd
+		FROM ebd_users
+		WHERE id=#{id }
+	</select>
+	
+	<!-- 해당 아이디에 해당하는 users테이블 로우를 select 없으면 null을 리턴 -->
+	<select id="isExistId" parameterType="String" resultType="usersDto">
+		SELECT *
+		FROM ebd_users
+		WHERE id=#{id}
+	</select>
+	
+	<!-- 해당 닉네임에 해당하는 users테이블 로우를 select 없으면 null을 리턴 -->
+	<select id="isExistNick" parameterType="String" resultType="usersDto">
+		SELECT *
+		FROM ebd_users
+		WHERE nick=#{nick}
+	</select>
+	
+	<!-- 개인정보를 return -->
+	<select id="getData" parameterType="String" resultType="usersDto">
+		SELECT pwd, name, gender, birth_year, birth_month, birth_day, email, phone, profile,
+			TO_CHAR(regdate, 'YY.MM.DD HH24:MI') AS regdate
+		FROM ebd_users
+		WHERE id=#{id}
+	</select>
+	
+	<!-- 개인정보 수정 -->
+	<update id="update" parameterType="usersDto">
+		UPDATE ebd_users
+		SET email=#{email}, phone=#{phone}, nick=#{nick}
+		WHERE id=#{id}
+	</update>
+	
+	<!-- 프로필 수정 -->
+	<update id="updateProfile" parameterType="usersDto">
+		UPDATE ebd_users
+		SET profile=#{profile}
+		WHERE id=#{id}
+	</update>
+	
+	 <!--비밀번호 수정 updatePwd문 -->
+	<update id="updatePwd" parameterType="usersDto">
+		UPDATE ebd_users
+		SET pwd=#{newpwd}
+		WHERE id=#{id} 
+	</update>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="delete" parameterType="java.lang.String">
+		DELETE FROM ebd_users
+		WHERE id=#{id}
+	</delete>
 
+
+	
 </mapper>

@@ -1,13 +1,18 @@
 package com.acorn.ebd.users.service;
 
+import java.io.File;
 import java.net.URLEncoder;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.acorn.ebd.users.dao.UsersDao;
@@ -21,7 +26,12 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public void addUser(UsersDto dto) {
-		
+		//비밀번호를 암호화할 객체 생성
+		BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+		//입력한 비밀번호를 암호화 한다.
+		String encodedPwd=encoder.encode(dto.getPwd());
+		//UsersDto에 다시 넣어준다.
+		dto.setPwd(encodedPwd);
 		dao.insert(dto);
 		
 	}
@@ -79,15 +89,30 @@ public class UsersServiceImpl implements UsersService {
 		UsersDto dto=new UsersDto();
 		dto.setId(id);
 		dto.setPwd(pwd);
+		
+		//2.유효한 정보인지 여부를 담을 지역 변수를 만들고 초기값 false를 지정한다.
+		boolean isValid=false;
+				
+		//3.아이디를 이용해서 암호화 된 비밀번호를 SELECT 한다.
+		String savedPwd=dao.getPwd(id);
+		
+		//4.비밀번호가 만일 null 이 아니면(존재하는 아이디)
+		if(savedPwd != null) {
+			//5. 폼 전송되는 비밀번호와 일치하는지 확인한다.
+			isValid=BCrypt.checkpw(pwd, savedPwd);
+		}
+
 		//2.DB에 실제로 존재하는 (유효한) 정보인지 확인한다.
-		boolean isValid=dao.isValid(dto);
+		//boolean isValid=dao.isValid(dto);
+		
+		String nick=null;
 		//3.유효한 정보이면 로그인 처리를 하고 응답 그렇지 않으면 아이디 혹은 비밀번호가 틀렸다고 응답
 		if(isValid) {
 			//login의 메소드로 HttpSession session을 설정해줘도 좋지만 request객체가 있기 때문에 이런식으로 로그인 처리를 해준다.
 			//HttpSession객체를 이용해 로그인처리를 한다.
 			request.getSession().setAttribute("id", id); 
-			String nick=dao.getNick(dto.getId());
-			request.getSession().setAttribute("nick", nick);
+			nick=dao.getNick(id); //해당 id의 닉네임을 불러온다. 			
+			request.getSession().setAttribute("nick", nick);//session영역에 저장한다. 
 			
 		}
 		
@@ -116,9 +141,130 @@ public class UsersServiceImpl implements UsersService {
 		}
 		//view page에서 필요한 데이터를 request에 담고 
 		request.setAttribute("id", id);
+		request.setAttribute("nick", nick);
 		request.setAttribute("encodedUrl", encodedUrl);
 		request.setAttribute("url", url);
 		request.setAttribute("isValid", isValid);
+		
+	}
+
+	@Override
+	public boolean isExistId(String id) {
+		//id존재 여부를 리터해준다.
+		return dao.isExistId(id);
+	}
+
+	@Override
+	public boolean isExistNick(String nick) {
+		//nick존재 여부를 리턴해준다.
+		return dao.isExistNick(nick);
+	}
+
+	@Override
+	public void getInfo(HttpSession session, ModelAndView mView) {
+		//로그인 된 아이디를 읽어와서
+		String id=(String)session.getAttribute("id");
+		//개인정보를 읽어온다.
+		UsersDto dto=dao.getData(id);
+		//읽어온 정보를 ModelAndView 객체에 담아준다.
+		mView.addObject("dto",dto);
+		
+	}
+
+	@Override
+	public void updateUser(UsersDto dto, HttpSession session) {
+		//로그인된 아이디를 읽어온다.
+		String id=(String)session.getAttribute("id");
+		//dto에 담는다.
+		dto.setId(id);
+		//dao를 이용해서 DB에 수정 반영한다.
+		dao.update(dto);
+		
+		//변경된 닉네임을 불러온 후 세션영역에 다시 담아준다.
+		String nick=dao.getNick(id); //해당 id의 닉네임을 불러온다. 
+		session.setAttribute("nick", nick);//session영역에 저장한다. 
+		
+	}
+
+	@Override
+	public void saveProfile(MultipartFile image, HttpServletRequest request) {
+		//원본 파일명
+		String orgFileName=image.getOriginalFilename();
+		
+		//파일의 크기는 여기에서 필요없다.
+		//long fileSize=image.getSize();
+		
+		//파일을 저장할 실제 경로 "webapp/upload"
+		String realPath=request.getServletContext().getRealPath("/upload");
+		File upload=new File(realPath);
+		if(!upload.exists()) { //만일 존재하지 않으면
+			upload.mkdir();//폴더를 만든다.
+		}
+		//저장할 파일명을 구성한다. 1977.1.1 0시를 기준으로 경과시간이 1000분의1초 단위로 나온다.
+		//똑같은 이름의 파일을 저장하더라도 파일이름에 중복이 생기지 않도록 currentTimeMillis를 쓴다. 
+		String saveFileName=System.currentTimeMillis()+orgFileName;
+		//저장할 파일의 전체 경로를 구성한다.
+		//윈도우 :\, linux:/이기 때문에 separator을 이용해주어야한다.
+		String path=realPath+File.separator+saveFileName;
+		try {
+			//임시폴더에 업로드 된 파일을 원하는 위치에 원하는 파일명으로 이동시킨다.
+			image.transferTo(new File(path));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		//DB에 저장할 이미지의 경로
+		String profile="/upload/"+saveFileName;
+		//로그인된 아이디
+		String id=(String)request.getSession().getAttribute("id");
+		//수정할 정보를 dto에 담기
+		UsersDto dto=new UsersDto();
+		dto.setId(id);
+		dto.setProfile(profile);
+		//dao를 이용해서 수정 반영하기
+		dao.updateProfile(dto);
+		
+	}
+
+	@Override
+	public void updateUserPwd(ModelAndView mView, UsersDto dto, HttpSession session) {
+		//로그인 된 아이디를 읽어와서
+		String id=(String)session.getAttribute("id");
+		
+		//1. 예전 비밀번호가 맞는지 확인한다.
+		//아이디를 이용해서 암호화 된 비밀번호를 SELECT 한다.
+		String savedPwd=dao.getPwd(id);
+	
+		//2.폼 전송되는 예전 비밀번호와 일치하는지 확인한다.
+		boolean isValid=BCrypt.checkpw(dto.getPwd(), savedPwd);
+			
+		//3. 만일 맞다면
+		if(isValid) {
+			//4. 새 비밀번호를 암호화해서
+			String newPwd=new BCryptPasswordEncoder().encode(dto.getNewpwd());
+			
+			//5. dto에 아이디와 새 비밀번호를 담아서 
+			dto.setId(id);
+			dto.setNewpwd(newPwd);
+			//6.수정 반영한다. 
+			dao.updatePwd(dto);
+			//7.로그아웃 처리를 한다.
+			session.removeAttribute("id");
+			session.removeAttribute("nick");
+		}
+		
+		//성공여부를 ModelAndView객체에 담는다.
+		mView.addObject("isSuccess",isValid);
+		
+	}
+
+	@Override
+	public void deleteUser(HttpSession session) {
+		//로그인된 아이디를 읽어와서
+		String id=(String)session.getAttribute("id");
+		//탈퇴시킨다.
+		dao.delete(id);
+		//로그아웃 처리 
+		session.removeAttribute("id");
 		
 	}
 

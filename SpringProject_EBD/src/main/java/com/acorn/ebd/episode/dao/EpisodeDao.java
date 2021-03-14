@@ -16,7 +16,7 @@ public interface EpisodeDao {
 	public void insertHeart(EpisodeDto dto);
 	//하트 테이블에 정보를 delete하는 메소드
 	public void deleteHeart(EpisodeDto dto);
-	//하트 테이블 정보를 select하는 메소드
+	//에피소드 리스트에서 하트 정보를 불러오는 메소드
 	public List<Integer> getHeartInfo(EpisodeDto dto);
 	//에피소드 디테일에서 글 정보를 불러오는 메소드
 	public EpisodeDto getData(EpisodeDto dto);
@@ -30,4 +30,6 @@ public interface EpisodeDao {
 	public void updateData(EpisodeDto dto);
 	//에피소드 글 삭제 요청처리
 	public void deleteDetail(int num);
+	//에피소드 뷰카운트 증가 요청처리 
+	public void addViewCount(int num);
 }

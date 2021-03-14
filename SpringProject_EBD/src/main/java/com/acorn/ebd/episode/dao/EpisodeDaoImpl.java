@@ -88,4 +88,9 @@ public class EpisodeDaoImpl implements EpisodeDao {
 		
 	}
 
+	@Override
+	public void addViewCount(int num) {
+		session.update("episode.addViewCount",num);
+	}
+
 }

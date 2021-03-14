@@ -90,8 +90,17 @@
 		display: none; /* 일단 숨겨 놓기 */
 	}	
 	
+	/*하트의 크기와 색을 조절*/
 	.heart-link{
 		font-size : 2em;
+	}
+	
+	/* 프로필 이미지를 작은 원형으로 만든다 */
+	#profileImage{
+		width: 50px;
+		height: 50px;
+		border: 1px solid #cecece;
+		border-radius: 50%;
 	}
 </style>
 </head>
@@ -99,8 +108,25 @@
 <jsp:include page="../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<div class="card mb-3">
+		<c:choose>
+			<c:when test="${empty dataDto.profile }">
+				<!-- 비어있다면 기본이미지 -->
+				<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+		  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+				</svg>
+			</c:when>
+			<c:otherwise>
+				<!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
+				<img id="profileImage" src="${pageContext.request.contextPath }${dataDto.profile}"/>
+			</c:otherwise>
+		</c:choose>
+		<span>${dataDto.writer }</span>
 		<img class="card-img-top" src="${pageContext.request.contextPath }${dataDto.imgPath}"/>
 		<div class="card-body">
+			<c:if test="${empty id }">
+				<span>♥</span>
+				<span class="heart-cnt">(${heartcnt })</span>
+			</c:if>
 			<!-- 로그인을 해야지만 하트를 누를 수 있다. -->
 			<c:if test="${not empty nick }">
 					<c:choose>
@@ -112,8 +138,11 @@
 						</c:otherwise>
 					</c:choose>
 				<span class="heart-cnt">(${heartcnt })</span>
-				| <a href="private/updateform.do?num=${dataDto.num }">수정</a>
-				| <a href="private/delete.do?num=${dataDto.num }" > 삭제</a>
+				<!-- 작성자와 닉네임이 같으면 수정과 삭제를 출력 -->
+				<c:if test="${dataDto.writer eq nick }">
+					| <a href="private/updateform.do?num=${dataDto.num }">수정</a>
+					| <a href="private/delete.do?num=${dataDto.num }" > 삭제</a>
+				</c:if>
 			</c:if>
 			<p class="card-text">${dataDto.content }</p>
 			<p class="card-text">${dataDto.title }</p>

@@ -79,4 +79,42 @@ public class ReportDaoImpl implements ReportDao{
 		
 	}
 
+	@Override
+	public void insertHeart(ReportDto dto) {
+		session.insert("report.insertHeart",dto);
+	}
+
+	@Override
+	public int getHeartCntDetail(int target_num) {
+		return session.selectOne("report.getHeartCntDatail",target_num);
+	}
+
+	@Override
+	public void deleteHeart(ReportDto dto) {
+		session.delete("report.deleteHeart",dto);
+		
+	}
+
+	@Override
+	public List<Integer> getHeartInfo(ReportDto dto) {
+		List<Integer> list=session.selectList("report.selectHeartInfo",dto);
+	    return list;
+	}
+
+	@Override
+	public List<Integer> getHeartCnt(ReportDto dto) {
+		return session.selectList("report.getHeartCnt",dto);
+	}
+
+	@Override
+	public boolean getHeartInfoDetail(ReportDto dto) {
+		//해당 닉네임이 해당 글에 좋아요를 누르지 않으면 null, 눌렀으면 target_num 이 리턴된다. 
+        String isClicked=session.selectOne("report.getHeartInfoDetail",dto);
+        if(isClicked==null) {
+           return false; //해당 글에 하트를 안누름
+        }else {
+           return true;
+        }
+	}
+
 }

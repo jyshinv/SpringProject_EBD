@@ -170,12 +170,26 @@ public class ReportServiceImpl implements ReportService{
 		List<ReportCmtDto> commentList=cmtdao.getList(commentDto);
 		
 		String filename=dto1.getImgpath().substring(21);
+		//현재 로그인 되어있는 유저의 닉네임 저장
+	    String nick=(String)session.getAttribute("nick");
+	    dto.setNick(nick);
+	    //하트 정보를 저장할 변수 heart
+	    boolean isheartclick=false;
+	    if(nick != null) { //닉네임이 null이 아닐때만 getHeartInfoDatail을 호출 null일 경우 전달하는 파라메터가 null이라는 오류를 낸다.
+	       isheartclick = dao.getHeartInfoDetail(dto); //해당 닉네임이 하트를 클릭했으면 target_num이 return되고, 그게 아니면 아무것도 리턴하지 않는다.
+	    }
+	      
+	    //하트 개수 정보를 저장할 변수 heartcnt
+	    int heartcnt=dao.getHeartCntDetail(dto.getNum());
 		
 		//ModelAndView 객체에 댓글 목록도 담아준다.
-				mView.addObject("commentList", commentList);
-				mView.addObject("totalPageCount", totalPageCount);	
-				mView.addObject("filename",filename);
-		
+		mView.addObject("commentList", commentList);
+		mView.addObject("totalPageCount", totalPageCount);	
+		mView.addObject("filename",filename);
+		//하트정보 
+		mView.addObject("isheartclick",isheartclick);
+		//하트개수 정보
+		mView.addObject("heartcnt",heartcnt);		
 	}
 
 	@Override
@@ -271,6 +285,18 @@ public class ReportServiceImpl implements ReportService{
 		if(endPageNum > totalPageCount){
 			endPageNum=totalPageCount; //보정해 준다. 
 		}
+		//로그인된 아이디의 nick 정보 불러오기
+	    String nick=(String)request.getSession().getAttribute("nick");
+	    dto.setNick(nick);
+	    List<Integer> isHeartClickList=null;
+	    List<Integer> heartCntList=null;
+	    //하트 정보(로그인 중일때만)
+	    //nick이 null인채로 episodedao.getHeartInfo()를 호출하면 select문에 전달하는 paramater가 null이 되어버려 오류가 생긴다.
+	    if(nick != null) {
+	       isHeartClickList=dao.getHeartInfo(dto);         
+	    }
+	    //총 하트 개수 정보를 리턴해주는 메소드
+	    heartCntList=dao.getHeartCnt(dto);
 		
 		mView.addObject("list", list);
 		mView.addObject("pageNum", pageNum);
@@ -281,6 +307,8 @@ public class ReportServiceImpl implements ReportService{
 		mView.addObject("keyword", keyword);
 		mView.addObject("encodedK", encodedK);
 		mView.addObject("totalRow", totalRow);		
+		mView.addObject("isHeartClickList", isHeartClickList);
+	    mView.addObject("heartCntList",heartCntList);
 	}
 
 	@Override
@@ -386,7 +414,6 @@ public class ReportServiceImpl implements ReportService{
 		//따라서 이미지 수정은 하지 않은 상태이므로 title과 content만 update한다. 
 		if(dto.getImage().isEmpty()) {
 			//이름이 중복되게 하지 않기 위해 null 사용
-		     dto.setImgpath(null);//수정을 하지 않으므로 imagePath를 비워준다. 수정하든 안하든 원래 이미지 경로가 가기 때문에 imagepath를 비워주어야 한다.
 		     dao.updateData(dto);
 		}else {//이미지가 비어있지 않으면 이미지 수정을 한 상태이므로, 기존 파일 파일시스템에서 삭제해주고 title, content, 이미지 모두 update한다. 
 		 
@@ -430,6 +457,32 @@ public class ReportServiceImpl implements ReportService{
 		 dao.updateData(dto);
       }
 		
+	}
+
+	@Override
+	public int removeHeart(int target_num, HttpSession session) {
+		  String nick=(String)session.getAttribute("nick");
+	      ReportDto dto=new ReportDto();
+	      dto.setNick(nick);
+	      dto.setNum(target_num);
+	      dao.deleteHeart(dto);
+	      
+	      //하트 개수 정보를 저장할 변수 heartcnt
+	      int heartcnt=dao.getHeartCntDetail(target_num);
+	      return heartcnt;
+	}
+
+	@Override
+	public int saveHeart(int target_num, HttpSession session) {
+	      String nick=(String)session.getAttribute("nick");
+	      ReportDto dto=new ReportDto();
+	      dto.setNick(nick);
+	      dto.setNum(target_num);
+	      dao.insertHeart(dto);
+	      
+	      //하트 개수 정보를 저장할 변수 heartcnt
+	      int heartcnt=dao.getHeartCntDetail(target_num);
+	      return heartcnt;
 	}
 
 }

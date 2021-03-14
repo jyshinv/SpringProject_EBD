@@ -57,6 +57,12 @@
 						<p class="card-text">${tmp.title }</p>
 						<p class="card-text">by <strong>${tmp.writer }</strong></p>
 						<p><small>${tmp.regdate }</small></p>
+						<c:if test="${empty id }">
+							<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+							<span>♥</span>
+							<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>
+							</c:forEach>
+						</c:if>
 						<!-- 로그인이 된 사용자만 볼 수 있다. -->
 						<c:if test="${not empty id }">
 							<p>
@@ -75,6 +81,7 @@
 								</c:forEach>
 							</p>
 						</c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
+						<span>조회수 : ${tmp.viewcnt }</span>						
 					</div>
 				</div>
 			</div>

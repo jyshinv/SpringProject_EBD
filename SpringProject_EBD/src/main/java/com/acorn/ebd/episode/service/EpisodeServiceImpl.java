@@ -200,6 +200,8 @@ public class EpisodeServiceImpl implements EpisodeService {
 		EpisodeDto dataDto=dao.getData(dto);
 		//글정보
 		mView.addObject("dataDto",dataDto);
+		//글 조회수를 증가시킨다.
+		dao.addViewCount(dto.getNum());
 		
 		//현재 로그인 되어있는 유저의 닉네임 저장
 		String nick=(String)session.getAttribute("nick");
@@ -402,9 +404,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 
 		//DB 에서 댓글 목록을 얻어온다.
 		List<EpisodeCmtDto> commentList=episodeCmtDao.getList(commentDto);
-		if(commentList==null) {
-			System.out.println("null이야 ㅜㅜ ");
-		}
+		
 		//request 에 담아준다.
 		request.setAttribute("commentList", commentList);
 		request.setAttribute("totalPageCount", totalPageCount);			

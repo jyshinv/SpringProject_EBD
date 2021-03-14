@@ -58,14 +58,14 @@
 	
 	<!-- 에피소드 디테일 중 글 정보 -->
 	<select id="getData" parameterType="episodeDto" resultType="episodeDto">
-		SELECT * 
+		SELECT r1.*, ebd_users.profile
 		FROM
 			(SELECT num, writer, title, imgPath, regdate, content,
 				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
 				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
 			FROM ebd_episode
-			ORDER BY num DESC)
-		WHERE num=#{num}
+			ORDER BY num DESC) r1, ebd_users
+		WHERE num=#{num} and r1.writer = ebd_users.nick
 	</select>
 	
 	<!-- 여기서 부터 하트와 관련된 쿼리문 -->
@@ -73,7 +73,7 @@
 	<insert id="insertHeart" parameterType="episodeDto">
 		INSERT INTO ebd_episode_heart
 		(num, target_num, writer)
-		VALUES(ebd_wording_heart_seq.NEXTVAL, #{num}, #{nick})
+		VALUES(ebd_episode_heart_seq.NEXTVAL, #{num}, #{nick})
 	</insert>
 	
 	<!-- 하트를 해제 했을 때 로그인된 아이디정보와 하트를 클릭한 글의 num을 delete해준다. -->
@@ -170,5 +170,11 @@
 		DELETE FROM ebd_episode
 		WHERE num=#{num}
 	</delete>
+	
+	<update id="addViewCount" parameterType="int">
+		UPDATE ebd_episode
+		SET viewcnt=viewcnt+1
+		WHERE num=#{num}
+	</update>
 	
 </mapper>
