@@ -61,6 +61,14 @@
 	.heart-link{
       font-size : 2em;
    }
+   
+   /* 프로필 이미지를 작은 원형으로 만든다 */
+   #profileImage{
+      width: 50px;
+      height: 50px;
+      border: 1px solid #cecece;
+      border-radius: 50%;
+   }
 	
 </style>
 </head>
@@ -118,6 +126,18 @@
 					<p class="card-text"><strong>by</strong> ${tmp.writer }</p>
 					<p class="card-text">${tmp.salesType } <strong>|</strong> ${tmp.salesStatus }</p>
 					<p class="card-text"><small class="text-muted">${tmp.regdate }</small></p>
+					<c:choose>
+		               <c:when test="${empty tmp.profile }">
+		                  <!-- 비어있다면 기본이미지 -->
+		                  <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+		                       <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+		                  </svg>
+		               </c:when>
+		               <c:otherwise>
+		                  <!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
+		                  <img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
+		               </c:otherwise>
+            		</c:choose>
 				</div>
 				
 				<!-- 로그인이 된 사용자만 볼 수 있다. -->
@@ -138,7 +158,12 @@
 						</c:forEach>
 					</p>
 				</c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
-				
+				<c:if test="${empty id }">
+                     <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+                     <span>♥</span>
+                     <span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>
+                     </c:forEach>
+                </c:if>
 				<!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
 				<%isCheck++; %>
 				

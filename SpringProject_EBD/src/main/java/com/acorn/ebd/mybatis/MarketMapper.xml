@@ -16,18 +16,21 @@
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM
 				(SELECT num, writer, title, salesType, salesStatus,
-					imgpath, content, viewcnt, regdate
-				FROM ebd_market
+					imgpath, content, viewcnt, ebd_market.regdate, profile
+				FROM ebd_market, ebd_users
 				<choose>
 					<!-- title과 content가 둘다 null아 아니라면, 제목&내용 검색-->
 				 	<when test="title != null and content != null">
-				 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%'
+				 		WHERE (title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%') AND (ebd_market.writer=ebd_users.nick)
 				 	</when>
 					<when test="title != null">
-						WHERE title LIKE '%'||#{title}||'%'
+						WHERE title LIKE '%'||#{title}||'%' AND (ebd_market.writer=ebd_users.nick)
 					</when>
 					<when test="writer != null">
-						WHERE writer LIKE '%'||#{writer}||'%'
+						WHERE writer LIKE '%'||#{writer}||'%' AND (ebd_market.writer=ebd_users.nick)
+					</when>
+					<when test="title == null and content ==null and writer==null">
+						WHERE ebd_market.writer=ebd_users.nick
 					</when>
 				</choose>
 				ORDER BY num DESC) result1)
@@ -35,15 +38,15 @@
 	</select>
 	
 	<select id="getData" parameterType="int" resultType="marketDto">
-		SELECT *
+		SELECT r1.*, ebd_users.profile
 		FROM
 			(SELECT num, writer, title, salesType, salesStatus,
 				imgpath, content, viewcnt, regdate,
 				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
 				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
-			FROM ebd_market 
-			ORDER BY num DESC)
-		WHERE num=#{num}
+			FROM ebd_market
+			ORDER BY num DESC) r1, ebd_users
+		WHERE num=#{num} AND r1.writer=ebd_users.nick
 	</select>
 	
 	<update id="update" parameterType="marketDto">
