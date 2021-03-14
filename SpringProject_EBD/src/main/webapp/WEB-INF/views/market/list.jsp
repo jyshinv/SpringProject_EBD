@@ -68,22 +68,22 @@
 <jsp:include page="../include/navbar2.jsp"></jsp:include>
 <div class="container">
 	<br />
-	<table>
-		<td>
+	<div class="row">
+		<div class="col">
 			<a href="private/insertform.do" class="btn btn-info">중고거래 글 쓰러가기</a>
-		</td>
-		<!-- 검색 -->
-		<form action="list.do" method="get">
-			<td>
+		</div>
+		
+		<div class="col">
+			<!-- 검색 -->
+			<form action="list.do" method="get">
 				<label for="condition"><strong>검색 조건</strong></label>
-			</td>
-			<td>
+		
 				<select name="condition" id="condition">
+					<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
 					<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
 					<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
 				</select>
-			</td>
-			<td>
+		
 				<div class="input-group mb-3">
 				  <input value="${keyword }" type="text" name="keyword" placeholder="검색어..."
 				  	 class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
@@ -91,9 +91,11 @@
 				    <button class="btn btn-outline-secondary" type="submit">검색</button>
 				  </div>
 				</div>
-			</td>
-		</form>
-	</table>
+			</form>
+		</div>
+		
+	</div>
+	
 	<!-- 목록 -->
 	<div class="row" id="galleryList">
 	

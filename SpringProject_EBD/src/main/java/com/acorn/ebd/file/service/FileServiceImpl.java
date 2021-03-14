@@ -67,11 +67,7 @@ public class FileServiceImpl implements FileService{
 		dto.setEndRowNum(endRowNum);
 		
 		if(!keyword.equals("")){ //만일 키워드가 넘어온다면 
-			if(condition.equals("title_filename")){
-				//검색 키워드를 FileDto 객체의 필드에 담는다. 
-				dto.setTitle(keyword);
-				dto.setOrgfname(keyword);	
-			}else if(condition.equals("title")){
+			if(condition.equals("title")){
 				dto.setTitle(keyword);
 			}else if(condition.equals("writer")){
 				dto.setWriter(keyword);

@@ -14,34 +14,47 @@
 		margin-bottom: 10px;
 	}
 	
+	.heart-link{
+      font-size : 2em;
+   }
+	
 </style>
 </head>
 <body>
 <jsp:include page="../include/navbar2.jsp"></jsp:include>
 <div class="container">
 	<br />
-	<form action="list.do" method="get">
-		<a href="${pageContext.request.contextPath }/file/private/insertform.do" class="btn btn-info">
-		파일 업로드</a>
-		
-		<!-- 검색 -->
-		<label for="condition"><strong>검색 조건</strong></label>
-		<select name="condition" id="condition">
-			<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
-			<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
-		</select>
-		
-		<div class="input-group mb-3">
-		  <input value="${keyword }" type="text" name="keyword" placeholder="검색어..."
-		  	 class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
-		  <div class="input-group-append">
-		    <button class="btn btn-outline-secondary" type="submit">검색</button>
-		  </div>
+	<div class="row">
+		<div class="col">
+			<a href="${pageContext.request.contextPath }/file/private/insertform.do" class="btn btn-info">
+			파일 업로드</a>
 		</div>
-		
-	</form>
+		<div class="col">
+			<form action="list.do" method="get">
+				<!-- 검색 -->
+				<label for="condition"><strong>검색 조건</strong></label>
+				<select name="condition" id="condition">
+					<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
+					<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+				</select>
+				<div class="input-group mb-3">
+					<input value="${keyword }" type="text" name="keyword" placeholder="검색어..."
+						 class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+					<div class="input-group-append">
+					  <button class="btn btn-outline-secondary" type="submit">검색</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
 	
 	<c:forEach var="tmp" items="${list }">
+	
+		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
+      	<%int isCheck=0; %>
+      	
+      	<!-- 반복문 돌려서 목록 출력 --> 	
 		<div class="card">
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item">

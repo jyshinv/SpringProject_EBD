@@ -118,7 +118,11 @@ public class MarketServiceImpl implements MarketService {
 		dto.setEndRowNum(endRowNum);
 		
 		if(!keyword.equals("")){ //만일 키워드가 넘어온다면 
-			if(condition.equals("title")){
+			if(condition.equals("title_content")){
+				//검색 키워드를 FileDto 객체의 필드에 담는다. 
+				dto.setTitle(keyword);
+				dto.setContent(keyword);	
+			}else if(condition.equals("title")){
 				dto.setTitle(keyword);
 			}else if(condition.equals("writer")){
 				dto.setWriter(keyword);

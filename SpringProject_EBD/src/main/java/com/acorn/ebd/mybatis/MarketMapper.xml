@@ -19,6 +19,10 @@
 					imgpath, content, viewcnt, regdate
 				FROM ebd_market
 				<choose>
+					<!-- title과 content가 둘다 null아 아니라면, 제목&내용 검색-->
+				 	<when test="title != null and content != null">
+				 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%'
+				 	</when>
 					<when test="title != null">
 						WHERE title LIKE '%'||#{title}||'%'
 					</when>
@@ -72,6 +76,9 @@
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM ebd_market
 		<choose>
+		 	<when test="title != null and content != null">
+		 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%'
+		 	</when>
 			<when test="title != null">
 				WHERE title LIKE '%'||#{title}||'%'
 			</when>
@@ -112,6 +119,10 @@
             (SELECT e.num, NVL(h.target_num,0) target_num
             FROM ebd_market e, ebd_market_heart h
             <choose>
+            	<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
+			 	<when test="title != null and content != null">
+			 		WHERE (title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick}   
+			 	</when>
                <!--title이 null이 아니라면-->
                 <when test="title != null">
                    WHERE (title LIKE '%' || #{title} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick}
@@ -120,6 +131,7 @@
                 <when test="writer != null">
                    WHERE (e.writer LIKE '%' || #{writer} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick} 
                 </when>
+                
                <!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
                <when test="title ==null and writer ==null">
                   WHERE e.num = h.target_num(+) AND h.writer(+)=#{nick}
@@ -139,6 +151,10 @@
                  FROM ebd_market_heart
                  GROUP BY target_num) r1, ebd_market e
             <choose>
+            	<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
+			 	<when test="title != null and content != null">
+			 		WHERE (title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%') AND r1.target_num(+) = e.num   
+			 	</when>
                <!--title이 null이 아니라면-->
                 <when test="title != null">
                    WHERE (title LIKE '%' || #{title} || '%') AND r1.target_num(+) = e.num
@@ -147,10 +163,11 @@
                 <when test="writer != null">
                    WHERE (e.writer LIKE '%' || #{writer} || '%') AND r1.target_num(+) = e.num
                 </when>
+                
                <!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
                <when test="title ==null and writer ==null">
                   WHERE r1.target_num(+) = e.num
-               </when>
+               </when>  
             </choose>
             ORDER BY num DESC) r2) 
       WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
