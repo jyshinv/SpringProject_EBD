@@ -108,20 +108,44 @@
 		  				<input type="hidden" name="num" value="${dto.num }"/>
 		  				<table>
 		  					<td>
-		  						
 		  						<select class="form-control" name="salesStatus" id="salesStatus">
-						 			<c:choose>
-										<c:when test="${dto.salesStatus eq '판매 중' }">
-											<option>${dto.salesStatus}</option>
-											<option>판매 완료</option>
-										</c:when>
-										<c:otherwise>
-											<option>${dto.salesStatus}</option>
-											<option>판매 중</option>
-										</c:otherwise>
-									</c:choose>
+		  							<c:if test="${dto.salesStatus eq '판매 중' || dto.salesStatus eq '판매 완료' }">
+							 			<c:choose>
+											<c:when test="${dto.salesStatus eq '판매 중'}">
+												<option>${dto.salesStatus}</option>
+												<option>판매 완료</option>
+											</c:when>
+											<c:otherwise>
+												<option>${dto.salesStatus}</option>
+												<option>판매 중</option>
+											</c:otherwise>
+										</c:choose>
+		  							</c:if>
+		  							<c:if test="${dto.salesStatus eq '나눔 중' || dto.salesStatus eq '나눔 완료' }">
+										<c:choose>
+											<c:when test="${dto.salesStatus eq '나눔 중' }">
+												<option>${dto.salesStatus}</option>
+												<option>나눔 완료</option>
+											</c:when>
+											<c:otherwise>
+												<option>${dto.salesStatus}</option>
+												<option>나눔 중</option>
+											</c:otherwise>
+										</c:choose>
+		  							</c:if>
+		  							<c:if test="${dto.salesStatus eq '교환 중' || dto.salesStatus eq '교환 완료' }">
+										<c:choose>
+											<c:when test="${dto.salesStatus eq '교환 중' }">
+												<option>${dto.salesStatus}</option>
+												<option>교환 완료</option>
+											</c:when>
+											<c:otherwise>
+												<option>${dto.salesStatus}</option>
+												<option>교환 중</option>
+											</c:otherwise>
+										</c:choose>
+		  							</c:if>
 						 		</select>
-						 		
 		  					</td>
 		  					<td>
 		  						<button class="btn btn-secondary" type="submit">판매상태 저장 하기</button>

@@ -72,13 +72,13 @@
 	 		<small class="text-muted">거래 유형을 선택해주세요.</small>
 	 	</div>
 	 	
-	 	<div class="form-group">
+	 	<!-- <div class="form-group">
 	 		<label for="salesStatus">판매상태</label>
 	 		<select class="form-control" name="salesStatus" id="salesStatus" disabled >
 				<option selected >판매 중</option>
 				<option>판매 완료</option>
 	 		</select>
-	 	</div>
+	 	</div>-->
 	 	
 	 	<!-- 이미지 업로드 -->
 	 	<div>

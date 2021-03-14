@@ -66,6 +66,17 @@ public class MarketServiceImpl implements MarketService {
 		//이미지 
 		dto.setImgpath("/upload/"+savefname);
 		
+		//세일즈 타입을 불러와서
+		String SalesType=dto.getSalesType();
+		//세일즈 타입에 따른 세일즈 판매 상태 저장하기 
+		if(SalesType.equals("도서 나눔")) {
+			dto.setSalesStatus("나눔 중");
+		}else if(SalesType.equals("도서 교환")) {
+			dto.setSalesStatus("교환 중");
+		}else if(SalesType.equals("도서 판매")){
+			dto.setSalesStatus("판매 중");
+		}
+		
 		// MarketDao를 이용해서 DB에 담기
 		marketDao.insert(dto);
 		
@@ -242,6 +253,16 @@ public class MarketServiceImpl implements MarketService {
 
 	@Override
 	public void update(MarketDto dto, HttpServletRequest request) {
+		//세일즈 타입을 불러와서
+		String SalesType=dto.getSalesType();
+		//세일즈 타입에 따른 세일즈 판매 상태 저장하기 
+		if(SalesType.equals("도서 나눔")) {
+			dto.setSalesStatus("나눔 중");
+		}else if(SalesType.equals("도서 교환")) {
+			dto.setSalesStatus("교환 중");
+		}else if(SalesType.equals("도서 판매")){
+			dto.setSalesStatus("판매 중");
+		}
 		//이미지가 비어있다면 MultipartFile image는 비어있는 상태이다.
 		//따라서 이미지 수정은 하지 않은 상태이므로 title과 content만 update한다. 
 		  if(dto.getMyImg().isEmpty()) {

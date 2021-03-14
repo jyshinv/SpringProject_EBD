@@ -9,7 +9,7 @@
 <body>
 <script>
 	alert("수정 완료! ");
-	location.href="${pageContext.request.contextPath}/market/list.do";
+	location.href="${pageContext.request.contextPath}/market/detail.do?num=${num }";
 </script>
 </body>
 </html>

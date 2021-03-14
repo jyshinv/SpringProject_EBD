@@ -54,27 +54,25 @@
 	 	<div class="form-group">
 	 		<label for="salesType">유형</label>
 	 		<select class="form-control" name="salesType" id="salesType">
-				<c:choose>
-					<c:when test="${dto.salesType  eq '도서 나눔' } ">
-						<option>${dto.salesType}</option>
-						<option>도서 교환</option>
-						<option>도서 판매</option>
-					</c:when>
-					<c:when test="${dto.salesType  eq '도서 교환' } ">
-						<option>${dto.salesType}</option>
-						<option>도서 나눔</option>
-						<option>도서 판매</option>
-					</c:when>
-					<c:otherwise>
-						<option>${dto.salesType}</option>
-						<option>도서 나눔</option>
-						<option>도서 교환</option>
-					</c:otherwise>
-				</c:choose>	 	
+				<c:if test="${dto.salesType eq '도서 나눔' }">
+					<option>${dto.salesType}</option>
+					<option>도서 교환</option>
+					<option>도서 판매</option>
+				</c:if>
+				<c:if test="${dto.salesType eq '도서 교환' }">
+					<option>${dto.salesType}</option>
+					<option>도서 나눔</option>
+					<option>도서 판매</option>
+				</c:if>
+				<c:if test="${dto.salesType eq '도서 판매' }">
+					<option>${dto.salesType}</option>
+					<option>도서 나눔</option>
+					<option>도서 교환</option>
+				</c:if>
 	 		</select>
 	 	</div>
 	 	
-	 	<div class="form-group">
+<!--  	 	<div class="form-group">
 	 		<label for="salesStatus">판매상태</label>
 	 		<select class="form-control" name="salesStatus" id="salesStatus">
 	 			<c:choose>
@@ -88,7 +86,7 @@
 					</c:otherwise>
 				</c:choose>
 	 		</select>
-	 	</div>
+	 	</div> -->
 	 	
 	 	<!-- 이미지 업로드 -->
 	 	<div class="form-group">

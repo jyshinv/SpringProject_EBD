@@ -145,6 +145,7 @@ public class MarketController {
 	public String update(MarketDto dto, HttpServletRequest request) {
 		
 		marketService.update(dto, request);
+		request.setAttribute("num", dto.getNum());
 		return "market/private/update";
 	}
 	
@@ -153,7 +154,7 @@ public class MarketController {
 		
 		// 디테일페이지에서 판매상태 수정하기
 		marketService.updateStatus(dto);
-		return "market/private/updateStatus";
+		return "redirect:/market/detail.do?num="+dto.getNum();
 	}
 	
 	// 마켓 글 삭제 
