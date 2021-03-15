@@ -9,7 +9,6 @@
 				#{salesStatus}, #{imgpath}, #{content}, 0 , SYSDATE)
 	</insert>
 	
-	<!-- 검색조건을 판매중/판매완료 로 나누고 싶음 -->
 	<select id="getList" parameterType="marketDto" resultType="marketDto">
 		SELECT *
 		FROM
@@ -133,7 +132,6 @@
                 <when test="writer != null">
                    WHERE (e.writer LIKE '%' || #{writer} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick} 
                 </when>
-                
                 <!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
                 <when test="title ==null and writer ==null">
                    WHERE e.num = h.target_num(+) AND h.writer(+)=#{nick}
@@ -165,7 +163,6 @@
                 <when test="writer != null">
                    WHERE (e.writer LIKE '%' || #{writer} || '%') AND r1.target_num(+) = e.num
                 </when>
-                
                 <!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
                 <when test="title ==null and writer ==null">
                    WHERE r1.target_num(+) = e.num

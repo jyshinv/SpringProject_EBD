@@ -21,13 +21,18 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar2.jsp"></jsp:include>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="public_report" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<br />
 	<div class="row">
 		<div class="col">
-			<a href="${pageContext.request.contextPath }/file/private/insertform.do" class="btn btn-info">
-			파일 업로드</a>
+			<a href="${pageContext.request.contextPath }/file/private/insertform.do" style="color:brown;">
+				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+				  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+				</svg> UPLOAD
+			</a>
 		</div>
 		<div class="col">
 			<form action="list.do" method="get">
@@ -56,30 +61,34 @@
 
 		<div class="card">
 			<ul class="list-group list-group-flush">
+				
 				<li class="list-group-item">
-					<a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}">
-					${tmp.title }</a>
-					${tmp.writer }
 					
 					<!-- 로그인이 된 사용자만 볼 수 있다. -->
 					<c:if test="${not empty id }">
 					
-							<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
-							<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
-							<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-								<c:choose>
-									<c:when test="${isHeartClickList[i] eq 0 }">
-										<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
-									</c:when>
-									<c:otherwise>
-										<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
-									</c:otherwise>
-								</c:choose>
-								<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>                  
-							</c:forEach>
+						<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
+						<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
+						<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+							<c:choose>
+								<c:when test="${isHeartClickList[i] eq 0 }">
+									<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do" style="color:red;">
+									♡</a>                              
+								</c:when>
+								<c:otherwise>
+									<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do" style="color:red;">
+									♥</a>
+								</c:otherwise>
+							</c:choose>
+							<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>                  
+						</c:forEach>
 						
 					</c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
-			
+					
+					<a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}">
+					${tmp.title }</a>
+					<span class="text-right"><strong>${tmp.writer }</strong></span>
+					
 				</li>
 			</ul>
 			
