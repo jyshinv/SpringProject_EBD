@@ -21,17 +21,17 @@
 		/*transform: scale(1.05);*/
 		opacity: 0.3;
 	}
-	.card .card-body{
+	.card .card-title{
 		/* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
 		display:block;
 		white-space : nowrap;
-		text-overflow: ellipsis;
-		overflow: hidden;
-		color:black;
+		text-overflow: clip;
+		overflow: auto;
+		color:white;
 	}
 	.card{
 		margin:5px;
-		border:1px solid grey;
+		border:0px;
 	}
 	.card-body{
 	    padding-top: 10px;
@@ -169,16 +169,34 @@
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
 <jsp:include page="../../include/mydiarynav.jsp"></jsp:include>
 <div class="container">
-	<span class="card" style="width: 18rem;">
-		<figure class="snip1273 hover">
-			<a href="${pageContext.request.contextPath}/my_report/private/insertform.do">
-				<img src="${pageContext.request.contextPath}/resources/images/paper.png" class="card-img-top img-wrapper" />
-			</a>
-		</figure>
-		<div class="card-body">
-			<MARQUEE behavior="scroll" class="card-title">새 독후감 작성</MARQUEE>
+	<form action="list.do" method="get">
+			<div class="row justify-content-md-center" style="margin:10px;">
+				<span>
+					<button class="btn btn-primary">
+						<a href="${pageContext.request.contextPath}/my_report/private/insertform.do" style="color:white">새 독후감 작성</a>
+					</button>
+				</span>
+				<div class="col-2">
+					<select class="form-control" name="condition" id="condition">
+						<option value="booktitle_author" ${condition eq 'booktitle_author' ? 'selected' : '' }>책제목+저자</option>
+						<option value="booktitle" ${condition eq 'booktitle' ? 'selected' : '' }>책제목</option>
+						<option value="author" ${condition eq 'author' ? 'selected' : '' }>저자</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+					<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
+				</div>
+				<span>
+					<button class="btn btn-primary" type="submit">검색</button>
+				</span>
+			</div>
+		</form>
+	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
+	<c:if test="${not empty keyword }">
+		<div class="alert alert-success">
+			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
 		</div>
-	</span>
+	</c:if>
 	<span class="row row-cols-1 row-cols-md-3">
 		<c:forEach var="tmp" items="${requestScope.list }">
 		<div class="col">
@@ -186,14 +204,15 @@
 				<div style="height:255px;">
 					<c:if test="${nick eq tmp.writer }">
 						<figure class="snip1273 hover">
+							<img src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" id="img"/>
 							<a href="${pageContext.request.contextPath}/my_report/private/detail.do?num=${tmp.num }">
-								<img src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper"/>
-							</a>							
+								<figcaption class=" card-img-top img-wrapper" style="height:240px;">
+									<!-- <h5 class="card-title">${tmp.booktitle }</h5> -->							
+									<MARQUEE behavior="scroll" class="card-title">${tmp.booktitle }</MARQUEE>
+								</figcaption>							
+							</a>
 						</figure>
 					</c:if>
-				</div>
-				<div class="card-body">
-					<MARQUEE behavior="scroll" class="card-title">${tmp.booktitle }</MARQUEE>
 				</div>
 			</div>
 		</div>

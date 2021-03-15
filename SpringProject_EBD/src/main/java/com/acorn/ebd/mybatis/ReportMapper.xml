@@ -27,14 +27,47 @@
 	<select id="getCountTotal" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM ebd_report	
+		<choose>
+			<when test="booktitle != null and author != null">
+				WHERE booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%'
+				
+			</when>
+			<when test="booktitle != null">
+				WHERE booktitle LIKE '%'||#{booktitle}||'%'
+				
+			</when>
+			<when test="author != null">
+				WHERE author LIKE '%'||#{author}||'%'
+				
+			</when>
+		</choose>
 	</select>	
 	<select id="getList" parameterType="reportDto" resultType="reportDto">
 		SELECT *
 		FROM
 			(SELECT result.*,ROWNUM AS rnum
 			FROM
-				(SELECT num, writer, booktitle, title, author, genre, stars, imgpath, link, content, viewcnt, regdate
-				FROM ebd_report			
+				(SELECT num, writer, booktitle, title, author, genre, stars, imgpath, link, content, viewcnt, ebd_report.regdate
+				
+				FROM ebd_report, ebd_users 
+				
+				<choose>
+					<when test="booktitle != null and author != null">
+						WHERE (booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%') AND (ebd_report.writer = ebd_users.nick)
+						
+					</when>
+					<when test="booktitle != null">
+						WHERE (booktitle LIKE '%'||#{booktitle}||'%') AND ebd_report.writer = ebd_users.nick
+						
+					</when>
+					<when test="author != null">
+						WHERE (author LIKE '%'||#{author}||'%') AND ebd_report.writer = ebd_users.nick
+						
+					</when>
+					<when test="author == null and booktitle==null">
+	                  WHERE ebd_report.writer = ebd_users.nick
+	               </when>
+				</choose>			
 				ORDER BY num DESC)result)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
