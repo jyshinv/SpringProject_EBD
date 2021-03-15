@@ -6,7 +6,7 @@
 <!-- Mapper xml 에서 자주 사용하는 type 에 별칭 부여하기 -->
 	<typeAliases>
 		
-		<typeAlias type="com.acorn.ebd.episode.dto.EpisodeCmtDto"
+	<typeAlias type="com.acorn.ebd.episode.dto.EpisodeCmtDto"
 				alias="episodeCmtDto"/>
     <typeAlias type="com.acorn.ebd.episode.dto.EpisodeDto"
 				alias="episodeDto"/>
@@ -14,7 +14,7 @@
 			alias="marketCmtDto"/>
     <typeAlias type="com.acorn.ebd.market.dto.MarketDto"
 			alias="marketDto"/>
-		<typeAlias type="com.acorn.ebd.file.dto.FileCmtDto"
+	<typeAlias type="com.acorn.ebd.file.dto.FileCmtDto"
 			alias="fileCmtDto"/>
     <typeAlias type="com.acorn.ebd.file.dto.FileDto"
 			alias="fileDto"/>
@@ -34,8 +34,8 @@
     <mapper resource="com/acorn/ebd/mybatis/EpisodeMapper.xml"/>
     <mapper resource="com/acorn/ebd/mybatis/MarketCmtMapper.xml"/>
     <mapper resource="com/acorn/ebd/mybatis/MarketMapper.xml"/>
-		<mapper resource="com/acorn/ebd/mybatis/FileCmtMapper.xml"/>
-		<mapper resource="com/acorn/ebd/mybatis/FileMapper.xml"/>
+	<mapper resource="com/acorn/ebd/mybatis/FileCmtMapper.xml"/>
+	<mapper resource="com/acorn/ebd/mybatis/FileMapper.xml"/>
     <mapper resource="com/acorn/ebd/mybatis/ReportCmtMapper.xml"/>
     <mapper resource="com/acorn/ebd/mybatis/ReportMapper.xml"/>
     <mapper resource="com/acorn/ebd/mybatis/UsersMapper.xml"/>

@@ -8,25 +8,36 @@
 <title>/home.jsp</title>
 <jsp:include page="include/resource.jsp"></jsp:include>
 <style>
-	.jumbotronImg{
-		width:100px;
-		height:100px;
+	.search_form{
+		margin-top:16px;
 	}
 </style>
 </head>
 <body>
 <%-- nav bar --%>
-<jsp:include page="include/navbar2.jsp"></jsp:include>
-<jsp:include page="include/navbar3.jsp"></jsp:include>
+<jsp:include page="include/navbar.jsp"></jsp:include>
+<%-- 검색 기능 --%>
 
-<%-- jumbotron --%>
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-  	<img class="jumbotronImg" src="https://resource.grapplet.com/marketplace/7176/1591667231081/i.svg.preview.580x870.png" alt="" />
-    <h1 class="display-4">Every Day Bookday</h1>
-    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-  </div>
+<div style="background-color: #e3f2fd;">
+	<div class="mx-auto mt-3" style="width: 500px;" >
+		 <form>
+		  <div class="form-row">
+		    <div class="col-7">
+		      <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
+		    </div>
+		    <div class="col">
+		      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">
+		     	Search
+		      </button>
+		    </div>
+		  </div>
+		</form>
+	</div>
 </div>
+	
+<%-- jumborton --%>
+<jsp:include page="include/jumbotron.jsp"></jsp:include>
+
 
 <%-- 명언 top3 --%>
  <div class="container marketing">
