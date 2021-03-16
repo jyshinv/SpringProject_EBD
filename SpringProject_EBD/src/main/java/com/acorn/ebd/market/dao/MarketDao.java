@@ -8,7 +8,7 @@ public interface MarketDao {
 	
 	public void insert(MarketDto dto);
 	public void update(MarketDto dto);
-	public void updateStatus(MarketDto dto); //테스트
+	public void updateStatus(MarketDto dto); //디테일페이지 판매상태 수정
 	public void delete(int num);
 	public void addViewCnt(int num);
 	

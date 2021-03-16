@@ -106,7 +106,7 @@ public class MarketController {
 	
 	// 마켓 글 디테일 
 	@RequestMapping("/market/detail")
-	public ModelAndView getDetail(ModelAndView mview, int num,HttpSession session) {
+	public ModelAndView getDetail(ModelAndView mview,@RequestParam int num,HttpSession session) {
 		
 		marketService.getDetail(mview, num, session);
 		mview.setViewName("market/detail");
@@ -131,7 +131,7 @@ public class MarketController {
 		return mview;
 	}
 	
-	// 마켓 글쓰기 수정 폼
+	// 마켓 글쓰기 수정 폼 요청 
 	@RequestMapping("/market/private/updateform")
 	public ModelAndView updateform(ModelAndView mview, @RequestParam int num, HttpSession session) {
 		// num번의 데이터를 가지고 와야하니까
@@ -140,7 +140,7 @@ public class MarketController {
 		return mview;
 	}
 	
-	// 마켓 글쓰기 수정
+	// 마켓 글쓰기 수정 요청
 	@RequestMapping(value= "/market/private/update", method = RequestMethod.POST)
 	public String update(MarketDto dto, HttpServletRequest request) {
 		
@@ -149,10 +149,10 @@ public class MarketController {
 		return "market/private/update";
 	}
 	
+	// 디테일페이지에서 판매 상태 수정 요청
 	@RequestMapping("/market/private/updateStatus")
 	public String updateStatus(@ModelAttribute("dto") MarketDto dto) {
 		
-		// 디테일페이지에서 판매상태 수정하기
 		marketService.updateStatus(dto);
 		return "redirect:/market/detail.do?num="+dto.getNum();
 	}
@@ -161,6 +161,7 @@ public class MarketController {
 	@RequestMapping("/market/private/delete")
 	public String delete(@RequestParam int num) {
 		
+		marketService.delete(num);
 		return "market/private/delete";
 	}
 }

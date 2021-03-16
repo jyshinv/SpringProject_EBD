@@ -113,6 +113,7 @@ public class FileController {
 	//디테일 요청 처리
 	@RequestMapping("/file/detail")
 	public ModelAndView detail(@RequestParam int num, ModelAndView mview, HttpSession session) {
+		
 		fileService.getDetail(num, mview, session);
 		mview.setViewName("file/detail");
 		return mview;

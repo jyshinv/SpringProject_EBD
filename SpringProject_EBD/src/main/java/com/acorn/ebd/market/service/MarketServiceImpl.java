@@ -25,7 +25,7 @@ public class MarketServiceImpl implements MarketService {
 	@Autowired
 	private MarketCmtDao cmtDao;
 
-	// 글&파일 추가
+	// 글 추가
 	@Override
 	public void insert(HttpServletRequest request, MarketDto dto) {
 		
@@ -183,6 +183,7 @@ public class MarketServiceImpl implements MarketService {
 		request.setAttribute("condition", condition);
 		request.setAttribute("keyword", keyword);
 		request.setAttribute("encodedK", encodedK);
+		request.setAttribute("totalRow", totalRow);
 		
 		request.setAttribute("isHeartClickList", isHeartClickList);
 		request.setAttribute("heartCntList", heartCntList);
@@ -329,10 +330,12 @@ public class MarketServiceImpl implements MarketService {
 
 	@Override
 	public void delete(int num) {
+		// 글 삭제 
 		marketDao.delete(num);
 		
 	}
 
+	/* 댓글 관련 서비스 로직 */
 	@Override
 	public void insertCmt(HttpServletRequest request) {
 		//댓글의 작성자 가져오기
@@ -433,6 +436,7 @@ public class MarketServiceImpl implements MarketService {
 		
 	}
 
+	/* 하트 관련 서비스 로직 */
 	//하트를 눌렀을 때 하트테이블에 저장해주는 메소드
 	@Override
 	public int saveHeart(int target_num, HttpSession session) {

@@ -66,12 +66,14 @@ public class MarketDaoImpl implements MarketDao{
 		return num;
 	}
 
+	// 디테일 페이지 판매 상태 수정
 	@Override
 	public void updateStatus(MarketDto dto) {
 		session.update("market.updateStatus",dto);
 	}
 
-	//하트 관련 
+	/* 하트 관련  */
+	
 	@Override
 	public void insertHeart(MarketDto dto) {
 		session.insert("market.insertH",dto);
