@@ -1,5 +1,6 @@
 --https://sjy1218vv.tistory.com/136
-
+drop trigger tg_user_delete;
+drop trigger tg_user_update;
 
 drop table ebd_report_cmt;
 drop table ebd_report_heart;
@@ -32,6 +33,8 @@ drop sequence ebd_wording_heart_seq;
 drop sequence ebd_file_heart_seq;
 drop sequence ebd_market_heart_seq;
 
+
+
 -- 도서리뷰 회원 테이블
 CREATE TABLE ebd_users(
 	id VARCHAR2(100) PRIMARY KEY, --아이디
@@ -47,7 +50,7 @@ CREATE TABLE ebd_users(
 	profile VARCHAR2(2000), --프로필 이미지
 	regdate DATE, --등록일
 	CONSTRAINT users_nick_uk UNIQUE(nick), -- 닉네임은 유일해야한다. 
-	CONSTRAINT users_gender_ck CHECK(gender IN('male','female')) --남자일 경우 'm', 여자일 경우 'f'가 들어간다.
+	CONSTRAINT users_gender_ck CHECK(gender IN('남','여')) --남자일 경우 '남자', 여자일 경우 '여자'가 들어간다.
 );
 
 
@@ -140,14 +143,13 @@ CREATE TABLE ebd_episode_heart(
 
 CREATE SEQUENCE ebd_episode_heart_seq;
 
--- 명언 테이블 
+-- 명언 테이블 (명언 테이블에는 viewcnt가 없다.)
 CREATE TABLE ebd_wording(
 	num NUMBER PRIMARY KEY, --글 번호
 	writer VARCHAR2(100), --작성자(로그인 된 아이디)
 	title VARCHAR2(2000), --책 제목
 	content CLOB, -- 내용(명언)
 	author VARCHAR2(2000), --책의 작가 
-	viewcnt NUMBER, --조회수
 	regdate DATE, --등록일
 	CONSTRAINT w_writer_fk FOREIGN KEY(writer) REFERENCES ebd_users(nick) ON DELETE CASCADE --지우지마세영~
 );

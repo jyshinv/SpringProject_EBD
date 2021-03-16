@@ -4,8 +4,8 @@
 	<!-- wording정보를 insert -->
 	<insert id="insert" parameterType="wordingDto">
 		INSERT INTO ebd_wording
-		(num, writer, title, author, content, viewcnt, regdate)
-		VALUES(ebd_wording_seq.NEXTVAL, #{writer}, #{title}, #{author}, #{content}, 0, SYSDATE)
+		(num, writer, title, author, content, regdate)
+		VALUES(ebd_wording_seq.NEXTVAL, #{writer}, #{title}, #{author}, #{content}, SYSDATE)
 	</insert>
 	
 	<!--wording 목록을 select regdate컬럼은 두 테이블에 모두 존재하므로 어떤 테이블의 regdate인지 명시해주어야한다.(여기선 글 쓴 regdate가 필요)-->
@@ -14,7 +14,7 @@
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM
-				(SELECT num, writer, title, content, author, viewcnt, ebd_wording.regdate, profile
+				(SELECT num, writer, title, content, author, ebd_wording.regdate, profile
 				FROM ebd_wording, ebd_users 
 				<choose>
 					<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->

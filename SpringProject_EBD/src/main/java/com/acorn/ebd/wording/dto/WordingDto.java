@@ -6,7 +6,6 @@ public class WordingDto {
 	private String title;
 	private String author;
 	private String content;
-	private int viewcnt;
 	private String regdate;
 	private int startRowNum;
 	private int endRowNum;
@@ -17,7 +16,7 @@ public class WordingDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public WordingDto(int num, String writer, String title, String author, String content, int viewcnt, String regdate,
+	public WordingDto(int num, String writer, String title, String author, String content, String regdate,
 			String profile, int startRowNum, int endRowNum, String nick) {
 		super();
 		this.num = num;
@@ -25,7 +24,6 @@ public class WordingDto {
 		this.title = title;
 		this.author = author;
 		this.content = content;
-		this.viewcnt = viewcnt;
 		this.regdate = regdate;
 		this.profile = profile;
 		this.startRowNum = startRowNum;
@@ -71,14 +69,6 @@ public class WordingDto {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public int getViewcnt() {
-		return viewcnt;
-	}
-
-	public void setViewcnt(int viewcnt) {
-		this.viewcnt = viewcnt;
 	}
 
 	public String getRegdate() {

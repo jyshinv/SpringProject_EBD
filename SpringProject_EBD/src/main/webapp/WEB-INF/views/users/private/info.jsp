@@ -65,6 +65,14 @@
 			<td>${dto.email }</td>
 		</tr>
 		<tr>
+			<th>생년월일</th>
+			<td>${dto.birth_year }년 ${dto.birth_month }월 ${dto.birth_day }일</td>
+		</tr>
+		<tr>
+			<th>성별</th>
+			<td>${dto.gender }</td>
+		</tr>
+		<tr>
 			<th>가입일</th>
 			<td>${dto.regdate }</td>
 		</tr>

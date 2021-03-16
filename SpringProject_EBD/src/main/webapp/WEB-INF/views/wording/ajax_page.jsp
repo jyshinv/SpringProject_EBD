@@ -25,7 +25,7 @@
 			</c:if>	
 		</c:if>
 		<p>
-			${tmp.num } ${tmp.writer } ${tmp.title } ${tmp.content } ${tmp.author } ${tmp.viewcnt } ${tmp.regdate }
+			${tmp.num } ${tmp.writer } ${tmp.title } ${tmp.content } ${tmp.author } ${tmp.regdate }
 		</p>
 		<%isCheck++; %>
 	</c:forEach>
