@@ -179,7 +179,8 @@
 				<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
 			</center>
 		</div>
-		<div class="row marg">
+		<div class="row" style="height:50px;">
+			&nbsp;
 			<div class="col text-left">
 				<c:if test="${empty id }">
 		           <span>♥</span>
@@ -199,7 +200,7 @@
 			</div>
 			<div class="col text-right marg">
 				<c:if test="${dto.writer eq nick}">
-	            <form action="updatepublicck2.do" method="post">
+	            <form action="updatepublicck2.do" method="post" style="padding-top:10px;">
 	            	<label for="publicck"></label>
 	          		<select name="publicck" id="publicck">
 	          				<option value="public">공개</option>

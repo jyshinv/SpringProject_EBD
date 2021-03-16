@@ -100,7 +100,7 @@
 				<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
 			</center>
 		</div>
-		<div class="row">
+		<div class="row" style="height:50px;">
 			<div class="col text-left">
 				<c:if test="${dto.writer eq nick }">
 					&nbsp;
