@@ -162,11 +162,17 @@
 	.snip1273:hover figcaption:after,
 	.snip1273.hover figcaption:after {
 	  opacity: 0.1;
-	}		
+	}	
+	/* 프로필 이미지를 작은 원형으로 만든다 */
+    #profileImage{
+      width: 100px;
+      height: 100px;
+      border: 1px solid #cecece;
+      border-radius: 50%;
+    }	
 </style>
 </head>
 <body>
-<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <jsp:include page="../../include/mydiarynav.jsp"></jsp:include>
 <div class="container">
 	<form action="list.do" method="get">
@@ -197,7 +203,7 @@
 			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
 		</div>
 	</c:if>
-	<span class="row row-cols-1 row-cols-md-3">
+	<div class="row row-cols-1 row-cols-md-3 justify-content-md-center">
 		<c:forEach var="tmp" items="${requestScope.list }">
 		<div class="col">
 			<div class="card" style="width: 18rem;">
@@ -217,7 +223,7 @@
 			</div>
 		</div>
 		</c:forEach>
-	</span>
+	</div>
 	<nav>
 	<ul class="pagination justify-content-center">
 		<c:choose>
