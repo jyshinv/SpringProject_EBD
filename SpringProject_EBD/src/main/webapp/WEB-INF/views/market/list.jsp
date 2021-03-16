@@ -10,11 +10,6 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath }/resources/js/imgLiquid.js"></script>
 <style>
-
-	.card{
-		margin: 30px;
-	}
-
 	/* card 이미지 부모요소의 높이 지정 */
 	.img-wrapper{
 		
@@ -26,6 +21,7 @@
 		/* transform 을 적용할대 0.3s 동안 순차적으로 적용하기 */
 		transition: transform 0.3s ease-out;
 	}
+	
 	/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
 	.img-wrapper:hover{
 		/* 원본 크기의 1.1 배로 확대 시키기*/
@@ -58,14 +54,20 @@
 		text-align: center;
 	}
 	
+	/* card */
+	.card{
+		margin: 30px;
+	}
+	
+	/* 하트 */
 	.heart-link{
-      font-size : 2em;
+      color: red;
    }
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
-      width: 50px;
-      height: 50px;
+      width: 25px;
+      height: 25px;
       border: 1px solid #cecece;
       border-radius: 50%;
    }
@@ -73,101 +75,117 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar2.jsp"></jsp:include>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="market" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<br />
-	<div class="row">
-		<div class="col">
-			<a href="private/insertform.do" class="btn btn-info">중고거래 글 쓰러가기</a>
-		</div>
-		
-		<div class="col">
-			<!-- 검색 -->
-			<form action="list.do" method="get">
-				<label for="condition"><strong>검색 조건</strong></label>
-		
-				<select name="condition" id="condition">
-					<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
-					<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
-					<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
-				</select>
-		
-				<div class="input-group mb-3">
-				  <input value="${keyword }" type="text" name="keyword" placeholder="검색어..."
-				  	 class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
-				  <div class="input-group-append">
-				    <button class="btn btn-outline-secondary" type="submit">검색</button>
-				  </div>
-				</div>
-			</form>
-		</div>
-		
+	<div class="col">
+		<a href="private/insertform.do" style="color:brown;">
+			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+			  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+			</svg> UPLOAD
+		</a>
 	</div>
-	
+	<!-- 검색 -->
+	<form action="list.do" method="get">
+		<div class="row justify-content-md-center" style="margin:10px;">
+			<div class="col-2">
+					<select class="form-control" name="condition" id="condition">
+						<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
+						<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
+						<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+					</select>
+			</div>
+			<div class="col-md-6">
+				<input value="${keyword }" type="text" name="keyword" placeholder="검색어..."
+				  	 class="form-control">
+			</div>
+			<span>
+				<button class="btn btn-outline-secondary" type="submit">검색</button>
+			</span>
+		</div>
+	</form>
+	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
+	<c:if test="${not empty keyword }">
+		<div class="alert alert-success">
+			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
+		</div>
+	</c:if>
+		
 	<!-- 목록 -->
 	<div class="row" id="galleryList">
-	
 		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
       	<%int isCheck=0; %>
-	
 		<!-- 반복문 돌려서 목록 출력 --> 	
 		<c:forEach var="tmp" items="${marketList }">
+		
 			<div class="card" style="width: 18rem;">
-				
-				<a href="detail.do?num=${tmp.num }">
+				<!-- 이미지 -->
 				<div class="img-wrapper">
-					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imgpath }">
+					<p class="card-img-top">
+						<a href="detail.do?num=${tmp.num }">
+						<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imgpath }">
+					</p>
 				</div>
 				
 				<div class="card-body">
-					<h5 class="card-title">
-						<a href="${pageContext.request.contextPath }/market/detail.do?num=${tmp.num}">${tmp.title }</a>
-					</h5>
-					<p class="card-text"><strong>by</strong> ${tmp.writer }</p>
-					<p class="card-text">${tmp.salesType } <strong>|</strong> ${tmp.salesStatus }</p>
-					<p class="card-text"><small class="text-muted">${tmp.regdate }</small></p>
-					<c:choose>
-		               <c:when test="${empty tmp.profile }">
-		                  <!-- 비어있다면 기본이미지 -->
-		                  <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-		                       <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-		                  </svg>
-		               </c:when>
-		               <c:otherwise>
-		                  <!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
-		                  <img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
-		               </c:otherwise>
-            		</c:choose>
-				</div>
-				
-				<!-- 로그인이 된 사용자만 볼 수 있다. -->
-				<c:if test="${not empty id }">
-					<p>
-						<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
-						<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
-						<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+					<p class="card-text">
+						<span class="col text-left">
+							<!-- 프로필 이미지 -->
 							<c:choose>
-								<c:when test="${isHeartClickList[i] eq 0 }">
-									<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
-								</c:when>
-								<c:otherwise>
-									<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
-								</c:otherwise>
-							</c:choose>
-							<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>                  
-						</c:forEach>
+				               <c:when test="${empty tmp.profile }">
+				                  <!-- 비어있다면 기본이미지 -->
+				                  <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+				                       <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+				                  </svg>
+				               </c:when>
+				               <c:otherwise>
+				                  <!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
+				                  <img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
+				               </c:otherwise>
+		            		</c:choose>
+							${tmp.writer } <!-- 작성자 -->
+						</span>
+						
+						<span class="col text-right">
+							<!-- 하트 -->
+							<!-- 로그인이 된 사용자만 볼 수 있다. -->
+							<c:if test="${not empty id }">
+								<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
+								<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
+								<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+									<c:choose>
+										<c:when test="${isHeartClickList[i] eq 0 }">
+											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
+										</c:when>
+										<c:otherwise>
+											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+										</c:otherwise>
+									</c:choose>
+									<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>                  
+								</c:forEach>
+							</c:if>
+							<c:if test="${empty id }"> <!-- 로그인이 안되어있는 사람 -->
+			                     <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+			                     <span>♥</span>
+			                     <span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>
+			                     </c:forEach>
+			                </c:if>
+						</span>
 					</p>
-				</c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
-				<c:if test="${empty id }">
-                     <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-                     <span>♥</span>
-                     <span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>
-                     </c:forEach>
-                </c:if>
-				<!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
-				<%isCheck++; %>
-				
+					
+					<p class="card-title"><strong>${tmp.title }</strong></p>
+					<p class="card-text">
+						<span class="badge badge-pill badge-info">${tmp.salesType }</span>
+						<span class="badge badge-pill badge-success">${tmp.salesStatus }</span>
+					</p>
+					<p><small class="text-muted">${tmp.regdate }</small></p>
+					
+				</div>
 			</div>
+			<!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
+			<%isCheck++; %>
 		</c:forEach>
 	</div>
 	

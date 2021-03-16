@@ -21,6 +21,7 @@
 <div style="background-color: #e3f2fd;">
 	<div class="mx-auto mt-3" style="width: 500px;" >
 		 <form>
+		 
 		  <div class="form-row">
 		    <div class="col-7">
 		      <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
@@ -31,6 +32,7 @@
 		      </button>
 		    </div>
 		  </div>
+		  
 		</form>
 	</div>
 </div>
