@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
@@ -19,6 +20,7 @@
 	#profileForm{
 		display: none;
 	}
+	
 </style>
 </head>
 <body>
@@ -47,35 +49,88 @@
 	<br />
 	<!-- 개인정보 수정 -->
 	<form action="update.do" method="post" id="myForm" novalidate>
-		<div class="form-group" id="form-id">
+		<div class="form-group">
 			<label for="id">아이디</label>
 			<input class="form-control" type="text" name="id" id="id" value="${id }" placeholder="아이디" disabled/>
 		</div>
 		<div class="form-group">
 			<label for="name">이름</label>
-			<input class="form-control" type="text" name="name" id="name" value="${dto.name }" placeholder="이름" disabled/>
+			<input class="form-control" type="text" name="name" id="name" value="${dto.name }" placeholder="이름"/>
+			<div class="invalid-feedback">이름을 다시 입력해주세요.</div>
 		</div>
-		<div class="form-group" id="form-nick">
+		<div class="form-group">
 			<label for="nick">닉네임</label>
 			<input class="form-control" type="text" name="nick" id="nick" value="${nick }" placeholder="닉네임" />
 			<small class="form-text text-muted">한글, 영소문자, 대문자, 숫자, 사용가능 (<b>1~15글자</b> 이내로 입력해주세요)</small>
-			<div class="invalid-feedback"></div>
-			<div class="valid-feedback"></div>
+			<div class="invalid-feedback">이미 존재하거나 사용할 수 없는 닉네임 입니다.</div>
 		</div>
+		<div class="form-group">
+			<fieldset>
+				<p>성별</p>
+				<c:choose>
+					<c:when test="${dto.gender eq '남' }">
+						<label>
+							<input type="radio" name="gender" value="남" checked/>남자
+						</label>
+						<label>
+							<input type="radio" name="gender" value="여" />여자
+						</label>
+					</c:when>
+					<c:otherwise>
+						<label>
+							<input type="radio" name="gender" value="남"/>남자
+						</label>
+						<label>
+							<input type="radio" name="gender" value="여" checked/>여자
+						</label>
+					</c:otherwise>
+				</c:choose>
+			</fieldset>
+		</div>
+		<p>생년월일</p>
+		<div class="row">
+			<div class="col">
+				<div class="form-group">	
+					<select class="form-control" name="birth_year" id="birth_year">
+						<option value="">년도</option><!-- 아무것도 선택하지 않으면 빈 문자열이 서버로 전송된다. -->
+						<%
+						Calendar cal = Calendar.getInstance();
+						int year=cal.get(Calendar.YEAR);
+						%>
+						<c:forEach var="i" begin="1930" end="<%=year %>">
+							<option value="${i }" <c:if test="${dto.birth_year eq i }">selected</c:if>>${i }</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<select class="form-control" name="birth_month" id="birth_month">
+						<option value="">월</option><!-- 아무것도 선택하지 않으면 빈 문자열이 서버로 전송된다. -->
+						<c:forEach var="i" begin="1" end="12">
+							<option value="${i }" <c:if test="${dto.birth_month eq i }">selected</c:if>>${i }</option>
+						</c:forEach>
+					</select>
+				</div>				
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<input class="form-control" type="text" name="birth_day" id="birth_day" value="${dto.birth_day }" placeholder="일" />
+					<div class="invalid-feedback">생년월일을 확인해주세요</div>
+				</div>
+			</div>
+		</div>		
 		<div class="form-group">
 			<label for="email">이메일</label>
 			<input class="form-control" type="email" name="email" id="email" value="${dto.email }" placeholder="이메일 예)ebd@acorn.com" />
 			<div class="invalid-feedback">이메일 형식을 확인해주세요.</div>
-			<div class="valid-feedback">사용가능한 이메일 입니다.</div>
 		</div>
 		<div class="form-group">
 			<label for="email">연락처</label>
 			<input class="form-control" type="text" name="phone" id="phone" value="${dto.phone }" placeholder="연락처를 - 없이 입력해주세요" />
 			<div class="invalid-feedback">숫자만 입력해주세요.</div>
-			<div class="valid-feedback">사용가능한 연락처 입니다.</div>
 		</div>		
 		<button type="submit" class="btn btn-outline-primary">수정</button>
-		<button type="reset" class="btn btn-outline-primary">취소</button>
 	</form>
 </div>
 <script>
@@ -90,15 +145,18 @@
 		$("#profileForm").submit();
 	});
 	
+	
 	//https://regexr.com/ 테스트는 여기서 해보기 
-	//닉네임을 검증할 정규 표현식 (한글, 영소문자, 대문자 숫자 사용가능 1~15글자 이내)
-	let reg_nick=/^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣A-Za-z0-9]{1,15}$/;
+	//닉네임을 검증할 정규 표현식 (한글, 영소문자, 대문자 숫자 사용가능 1~15글자 이내 (첫글자 외에 공백도 가능하게))
+	let reg_nick=/^[A-Za-z0-9가-힣|ㄱ-ㅎ|ㅏ-ㅣ][A-Za-z0-9가-힣|ㄱ-ㅎ|ㅏ-ㅣ|\s]{0,14}$/;
 	//이메일을 검증할 정규 표현식(@가 포함되어 있는 지 검증, 이메일을 제대로 입력해주세요.)
 	let reg_email=/@/; 
 	//핸드폰을 검증할 정규 표현식(-를 제외하고 숫자만 입력해주세요)
 	let reg_phone=/[0-9]$/;
+	//이름을 검증할 정규 표현식
+	let reg_name=/^[A-Za-z가-힣][A-Za-z가-힣\s]/;
 	
-	//넘어온 값은 모두 저장 가능한 값이므로 true로 만들어준다.
+
 	//닉네임 유효성 여부를 관리할 변수 만들고 초기값 부여
 	let isNickValid=true;
 	//이메일 유효성 여부를 관리할 변수 만들고 초기값 부여
@@ -107,18 +165,21 @@
 	let isPhoneValid=true;
 	//폼 전체 유효성 여부를 관리할 변수 만들고 초기값 부여
 	let isFormValid=true;
+	//생년월일 중 일자를 관리할 변수 만들고 초기값 부여
+	let isBirthValid=true;
+	//이름 유효성 여부를 관리할 변수를 만들고 초기값 부여
+	let isNameValid=true;
 	
 	//넘어온 값은 모두 저장 가능한 값이므로 모든 폼을 valid로 만들어준다. 
-	$("#nick, #email, #phone").removeClass("is-valid is-invalid");
-	$("#nick, #email, #phone").addClass("is-valid");
-	$("#form-nick").children(".valid-feedback").text("사용가능한 닉네임입니다");
+	$("#nick, #name, #birth_day, #email, #phone").removeClass("is-valid is-invalid");
+	$("#nick, #name, #birth_day, #email, #phone").addClass("is-valid");
 
 	//폼에 submit이벤트가 일어났을 때 jquery를 활용해서 폼에 입력한 내용 검증하기
 	//id가 myForm인 요소에 submit이벤트가 일어났을 때 실행할 함수 등록 
 	$("#myForm").on("submit",function(){
 		
 		//폼 전체의 유효성 여부를 얻어낸다. 
-		isFormValid = isNickValid&isEmailValid&isPhoneValid;
+		isFormValid = isNickValid&isEmailValid&isPhoneValid&isFormValid&isNameValid;
 		
 		//true가 아니면 모두 입력해주세요 라는 알림창과 함께 폼전송을 막는다. 
 		if(!isFormValid){
@@ -127,13 +188,61 @@
 		}
 		
 	});
+	
+	//생년월일일 중 년,월에 따라 일을 올바르게 입력했는 지 검사하는 함수 
+	function isValidDate(year, month, day) {
+      
+            if (month < 1 || month > 12) {
+                return false;
+            }
+            var maxDaysInMonth = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+            var maxDay = maxDaysInMonth[month - 1];
+            // 윤년 체크
+            if (month == 2 && (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)) {
+                maxDay = 29;
+            }
+            if (day <= 0 || day > maxDay) {
+                return false;
+            }
+            return true;
+    }
+	
+	//생년월일 중 일자를 입력할 때 유효성 검사하기 
+	$("#birth_day").on("input",function(){
+		
+		var year=$("#birth_year option:selected").val();
+		var month=$("#birth_month option:selected").val();
+		
+		//월과 일을 먼저 쓰도록 한다. 
+		if(year == "" || month == ""){
+			$("#birth_day").val("");
+			alert('년, 월을 먼저 입력해주세요!');
+		}
+		var day=$("#birth_day").val();
+		
+		//일단 모든 검증 클래스를 제거하고
+		$("#birth_day").removeClass("is-valid is-invalid");
+		
+		
+		//생년월일 검사 후 false면 isBirthValid를 false로 만들어주고 함수를 끝내준다. 
+		if(!isValidDate(year, month, day)){
+			$("#birth_day").addClass("is-invalid");
+			isBirthValid=false;
+			return;
+		}
+		
+		isBirthValid=true;
+        
+		 
+		
+	});
 
 	//닉네임 중복 & 유효성 검사
 	$("#nick").on("input", function(){
 		//입력한 닉네임을 읽어온다.
 		let inputNick= $("#nick").val();
 		let inputBeforeNick="${nick }";
-		console.log(inputBeforeNick);
+		let ischeck=0;
 		
 		//일단 모든 검증 클래스를 제거하고
 		$("#nick").removeClass("is-valid is-invalid");
@@ -142,7 +251,6 @@
 		if(!reg_nick.test(inputNick)){
 			//닉네임이 유효하지 않는다고 표시하고
 			$("#nick").addClass("is-invalid");
-			$("#form-nick").children(".invalid-feedback").text("한글, 영소문자, 대문자, 숫자만 사용가능 (1~15글자 이내로 입력해주세요)");
 			isNickValid=false;
 			//함수를 여기서 종료한다.
 			return;
@@ -151,33 +259,51 @@
 		//입력을 했으나 기존의 닉네임의 경우네는 기존의 닉네임이라고 알려준다. 
 		if(inputNick==inputBeforeNick){
 			$("#nick").addClass("is-valid");
-			$("#form-nick").children(".valid-feedback").text("기존의 닉네임입니다. 사용가능합니다.");
 			//닉네임이 유효하다고 표시한다.
 			isNickValid=true;
 			//함수를 여기서 종료한다.
 			return;
 		}
 
-		
 		$.ajax({
 			url: "${pageContext.request.contextPath }/users/checknick.do",
 			method : "GET",
 			data:"inputNick="+inputNick,
 			success:function(responseData){
 				if(responseData.isExist){//이미 존재하는 닉네임인 경우
-					$("#nick").removeClass("is-valid is-invalid");
 					$("#nick").addClass("is-invalid");
-					$("#form-nick").children(".invalid-feedback").text("이미 존재하는 닉네임입니다.");
 					isNickValid=false;
 				}else{ //존재하지 않는 닉네임 즉 사용하지 않는 닉네임인 경우
-					$("#nick").removeClass("is-valid is-invalid");
-					$("#nick").addClass("is-valid");
-					$("#form-nick").children(".valid-feedback").text("사용가능한 닉네임입니다.");
 					//닉네임이 유효하다고 표시한다.
+					$("#nick").addClass("is-valid");
 					isNickValid=true;
 				}
 			}
 		})
+			
+		
+	});
+	
+	//이름 유효성 검사 
+	$("#name").on("input", function(){
+		//입력한 이름를 읽어온다.
+		let name=$("#name").val();
+		
+		//일단 모든 검증 클래스를 제거하고
+		$("#name").removeClass("is-valid is-invalid");
+		
+		//이름이 정규표현식에 매칭되지 않으면
+		if(!reg_name.test(name)){
+			//이름이 유효하지 않는다고 표시하고
+			$("#name").addClass("is-invalid");
+			isNameValid=false;
+			//함수를 여기서 종료한다.
+			return;
+		}else{
+			isNameValid=true;
+			$("#name").addClass("is-valid");
+		}
+		
 	});
 	
 	

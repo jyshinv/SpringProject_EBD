@@ -201,9 +201,8 @@
 		//일단 모든 검증 클래스를 제거하고
 		$("#birth_day").removeClass("is-valid is-invalid");
 		
-		console.log(year, month, day);
+		
 		//생년월일 검사 후 false면 isBirthValid를 false로 만들어주고 함수를 끝내준다. 
-		console.log(isValidDate(year, month, day))
 		if(!isValidDate(year, month, day)){
 			$("#birth_day").addClass("is-invalid");
 			isBirthValid=false;
@@ -240,7 +239,6 @@
 			method : "GET",
 			data:"inputId="+inputId,
 			success:function(responseData){
-				console.log(responseData.isExist);
 				if(responseData.isExist){//이미 존재하는 아이디인 경우
 					$("#id").removeClass("is-valid is-invalid");
 					$("#id").addClass("is-invalid");
@@ -264,7 +262,7 @@
 	$("#nick").on("input", function(){
 		//입력한 닉네임을 읽어온다.
 		let inputNick= $("#nick").val();
-		console.log(inputNick);
+		
 		//일단 모든 검증 클래스를 제거하고
 		$("#nick").removeClass("is-valid is-invalid");
 		
@@ -276,7 +274,7 @@
 			//함수를 여기서 종료한다.
 			return;
 		}
-		console.log('현재'+isNickValid);
+		
 			
 		
 		$.ajax({
