@@ -8,7 +8,13 @@
 <meta charset="UTF-8">
 <title>file/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 <style>
+	*{
+		font-family: 'Noto Serif KR', serif;
+	}
+	
 	.card-margin{
 		margin-top: 15px;
 		margin-bottom: 15px;
@@ -33,9 +39,9 @@
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="file" name="thisPage"/>
 </jsp:include>
+<%-- jumborton --%>
+<jsp:include page="../include/file_jumbotron.jsp"></jsp:include>
 <div class="container">
-	<br />
-	
 	<div class="col">
 		<a href="${pageContext.request.contextPath }/file/private/insertform.do" style="color:brown;">
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
@@ -134,13 +140,6 @@
 	<%isCheck++; %>
 	</c:forEach>
 
-	
-		
-	  	
-	  				
-	  		
-		
-	
 	<!-- 하단에 페이징 -->
 	<nav>
 		<ul class="pagination justify-content-center">
@@ -206,7 +205,7 @@ $(document).on("click",".heart-link",function(){
          method:"GET",
          data: "target_num="+target_num,
          success:function(data){ //나중에 구현 : 하트 수를 반환
-            $(".heart-cnt"+target_num).text("("+data.heartCnt+")");
+            $(".heart-cnt"+target_num).text(data.heartCnt);
          }
       });
       $(this).text("♥"); //하트 눌림으로 바뀐다.
@@ -220,7 +219,7 @@ $(document).on("click",".heart-link",function(){
          method:"GET",
          data: "target_num="+target_num,
          success:function(data){
-            $(".heart-cnt"+target_num).text("("+data.heartCnt+")");
+            $(".heart-cnt"+target_num).text(data.heartCnt);
          }             
       });
       

@@ -12,6 +12,9 @@
 	.head{
 		text-align: center;
 	}
+	.row{
+		margin-bottom: 20px;
+	}
 	
 	.fileImg{
 		width: 360px;
@@ -40,6 +43,9 @@
 </style>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp">
+	<jsp:param value="file" name="thisPage"/>
+</jsp:include>
 <!-- 독후감 양식 파일 업로드(게시글) 수정 폼-->
 
 <!-- 제목 수정 불가 : 폼전송 막기 / 파일&내용 수정 가능
@@ -56,42 +62,52 @@
 	 	<input type="hidden" name="savefname" value="${dto.savefname }" } />
 	 	<input type="hidden" name="fileSize" value="${dto.fileSize }" } />
 	 	
-	 	<div class="form-group">
-	 		<label for="title">제목</label> 
-	 		<input class="form-control" type="text" id="title" name="title" value="${dto.title }"/>
+	 	<div class="row">
+	 		<div class="col-2">
+	 			<label for="title">제목</label> 
+	 		</div>
+	 		<div class="col-8">
+	 			<input class="form-control" type="text" id="title" name="title" value="${dto.title }"/>
+	 		</div>
 	 	</div>
-	 	<div class="form-group">
-	 	
 	 	<!-- 파일 업로드  -->
-	 	<div>
-	 		첨부 파일 : <input type="text" id="fileName2" placeholder="파일을 첨부해주세요" value="${dto.orgfname }" />
-	 		<label for="myFile" class="btn btn-primary btn-sm btn-file" >첨부할 파일 선택
-	 			<input type="file" name="myFile" id="myFile" value="${filename2 }" onchange="reviewUploadImg2(this);"/>
-	 		</label>
-	 		<br />
-	 		<small class="text-muted">수정할 독후감 양식파일을 넣어주세요</small>
+	 	<div class="row">
+	 		<div class="col-2">
+	 			첨부 파일
+	 		</div>
+	 		<div class="col-8">
+	 			<input class="form-control" type="text" id="fileName2" placeholder="파일을 첨부해주세요" value="${dto.orgfname }" />
+	 			<small class="text-muted">수정할 독후감 양식파일을 넣어주세요</small>
+	 		</div>
+	 		<div class="col">
+	 			<label for="myFile" class="btn btn-primary btn-file" >파일 선택
+		 			<input type="file" name="myFile" id="myFile" value="${filename2 }" onchange="reviewUploadImg2(this);"/>
+		 		</label>
+	 		</div>
 	 	</div>
-	 	<br />
 	 	<!-- 이미지 업로드 -->
-	 	<div>
-	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
-	 		<label for="myImg" class="btn btn-primary btn-sm btn-file">첨부할 이미지 선택
-	 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
-	 			accept=".jpg, .jpeg, .png, .JPG, .JPEG" />
-	 		</label>
-	 		<br />
-	 		<small class="text-muted">수정할 독후감 양식 이미지를 넣어주세요</small>
+	 	<div class="row">
+	 		<div class="col-2">
+	 			이미지
+	 		</div>
+	 		<div class="col-8">
+	 			<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
+	 			<small class="text-muted">수정할 독후감 양식 이미지를 넣어주세요</small>
+	 		</div>
+	 		<div class="col">
+	 			<label for="myImg" class="btn btn-primary btn-file">이미지 선택
+		 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
+		 			accept=".jpg, .jpeg, .png, .JPG, .JPEG" />
+		 		</label>
+	 		</div> 		
 	 	</div>
-	 	<br />
-	 	<!-- 스마트 에디터 보류 일단은 textarea로 구현 -->
 	 	<div class="form-group">
-	 		<label for="content"></label>
 		    <textarea class="form-control" type="text" name="content" id="content">${dto.content }</textarea>
 		</div>
-		
-		<button class="btn btn-dark" type="submit" onclick="submitContents(this);">수정 완료</button>
-		<button class="btn btn-dark" type="reset">입력 내용 취소</button>
-	 	
+		<div class="text-center">
+			<button class="btn btn-dark" type="submit" onclick="submitContents(this);">수정 완료</button>
+			<button class="btn btn-dark" type="reset">입력 내용 취소</button>
+		</div>
 	 </form>
 	
 </div>
