@@ -63,7 +63,7 @@
 	 	</div>
 	 	
 	 	<div class="form-group">
-	 		<label for="salesType">유형</label>
+	 		<label for="salesType">거래 유형</label>
 	 		<select class="form-control" name="salesType" id="salesType">
 				<option selected >도서 나눔</option>
 				<option>도서 교환</option>
@@ -88,7 +88,7 @@
 	 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
 	 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 	 		</label>
-	 		<small class="text-muted">거래할 도서의 사진을 넣어주세요</small>
+	 		<p><small class="text-muted">거래할 도서의 사진을 넣어주세요</small></p>
 	 	</div>
 	 	<br />
 	 	<div class="form-group">

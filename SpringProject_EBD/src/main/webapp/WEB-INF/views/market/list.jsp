@@ -10,6 +10,9 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath }/resources/js/imgLiquid.js"></script>
 <style>
+	.card-img-top{
+		height:250px;
+	}
 	/* card 이미지 부모요소의 높이 지정 */
 	.img-wrapper{
 		
@@ -61,7 +64,8 @@
 	
 	/* 하트 */
 	.heart-link{
-      color: red;
+		font-size: 2em;
+		color: red;
    }
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
@@ -121,18 +125,8 @@
 		<c:forEach var="tmp" items="${marketList }">
 		
 			<div class="card" style="width: 18rem;">
-				<!-- 이미지 -->
-				<div class="img-wrapper">
-					<p class="card-img-top">
-						<a href="detail.do?num=${tmp.num }">
-						<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imgpath }">
-					</p>
-				</div>
-				
-				<div class="card-body">
-					<p class="card-text">
-						<span class="col text-left">
-							<!-- 프로필 이미지 -->
+				<div class="card-title">
+					<!-- 프로필 이미지 -->
 							<c:choose>
 				               <c:when test="${empty tmp.profile }">
 				                  <!-- 비어있다면 기본이미지 -->
@@ -147,8 +141,24 @@
 		            		</c:choose>
 							${tmp.writer } <!-- 작성자 -->
 						</span>
-						
-						<span class="col text-right">
+				</div>
+				
+				<a href="detail.do?num=${tmp.num }">
+				<!-- 이미지 -->
+				<div class="img-wrapper">	
+					<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imgpath }">
+				</div>
+				
+				<div class="card-body">
+				
+					<p class="card-text">
+						<span class="badge badge-pill badge-info">${tmp.salesType }</span>
+						<span class="badge badge-pill badge-success">${tmp.salesStatus }</span>
+					</p>
+					
+					<p class="card-text" style="color:black;"><strong>${tmp.title }</strong></p>
+					
+						<p class="card-text">
 							<!-- 하트 -->
 							<!-- 로그인이 된 사용자만 볼 수 있다. -->
 							<c:if test="${not empty id }">
@@ -172,17 +182,10 @@
 			                     <span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>
 			                     </c:forEach>
 			                </c:if>
-						</span>
 					</p>
 					
-					<p class="card-title"><strong>${tmp.title }</strong></p>
-					<p class="card-text">
-						<span class="badge badge-pill badge-info">${tmp.salesType }</span>
-						<span class="badge badge-pill badge-success">${tmp.salesStatus }</span>
-					</p>
-					<p><small class="text-muted">${tmp.regdate }</small></p>
 					
-				</div>
+				</div><!-- card-body -->
 			</div>
 			<!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
 			<%isCheck++; %>

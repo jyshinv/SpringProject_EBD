@@ -9,9 +9,9 @@
 <title>file/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
-	.card{
-		margin-top: 10px;
-		margin-bottom: 10px;
+	.card-margin{
+		margin-top: 15px;
+		margin-bottom: 15px;
 	}
 	
 	.heart-link{
@@ -69,16 +69,16 @@
 		</div>
 	</c:if>
 	
-	<!-- 목록 -->
-	<div class="card">
-		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
-	    <%int isCheck=0; %>
-		<!-- 반복문 돌려서 목록 출력 --> 	
-		<c:forEach var="tmp" items="${list }">
+	
+	<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
+    <%int isCheck=0; %>
+	<!-- 반복문 돌려서 목록 출력 --> 	
+	<c:forEach var="tmp" items="${list }">
+		<div class="card card-margin">
 			<ul class="list-group list-group-flush">
 				<li class="list-group-item">
 					<div class="row">
-					    <div class="col text-left">
+					    <div class="col-2 text-left">
 					      	<!-- 하트 -->
 							<!-- 로그인이 된 사용자만 볼 수 있다. -->
 							<c:if test="${not empty id }">
@@ -95,7 +95,7 @@
 											♥</a>
 										</c:otherwise>
 									</c:choose>
-									<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>                  
+									<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>                  
 								</c:forEach>
 							</c:if>
 					    	<c:if test="${empty id }"> <!-- 로그인이 안되어있는 사람 -->
@@ -105,7 +105,7 @@
 			                     </c:forEach>
 			                </c:if>
 					    </div>
-					    <div class="col-6">
+					    <div class="col-md-6">
 					      <a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}">
 							${tmp.title }</a>
 					    </div>
@@ -126,18 +126,14 @@
 					      	<strong>${tmp.writer }</strong>
 					    </div>
 					 </div>
-						
-		  			
-		  				
-		  			
-		  			
-		  				
-				</li>
+				 </li>
 			</ul>
-			<!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
-			<%isCheck++; %>
-		</c:forEach>
-	</div>
+		</div> <!-- card -->
+		
+	<!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
+	<%isCheck++; %>
+	</c:forEach>
+
 	
 		
 	  	

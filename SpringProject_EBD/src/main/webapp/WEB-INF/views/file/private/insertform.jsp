@@ -66,7 +66,6 @@
 	 		<label for="title">제목</label>
 	 		<input class="form-control" type="text" id="title" name="title" placeholder="제목을 입력해 주세요." />
 	 	</div>
-	 	
 	 	<!-- 파일 업로드  -->
 	 	<div>
 	 		첨부 파일 : <input type="text" id="fileName2" placeholder="파일을 첨부해주세요" />
@@ -77,7 +76,7 @@
 	 		<br />
 	 		<small class="text-muted">공유할 독후감 양식파일을 넣어주세요.</small>
 	 	</div>
-	 	
+	 	<br />
 	 	<!-- 이미지 업로드 -->
 	 	<div>
 	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
@@ -97,7 +96,7 @@
 		</div>
 	 	
 		<button class="btn btn-dark" type="submit" onclick="submitContents(this);" >업로드</button>
-		<button class="btn btn-dark" type="reset">입력 내용 취소</button>
+		<button class="btn btn-dark" type="reset">취소</button>
 	 	
 	 </form>
 	
