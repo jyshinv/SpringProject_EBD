@@ -28,19 +28,19 @@
 	.comment-form textarea, .comment-form button{
 		float: none;
 	}
-	.comment-form button{
-		align-content:right;
-	}
 	.comments li{
 		clear: left;
 	}
+	/* 댓글 구분선 */
 	.comments ul li{
 		border-top: 1px solid lightgrey;
 	}
+	/* 댓글 작성창 폭 100%로 채워주기 */
 	.comment-form textarea{
 		width: 100%;
 		height: 100px;
 	}
+	/* 댓글 버튼 폭 줄이기 */
 	.comment-form button{
 		width: 15%;
 	}
@@ -52,11 +52,11 @@
 	.comments li{
 		position: relative;
 	}
+	/* reply-icon 지우지 말 것 댓글창 사라짐 */
 	.comments .reply-icon{
 		position: absolute;
 		top: 1em;
 		left: 1em;
-		color: darksalmon;
 		transform: rotate(180deg);
 	}
 	pre {
@@ -87,14 +87,17 @@
 	}	
 	.heart-link{
       	font-size : 2em;
-    }	
+    }
+    /* 카드 테두리와 내용 간격두기 */	
     .card{
     	padding-left:20px;
     	padding-right:20px;
     }
+    /* 이미지 카드 안에서 100% 보이게 하기 */
     .centerimg img{
     	max-width: 100%;
     }
+    /* 전체적으로 보기 좋게 하기 위해 간격 띄우기 */
     .marg{
     	margin-bottom:20px;
     }
@@ -111,23 +114,24 @@
       border: 1px solid #cecece;
       border-radius: 50%;
    }
-   .icon{
-   		color:darksalmon;
-   }
+   /* 답글 아이콘 180도 회전 */
    .reply-link{
    		transform: rotate(180deg);
    }
+   /* header = 프로필 이미지, 닉네임 자리 배경 하얗게 만들기 */
    .card-header{
    		background-color:rgba(0, 0, 0, 0);
    }
+   /* 제목과 헤더 사이 간격 띄우기 */
    h1{
    		margin-top:30px;
    }
    /* 답글/수정/삭제 색 변경 */
-   .cmt-link{
+   .cmt-link,
+   .cmt-regdate{
    		color:grey;
    }
-   /* 모든 a링크의 hover 색깔 변경 */
+   /* 모든 a링크의 hover 색깔 변경 (임시) */
    a:hover{
    		color:brown;
    }
@@ -282,6 +286,17 @@
 			</ul>
 		</nav>
 	</div>
+	<div style="margin-top:20px;">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text cmt-small" viewBox="0 0 16 16">
+		  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+		  <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+		</svg>
+		<small>
+			<span class="cmt-small">
+				EveryBookDay는 좋은 댓글문화를 지향합니다.
+			</span>
+		</small>
+	</div>
 	<hr/>
 	<!-- 원글에 댓글을 작성하는 form -->
 	<form class="comment-form insert-form" action="private/comment_insert.do" method="post">
@@ -309,8 +324,18 @@
 					<c:otherwise>
 						<li id="comment${tmp.num }" <c:if test="${tmp.num ne tmp.cmt_group }">style="padding-left:50px;"</c:if>>
 							<c:if test="${tmp.num ne tmp.cmt_group }">
-								<svg style="rotate(180deg);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply reply-icon" viewBox="0 0 16 16">
-  <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
+							<!-- 
+							답글 아이콘
+							svg에서 색상을 변경할 때는 fill 요소를 사용할 것 
+							-->
+								<svg class="reply-link reply-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001; width:20px; height:20px; margin-top:20px; fill:grey;" xml:space="preserve" >
+<g>
+	<g>
+		<path d="M324.104,156.152H76.526l91.949-91.949l-28.268-28.268L0,176.141l140.206,140.206l28.268-28.268L76.526,196.13h247.579
+			c81.562,0,147.918,66.356,147.918,147.918c0,38.36-19.398,70.958-35.671,91.548l-12.393,15.682l31.366,24.788l12.393-15.682
+			c20.202-25.563,44.284-66.497,44.284-116.336C512,240.441,427.71,156.152,324.104,156.152z"/>
+	</g>
 </svg>
 		  						
 							</c:if>
@@ -322,7 +347,9 @@
 											<c:if test="${tmp.num ne tmp.cmt_group }">
 												@<i>${tmp.target_nick }</i>
 											</c:if>
-											<span><small>${tmp.regdate }</small></span>
+											<span>
+												<small class="cmt-regdate">${tmp.regdate }</small>
+												</span>
 										</div>
 										<div class="col text-right">
 											<span>

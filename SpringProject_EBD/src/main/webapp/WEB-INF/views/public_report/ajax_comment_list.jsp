@@ -2,11 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <style>
-	.cmt-link{
+	/* 답글/수정/삭제 색 변경 */
+	.cmt-link
+	.cmt-regdate{
    		color:grey;
    }
+   /* 모든 a링크의 hover 색깔 변경 (임시) */
    	a:hover{
    		color:brown;
+   }
+   /* 답글 아이콘 180도 회전 */
+   .reply-link{
+   		transform: rotate(180deg);
    }
 </style>    
 <c:forEach var="tmp" items="${commentList }"><%--댓글목록을 이용 --%>
@@ -16,9 +23,20 @@
 		</c:when>
 		<c:otherwise>
 			<li id="comment${tmp.num }" <c:if test="${tmp.num ne tmp.cmt_group }">style="padding-left:50px;"</c:if>>
-				<c:if test="${tmp.num ne tmp.cmt_group }"><svg class="reply-icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-return-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
- 						<path fill-rule="evenodd" d="M10.146 5.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 9l-2.647-2.646a.5.5 0 0 1 0-.708z"/>
- 						<path fill-rule="evenodd" d="M3 2.5a.5.5 0 0 0-.5.5v4A2.5 2.5 0 0 0 5 9.5h8.5a.5.5 0 0 0 0-1H5A1.5 1.5 0 0 1 3.5 7V3a.5.5 0 0 0-.5-.5z"/></svg>
+				<c:if test="${tmp.num ne tmp.cmt_group }">
+				<!-- 
+				답글 아이콘
+				svg에서 색상을 변경할 때는 fill 요소를 사용할 것 
+				-->
+				<svg class="reply-link reply-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001; width:20px; height:20px; margin-top:20px; fill:grey;" xml:space="preserve" >
+<g>
+	<g>
+		<path d="M324.104,156.152H76.526l91.949-91.949l-28.268-28.268L0,176.141l140.206,140.206l28.268-28.268L76.526,196.13h247.579
+			c81.562,0,147.918,66.356,147.918,147.918c0,38.36-19.398,70.958-35.671,91.548l-12.393,15.682l31.366,24.788l12.393-15.682
+			c20.202-25.563,44.284-66.497,44.284-116.336C512,240.441,427.71,156.152,324.104,156.152z"/>
+	</g>
+</svg>
 				</c:if>
 				<dl>
 					<dt>
@@ -28,7 +46,12 @@
 								<c:if test="${tmp.num ne tmp.cmt_group }">
 									@<i>${tmp.target_nick }</i>
 								</c:if>
-								<span>${tmp.regdate }</span>
+								<!-- 댓글 날짜 작게하기 글자 회색으로 만드는 클래스 추가 -->
+									<span>
+										<small class="cmt-regdate">
+											${tmp.regdate }
+										</small>
+									</span>
 							</div>
 							<div class="col text-right">
 								<span>
