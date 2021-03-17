@@ -37,16 +37,28 @@
 						value="${tmp.writer }"/>
 					<input type="hidden" name="cmt_group"
 						value="${tmp.cmt_group }"/>
-					<textarea name="content"></textarea>
-					<button type="submit">등록</button>
+					<div class="row">
+						<div class="col-12">
+							<textarea class="form-control" name="content"></textarea>
+						</div>
+						<div class="col text-right">
+							<button class="btn btn-primary" type="submit">답글등록</button>
+						</div>
+					</div>
 				</form>
 				<!-- 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 -->
 				<c:if test="${tmp.writer eq nick }">
 					<form class="comment-form update-form" 
 						action="private/comment_update.do" method="post">
 						<input type="hidden" name="num" value="${tmp.num }"/>
-						<textarea name="content">${tmp.content }</textarea>
-						<button type="submit">수정</button>
+						<div class="row">
+							<div class="col-12">
+								<textarea class="form-control" name="content">${tmp.content }</textarea>
+							</div>
+							<div class="col text-right">
+								<button class="btn btn-primary" type="submit">수정등록</button>
+							</div>
+						</div>
 					</form>
 				</c:if>
 			</li>						
