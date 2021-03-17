@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style>
+	.cmt-link{
+   		color:grey;
+   }
+   	a:hover{
+   		color:brown;
+   }
+</style>    
 <c:forEach var="tmp" items="${commentList }"><%--댓글목록을 이용 --%>
 	<c:choose>
 		<c:when test="${tmp.deleted eq 'yes' }">
@@ -14,16 +22,28 @@
 				</c:if>
 				<dl>
 					<dt>
-						<span>${tmp.writer }</span>
-						<c:if test="${tmp.num ne tmp.cmt_group }">
-							@<i>${tmp.target_nick }</i>
-						</c:if>
-						<span>${tmp.regdate }</span>
-						<a data-num="${tmp.num }" href="javascript:" class="reply-link">답글</a>
-						<c:if test="${tmp.writer eq nick }">
-							| <a data-num="${tmp.num }" href="javascript:" class="comment-update-link">수정</a>
-							| <a data-num="${tmp.num }" href="javascript:" class="comment-delete-link">삭제</a>
-						</c:if>
+						<div class="row">
+							<div class="col">
+								<span>${tmp.writer }</span>
+								<c:if test="${tmp.num ne tmp.cmt_group }">
+									@<i>${tmp.target_nick }</i>
+								</c:if>
+								<span>${tmp.regdate }</span>
+							</div>
+							<div class="col text-right">
+								<span>
+									<small>
+										<a data-num="${tmp.num }" href="javascript:" class="reply-link cmt-link">답글</a>
+										<c:if test="${tmp.writer eq nick }">
+											<span class="cmt-link">|</span>
+											<a data-num="${tmp.num }" href="javascript:" class="comment-update-link cmt-link">수정</a>
+											<span class="cmt-link">|</span>
+											<a data-num="${tmp.num }" href="javascript:" class="comment-delete-link cmt-link">삭제</a>
+										</c:if>
+									</small>
+								</span>
+							</div>
+						</div>
 					</dt>
 					<dd>
 						<pre>${tmp.content }</pre>
