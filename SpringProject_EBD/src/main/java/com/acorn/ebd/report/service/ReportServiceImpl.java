@@ -106,20 +106,56 @@ public class ReportServiceImpl implements ReportService{
 		//보여줄 페이지의 끝 ROWNUM
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
 		
+		/*
+		[ 검색 키워드에 관련된 처리 ]
+		-검색 키워드가 파라미터로 넘어올수도 있고 안넘어 올수도 있다.		
+		*/
+		String keyword=request.getParameter("keyword");
+		String condition=request.getParameter("condition");
+		//만일 키워드가 넘어오지 않는다면 
+		if(keyword==null){
+			//키워드와 검색 조건에 빈 문자열을 넣어준다. 
+			//클라이언트 웹브라우저에 출력할때 "null" 을 출력되지 않게 하기 위해서  
+			keyword="";
+			condition=""; 
+		}
+		
+		//특수기호를 인코딩한 키워드를 미리 준비한다. 
+		String encodedK=URLEncoder.encode(keyword);
+		
 		ReportDto dto=new ReportDto();
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		
-		//글목록 얻어오기
-		List<ReportDto> list=dao.getList(dto);
+		//ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
+		List<ReportDto> list=null;
+		//전체 row 의 갯수를 담을 지역변수를 미리 만든다.
+		int totalRow=0;
+		//만일 검색 키워드가 넘어온다면 
+		if(!keyword.equals("")){
+			//검색 조건이 무엇이냐에 따라 분기 하기
+			if(condition.equals("booktitle_author")){//제목 + 내용 검색인 경우
+				//검색 키워드를 CafeDto 에 담아서 전달한다.
+				dto.setBooktitle(keyword);
+				dto.setAuthor(keyword);
+				
+			}else if(condition.equals("booktitle")){ //제목 검색인 경우
+				dto.setBooktitle(keyword);
+				
+			}else if(condition.equals("author")){ //작성자 검색인 경우
+				dto.setAuthor(keyword);
+				
+			} // 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다.
+		}
+		
+		list=dao.getList(dto);
+		//글의 갯수
+		totalRow=dao.getCountTotal();
 		
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
 		//하단 끝 페이지 번호
 		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
-		
-		//글의 갯수
-		int totalRow=dao.getCountTotal();
 		
 		//전체 페이지의 갯수 구하기
 		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
@@ -127,12 +163,19 @@ public class ReportServiceImpl implements ReportService{
 		if(endPageNum > totalPageCount){
 			endPageNum=totalPageCount; //보정해 준다. 
 		}
+		//로그인된 아이디의 nick 정보 불러오기
+	    String nick=(String)request.getSession().getAttribute("nick");
+	    dto.setNick(nick);
 		
 		mView.addObject("list", list);
 		mView.addObject("pageNum", pageNum);
 		mView.addObject("startPageNum", startPageNum);
-		mView.addObject("endPageNum", endPageNum);		
+		mView.addObject("endPageNum", endPageNum);
 		mView.addObject("totalPageCount", totalPageCount);
+		mView.addObject("condition", condition);
+		mView.addObject("keyword", keyword);
+		mView.addObject("encodedK", encodedK);
+		mView.addObject("totalRow", totalRow);		
 	}
 
 	@Override

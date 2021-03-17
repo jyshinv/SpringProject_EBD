@@ -25,9 +25,10 @@
 		/* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
 		display:block;
 		white-space : nowrap;
-		text-overflow: clip;
-		overflow: auto;
-		color:white;
+		text-overflow: ellipsis;
+		overflow: hidden;
+		color:grey;
+		text-align:center;
 	}
 	.card{
 		margin:5px;
@@ -37,6 +38,9 @@
 	    padding-top: 10px;
 	    padding-bottom: 10px;
 	    height: 50px;
+	}
+	.card-footer{
+		background-color:rgba(0, 0, 0, 0);
 	}
 	#img{
 		object-fit: cover;
@@ -49,120 +53,6 @@
     */  
    	}
    	
-	/*hover 기능 css*/  
-	 
-	.snip1273 {
-	  width: 100%;
-	  color: #ffffff;
-	  text-align: justify;
-	  background-color: #000000;
-	  font-size: 16px;
-	}
-	
-	/*
-	.snip1273 * {
-	  -webkit-box-sizing: border-box;
-	  box-sizing: border-box;
-	  -webkit-transition: all 0.4s ease-in;
-	  transition: all 0.4s ease-in;
-	}
-	*/
-	/*
-	.snip1273 img {
-	  position: relative;
-	  max-width: 100%;
-	  vertical-align: top;
-	}
-	*/
-	.snip1273 figcaption {
-	  position: absolute;
-	  top: 0;
-	  right: 0;
-	  width: 100%;
-	  height: 100%;
-	  z-index: 1;
-	  opacity: 0;
-	  padding: 20px 30px;
-	}
-	/* 이미지 경계선에 효과가 들어오는 css */
-	.snip1273 figcaption:before,
-	.snip1273 figcaption:after {
-	  width: 5px;
-	  height: 0;
-	}	
-	.snip1273 figcaption:before {
-	  right: 0;
-	  top: 0;
-	}
-	.snip1273 figcaption:after {
-	  left: 0;
-	  bottom: 0;
-	}
-	
-	.snip1273 h5{
-	  line-height: 5em;
-	}
-	
-	.snip1273 h5 {
-	  margin: 0 0 5px;
-	  font-weight: 700;
-	  text-transform: uppercase;
-	}
-	.snip1273:before,
-	.snip1273:after,
-	.snip1273 figcaption:before,
-	.snip1273 figcaption:after {
-	  position: absolute;
-	  content: '';
-	  background-color: #ffffff;
-	  z-index: 1;
-	  -webkit-transition: all 0.4s ease-in;
-	  transition: all 0.4s ease-in;
-	  opacity: 0.8;
-	}
-	.snip1273:before,
-	.snip1273:after {
-	  height: 1px;
-	  width: 0%;
-	}
-	.snip1273:before {
-	  top: 0;
-	  left: 0;
-	}
-	.snip1273:after {
-	  bottom: 0;
-	  right: 0;
-	}
-	.snip1273:hover img,
-	.snip1273.hover img {
-	  opacity: 0.4;
-	}
-	.snip1273:hover figcaption,
-	.snip1273.hover figcaption {
-	  opacity: 1;
-	}
-	.snip1273:hover figcaption:before,
-	.snip1273.hover figcaption:before,
-	.snip1273:hover figcaption:after,
-	.snip1273.hover figcaption:after {
-	  height: 100%;
-	}
-	.snip1273:hover:before,
-	.snip1273.hover:before,
-	.snip1273:hover:after,
-	.snip1273.hover:after {
-	  width: 100%;
-	}
-	.snip1273:hover:before,
-	.snip1273.hover:before,
-	.snip1273:hover:after,
-	.snip1273.hover:after,
-	.snip1273:hover figcaption:before,
-	.snip1273.hover figcaption:before,
-	.snip1273:hover figcaption:after,
-	.snip1273.hover figcaption:after {
-	  opacity: 0.1;
-	}		
 	/* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
       width: 25px;
@@ -207,13 +97,9 @@
 			<div class="col">
 				<div class="card" style="width: 18rem;">
 					<div style="height:255px;">
-						<figure class="snip1273 hover">
-							<img id="img" src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" >
+						<figure>
 							<a href="${pageContext.request.contextPath}/public_report/detail.do?num=${tmp.num}">
-							<figcaption class=" card-img-top img-wrapper" style="height:240px;">
-								<!-- <h5 class="card-title">${tmp.booktitle }</h5> -->							
-								<MARQUEE behavior="scroll" class="card-title">${tmp.booktitle }</MARQUEE>
-							</figcaption>						
+								<img id="img" src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" >
 							</a>
 						</figure>
 					</div>
@@ -263,8 +149,10 @@
 </svg>
 					    	<small>${tmp.viewcnt }</small>
 					    </span>
-					    <!-- <p><small>${tmp.regdate }</small></p> -->
 					    </div>
+				 	</div>
+				 	<div class="card-footer">
+				 		<small class="card-title">${tmp.booktitle }</small>
 				 	</div>
 				</div>		
 			</div>

@@ -30,4 +30,6 @@ public interface UsersService {
 	public void updateUserPwd(ModelAndView mView, UsersDto dto, HttpSession session);
 	//회원탈퇴 요청처리
 	public void deleteUser(HttpSession session);
+	//마이 다이어리에 프로필 이미지 요청 처리
+	public UsersDto getInfomy(HttpSession session);
 }

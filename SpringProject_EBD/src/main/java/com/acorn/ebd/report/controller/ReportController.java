@@ -133,7 +133,6 @@ public class ReportController {
   	}
   	
   	//공개 독후감 글 목록 요청 처리
-  	
   	@RequestMapping("/public_report/list")
   	public ModelAndView list2(ModelAndView mView, HttpServletRequest request) {
   		service.getPublicList(mView, request);
