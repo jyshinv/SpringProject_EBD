@@ -26,21 +26,23 @@
 		margin-left: 50px;
 	}
 	.comment-form textarea, .comment-form button{
-		float: left;
+		float: none;
+	}
+	.comment-form button{
+		align-content:right;
 	}
 	.comments li{
 		clear: left;
 	}
 	.comments ul li{
-		border-top: 1px solid #888;
+		border-top: 1px solid lightgrey;
 	}
 	.comment-form textarea{
-		width: 85%;
+		width: 100%;
 		height: 100px;
 	}
 	.comment-form button{
 		width: 15%;
-		height: 100px;
 	}
 	/* 댓글에 댓글을 다는 폼과 수정폼은 일단 숨긴다. */
 	.comments .comment-form{
@@ -279,7 +281,7 @@
 		<input type="hidden" name="ref_group" value="${dto.num }"/>
 		<!-- 원글의 작성자가 댓글의 수신자가 된다. -->
 		<input type="hidden" name="target_nick" value="${dto.writer }"/>
-		<textarea name="content"><c:if test="${empty nick }">로그인이 필요합니다</c:if></textarea>
+		<textarea class="form-control" name="content"><c:if test="${empty nick }">로그인이 필요합니다</c:if></textarea>
 		<button class="btn btn-primary" type="submit">댓글등록</button>
 	</form>	
 	<!-- 댓글 목록 -->
@@ -337,7 +339,7 @@
 									value="${tmp.writer }"/>
 								<input type="hidden" name="cmt_group"
 									value="${tmp.cmt_group }"/>
-								<textarea name="content"></textarea>
+								<textarea class="form-control" name="content"></textarea>
 								<button class="btn btn-primary" type="submit">답글등록</button>
 							</form>
 							<!-- 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 -->
@@ -345,7 +347,7 @@
 								<form class="comment-form update-form" 
 									action="private/comment_update.do" method="post">
 									<input type="hidden" name="num" value="${tmp.num }"/>
-									<textarea name="content">${tmp.content }</textarea>
+									<textarea class="form-control" name="content">${tmp.content }</textarea>
 									<button class="btn btn-primary" type="submit">수정등록</button>
 								</form>
 							</c:if>
