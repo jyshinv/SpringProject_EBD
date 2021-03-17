@@ -203,7 +203,7 @@
 			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
 		</div>
 	</c:if>
-	<div class="row row-cols-1 row-cols-md-3 justify-content-md-center">
+	<div class="row row-cols-1 row-cols-md-3">
 		<c:forEach var="tmp" items="${requestScope.list }">
 		<div class="col">
 			<div class="card" style="width: 18rem;">
