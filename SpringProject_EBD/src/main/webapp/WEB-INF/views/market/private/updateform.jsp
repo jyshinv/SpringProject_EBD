@@ -12,6 +12,10 @@
 	.head{
 		text-align: center;
 	}
+	.row{
+		margin-bottom: 20px;
+	}
+	
 	.btn-file{
         position: relative;
         overflow: hidden;
@@ -39,39 +43,47 @@
 </style>
 </head>
 <body>
-
+<jsp:include page="../../include/navbar.jsp">
+	<jsp:param value="market" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<h1 class="head" >중고 거래 글쓰기  수정 폼</h1>
 	<form action="update.do" method="post" enctype="multipart/form-data">
-	 	<input type="hidden" name="num" value="${dto.num }"/>
+		<input type="hidden" name="num" value="${dto.num }"/>
 	 	<input type="hidden" name="imgpath" value="${dto.imgpath }" } />
-	 	
-	 	<div class="form-group">
-	 		<label for="title">제목</label>
-	 		<input class="form-control" type="text" id="title" name="title" value="${dto.title }"/>
+	 	<div class="row">
+	 		<div class="col-2">
+	 			<label for="title">제목</label>
+	 		</div>
+	 		<div class="col-8">
+	 			<input class="form-control" type="text" id="title" name="title" value="${dto.title }"/>
+	 		</div>
 	 	</div>
-	 	
-	 	<div class="form-group">
-	 		<label for="salesType">유형</label>
-	 		<select class="form-control" name="salesType" id="salesType">
-				<c:if test="${dto.salesType eq '도서 나눔' }">
-					<option>${dto.salesType}</option>
-					<option>도서 교환</option>
-					<option>도서 판매</option>
-				</c:if>
-				<c:if test="${dto.salesType eq '도서 교환' }">
-					<option>${dto.salesType}</option>
-					<option>도서 나눔</option>
-					<option>도서 판매</option>
-				</c:if>
-				<c:if test="${dto.salesType eq '도서 판매' }">
-					<option>${dto.salesType}</option>
-					<option>도서 나눔</option>
-					<option>도서 교환</option>
-				</c:if>
-	 		</select>
+	 	<div class="row">
+	 		<div class="col-2">
+	 			<label for="salesType">유형</label>
+	 		</div>
+	 		<div class="col-8">
+		 		<select class="form-control" name="salesType" id="salesType">
+					<c:if test="${dto.salesType eq '도서 나눔' }">
+						<option>${dto.salesType}</option>
+						<option>도서 교환</option>
+						<option>도서 판매</option>
+					</c:if>
+					<c:if test="${dto.salesType eq '도서 교환' }">
+						<option>${dto.salesType}</option>
+						<option>도서 나눔</option>
+						<option>도서 판매</option>
+					</c:if>
+					<c:if test="${dto.salesType eq '도서 판매' }">
+						<option>${dto.salesType}</option>
+						<option>도서 나눔</option>
+						<option>도서 교환</option>
+					</c:if>
+		 		</select>
+	 		</div>
 	 	</div>
-	 	
+	
 <!--  	 	<div class="form-group">
 	 		<label for="salesStatus">판매상태</label>
 	 		<select class="form-control" name="salesStatus" id="salesStatus">
@@ -88,22 +100,27 @@
 	 		</select>
 	 	</div> -->
 	 	
-	 	<!-- 이미지 업로드 -->
-	 	<div class="form-group">
-	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
-	 		
-	 		<label for="myImg" class="btn btn-primary btn-sm btn-file" >첨부할 이미지 선택
-	 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
-	 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+	 	<div class="row">
+	 		<div class="col-2">
+	 			이미지
+	 		</div>
+	 		<div class="col-8">
+	 			 <input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
+	 		</div>
+	 		<div class="col">
+	 			<label for="myImg" class="btn btn-primary btn-file" >파일 선택
+		 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
+		 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 	 		</label>
-	 		<br />
+	 		</div>
 	 	</div>
-	 	<br />
 	 	<div class="form-group">
 		    <textarea class="form-control" type="text" name="content" id="content">${dto.content }</textarea>
 		</div>
-		<button class="btn btn-dark" type="submit" onclick="submitContents(this);" >수정 완료</button>
-		<button class="btn btn-dark" type="reset" >취소</button>
+		<div class="text-center">
+			<button class="btn btn-dark text-center" type="submit" onclick="submitContents(this);" >수정 완료</button>
+			<button class="btn btn-dark text-center" type="reset" >취소</button>
+		</div>
 	 </form>
 </div>
 
