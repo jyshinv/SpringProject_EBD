@@ -19,24 +19,56 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn.ebd.episode.service.EpisodeService;
+import com.acorn.ebd.file.service.FileService;
+import com.acorn.ebd.market.service.MarketService;
+import com.acorn.ebd.report.service.ReportService;
 import com.acorn.ebd.users.dto.UsersDto;
 import com.acorn.ebd.users.service.UsersService;
+import com.acorn.ebd.wording.service.WordingService;
 @Controller
 public class HomeController {
 	@Autowired
-	UsersService service;
+	UsersService users_service;
 	
+	@Autowired
+	EpisodeService episode_service;
+	
+	@Autowired
+	FileService file_service;
+	
+	@Autowired
+	MarketService market_service;
+	
+	@Autowired
+	ReportService report_service;
+	
+	@Autowired
+	WordingService wording_service;
+	
+	
+	//메인화면 요청처리
 	@RequestMapping("/home.do")
-	public String home() {
-		return "home";
+	public ModelAndView home(ModelAndView mView) {
+		wording_service.getBestHeartList(mView); //좋아요 높은 순 Best3 (wordingBestList[0~3])
+		//report_service.getBestHeartList(mView); //좋아요 높은 순 Best3
+		//episode_service.getBestViewCntList(mView); //조회수 높은 순 Best3
+		//file_service.getBestViewCntList(mView); //조회수 높은 순 Best3
+		//market_service.getRecentList(mView); //최신매물 Top3
+		
+		mView.setViewName("home");
+		return mView;
 	}
 	
+	//mydiarynavbar에 이미지 프로필 불러오는 요청 처리
 	@RequestMapping("/include/mydiarynav.do")
     @ResponseBody
     public Map<String, Object> getinfomy(HttpSession session) {
-		UsersDto dto=service.getInfomy(session);
+		UsersDto dto=users_service.getInfomy(session);
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("profile",dto.getProfile());
 		return map;
     }
+	
+	
 }

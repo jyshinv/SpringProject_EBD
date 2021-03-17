@@ -522,5 +522,11 @@ public class FileServiceImpl implements FileService{
 
 	    return heartcnt;
 	}
+
+	@Override
+	public void getBestViewCntList(ModelAndView mView) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

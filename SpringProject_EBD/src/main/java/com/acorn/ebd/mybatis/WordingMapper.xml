@@ -163,6 +163,19 @@
 		WHERE num=#{num}
 	</delete>
 	
+	<!-- 홈화면에 BEST3을 리턴하는 쿼리 -->
+	<select id="getBestHeartList" resultType="wordingDto">
+		SELECT * 
+		FROM 
+			(SELECT NVL(r1.heartcnt,0) heartcnt, w.num, w.writer, w.title, w.content, w.author, w.regdate, u.profile
+			FROM (select target_num, count(*) heartcnt
+		      		FROM ebd_wording_heart
+		      		GROUP BY target_num) r1, ebd_wording w, ebd_users u
+			WHERE r1.target_num(+) = w.num AND w.writer = u.nick
+			ORDER BY heartcnt DESC)
+		WHERE ROWNUM BETWEEN 1 AND 3
+	</select>
+	
 
 
 </mapper>

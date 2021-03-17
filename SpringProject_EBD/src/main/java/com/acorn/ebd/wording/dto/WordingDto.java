@@ -11,13 +11,14 @@ public class WordingDto {
 	private int endRowNum;
 	private String profile; //프로필 이미지 경로(users테이블의 profile)
 	private String nick;//닉네임(heart테이블의 nick)
+	private int heartcnt;//하트 개수를 담아줄 변수 
 	
 	public WordingDto() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public WordingDto(int num, String writer, String title, String author, String content, String regdate,
-			String profile, int startRowNum, int endRowNum, String nick) {
+			int startRowNum, int endRowNum, String profile, String nick, int heartcnt) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -25,10 +26,11 @@ public class WordingDto {
 		this.author = author;
 		this.content = content;
 		this.regdate = regdate;
-		this.profile = profile;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
+		this.profile = profile;
 		this.nick = nick;
+		this.heartcnt = heartcnt;
 	}
 
 	public int getNum() {
@@ -79,14 +81,6 @@ public class WordingDto {
 		this.regdate = regdate;
 	}
 
-	public String getProfile() {
-		return profile;
-	}
-
-	public void setProfile(String profile) {
-		this.profile = profile;
-	}
-
 	public int getStartRowNum() {
 		return startRowNum;
 	}
@@ -103,6 +97,14 @@ public class WordingDto {
 		this.endRowNum = endRowNum;
 	}
 
+	public String getProfile() {
+		return profile;
+	}
+
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
 	public String getNick() {
 		return nick;
 	}
@@ -110,9 +112,15 @@ public class WordingDto {
 	public void setNick(String nick) {
 		this.nick = nick;
 	}
+
+	public int getHeartcnt() {
+		return heartcnt;
+	}
+
+	public void setHeartcnt(int heartcnt) {
+		this.heartcnt = heartcnt;
+	}
 	
 	
-	
-	
-	
+
 }

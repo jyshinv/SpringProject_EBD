@@ -30,4 +30,7 @@ public interface FileService {
 	public int saveHeart(int target_num, HttpSession session);
 	public int removeHeart(int target_num, HttpSession session);
 	
+	//홈화면에 조회수 Best3을 요청하는 메소드 
+	public void getBestViewCntList(ModelAndView mView);
+	
 }

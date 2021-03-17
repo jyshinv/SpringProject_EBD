@@ -50,4 +50,7 @@ public interface ReportService {
 	
 	//하트 추가시 해당 테이블에서 target_num과 nick 을 추가해주는 메소드
 	public int saveHeart(int target_num, HttpSession session);
+
+	//홈 화면에 Best3를 요청하는 메소드 
+	public void getBestHeartList(ModelAndView mView);
 }

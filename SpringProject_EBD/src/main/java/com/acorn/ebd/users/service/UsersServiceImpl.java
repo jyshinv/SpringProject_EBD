@@ -171,6 +171,7 @@ public class UsersServiceImpl implements UsersService {
 		
 	}
 	
+	//my diary 네비바에 프로필 이미지 요청처리 
 	@Override
 	public UsersDto getInfomy(HttpSession session) {
 		//로그인 된 아이디를 읽어와서

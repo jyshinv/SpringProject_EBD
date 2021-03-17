@@ -83,5 +83,14 @@ public class WordingDaoImpl implements WordingDao {
 
 	}
 
+
+	//좋아요 수 Best3를 리턴
+	@Override
+	public List<WordingDto> getBestHeartList() {
+		List<WordingDto> list=session.selectList("wording.getBestHeartList");
+		return list;
+	}
+
+
 	
 }

@@ -28,4 +28,7 @@ public interface MarketService {
 	public int saveHeart(int target_num, HttpSession session);
 	public int removeHeart(int target_num, HttpSession session);
 	
+	//홈화면에 최신글 3개를 요청하는 메소드 
+	public void getRecentList(ModelAndView mView);
+	
 }

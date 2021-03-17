@@ -467,6 +467,12 @@ public class MarketServiceImpl implements MarketService {
 	    //하트 개수 정보를 저장할 변수 heartcnt
 	    int heartcnt=marketDao.getHeartCntDetail(target_num);      return heartcnt;
 	}
+
+	@Override
+	public void getRecentList(ModelAndView mView) {
+		// TODO Auto-generated method stub
+		
+	}
 		
 	
 

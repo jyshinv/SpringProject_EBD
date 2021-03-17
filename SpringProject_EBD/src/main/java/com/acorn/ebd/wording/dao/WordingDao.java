@@ -30,4 +30,6 @@ public interface WordingDao {
 	public void update(WordingDto dto);
 	//글을 delete하는 메소드
 	public void delete(int num);
+	//좋아요 best3를 리턴해주는 메소드 
+	public List<WordingDto> getBestHeartList();
 }

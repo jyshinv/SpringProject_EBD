@@ -528,4 +528,10 @@ public class ReportServiceImpl implements ReportService{
 	      return heartcnt;
 	}
 
+	@Override
+	public void getBestHeartList(ModelAndView mView) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

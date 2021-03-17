@@ -211,9 +211,14 @@ public class WordingServiceImpl implements WordingService {
 	@Override
 	public void delete(int num, HttpServletRequest request) {
 		//AOP로 작성자가 아닌 다른 사람이 삭제하는 예외처리 막기  --> aop에서 필요한 정보 num과 request
-		
 		wordingdao.delete(num);
-		
+	}
+
+
+	@Override
+	public void getBestHeartList(ModelAndView mView) {
+		List<WordingDto> list=wordingdao.getBestHeartList();
+		mView.addObject("wordingBestList",list);
 	}
 	
 	

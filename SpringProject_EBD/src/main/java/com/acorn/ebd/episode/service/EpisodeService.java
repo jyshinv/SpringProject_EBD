@@ -35,5 +35,7 @@ public interface EpisodeService {
 	public void moreCommentList(HttpServletRequest request);
 	//에피소드 내용 삭제 요청처리
 	public void deleteDetail(int num);
+	//홈화면에 조회수Best3 요청 메소드
+	public void getBestViewCntList(ModelAndView mView);
 	
 }

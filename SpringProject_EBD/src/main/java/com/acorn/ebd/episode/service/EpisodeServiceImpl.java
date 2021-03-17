@@ -415,5 +415,11 @@ public class EpisodeServiceImpl implements EpisodeService {
 	public void deleteDetail(int num) {
 		dao.deleteDetail(num);
 	}
+
+	@Override
+	public void getBestViewCntList(ModelAndView mView) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

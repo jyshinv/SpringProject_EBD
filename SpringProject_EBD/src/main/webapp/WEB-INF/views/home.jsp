@@ -84,6 +84,21 @@
 	      </div>
 	    </div><!-- /.row -->
 	</div>	
+	<br />
+	<!-- 명언에 넣을 내용 -->
+	<div class="container marketing">
+		<div class="row">
+			<c:forEach var="tmp" items="${wordingBestList }">
+			      <div class="col-lg-4 text-center">
+			      	<p>♥ ${tmp.heartcnt }</p>
+					<img class="card-img-top wording-img" src="${pageContext.request.contextPath }${tmp.profile}" alt="Card image cap">
+			        <h5>${tmp.title }</h5>
+			        <p>${tmp.writer }</p>
+			      	<p> <footer class="blockquote-footer">${tmp.content } ,<cite title="Source Title">${tmp.author }</cite></footer></p>
+			     </div>
+			</c:forEach>
+		</div>
+	</div>	
 	
 	  <br />
     <%-- 독후감 BEST --%>
@@ -194,7 +209,7 @@
 	  </div>
 	</div>
 	
-</div>
+</div><!-- div class="container" -->
 
 
 
