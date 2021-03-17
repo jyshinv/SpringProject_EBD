@@ -58,6 +58,24 @@
 		color:grey;
 		margin-right:5px;
 	}
+	/*버튼 기본 노랑*/
+    .btn{
+    	background-color:#F7DC6F;
+    	/*color:sienna;*/
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    	/*color:sienna;*/
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn-a{
+    	/*color:sienna;*/
+    }
+    .btn-a:hover{
+    	/*color:sienna;*/
+    	text-decoration:none;
+    }
 </style>
 </head>
 <body>
@@ -69,8 +87,8 @@
 	<form action="list.do" method="get">
 		<div class="row justify-content-md-center" style="margin:10px;">
 			<span>
-				<button class="btn btn-primary">
-					<a href="private/uploadform.do" style="color:white">에피소드 작성하러 가기</a>	
+				<button class="btn">
+					<a href="private/uploadform.do" class="btn-a">에피소드 작성하러 가기</a>	
 				</button>
 			</span>
 			<div class="col-2">
@@ -84,7 +102,7 @@
 				<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
 			</div>
 			<span>
-				<button class="btn btn-primary" type="submit">검색</button>
+				<button class="btn" type="submit">검색</button>
 			</span>
 		</div>
 	</form>
@@ -182,7 +200,8 @@
 				<c:choose>
 					<c:when test="${i eq requestScope.pageNum }">
 						<li class="page-item active">
-							<a class="page-link" href="list.do?pageNum=${i }">${i }</a>
+							<!-- 페이지 컬러 변경은 inlinecss만 가능 -->
+							<a class="page-link" href="list.do?pageNum=${i }" style="background-color:#FBEEE6;color:sienna;">${i }</a>
 						</li>
 					</c:when>
 					<c:otherwise>
