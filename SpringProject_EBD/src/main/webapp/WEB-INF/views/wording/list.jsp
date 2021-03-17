@@ -66,6 +66,11 @@
    div{
        text-align: center;
    }
+   
+   /*card의 모서리를 둥글게*/
+   .card{
+   		border-radius: 10px;
+   }
 </style>
 </head>
 <body>
@@ -117,7 +122,7 @@
 								</p>
 								<p>
 									<!-- 닉네임  -->
-									by ${tmp.writer }
+									${tmp.writer }
 								</p>
 								<p>
 									<!-- 하트, 수정, 삭제  -->
