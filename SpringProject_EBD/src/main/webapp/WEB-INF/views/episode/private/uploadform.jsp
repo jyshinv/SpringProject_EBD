@@ -27,27 +27,56 @@
         cursor: inherit;
         display: block;
     }
+    .row{
+    	margin-bottom:5px;
+    }
+    /*버튼 기본 노랑*/
+    .btn {
+    	background-color:#F7DC6F ;
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    }
 </style>
-
-
-
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div class="container">
-	<form action="upload.do" method="post" enctype="multipart/form-data">
-		<div>
-			<label for="title">글 제목</label>
-			<input type="text" id="title" name="title" placeholder="내용을 입력해주세요"/>
+	<form action="upload.do" method="post" enctype="multipart/form-data" class="form-group">
+		<div class="row">
+			<div class="col-2">
+				<label for="title">글 제목</label>
+			</div>
+			<div class="col">
+				<input class="form-control" type="text" id="title" name="title" placeholder="내용을 입력해주세요"/>
+			</div>
 		</div>
-		이미지<input type="text" id="fileName" placeholder="이미지를 첨부해주세요" disabled/>
-		<label for="image" class="btn btn-primary btn-file">
-			파일추가<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
-			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
-		</label>
-		<br />
-		<label for="content">내용</label>
-		<input type="text" id="content" name="content" /><br />
-		<button type="submit">등록</button>
+		<div class="row">
+			<div class="col-2">
+				<label for="image" class="col-form-label">이미지 첨부</label>
+			</div>
+			<div class="col-8" style="padding-right:0px;">
+				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" disabled/>
+			</div>
+			<div class="col" style="padding-left:0px;">
+				<label for="image" class="btn btn-file" style="margin-bottom:0px;">파일첨부
+				<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
+				accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-2">
+				<label for="content" class="col-form-label">내용</label>
+			</div>
+			<div class="col">
+				<textarea class="form-control" type="text" id="content" name="content" style="height:200px;"></textarea>
+			</div>
+		</div>
+		<div class="text-center" style="margin-top:50px; margin-bottom:50px;">
+			<button class="btn" type="submit">등록</button>
+		</div>
 	</form>
 </div>
 </body>
