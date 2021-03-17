@@ -20,68 +20,138 @@
 		/* 원본 크기의 1.1 배로 확대 시키기*/
 		transform: scale(1.05);
 	}
-	
-	.card .card-text{
+	#img{
+		object-fit: cover;
+		background-position:center;
+		
+	}
+	.card .card-title{
 		/* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
 		display:block;
 		white-space : nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
+		color:black;
+		text-align:center;
 	}
-	
+	.card{
+		margin:5px;
+	}
 	.heart-link{
-		font-size : 2em;
+		/*font-size : 2em;*/
 	}
-	
+	.card-body{
+	    padding-top: 10px;
+	    padding-bottom: 10px;
+	    height: 50px;
+	}
+	.card-footer{
+		background-color:rgba(0, 0, 0, 0);
+		padding-bottom:0px;
+	}
+	#img{
+		object-fit: cover;
+		background-position:center;
+		
+	}
+	.ep-regdate{
+		color:grey;
+		margin-right:5px;
+	}
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar2.jsp"></jsp:include>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="episode" name="thisPage"/>
+</jsp:include>
 <div class="container">
-	<a href="private/uploadform.do">에피소드 작성하러 가기</a>	
-	<h1>에피소드 목록 입니다.</h1>
-	<div class="row" id="galleryList">
+	<!-- 검색 -->
+	<form action="list.do" method="get">
+		<div class="row justify-content-md-center" style="margin:10px;">
+			<span>
+				<button class="btn btn-primary">
+					<a href="private/uploadform.do" style="color:white">에피소드 작성하러 가기</a>	
+				</button>
+			</span>
+			<div class="col-2">
+				<select class="form-control" name="condition" id="condition">
+					<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
+					<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
+					<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+				</select>
+			</div>
+			<div class="col-md-6">
+				<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
+			</div>
+			<span>
+				<button class="btn btn-primary" type="submit">검색</button>
+			</span>
+		</div>
+	</form>
+	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
+	<c:if test="${not empty keyword }">
+		<div class="alert alert-success">
+			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
+		</div>
+	</c:if>
+	<div class="row row-cols-1 row-cols-md-3" id="galleryList">
 		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
 		<%int isCheck=0; %>
 		<!-- tmp는 GalleryDto type임 따라서 Dto의 필드명을 정확하게 명시해주어야한다. (tmp가 무슨타입인지 정확히 알고있어야한다.)-->
 		<c:forEach var="tmp" items="${list }">
-			<div class="col-6 col-md-4 col-lg-3">
-				<div class="card mb-3">
-					<a href="detail.do?num=${tmp.num }">
-						<div class="img-wrapper">
-							<!-- 아래 코드의 src 해석결과는 spring05/upload/xxx.jpg임! DB의 imagePath컬럼에 저장된 값을 확인해볼 것 -->
-							<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imgPath}" />
-						</div>
-					</a>
+			<div class="col">
+				<div class="card" style="width: 18rem;">
+					<div style="height:255px;">
+						<figure>
+							<a href="detail.do?num=${tmp.num }">
+								<!-- 아래 코드의 src 해석결과는 spring05/upload/xxx.jpg임! DB의 imagePath컬럼에 저장된 값을 확인해볼 것 -->
+								<img class="card-img-top img-wrapper" id="img" src="${pageContext.request.contextPath }${tmp.imgPath}" />
+							</a>
+						</figure>
+					</div>
 					<div class="card-body">
-						<p class="card-text">${tmp.title }</p>
-						<p class="card-text">by <strong>${tmp.writer }</strong></p>
-						<p><small>${tmp.regdate }</small></p>
-						<c:if test="${empty id }">
-							<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-							<span>♥</span>
-							<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>
-							</c:forEach>
-						</c:if>
-						<!-- 로그인이 된 사용자만 볼 수 있다. -->
-						<c:if test="${not empty id }">
-							<p>
-								<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
-								<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
+						<div class="row">
+						<!-- 프로필 이미지를 넣어주세욥! -->
+						
+						<p class="col card-text"><strong>${tmp.writer }</strong></p>
+						<span class="col text-right">
+							<c:if test="${empty id }">
 								<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-									<c:choose>
-										<c:when test="${isHeartClickList[i] eq 0 }">
-											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>										
-										</c:when>
-										<c:otherwise>
-											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
-										</c:otherwise>
-									</c:choose>
-									<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>						
+								<span>♥</span>
+								<span class="heart-cnt${tmp.num }">(${heartCntList[i]})</span>
 								</c:forEach>
-							</p>
-						</c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
-						<span>조회수 : ${tmp.viewcnt }</span>						
+							</c:if>
+							<!-- 로그인이 된 사용자만 볼 수 있다. -->
+							<c:if test="${not empty id }">
+								<span>
+									<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
+									<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
+									<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+										<c:choose>
+											<c:when test="${isHeartClickList[i] eq 0 }">
+												<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>										
+											</c:when>
+											<c:otherwise>
+												<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+											</c:otherwise>
+										</c:choose>
+										<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>						
+									</c:forEach>
+								</span>
+							</c:if><!-- 로그인 된 사용자만 볼 수 있는 곳 -->
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+</svg>
+							<small>${tmp.viewcnt }</small>						
+						</span>
+						</div>
+					</div>
+					<div class="card-footer">
+						<p class="card-title">${tmp.title }</p>
+					</div>
+					<div class="text-right">
+						<small class="ep-regdate">${tmp.regdate }</small>
 					</div>
 				</div>
 			</div>
@@ -138,23 +208,7 @@
 		</ul>
 	</nav>
 	
-	<!-- 검색 -->
-	<form action="list.do" method="get">
-		<label for="condition">검색조건</label>
-		<select name="condition" id="condition">
-			<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
-			<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
-			<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
-		</select>
-		<input type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
-		<button type="submit">검색</button>
-	</form>
-	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
-	<c:if test="${not empty keyword }">
-		<div class="alert alert-success">
-			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
-		</div>
-	</c:if>
+	
 </div>
 <script>
 	//하트를 클릭할 때마다 호출되는 함수 등록
@@ -170,7 +224,7 @@
 				method:"GET",
 				data: "target_num="+target_num,
 				success:function(data){ //나중에 구현 : 하트 수를 반환
-					$(".heart-cnt"+target_num).text("("+data.heartCnt+")");
+					$(".heart-cnt"+target_num).text(data.heartCnt);
 				}
 			});
 			$(this).text("♥"); //하트 눌림으로 바뀐다.
@@ -184,7 +238,7 @@
 				method:"GET",
 				data: "target_num="+target_num,
 				success:function(data){
-					$(".heart-cnt"+target_num).text("("+data.heartCnt+")");
+					$(".heart-cnt"+target_num).text(data.heartCnt);
 				} 				
 			});
 			
