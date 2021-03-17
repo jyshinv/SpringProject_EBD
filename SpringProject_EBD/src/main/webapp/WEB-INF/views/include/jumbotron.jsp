@@ -16,7 +16,7 @@
 </style>
 
 <%-- jumbotron --%>
-<div class="jumbotron jumbotron-fluid" style="background-color: #e3f2fd;">
+<div class="jumbotron jumbotron-fluid" style="background-color: #FEF9E7;">
   <div class="container">
   	<table class="jumbotron_table">
   		<tr>
