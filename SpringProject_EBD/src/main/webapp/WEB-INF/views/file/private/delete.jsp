@@ -9,7 +9,7 @@
 <body>
 <!-- 독후감 양식 파일(게시글) 삭제 -->
 <script>
-	alert("삭제 완료!");
+	alert("삭제 완료");
 	location.href="${pageContext.request.contextPath}/file/list.do";
 </script>
 </body>

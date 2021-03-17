@@ -8,14 +8,18 @@
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM
 				(SELECT num, writer, title, orgfname, savefname,
-					fileSize, imgpath, content, viewcnt, regdate
-				FROM ebd_file
+					fileSize, imgpath, content, viewcnt, 
+					ebd_file.regdate, profile
+				FROM ebd_file, ebd_users
 				<choose>
 					<when test="title != null">
-						WHERE title LIKE '%'||#{title}||'%'
+						WHERE title LIKE '%'||#{title}||'%' AND (ebd_file.writer=ebd_users.nick)
 					</when>
 					<when test="writer != null">
-						WHERE writer LIKE '%'||#{writer}||'%'
+						WHERE writer LIKE '%'||#{writer}||'%' AND (ebd_file.writer=ebd_users.nick)
+					</when>
+					<when test="title == null and writer==null">
+						WHERE ebd_file.writer=ebd_users.nick
 					</when>
 				</choose>
 				ORDER BY num DESC) result1)
@@ -36,15 +40,15 @@
 	</select>
 	
 	<select id="getData" parameterType="int" resultType="fileDto">
-		SELECT *
+		SELECT r1.*, ebd_users.profile
 		FROM
 			(SELECT num, writer, title, orgfname, savefname, fileSize, 
 				imgpath, content, viewcnt, regdate,
 				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
 				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
 			FROM ebd_file 
-			ORDER BY num DESC)
-		WHERE num=#{num}
+			ORDER BY num DESC) r1, ebd_users
+		WHERE num=#{num} AND r1.writer=ebd_users.nick
 	</select>
 	
 	<insert id="insert" parameterType="fileDto">

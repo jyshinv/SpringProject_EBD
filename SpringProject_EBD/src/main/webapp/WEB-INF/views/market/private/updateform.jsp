@@ -97,14 +97,13 @@
 	 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 	 		</label>
 	 		<br />
-	 		<small class="text-muted">수정할 이미지를 넣어주세요</small>
 	 	</div>
 	 	<br />
 	 	<div class="form-group">
 		    <textarea class="form-control" type="text" name="content" id="content">${dto.content }</textarea>
 		</div>
 		<button class="btn btn-dark" type="submit" onclick="submitContents(this);" >수정 완료</button>
-		<button class="btn btn-dark" type="reset">입력 내용 취소</button>
+		<button class="btn btn-dark" type="reset" >취소</button>
 	 </form>
 </div>
 

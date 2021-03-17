@@ -52,7 +52,6 @@
 	<form action="update.do" method="post" enctype="multipart/form-data">
 	 	<input type="hidden" name="num" value="${dto.num }"/>
 	 	<input type="hidden" name="imgpath" value="${dto.imgpath }" } />
-	 	
 	 	<input type="hidden" name="orgfname" value="${dto.orgfname }" } />
 	 	<input type="hidden" name="savefname" value="${dto.savefname }" } />
 	 	<input type="hidden" name="fileSize" value="${dto.fileSize }" } />
@@ -72,7 +71,7 @@
 	 		<br />
 	 		<small class="text-muted">수정할 독후감 양식파일을 넣어주세요</small>
 	 	</div>
-	 	
+	 	<br />
 	 	<!-- 이미지 업로드 -->
 	 	<div>
 	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />

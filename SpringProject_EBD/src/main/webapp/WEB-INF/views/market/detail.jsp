@@ -70,10 +70,12 @@
 	  border: 1px solid #ccc;
 	  border-radius: 4px;
 	}
+	
 	/* 글 내용중에 이미지가 있으면 최대 폭을 100%로 제한하기 */
 	.contents img{
 		max-width: 100%;
 	}
+	
 	.loader{
 		position: fixed; /* 좌하단 고정된 위치에 배치 하기 위해 */
 		width: 100%;
@@ -82,132 +84,173 @@
 		text-align: center; /* 이미지를 좌우로 가운데  정렬 */
 		z-index: 1000;
 		display: none; /* 일단 숨겨 놓기 */
-	}	
+	}
 	
 	/* 하트 스타일 */
 	.heart-link{
       font-size : 2em;
+      color:red;
    }
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
-      width: 50px;
-      height: 50px;
+      width: 30px;
+      height: 30px;
       border: 1px solid #cecece;
       border-radius: 50%;
+   }
+   
+   .card-padding{
+   		padding: 10px;
+   }
+   
+   .badge-size{
+   		font-size : 20px;
+   }
+   
+   .market-img{
+   		
    }
 </style>
 </head>
 <body>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="market" name="thisPage"/>
+</jsp:include>
 <div class="container">
-	<div class="card mb-3">
-		<!-- 프로필 이미지 -->
-		<c:choose>
-	         <c:when test="${empty dto.profile }">
-	            <!-- 비어있다면 기본이미지 -->
-	            <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-	                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-	            </svg>
-	         </c:when>
-	         <c:otherwise>
-	            <!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
-	            <img id="profileImage" src="${pageContext.request.contextPath }${dto.profile}"/>
-	         </c:otherwise>
-      	</c:choose>
-		<h5 class="card-title">${dto.writer }</h5>
-		<img class="card-img-top" src="${pageContext.request.contextPath }${dto.imgpath}"
-		  	alt="Card image cap">
+	<br />
+	<div class="card mb-3 card-padding">
+		<!-- 제목 -->
+		<h3 class="card-title" style=" text-align: center;">${dto.title }</h3>
+		<h5 class="card-text">
+			<!-- 프로필 이미지 -->
+			<c:choose>
+		         <c:when test="${empty dto.profile }">
+		            <!-- 비어있다면 기본이미지 -->
+		            <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+		                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+		            </svg>
+		         </c:when>
+		         <c:otherwise>
+		            <!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
+		            <img id="profileImage" src="${pageContext.request.contextPath }${dto.profile}"/>
+		         </c:otherwise>
+	      	</c:choose>
+	   		<!-- 작성자(닉네임) -->
+			${dto.writer }
+		</h5>
+		<!-- 조회수 & 등록일 -->
+		<p class="card-text text-right">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+			  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+			  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+			</svg><small> ${dto.viewCnt } </small> 
+			<small class="text-muted"> ${dto.regdate }</small> 
+		</p>
+		<!-- 이미지 -->
+		<img class="card-img-top" 
+			src="${pageContext.request.contextPath }${dto.imgpath}" alt="Card image cap">
 		  	  	
 		<div class="card-body">
-	  		<p class="card-text">${dto.salesType } <strong>|</strong> ${dto.salesStatus }</p>
-	  		<!-- 디테일 페이지에서 수정 할 수 있게 만들기 -->
-	  		<c:if test="${dto.writer eq nick }">
-	  			<p class="card-text">
-		  			<form action="${pageContext.request.contextPath }/market/private/updateStatus.do" method="post">
-		  				<input type="hidden" name="num" value="${dto.num }"/>
-		  				<table>
-		  					<td>
-		  						<select class="form-control" name="salesStatus" id="salesStatus">
-		  							<c:if test="${dto.salesStatus eq '판매 중' || dto.salesStatus eq '판매 완료' }">
-							 			<c:choose>
-											<c:when test="${dto.salesStatus eq '판매 중'}">
-												<option>${dto.salesStatus}</option>
-												<option>판매 완료</option>
-											</c:when>
-											<c:otherwise>
-												<option>${dto.salesStatus}</option>
-												<option>판매 중</option>
-											</c:otherwise>
-										</c:choose>
-		  							</c:if>
-		  							<c:if test="${dto.salesStatus eq '나눔 중' || dto.salesStatus eq '나눔 완료' }">
-										<c:choose>
-											<c:when test="${dto.salesStatus eq '나눔 중' }">
-												<option>${dto.salesStatus}</option>
-												<option>나눔 완료</option>
-											</c:when>
-											<c:otherwise>
-												<option>${dto.salesStatus}</option>
-												<option>나눔 중</option>
-											</c:otherwise>
-										</c:choose>
-		  							</c:if>
-		  							<c:if test="${dto.salesStatus eq '교환 중' || dto.salesStatus eq '교환 완료' }">
-										<c:choose>
-											<c:when test="${dto.salesStatus eq '교환 중' }">
-												<option>${dto.salesStatus}</option>
-												<option>교환 완료</option>
-											</c:when>
-											<c:otherwise>
-												<option>${dto.salesStatus}</option>
-												<option>교환 중</option>
-											</c:otherwise>
-										</c:choose>
-		  							</c:if>
-						 		</select>
-		  					</td>
-		  					<td>
-		  						<button class="btn btn-secondary" type="submit">판매상태 저장 하기</button>
-		  					</td>
-		  				</table>
-		  				<p class="card-text"><small class="text-muted">판매 유형을 변경 하고 싶으시면 변경해주세요</small></p>
-		  			</form>
-		  		</p>
-	  		</c:if>
-	  	
-	  		<p class="card-text"><strong>${dto.title }</strong></p>
+			<div class="row">
+				<div class="col text-left">
+					<!-- 로그인했으면 하트 -->
+					<c:if test="${not empty nick }">
+				       <c:choose>
+				          <c:when test="${isheartclick eq true }">
+				             <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+				          </c:when>
+				          <c:otherwise>
+				             <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
+				          </c:otherwise>
+				       </c:choose>
+				       <span class="heart-cnt">${heartcnt }</span>  
+				    </c:if>
+				    <!-- 로그인안했으면 하트 -->
+				    <c:if test="${empty id }">
+				            <span>♥</span>
+				            <span class="heart-cnt">${heartcnt }</span>
+				    </c:if>
+				    <!-- 작성자만 보이게 수정/삭제-->
+				    <c:if test="${dto.writer eq nick }">
+				    	<a href="${pageContext.request.contextPath }/market/private/updateform.do?num=${dto.num}" style="color:black;" >
+					 		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+							  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+							</svg>
+					 	</a>
+						<a href="${pageContext.request.contextPath }/market/private/delete.do?num=${dto.num}" style="color:black;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+							  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+							  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+							</svg>
+						</a>
+				    </c:if>
+				</div>
+				<!-- 디테일 페이지에서 수정 할 수 있게 만들기 -->
+				<div class="col text-right">
+		  			<c:if test="${dto.writer eq nick }">
+			  			<form action="${pageContext.request.contextPath }/market/private/updateStatus.do" method="post">
+			  				<input type="hidden" name="num" value="${dto.num }"/>
+			  				
+	  						<select name="salesStatus" id="salesStatus">
+	  							<c:if test="${dto.salesStatus eq '판매 중' || dto.salesStatus eq '판매 완료' }">
+						 			<c:choose>
+										<c:when test="${dto.salesStatus eq '판매 중'}">
+											<option>${dto.salesStatus}</option>
+											<option>판매 완료</option>
+										</c:when>
+										<c:otherwise>
+											<option>${dto.salesStatus}</option>
+											<option>판매 중</option>
+										</c:otherwise>
+									</c:choose>
+	  							</c:if>
+	  							<c:if test="${dto.salesStatus eq '나눔 중' || dto.salesStatus eq '나눔 완료' }">
+									<c:choose>
+										<c:when test="${dto.salesStatus eq '나눔 중' }">
+											<option>${dto.salesStatus}</option>
+											<option>나눔 완료</option>
+										</c:when>
+										<c:otherwise>
+											<option>${dto.salesStatus}</option>
+											<option>나눔 중</option>
+										</c:otherwise>
+									</c:choose>
+	  							</c:if>
+	  							<c:if test="${dto.salesStatus eq '교환 중' || dto.salesStatus eq '교환 완료' }">
+									<c:choose>
+										<c:when test="${dto.salesStatus eq '교환 중' }">
+											<option>${dto.salesStatus}</option>
+											<option>교환 완료</option>
+										</c:when>
+										<c:otherwise>
+											<option>${dto.salesStatus}</option>
+											<option>교환 중</option>
+										</c:otherwise>
+									</c:choose>
+	  							</c:if>
+					 		</select>
+							<button class="btn btn-link" type="submit">
+								<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+			                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+			                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+			                    </svg>
+							</button>
+						</form>
+		  			</c:if>	
+				</div><!-- col -->
+			</div><!-- row -->
+										
+			<!-- 판매유형/상태 -->
+	  		<p class="card-text badge-size">
+	  			<span class="badge badge-pill badge-info">${dto.salesType }</span>
+	  			<span class="badge badge-pill badge-success">${dto.salesStatus }</span>
+	  		</p>
+	  		<!-- 내용 -->
 		    <p class="card-text">${dto.content }</p>
-		    <p class="card-text"><small class="text-muted">${dto.regdate }</small></p>
-		</div>	
-	</div>
+		</div><!-- card body -->
+	</div><!-- card -->
 	
-	<!-- 로그인했으면 하트 -->
-	<c:if test="${not empty nick }">
-       <c:choose>
-          <c:when test="${isheartclick eq true }">
-             <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
-          </c:when>
-          <c:otherwise>
-             <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
-          </c:otherwise>
-       </c:choose>
-       <span class="heart-cnt">(${heartcnt })</span>  
-    </c:if>
-    <c:if test="${empty id }">
-            <span>♥</span>
-            <span class="heart-cnt">(${heartcnt })</span>
-    </c:if>
-    
-	<!-- 작성자만 보이게-->
-    <c:if test="${dto.writer eq nick }">
-	    <div class="btnStyle">
-	    	<a href="${pageContext.request.contextPath }/market/private/updateform.do?num=${dto.num}" class="btn btn-dark" >
-		 		수정</a>
-			<a href="${pageContext.request.contextPath }/market/private/delete.do?num=${dto.num}" class="btn btn-dark">
-				삭제</a>
-	    </div>
-    </c:if>	
-    
     <!-- 페이징 -->
 	<nav>
 		<ul class="pagination justify-content-center">
@@ -309,12 +352,13 @@
 			</c:forEach>
 		</ul>
 	</div>
-</div>
+</div><!-- container -->
+
 <div class="loader">
 	<img src="${pageContext.request.contextPath }/resources/images/ajax-loader.gif"/>
 </div>
-<script>
 
+<script>
 //하트를 클릭할 때마다 호출되는 함수 등록
 $(document).on("click",".heart-link",function(){
    //글 번호를 불러온다.
