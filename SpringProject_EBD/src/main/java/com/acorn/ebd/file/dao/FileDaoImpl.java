@@ -62,14 +62,14 @@ public class FileDaoImpl implements FileDao {
 	/* 하트 관련 */
 	
 	@Override
-	public void insertHeart(MarketDto dto) {
+	public void insertHeart(FileDto dto) {
 		// 하트 저장 
-		session.insert("file.insertH",dto);
+		session.insert("file.insertHeart",dto);
 		
 	}
 
 	@Override
-	public void deleteHeart(MarketDto dto) {
+	public void deleteHeart(FileDto dto) {
 		// 하트 삭제
 		session.delete("file.deleteHeart",dto);
 		

@@ -77,7 +77,7 @@
 	</update>
 	
 	<!-- 하트를 클릭했을 때 로그인된 닉네임 정보와 하트를 클릭한 글의 num을 insert해준다. -->
-    <insert id="insertH" parameterType="fileDto">
+    <insert id="insertHeart" parameterType="fileDto">
        INSERT INTO ebd_file_heart
        (num, target_num, writer)
        VALUES(ebd_file_heart_seq.NEXTVAL, #{num}, #{nick})

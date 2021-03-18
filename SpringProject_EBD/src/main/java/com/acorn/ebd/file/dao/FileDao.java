@@ -22,8 +22,8 @@ public interface FileDao {
 	public void addViewCount(int num);
 	
 	// 하트 관련
-	public void insertHeart(MarketDto dto);
-	public void deleteHeart(MarketDto dto);
+	public void insertHeart(FileDto dto);
+	public void deleteHeart(FileDto dto);
 	public List<Integer> getHeartInfo(FileDto dto); //하트 정보
 	public List<Integer> getHeartCnt(FileDto dto); //하트 갯수
 	public boolean getHeartInfoDetail(FileDto dto);

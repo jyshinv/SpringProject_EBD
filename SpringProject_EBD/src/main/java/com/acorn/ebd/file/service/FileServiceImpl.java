@@ -17,7 +17,6 @@ import com.acorn.ebd.file.dao.FileCmtDao;
 import com.acorn.ebd.file.dao.FileDao;
 import com.acorn.ebd.file.dto.FileCmtDto;
 import com.acorn.ebd.file.dto.FileDto;
-import com.acorn.ebd.market.dto.MarketDto;
 
 @Service
 public class FileServiceImpl implements FileService{
@@ -495,7 +494,7 @@ public class FileServiceImpl implements FileService{
 	@Override
 	public int saveHeart(int target_num, HttpSession session) {
 		String nick=(String)session.getAttribute("nick");
-		MarketDto dto=new MarketDto();
+		FileDto dto=new FileDto();
 	    dto.setNick(nick);
 	    dto.setNum(target_num);
 	    fdao.insertHeart(dto);
@@ -511,7 +510,7 @@ public class FileServiceImpl implements FileService{
 	public int removeHeart(int target_num, HttpSession session) {
 		
 		String nick=(String)session.getAttribute("nick");
-		MarketDto dto=new MarketDto();
+		FileDto dto=new FileDto();
 		dto.setNick(nick);
 		dto.setNum(target_num);
 	      
@@ -523,6 +522,7 @@ public class FileServiceImpl implements FileService{
 	    return heartcnt;
 	}
 
+	//조회수 top3를 불러오는 메소드 
 	@Override
 	public void getBestViewCntList(ModelAndView mView) {
 		List<FileDto> list=fdao.getBestViewCntList();
