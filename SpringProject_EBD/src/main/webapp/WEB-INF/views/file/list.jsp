@@ -94,12 +94,10 @@
 									<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
 										<c:choose>
 											<c:when test="${isHeartClickList[i] eq 0 }">
-												<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">
-												♡</a>                              
+												<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
 											</c:when>
 											<c:otherwise>
-												<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">
-												♥</a>
+												<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
 											</c:otherwise>
 										</c:choose>
 										<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>                  
