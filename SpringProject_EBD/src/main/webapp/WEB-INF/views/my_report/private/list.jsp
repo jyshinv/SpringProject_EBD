@@ -207,6 +207,7 @@
 </head>
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
+<jsp:include page="../../include/mydiary_jumbotron.jsp"></jsp:include>
 <jsp:include page="../../include/mydiarynav.jsp">
 	<jsp:param value="my_report" name="thisPage"/>
 </jsp:include>

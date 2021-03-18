@@ -14,6 +14,11 @@
 	#mdnavbar{
 		border-top: 1px lightgrey solid;
 	}
+	/* 닉네임 프로필 사진 간격 조절 */
+	.nick{
+		margin-top: 16px;
+		margin-bottom: 0px;
+	}
 </style>
 <div class="container ">
 	<div class="container text-center">
@@ -24,7 +29,7 @@
 			<img id="profileImage2" src="">
 		</div>
 		<div>
-			<p style="font-size:40px;">${sessionScope.nick }</p>
+			<p style="font-size:40px;" class="nick">${sessionScope.nick }</p>
 			<p style="color:grey;font-size:20px;">${sessionScope.id }</p>
 		</div>
 	</div>

@@ -17,17 +17,16 @@
   			<td>
   				<h1 class="display-4">
   					<b>
-	  					Sharing <br/>
-	  					a Book Review
+	  					Every moment<br/> 
+	  					written in My Diary!
   					</b>
   				</h1>
    		 		<p class="lead">
-   		 			당신이 경험한 새로운 세계를 다른 사람들과 공유해보세요.<br />
-   		 			빛나는 작은 씨앗이 예쁜 꽃이 되어 무럭무럭 자랄거예요.
+   		 			에브리북데이에서 함께한 시간들을 추억해 보세요.
    		 		</p>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/public_report.png" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/mydiary.png" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>
