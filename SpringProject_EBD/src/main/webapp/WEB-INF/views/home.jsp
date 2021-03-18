@@ -65,6 +65,7 @@
 				<c:choose>
 					<c:when test="${empty wordingBestList[i] }">
 						<div class="col-lg-4 text-center">
+							<p>BEST ${i+1 }</p>
 							<img class="card-img-top wording-img" src="https://i.pinimg.com/originals/95/a5/10/95a51074afed9b72b537b78b94f0a041.jpg" alt="Card image cap">
 					        <h5>아직 준비가 되지 않았어요! </h5>
 					        <p>여러분들의 참여 부탁드립니당!</p>
@@ -73,6 +74,7 @@
 					</c:when>
 					<c:otherwise>
 						 <div class="col-lg-4 text-center">
+							<p>BEST ${i+1 }</p>
 					      	<p>♥ ${wordingBestList[i].heartcnt }</p>
 							<img class="card-img-top wording-img" src="${pageContext.request.contextPath }${wordingBestList[i].profile}" alt="Card image cap">
 					        <h5>${wordingBestList[i].title }</h5>
@@ -97,6 +99,7 @@
 			<c:choose>
 			  	<c:when test="${ empty reportBestList[i] }">
 			  		<div class="card">
+			  			<p>BEST ${i+1 }</p>
 					    <img class="card-img-top" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" alt="Card image cap">
 					    <div class="card-body">
 					      <p class="card-text">아직 준비가 되지 않았어요! 여러분들의 참여 부탁드립니다!</p>
@@ -105,7 +108,8 @@
 					 </div>
 			  	</c:when>
 			  	<c:otherwise>
-					<div class="card">
+					<div class="card">	
+						<p>BEST ${i+1 }</p>
 					    <img class="card-img-top" src="${pageContext.request.contextPath }${reportBestList[i].imgpath}" alt="Card image cap">
 					    <div class="card-body">
 					      <p class="card-text">♥${reportBestList[i].heartcnt }</p>
@@ -129,10 +133,10 @@
 				<!-- 글이 없다면 기본문구를 삽입, 글이 있다면 글을 삽입 -->
 				<c:choose>
 					<c:when test="${empty fileBestList[i] }">
-						<li class="list-group-item">아직 준비되지 않았어요! 여러분들의 참여를 부탁드립니다~</li>	
+						<p>BEST ${i+1 }</p><li class="list-group-item">아직 준비되지 않았어요! 여러분들의 참여를 부탁드립니다~</li>	
 					</c:when>
 					<c:otherwise>						
-					    <li class="list-group-item">viewcnt : ${fileBestList[i].viewcnt} <a href="${pageContext.request.contextPath }/file/detail.do?num=${fileBestList[i].num }">${fileBestList[i].title }</a></li>
+					    <p>BEST ${i+1 }</p><li class="list-group-item">viewcnt : ${fileBestList[i].viewcnt} <a href="${pageContext.request.contextPath }/file/detail.do?num=${fileBestList[i].num }">${fileBestList[i].title }</a></li>
 					</c:otherwise>
 				</c:choose>				
 			</c:forEach>
@@ -148,6 +152,7 @@
 			 <c:choose>
 				 <c:when test="${empty marketList[i] }">
 				 	<div class="card">
+				 		<p>BEST ${i+1 }</p>
 					    <img class="card-img-top" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" alt="Card image cap">
 					    <div class="card-body">
 					      <h6 class="card-title">아직 준비가 안됐어요!</h6>
@@ -157,6 +162,7 @@
 				 </c:when>
 				 <c:otherwise>
 				 	 <div class="card">
+				 	 	<p>BEST ${i+1 }</p>
 					    <img class="card-img-top" src="${pageContext.request.contextPath }${marketList[i].imgpath}" alt="Card image cap">
 					    <div class="card-body">
 					      <h6 class="card-title">${marketList[i].title }</h6>
@@ -184,6 +190,7 @@
 			<c:choose>
 				<c:when test="${empty episodeBestList[i] }">
 					<div class="card">
+						<p>BEST ${i+1 }</p>
 					    <img class="card-img-top" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" alt="Card image cap">
 					    <div class="card-body">
 					      <h6 class="card-title">아직 준비가 안됐어요!</h6>
@@ -193,6 +200,7 @@
 				</c:when>
 				<c:otherwise>
 					<div class="card">
+						<p>BEST ${i+1 }</p>
 					    <img class="card-img-top" src="${pageContext.request.contextPath }${episodeBestList[i].imgPath}" alt="Card image cap">
 					    <div class="card-body">
 					      <h6 class="card-title">조회수 : ${episodeBestList[i].viewcnt }</h6>
