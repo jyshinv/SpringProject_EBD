@@ -158,6 +158,14 @@
        FROM ebd_file_heart
        WHERE target_num=#{num} and writer=#{nick}          
     </select>
+    
+    <!-- 조회수 높은 순 Best5를 불러오는 메소드 -->
+    <select id="getBestViewCntList" resultType="fileDto">
+    	SELECT num, writer, title, orgfname, savefname, fileSize, imgpath, content, viewcnt, regdate
+		FROM ebd_file
+		WHERE ROWNUM BETWEEN 1 AND 5
+		ORDER BY viewcnt DESC 
+    </select>
    
     
     

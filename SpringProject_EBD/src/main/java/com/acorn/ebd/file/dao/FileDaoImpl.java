@@ -103,4 +103,11 @@ public class FileDaoImpl implements FileDao {
 		 return session.selectOne("file.getHeartCntDetail",num);
 	}
 
+	//조회수 높은 순 5개를 리턴해줌 
+	@Override
+	public List<FileDto> getBestViewCntList() {
+		List<FileDto> list=session.selectList("file.getBestViewCntList");
+		return list;
+	}
+
 }

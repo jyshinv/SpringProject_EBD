@@ -525,8 +525,8 @@ public class FileServiceImpl implements FileService{
 
 	@Override
 	public void getBestViewCntList(ModelAndView mView) {
-		// TODO Auto-generated method stub
-		
+		List<FileDto> list=fdao.getBestViewCntList();
+		mView.addObject("fileBestList",list);
 	}
 	
 }

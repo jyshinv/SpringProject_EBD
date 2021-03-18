@@ -28,4 +28,7 @@ public interface FileDao {
 	public List<Integer> getHeartCnt(FileDto dto); //하트 갯수
 	public boolean getHeartInfoDetail(FileDto dto);
 	public int getHeartCntDetail(int num);
+	
+	//조회수 높은 순대로 TOP5를 리턴하는 메소드 
+	public List<FileDto> getBestViewCntList();
 }

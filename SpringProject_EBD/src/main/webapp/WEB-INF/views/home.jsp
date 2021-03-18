@@ -96,7 +96,9 @@
 	<!-- 명언에 넣을 내용 -->
 	<div class="container marketing">
 		<div class="row">
+			<%int isCheck=0; %>
 			<c:forEach var="tmp" items="${wordingBestList }">
+					<%isCheck++; %>
 			      <div class="col-lg-4 text-center">
 			      	<p>♥ ${tmp.heartcnt }</p>
 					<img class="card-img-top wording-img" src="${pageContext.request.contextPath }${tmp.profile}" alt="Card image cap">
@@ -104,6 +106,14 @@
 			        <p>${tmp.writer }</p>
 			      	<p> <footer class="blockquote-footer">${tmp.content } ,<cite title="Source Title">${tmp.author }</cite></footer></p>
 			     </div>
+			</c:forEach>			     
+			<c:forEach var="i" begin="<%=isCheck %>" end="2">
+				<div class="col-lg-4 text-center">
+						<img class="card-img-top wording-img" src="https://i.pinimg.com/originals/95/a5/10/95a51074afed9b72b537b78b94f0a041.jpg" alt="Card image cap">
+				        <h5>아직 준비가 되지 않았어요! </h5>
+				        <p>여러분들의 참여 부탁드립니당!</p>
+				       	 <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+				</div>
 			</c:forEach>
 		</div>
 	</div>	
@@ -140,7 +150,9 @@
 	
 	<!-- 독후감 BEST3 내용 reportBestList -->
 	<div class="card-deck" >
+		<%isCheck=0; %>
 		<c:forEach var="tmp" items="${reportBestList }">
+			<%isCheck++; %>
 			<div class="card">
 			    <img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imgpath}" alt="Card image cap">
 			    <div class="card-body">
@@ -150,6 +162,15 @@
 				</div>
 		  	</div>
 		</c:forEach>
+	  	<c:forEach var="i" begin="<%=isCheck %>" end="2">
+	  		<div class="card">
+			    <img class="card-img-top" src="https://freight.cargo.site/t/original/i/3aaeb6e85db4d1a64043744a47249c05c1c3a58fb9989447cbc5241765359ba3/Mockup.jpg" alt="Card image cap">
+			    <div class="card-body">
+			      <p class="card-text">아직 준비가 되지 않았어요! 여러분들의 참여 부탁드립니다!</p>
+			      <p class="card-text"><footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer></p>
+			    </div>
+			 </div>
+	  	</c:forEach>
 	</div>
 	
 	
@@ -167,6 +188,21 @@
 	    <li class="list-group-item">Download Title 5</li>
 	  </ul>
 	</div>
+
+	<!-- 독후감 양식 조회수 BEST5 -->	
+	<div class="card">
+		<ul class="list-group list-group-flush">
+			<%isCheck=0; %>
+			<c:forEach var="tmp" items="${fileBestList }">				
+				<%isCheck++; %>
+			    <li class="list-group-item">viewcnt : ${tmp.viewcnt} <a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num }">${tmp.title }</a></li>
+			</c:forEach>
+			<c:forEach var="i" begin="<%=isCheck %>" end="4">
+			    <li class="list-group-item">아직 준비되지 않았어요! 여러분들의 참여를 부탁드립니다~</li>			    	
+			</c:forEach>
+		</ul>
+	</div>
+	
 	<br />
 	<h4>TOP 3 도서 매물</h4>
 	<p>따끈따끈한 도서 매물 구경하러가기

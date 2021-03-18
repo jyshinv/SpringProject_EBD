@@ -52,8 +52,8 @@ public class HomeController {
 	public ModelAndView home(ModelAndView mView) {
 		wording_service.getBestHeartList(mView); //좋아요 높은 순 Best3 (wordingBestList[0~3])
 		report_service.getBestHeartList(mView); //좋아요 높은 순 Best3 (reportBestList[0~3])
-		//episode_service.getBestViewCntList(mView); //조회수 높은 순 Best3
-		file_service.getBestViewCntList(mView); //조회수 높은 순 Best3
+		episode_service.getBestViewCntList(mView); //조회수 높은 순 Best3 (episodeBestList[0~3])
+		file_service.getBestViewCntList(mView); //조회수 높은 순 Best3 (fileBestList[0~5])
 		//market_service.getRecentList(mView); //최신매물 Top3
 		
 		mView.setViewName("home");
