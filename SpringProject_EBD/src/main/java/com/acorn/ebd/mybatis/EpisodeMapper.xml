@@ -13,22 +13,25 @@
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM		
-				(SELECT num, writer, title, content, imgpath , viewcnt, regdate
-				FROM ebd_episode
+				(SELECT num, writer, title, content, imgpath , viewcnt, ebd_episode.regdate, profile
+				FROM ebd_episode, ebd_users
 				<choose>
 					<!-- if문과 비슷한 구조임, title과 content가 둘다 null아 아니라면, 제목, 내용겁색 -->
 				 	<when test="title != null and content != null">
-				 		WHERE title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%'
+				 		WHERE (title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%') AND (ebd_episode.writer=ebd_users.nick)
 				 	</when>
 					<!--title이 null이 아니라면-->
 				 	<when test="title != null">
-				 		WHERE title LIKE '%' || #{title} || '%'
+				 		WHERE title LIKE '%' || #{title} || '%' AND (ebd_episode.writer=ebd_users.nick)
 				 	</when>
 					<!--writer이 null이 아니라면-->
 				 	<when test="writer != null">
-				 		WHERE writer LIKE '%' || #{writer} || '%'
+				 		WHERE writer LIKE '%' || #{writer} || '%' AND (ebd_episde.writer=ebd_users.nick)
 				 	</when>
-					<!-- 모두 null 이라면 WHERE절에 쿼리문이 들어가지 않는다. -->
+				 	<!-- 모두 null이라면 -->
+					<when test="title ==null and content == null and writer == null">
+						WHERE ebd_episode.writer=ebd_users.nick
+					</when>
 				</choose>
 				ORDER BY num DESC) result1)
 		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}

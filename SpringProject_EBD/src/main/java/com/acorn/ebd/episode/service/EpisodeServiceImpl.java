@@ -160,6 +160,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		mView.addObject("condition",condition);
 		mView.addObject("encodedK",encodedK);
 		mView.addObject("totalRow",totalRow);
+		mView.addObject("keyword", keyword);
 		
 		
 	}
