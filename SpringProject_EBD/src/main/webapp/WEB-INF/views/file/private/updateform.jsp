@@ -53,7 +53,7 @@
 	
 <div class="container">
 	<!-- 독후감 양식 파일 업로드(게시글) 추가 폼-->
-	<h1 class="head" >독후감 수정 페이지 입니다.</h1>
+	<h1 class="head" >수정 페이지</h1>
 		 
 	<form action="update.do" method="post" enctype="multipart/form-data">
 	 	<input type="hidden" name="num" value="${dto.num }"/>
@@ -80,7 +80,7 @@
 	 			<small class="text-muted">수정할 독후감 양식파일을 넣어주세요</small>
 	 		</div>
 	 		<div class="col">
-	 			<label for="myFile" class="btn btn-primary btn-file" >파일 선택
+	 			<label for="myFile" class="btn btn-light btn-file" style="background-color:#F7DC6F;">파일 선택
 		 			<input type="file" name="myFile" id="myFile" value="${filename2 }" onchange="reviewUploadImg2(this);"/>
 		 		</label>
 	 		</div>
@@ -95,7 +95,7 @@
 	 			<small class="text-muted">수정할 독후감 양식 이미지를 넣어주세요</small>
 	 		</div>
 	 		<div class="col">
-	 			<label for="myImg" class="btn btn-primary btn-file">이미지 선택
+	 			<label for="myImg" class="btn btn-light btn-file" style="background-color:#F7DC6F;">이미지 선택
 		 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
 		 			accept=".jpg, .jpeg, .png, .JPG, .JPEG" />
 		 		</label>
@@ -105,8 +105,10 @@
 		    <textarea class="form-control" type="text" name="content" id="content">${dto.content }</textarea>
 		</div>
 		<div class="text-center">
-			<button class="btn btn-dark" type="submit" onclick="submitContents(this);">수정 완료</button>
-			<button class="btn btn-dark" type="reset">입력 내용 취소</button>
+			<button class="btn btn-light" type="submit" onclick="submitContents(this);" style="background-color:#F7DC6F;">
+			수정 완료</button>
+			<button class="btn btn-dark" type="reset" style="background-color:#AF601A; border-color:#AF601A;">
+			취소</button>
 		</div>
 	 </form>
 	

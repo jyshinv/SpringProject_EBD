@@ -233,7 +233,7 @@
 				<c:choose>
 					<c:when test="${dto.prevNum ne 0 }">
 						<li class="page-item mr-3">
-							<a class="page-link" href="detail.do?num=${dto.prevNum }">&larr; Prev</a>
+							<a class="page-link" href="detail.do?num=${dto.prevNum }" style="color:#AF601A;">&larr; Prev</a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -245,7 +245,7 @@
 				<c:choose>
 					<c:when test="${dto.nextNum ne 0 }">
 						<li class="page-item">
-							<a class="page-link" href="detail.do?num=${dto.nextNum }">Next &rarr;</a>
+							<a class="page-link" href="detail.do?num=${dto.nextNum }" style="color:#AF601A;">Next &rarr;</a>
 						</li>
 					</c:when>
 					<c:otherwise>

@@ -490,7 +490,7 @@ public class FileServiceImpl implements FileService{
 		request.setAttribute("totalPageCount", totalPageCount);
 		
 	}
-
+	
 	//하트 저장 - 하트를 눌렀을때 하트테이블에 저장해주는 메소드
 	@Override
 	public int saveHeart(int target_num, HttpSession session) {

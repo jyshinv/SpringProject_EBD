@@ -16,8 +16,9 @@
 	}
 	
 	.card-margin{
-		margin-top: 15px;
-		margin-bottom: 15px;
+		margin-top: 30px;
+		margin-bottom: 30px;
+		border:none;
 	}
 	
 	.heart-link{
@@ -43,7 +44,7 @@
 <jsp:include page="../include/file_jumbotron.jsp"></jsp:include>
 <div class="container">
 	<div class="col">
-		<a href="${pageContext.request.contextPath }/file/private/insertform.do" style="color:brown;">
+		<a href="${pageContext.request.contextPath }/file/private/insertform.do" style=" color:#AF601A;">
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
 			  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
 			</svg> UPLOAD
@@ -63,7 +64,7 @@
 					 class="form-control" >
 			</div>
 			<span>
-				<button class="btn btn-outline-secondary" type="submit">검색</button>
+				<button class="btn btn-light" type="submit" style="background-color:#F7DC6F ;">검색</button>
 			</span>
 		</div>
 	</form>
@@ -75,70 +76,72 @@
 		</div>
 	</c:if>
 	
+	<div id="fileList">
+		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
+	    <%int isCheck=0; %>
+		<!-- 반복문 돌려서 목록 출력 --> 	
+		<c:forEach var="tmp" items="${list }">
+			<div class="card card-margin">
+				<ul class="list-group list-group-flush" >
+					<li class="list-group-item" style="background-color: #FEFCF4">
+						<div class="row">
+						    <div class="col-1 text-left">
+						      	<!-- 하트 -->
+								<!-- 로그인이 된 사용자만 볼 수 있다. -->
+								<c:if test="${not empty id }">
+									<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
+									<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
+									<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+										<c:choose>
+											<c:when test="${isHeartClickList[i] eq 0 }">
+												<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">
+												♡</a>                              
+											</c:when>
+											<c:otherwise>
+												<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">
+												♥</a>
+											</c:otherwise>
+										</c:choose>
+										<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>                  
+									</c:forEach>
+								</c:if>
+						    	<c:if test="${empty id }"> <!-- 로그인이 안되어있는 사람 -->
+				                     <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+				                     <span>♥</span>
+				                     <span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>
+				                     </c:forEach>
+				                </c:if>
+						    </div>
+						    <div class="col-md-6">
+						      <a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;">
+								${tmp.title }</a>
+						    </div>
+						    <div class="col text-right">
+						    	<!-- 프로필 이미지 -->
+								<c:choose>
+					               <c:when test="${empty tmp.profile }">
+					                  <!-- 비어있다면 기본이미지 -->
+					                  <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+					                       <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+					                  </svg>
+					               </c:when>
+					               <c:otherwise>
+					                  <!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
+					                  <img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
+					               </c:otherwise>
+			            		</c:choose>
+						      	<strong>${tmp.writer }</strong>
+						    </div>
+						 </div>
+					 </li>
+				</ul>
+			</div> <!-- card -->
+			
+		<!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
+		<%isCheck++; %>
+		</c:forEach>
+	</div>
 	
-	<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
-    <%int isCheck=0; %>
-	<!-- 반복문 돌려서 목록 출력 --> 	
-	<c:forEach var="tmp" items="${list }">
-		<div class="card card-margin">
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">
-					<div class="row">
-					    <div class="col-2 text-left">
-					      	<!-- 하트 -->
-							<!-- 로그인이 된 사용자만 볼 수 있다. -->
-							<c:if test="${not empty id }">
-								<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
-								<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
-								<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-									<c:choose>
-										<c:when test="${isHeartClickList[i] eq 0 }">
-											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do" style="color:red;">
-											♡</a>                              
-										</c:when>
-										<c:otherwise>
-											<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do" style="color:red;">
-											♥</a>
-										</c:otherwise>
-									</c:choose>
-									<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>                  
-								</c:forEach>
-							</c:if>
-					    	<c:if test="${empty id }"> <!-- 로그인이 안되어있는 사람 -->
-			                     <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-			                     <span>♥</span>
-			                     <span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>
-			                     </c:forEach>
-			                </c:if>
-					    </div>
-					    <div class="col-md-6">
-					      <a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}">
-							${tmp.title }</a>
-					    </div>
-					    <div class="col text-right">
-					    	<!-- 프로필 이미지 -->
-							<c:choose>
-				               <c:when test="${empty tmp.profile }">
-				                  <!-- 비어있다면 기본이미지 -->
-				                  <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-				                       <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-				                  </svg>
-				               </c:when>
-				               <c:otherwise>
-				                  <!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
-				                  <img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
-				               </c:otherwise>
-		            		</c:choose>
-					      	<strong>${tmp.writer }</strong>
-					    </div>
-					 </div>
-				 </li>
-			</ul>
-		</div> <!-- card -->
-		
-	<!-- 바깥 for문 빠져나가기 전 isCheck 증가 -->   
-	<%isCheck++; %>
-	</c:forEach>
 
 	<!-- 하단에 페이징 -->
 	<nav>
@@ -162,12 +165,13 @@
 				<c:choose>
 					<c:when test="${i eq requestScope.pageNum }">
 						<li class="page-item active">
-							<a class="page-link" href="list.do?pageNum=${i }">${i }</a>
+							<a class="page-link" style="color:#AF601A; background-color:#F7DC6F; border-color: #F7DC6F;"
+							href="list.do?pageNum=${i }">${i }</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
-							<a class="page-link" href="list.do?pageNum=${i }">${i }</a>
+							<a class="page-link" style="color:#AF601A;" href="list.do?pageNum=${i }">${i }</a>
 						</li>
 					</c:otherwise>
 				</c:choose>

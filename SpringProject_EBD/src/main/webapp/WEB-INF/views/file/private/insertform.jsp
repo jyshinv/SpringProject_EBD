@@ -67,7 +67,7 @@
 	 			<small class="text-muted">공유할 독후감 양식파일을 넣어주세요.</small>
 	 		</div>
 	 		<div class="col">
-	 			<label for="myFile" class="btn btn-primary btn-file">파일 선택
+	 			<label for="myFile" class="btn btn-light btn-file" style="background-color:#F7DC6F;">파일 선택
 		 			<input type="file" name="myFile" id="myFile" onchange="reviewUploadImg2(this);" />
 		 		</label>
 	 		</div>
@@ -82,7 +82,7 @@
 	 			<small class="text-muted">예시 사진을 넣어주세요.</small>
 	 		</div>
 	 		<div class="col">
-	 			<label for="myImg" class="btn btn-primary btn-file">이미지 선택
+	 			<label for="myImg" class="btn btn-light btn-file" style="background-color:#F7DC6F;">이미지 선택
 		 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
 		 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 		 		</label>
@@ -92,8 +92,10 @@
 		    <textarea class="form-control" type="text"  name="content" id="content"></textarea>
 		</div>
 	 	<div class="text-center">
-	 		<button class="btn btn-dark" type="submit" onclick="submitContents(this);" >업로드</button>
-			<button class="btn btn-dark" type="reset">취소</button>
+	 		<button class="btn btn-light" type="submit" onclick="submitContents(this);" style="background-color:#F7DC6F;">
+	 		등록</button>
+			<button class="btn btn-dark" type="reset" style="background-color:#AF601A; border-color:#AF601A;">
+			취소</button>
 	 	</div>
 	 </form>
 	
