@@ -329,7 +329,7 @@
 		</svg>
 		<small>
 			<span class="cmt-small">
-				EveryBookDay는 좋은 댓글문화를 지향합니다.
+				Every Book Day는 선한 댓글 문화를 지향합니다.
 			</span>
 		</small>
 	</div>

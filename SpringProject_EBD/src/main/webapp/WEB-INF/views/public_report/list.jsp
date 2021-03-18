@@ -105,6 +105,7 @@
 <jsp:include page="../include/public_jumbotron.jsp"></jsp:include>
 <div class="container">
 		<form action="list.do" method="get">
+			<!-- 검색창 마진 띄우기 -->
 			<div class="row justify-content-md-center" style="margin-top:10px;margin-bottom:32px;">
 				<div class="col-2">
 					<select class="form-control" name="condition" id="condition">
