@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -49,11 +50,12 @@ public class HomeController {
 	
 	//메인화면 요청처리
 	@RequestMapping("/home.do")
-	public ModelAndView home(ModelAndView mView) {
+	public ModelAndView home(ModelAndView mView, HttpServletRequest request) {
 		wording_service.getBestHeartList(mView); //좋아요 높은 순 Best3 (wordingBestList[0~3])
 		report_service.getBestHeartList(mView); //좋아요 높은 순 Best3 (reportBestList[0~3])
 		episode_service.getBestViewCntList(mView); //조회수 높은 순 Best3 (episodeBestList[0~3])
 		file_service.getBestViewCntList(mView); //조회수 높은 순 Best3 (fileBestList[0~5])
+		market_service.getList(request); //최신매물 Top3		
 		//market_service.getRecentList(mView); //최신매물 Top3
 		
 		mView.setViewName("home");
