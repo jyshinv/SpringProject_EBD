@@ -90,7 +90,7 @@
 	 			<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
 	 		</div>
 	 		<div class="col">
-	 			<label for="myImg" class="btn btn-dark btn-file" >파일 선택
+	 			<label for="myImg" class="btn btn-light btn-file" style="background-color:#F7DC6F;">파일 선택
 		 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
 		 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 		 		</label>
@@ -100,8 +100,10 @@
 		    <textarea class="form-control" type="text" name="content" id="content"></textarea>
 		</div>
 		<div class="text-center">
-			<button class="btn btn-dark" type="submit" onclick="submitContents(this);">업로드</button>
-			<button class="btn btn-dark" type="reset">입력 내용 취소</button>
+			<button class="btn btn-light" type="submit" onclick="submitContents(this);" style="background-color:#F7DC6F;">
+			등록</button>
+			<button class="btn btn-dark" type="reset" style="background-color:#AF601A; border-color:#AF601A;">
+			취소</button>
 		</div>
 	 </form>
 </div>

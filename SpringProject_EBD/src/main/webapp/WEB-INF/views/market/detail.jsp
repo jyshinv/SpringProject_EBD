@@ -121,9 +121,7 @@
    /* text-decoration 속성값을 none으로 설정하여 링크(link)가 설정된 텍스트의 밑줄을 제거하는데 자주 사용합니다. 
    		왜 적용 안됨 ㅋ 
    */
-    a { 
-    	text-decoration: none; 
-    }
+    
 </style>
 </head>
 <body>
@@ -272,12 +270,32 @@
 		  			</c:if>	
 				</div><!-- col -->
 			</div><!-- row -->
-										
-			<!-- 판매유형/상태 -->
-	  		<p class="card-text badge-size">
-	  			<span class="badge badge-pill badge-warning" style="margin-right:10px; padding:10px; ">${dto.salesType }</span>
-	  			<span class="badge badge-pill badge-success" style="padding:10px;">${dto.salesStatus }</span>
-	  		</p>
+											  		
+	  		<p class="card-text badge-size" style="margin-top:20px;">
+				<!-- 판매 유형 -->
+				<span class="badge badge-pill badge-warning" style="margin-right:10px; padding:10px;">
+				${dto.salesType }</span>
+				<!-- 판매 상태 -->
+				<c:choose>
+					<c:when test="${dto.salesStatus eq '판매 완료'}">
+						<span class="badge badge-pill badge-secondary" style="padding:10px;">
+						${dto.salesStatus }</span>
+					</c:when>
+					<c:when test="${dto.salesStatus eq '나눔 완료'}">
+						<span class="badge badge-pill badge-secondary" style="black; padding:10px;">
+						${dto.salesStatus }</span>
+					</c:when>
+					<c:when test="${dto.salesStatus eq '교환 완료'}">
+						<span class="badge badge-pill badge-secondary" style="black; padding:10px;">
+						${dto.salesStatus }</span>
+					</c:when>
+					<c:otherwise>
+						<span class="badge badge-pill badge-success" style="background-color:#DC7633; padding:10px;">
+						${dto.salesStatus }</span>
+					</c:otherwise>
+				</c:choose>
+			</p>
+	  		
 	  		<!-- 내용 -->
 		    <p class="card-text">${dto.content }</p>
 		</div><!-- card body -->
@@ -287,7 +305,7 @@
 				<c:choose>
 					<c:when test="${dto.prevNum ne 0 }">
 						<li class="page-item mr-3">
-							<a class="page-link" href="detail.do?num=${dto.prevNum }">&larr; Prev</a>
+							<a class="page-link" href="detail.do?num=${dto.prevNum }" style="color:#AF601A;">&larr; Prev</a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -299,7 +317,7 @@
 				<c:choose>
 					<c:when test="${dto.nextNum ne 0 }">
 						<li class="page-item">
-							<a class="page-link" href="detail.do?num=${dto.nextNum }">Next &rarr;</a>
+							<a class="page-link" href="detail.do?num=${dto.nextNum }" style="color:#AF601A;">Next &rarr;</a>
 						</li>
 					</c:when>
 					<c:otherwise>

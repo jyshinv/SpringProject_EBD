@@ -110,7 +110,7 @@
 <div class="container">
 	<div class="col">
 		<!-- 글 쓰러가기 -->
-		<a href="private/insertform.do" style="color:brown;">
+		<a href="private/insertform.do" style=" color:#AF601A;">
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
 			  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
 			</svg> UPLOAD
@@ -131,7 +131,8 @@
 				  	 class="form-control">
 			</div>
 			<span>
-				<button class="btn btn-outline-secondary" type="submit">검색</button>
+				<button class="btn btn-light" type="submit" style=" background-color:#F7DC6F ;">
+				검색</button>
 			</span>
 		</div>
 	</form>
@@ -173,10 +174,24 @@
 					</div>
 				</a>
 				<div class="card-body">
-				
 					<p class="card-text" style="margin-top:20px;">
-						<span class="badge badge-pill badge-warning">${tmp.salesType }</span>
-						<span class="badge badge-pill badge-success">${tmp.salesStatus }</span>
+						<!-- 판매 유형 -->
+						<span class="badge badge-pill badge-warning" style="background-color:#F8C471; ">${tmp.salesType }</span>
+						<!-- 판매 상태 -->
+						<c:choose>
+							<c:when test="${tmp.salesStatus eq '판매 완료'}">
+								<span class="badge badge-pill badge-secondary" >${tmp.salesStatus }</span>
+							</c:when>
+							<c:when test="${tmp.salesStatus eq '나눔 완료'}">
+								<span class="badge badge-pill badge-secondary" >${tmp.salesStatus }</span>
+							</c:when>
+							<c:when test="${tmp.salesStatus eq '교환 완료'}">
+								<span class="badge badge-pill badge-secondary" >${tmp.salesStatus }</span>
+							</c:when>
+							<c:otherwise>
+								<span class="badge badge-pill badge-success" style="background-color:#DC7633; ">${tmp.salesStatus }</span>
+							</c:otherwise>
+						</c:choose>
 					</p>
 					<p class="card-text" style="color:black;">
 						<strong>${tmp.title }</strong>
@@ -236,12 +251,13 @@
 				<c:choose>
 					<c:when test="${i eq requestScope.pageNum }">
 						<li class="page-item active">
-							<a class="page-link" href="list.do?pageNum=${i }">${i }</a>
+							<a class="page-link" style="color:#AF601A; background-color:#F7DC6F; border-color: #F7DC6F;" 
+							href="list.do?pageNum=${i }">${i }</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
-							<a class="page-link" href="list.do?pageNum=${i }">${i }</a>
+							<a class="page-link" style="color:#AF601A;" href="list.do?pageNum=${i }">${i }</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
