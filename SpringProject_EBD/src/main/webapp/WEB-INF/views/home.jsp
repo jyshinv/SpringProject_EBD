@@ -27,6 +27,14 @@
       
       	border-radius: 50%;
 	}
+	
+	.card .card-deck{
+		/* 한줄만 text 가 나오고  한줄 넘는 길이에 대해서는 ... 처리 하는 css */
+		display:block;
+		white-space : nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
 </style>
 </head>
 <body>
@@ -130,6 +138,21 @@
 		  </div>
 	</div>
 	
+	<!-- 독후감 BEST3 내용 reportBestList -->
+	<div class="card-deck" >
+		<c:forEach var="tmp" items="${reportBestList }">
+			<div class="card">
+			    <img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imgpath}" alt="Card image cap">
+			    <div class="card-body">
+			      <p class="card-text">♥${tmp.heartcnt }</p>
+			      <p class="card-text">${tmp.content }</p>
+			      <p class="card-text"><footer class="blockquote-footer">${tmp.booktitle }, <cite title="Source Title">${tmp.author }</cite></footer></p>
+				</div>
+		  	</div>
+		</c:forEach>
+	</div>
+	
+	
 	<br />
 	<%-- 독후감 양식 NEW --%>
 	<h4>TOP 5 다운로드</h4>
@@ -210,6 +233,7 @@
 	</div>
 	
 </div><!-- div class="container" -->
+
 
 
 

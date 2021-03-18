@@ -52,6 +52,9 @@ public interface ReportDao {
 	
 	//디테일에서 하트 정보를 불러오는 메소드
 	public boolean getHeartInfoDetail(ReportDto dto);
+
+	//홈화면에서 BEST3를 불러오는 메소드 
+	public List<ReportDto> getBestHeartList();
 	
 	
 }

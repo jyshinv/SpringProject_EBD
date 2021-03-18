@@ -528,10 +528,11 @@ public class ReportServiceImpl implements ReportService{
 	      return heartcnt;
 	}
 
+	//홈화면에 좋아요 수 Best3를 불러올 메소드
 	@Override
 	public void getBestHeartList(ModelAndView mView) {
-		// TODO Auto-generated method stub
-		
+		List<ReportDto> list=dao.getBestHeartList();
+		mView.addObject("reportBestList",list);
 	}
 
 }

@@ -117,4 +117,11 @@ public class ReportDaoImpl implements ReportDao{
         }
 	}
 
+	//좋아요 수 BEST3를 불러오는 메소드
+	@Override
+	public List<ReportDto> getBestHeartList() {
+		List<ReportDto> list=session.selectList("report.getBestHeartList");
+		return list;
+	}
+
 }

@@ -222,4 +222,16 @@
                GROUP BY target_num) r1, ebd_report e
       WHERE r1.target_num(+) = e.num and e.num=#{num}
    </select>
+   
+   <select id="getBestHeartList" resultType="reportDto">
+   	  SELECT *
+      FROM
+            (SELECT NVL(r1.heartcnt,0) heartcnt, e.num, e.writer, e.title, e.content, e.author, e.booktitle, e.imgpath, u.profile
+            FROM (select target_num, count(*) heartcnt
+                  FROM ebd_report_heart
+                  GROUP BY target_num) r1, ebd_report e, ebd_users u
+            WHERE r1.target_num(+) = e.num AND publicck='public' AND e.writer = u.nick
+            ORDER BY heartcnt DESC) 
+      WHERE ROWNUM BETWEEN 1 AND 3
+   </select>
 </mapper>

@@ -24,13 +24,14 @@ public class ReportDto {
 	private MultipartFile image;
 	private String nick;
 	private String profile;
+	private int heartcnt; //하트카운트 개수를 담을 변수 
 	
 	public ReportDto() {}
 
 	public ReportDto(int num, String writer, String booktitle, String author, String title, String genre, String stars,
 			String imgpath, String link, String content, String viewcnt, String regdate, String publicck,
-			int startRowNum, int endRowNum, int prevNum, int nextNum, MultipartFile image, String nick,
-			String profile) {
+			int startRowNum, int endRowNum, int prevNum, int nextNum, MultipartFile image, String nick, String profile,
+			int heartcnt) {
 		super();
 		this.num = num;
 		this.writer = writer;
@@ -52,6 +53,7 @@ public class ReportDto {
 		this.image = image;
 		this.nick = nick;
 		this.profile = profile;
+		this.heartcnt = heartcnt;
 	}
 
 	public int getNum() {
@@ -213,6 +215,16 @@ public class ReportDto {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+
+	public int getHeartcnt() {
+		return heartcnt;
+	}
+
+	public void setHeartcnt(int heartcnt) {
+		this.heartcnt = heartcnt;
+	}
+
+	
 
 	
 }
