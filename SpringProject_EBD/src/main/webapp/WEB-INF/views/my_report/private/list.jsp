@@ -170,16 +170,54 @@
       border: 1px solid #cecece;
       border-radius: 50%;
     }	
+	/*버튼 기본 노랑*/
+    .btn{
+    	background-color:#F7DC6F;
+    	/*color:sienna;*/
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    	/*color:sienna;*/
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn>a{
+    	color:#212529;
+    	/*color:sienna;*/
+    }
+    /* 버튼 링크 호버시 언더라인 삭제 */
+    .btn>a:hover{
+    	color:#212529;
+    	text-decoration:none;
+    }  
+    /* page-item active 색상 변경 */
+    .page-item.active .page-link{
+    	background-color:#F7DC6F;
+    	border-color:#F7DC6F;
+    } 
+    .page-link:hover{
+    	color:#212529;
+    	background-color:#FBEEE6;
+    	border-color:#FBEEE6;
+    }
+    .page-link{
+    	color:#212529;
+    }    
 </style>
 </head>
 <body>
-<jsp:include page="../../include/mydiarynav.jsp"></jsp:include>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
+<jsp:include page="../../include/mydiary_jumbotron.jsp"></jsp:include>
+<jsp:include page="../../include/mydiarynav.jsp">
+	<jsp:param value="my_report" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<form action="list.do" method="get">
-			<div class="row justify-content-md-center" style="margin:10px;">
+			<!-- 검색창 마진 띄우기 -->
+			<div class="row justify-content-md-center" style="margin-top:10px;margin-bottom:32px;">
 				<span>
-					<button class="btn btn-primary">
-						<a href="${pageContext.request.contextPath}/my_report/private/insertform.do" style="color:white">새 독후감 작성</a>
+					<button class="btn">
+						<a href="${pageContext.request.contextPath}/my_report/private/insertform.do">새 독후감 작성</a>
 					</button>
 				</span>
 				<div class="col-2">
@@ -193,7 +231,7 @@
 					<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
 				</div>
 				<span>
-					<button class="btn btn-primary" type="submit">검색</button>
+					<button class="btn" type="submit">검색</button>
 				</span>
 			</div>
 		</form>
@@ -225,7 +263,7 @@
 		</c:forEach>
 	</div>
 	<nav>
-	<ul class="pagination justify-content-center">
+	<ul class="pagination justify-content-center" style="margin-top: 32px;margin-bottom: 32px;">
 		<c:choose>
 			<c:when test="${startPageNum != 1 }">
 				<li class="page-item">

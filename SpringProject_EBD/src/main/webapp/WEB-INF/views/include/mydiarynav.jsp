@@ -11,6 +11,14 @@
 	    border: 1px solid #cecece;
 	    border-radius: 50%;
 	}
+	#mdnavbar{
+		border-top: 1px lightgrey solid;
+	}
+	/* 닉네임 프로필 사진 간격 조절 */
+	.nick{
+		margin-top: 16px;
+		margin-bottom: 0px;
+	}
 </style>
 <div class="container ">
 	<div class="container text-center">
@@ -21,17 +29,17 @@
 			<img id="profileImage2" src="">
 		</div>
 		<div>
-			<p style="font-size:40px;">${sessionScope.nick }</p>
+			<p style="font-size:40px;" class="nick">${sessionScope.nick }</p>
 			<p style="color:grey;font-size:20px;">${sessionScope.id }</p>
 		</div>
 	</div>
-	<nav class="navbar navbar-expand-sm" style="border-bottom:1px black solid; border-top: 1px black solid;">
+	<nav class="navbar navbar-expand-sm" id="mdnavbar">
 		<div class="container">
 			<button class="navbar-toggler navbar-dark" data-toggle="collapse" data-target="#topNav">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="container collapse navbar-collapse justify-content-md-center" id="topNav">
-				<ul class="nav">
+				<ul class="navbar-nav">
 					<li class="nav-item ${param.thisPage eq 'my_report' ? 'active':''}">
 						<a class="nav-link" href="${pageContext.request.contextPath }/my_report/private/list.do">나의 독후감</a>
 					</li>

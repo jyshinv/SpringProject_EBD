@@ -28,21 +28,30 @@
 	.comment-form textarea, .comment-form button{
 		float: none;
 	}
-	.comment-form button{
-		align-content:right;
-	}
 	.comments li{
 		clear: left;
 	}
+	/* 댓글 구분선 */
 	.comments ul li{
 		border-top: 1px solid lightgrey;
 	}
+	/* 댓글 작성창 폭 100%로 채워주기 */
 	.comment-form textarea{
 		width: 100%;
 		height: 100px;
 	}
+	/* 댓글 버튼 폭 줄이기 / 기본색 변경 */
 	.comment-form button{
 		width: 15%;
+		background-color:#F7DC6F;
+	}
+	/* 댓글 버튼 호버 시 색 변경 */
+	.comment-form button:hover,
+	.page-link:hover{
+		background-color:#FBEEE6;
+	}
+	.page-link{
+		background-color:#F7DC6F;
 	}
 	/* 댓글에 댓글을 다는 폼과 수정폼은 일단 숨긴다. */
 	.comments .comment-form{
@@ -52,11 +61,11 @@
 	.comments li{
 		position: relative;
 	}
+	/* reply-icon 지우지 말 것 댓글창 사라짐 */
 	.comments .reply-icon{
 		position: absolute;
 		top: 1em;
 		left: 1em;
-		color: darksalmon;
 		transform: rotate(180deg);
 	}
 	pre {
@@ -85,16 +94,23 @@
 		z-index: 1000;
 		display: none; /* 일단 숨겨 놓기 */
 	}	
-	.heart-link{
+	/* 하트 hover시 색 변경 및 언더라인 삭제 */
+	.heart-link,
+	.heart-link:hover{
       	font-size : 2em;
-    }	
+      	color:red;
+      	text-decoration: none;
+    }
+    /* 카드 테두리와 내용 간격두기 */	
     .card{
     	padding-left:20px;
     	padding-right:20px;
     }
+    /* 이미지 카드 안에서 100% 보이게 하기 */
     .centerimg img{
     	max-width: 100%;
     }
+    /* 전체적으로 보기 좋게 하기 위해 간격 띄우기 */
     .marg{
     	margin-bottom:20px;
     }
@@ -111,22 +127,54 @@
       border: 1px solid #cecece;
       border-radius: 50%;
    }
-   .icon{
-   		color:darksalmon;
-   }
+   /* 답글 아이콘 180도 회전 */
    .reply-link{
    		transform: rotate(180deg);
    }
+   /* header = 프로필 이미지, 닉네임 자리 배경 하얗게 만들기 */
    .card-header{
    		background-color:rgba(0, 0, 0, 0);
    }
+   /* 제목과 헤더 사이 간격 띄우기 */
    h1{
    		margin-top:30px;
+   }
+   /* 답글/수정/삭제 댓글알림글 색 변경 */
+   .cmt-link,
+   .cmt-regdate,
+   .cmt-small{
+   		color:grey;
+   }
+   
+   /* 모든 a링크의 hover 색깔 변경 (임시) */
+   a:hover,
+   .link>a:hover{
+   		color:#F7DC6F;
+   		text-decoration: none;
+   }
+   /* 뷰카운트, 날짜 글자색 변경 */
+   #view-reg{
+   		color:grey;
+   }
+   /* 구매처 링크 노란색 (버튼색과 다름) / 공개 비공개 체크 버튼에도 동일하게 구현 */
+   .link>a,
+   .page-link,
+   .page-link:hover{
+   		color:#212529;
+   }
+   .page-link:hover{
+   		text-decoration: none;
+   }
+   th{
+   		color:grey;
    }
 </style>
 </head>
 <body>
-<!--<jsp:include page="../include/navbar.jsp"></jsp:include>-->
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="public_report" name="thisPage"/>
+</jsp:include>
+<jsp:include page="../include/public_jumbotron.jsp"></jsp:include>
 <div class="container">
 	<div class="card">
 		<div class="row card-header" >
@@ -152,7 +200,7 @@
 			<h1>${dto.title }</h1>
 		</div>
 		<!-- &nbsp; 공백 태그 -->
-		<div class="text-right marg">
+		<div class="text-right marg" id="view-reg">
 			<span>
 				<small>
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
@@ -211,7 +259,7 @@
 	          		<label for="num"></label>
 	          		<input type="hidden" value="${dto.num }" id="num" name="num"/>
 	          		<button type="submit" class="btn btn-link" id="checkBtn">
-	          			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+	          			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16" style="color:#FFCA28;">
 						  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 						  <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
 						</svg>
@@ -239,7 +287,7 @@
 			</tr>
 			<tr>
 				<th scope="row">구매처 링크</th>
-				<td><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
+				<td class="link"><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
 			</tr>
 		</table>
 			<div class="marg">
@@ -274,6 +322,17 @@
 			</ul>
 		</nav>
 	</div>
+	<div style="margin-top:20px;">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text cmt-small" viewBox="0 0 16 16">
+		  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+		  <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+		</svg>
+		<small>
+			<span class="cmt-small">
+				Every Book Day는 선한 댓글 문화를 지향합니다.
+			</span>
+		</small>
+	</div>
 	<hr/>
 	<!-- 원글에 댓글을 작성하는 form -->
 	<form class="comment-form insert-form" action="private/comment_insert.do" method="post">
@@ -281,8 +340,34 @@
 		<input type="hidden" name="ref_group" value="${dto.num }"/>
 		<!-- 원글의 작성자가 댓글의 수신자가 된다. -->
 		<input type="hidden" name="target_nick" value="${dto.writer }"/>
-		<textarea class="form-control" name="content"><c:if test="${empty nick }">로그인이 필요합니다</c:if></textarea>
-		<button class="btn btn-primary" type="submit">댓글등록</button>
+		<div class="row">
+			<div class="col-12">
+				<textarea class="form-control" name="content"><c:if test="${empty nick }">로그인이 필요합니다</c:if></textarea>
+			</div>
+			<div class="col text-right">
+				<button class="btn" type="submit">
+					등록
+					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="20px" height="20px" viewBox="0 0 467.276 467.276" style="enable-background:new 0 0 467.276 467.276;"
+	 xml:space="preserve">
+					<g>
+						<g>
+							<path d="M379.281,51.144C348.254,24.297,309.565,13.46,269.577,8.672C163.068-25.3,68.062,44.959,26.578,142.38
+								c-44.714,105.002-23.44,222.217,73.516,287.698c98.985,66.846,235.019,39.369,310.95-48.627
+								C494.023,285.274,473.539,132.719,379.281,51.144z M196.847,432.703C140.695,424.71,86.21,390.16,57.756,340.898
+								c-25.438-44.047-25.225-99.203-13.822-147.312c17.529-73.96,70.568-140.71,139.888-156.686c0.104,0.005,0.19,0.035,0.295,0.035
+								c24.95,0.739,51.292,0.782,77.046,3.567c2.438,0.764,4.88,1.523,7.332,2.42c4.062,1.48,7.612,1.29,10.588,0.071
+								c27.781,4.677,54.313,13.579,76.951,31.392c50.079,39.405,76.479,110.461,75.032,172.696
+								C428.354,364.389,307.965,448.516,196.847,432.703z"/>
+							<path d="M169.276,211.913c23.28,0,23.28-36.104,0-36.104C145.999,175.808,145.999,211.913,169.276,211.913z"/>
+							<path d="M293.833,213.715c23.277,0,23.277-36.102,0-36.102C270.551,177.613,270.551,213.715,293.833,213.715z"/>
+							<path d="M302.731,274.966c-43.25,42.975-99.046,38.689-142.352-1.808c-16.98-15.879-42.566,9.598-25.529,25.532
+								c57.625,53.893,136.062,58.787,193.407,1.802C344.792,284.065,319.254,258.544,302.731,274.966z"/>
+						</g>
+					</svg>
+				</button>
+			</div>
+		</div>
 	</form>	
 	<!-- 댓글 목록 -->
 	<div class="comments">
@@ -295,37 +380,47 @@
 					<c:otherwise>
 						<li id="comment${tmp.num }" <c:if test="${tmp.num ne tmp.cmt_group }">style="padding-left:50px;"</c:if>>
 							<c:if test="${tmp.num ne tmp.cmt_group }">
-								<svg style="rotate(180deg);" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply reply-icon" viewBox="0 0 16 16">
-  <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
+							<!-- 
+							답글 아이콘
+							svg에서 색상을 변경할 때는 fill 요소를 사용할 것 
+							-->
+								<svg class="reply-link reply-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001; width:20px; height:20px; margin-top:20px; fill:grey;" xml:space="preserve" >
+<g>
+	<g>
+		<path d="M324.104,156.152H76.526l91.949-91.949l-28.268-28.268L0,176.141l140.206,140.206l28.268-28.268L76.526,196.13h247.579
+			c81.562,0,147.918,66.356,147.918,147.918c0,38.36-19.398,70.958-35.671,91.548l-12.393,15.682l31.366,24.788l12.393-15.682
+			c20.202-25.563,44.284-66.497,44.284-116.336C512,240.441,427.71,156.152,324.104,156.152z"/>
+	</g>
 </svg>
 		  						
 							</c:if>
 							<dl>
 								<dt>
-									<span>${tmp.writer }</span>
-									<c:if test="${tmp.num ne tmp.cmt_group }">
-										@<i>${tmp.target_nick }</i>
-									</c:if>
-									<span><small>${tmp.regdate }</small></span>
-									<a data-num="${tmp.num }" href="javascript:" class="reply-link">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reply icon reply-link" viewBox="0 0 16 16">
-  <path d="M6.598 5.013a.144.144 0 0 1 .202.134V6.3a.5.5 0 0 0 .5.5c.667 0 2.013.005 3.3.822.984.624 1.99 1.76 2.595 3.876-1.02-.983-2.185-1.516-3.205-1.799a8.74 8.74 0 0 0-1.921-.306 7.404 7.404 0 0 0-.798.008h-.013l-.005.001h-.001L7.3 9.9l-.05-.498a.5.5 0 0 0-.45.498v1.153c0 .108-.11.176-.202.134L2.614 8.254a.503.503 0 0 0-.042-.028.147.147 0 0 1 0-.252.499.499 0 0 0 .042-.028l3.984-2.933zM7.8 10.386c.068 0 .143.003.223.006.434.02 1.034.086 1.7.271 1.326.368 2.896 1.202 3.94 3.08a.5.5 0 0 0 .933-.305c-.464-3.71-1.886-5.662-3.46-6.66-1.245-.79-2.527-.942-3.336-.971v-.66a1.144 1.144 0 0 0-1.767-.96l-3.994 2.94a1.147 1.147 0 0 0 0 1.946l3.994 2.94a1.144 1.144 0 0 0 1.767-.96v-.667z"/>
-</svg>
-</svg>
-									</a>
-									<c:if test="${tmp.writer eq nick }">
-										<a data-num="${tmp.num }" href="javascript:" class="comment-update-link">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil icon" viewBox="0 0 16 16">
-  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-</svg>
-										</a>
-										<a data-num="${tmp.num }" href="javascript:" class="comment-delete-link">
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash icon" viewBox="0 0 16 16">
-  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-</svg>
-										</a>
-									</c:if>
+									<div class="row">
+										<div class="col">
+											<span>${tmp.writer }</span>
+											<c:if test="${tmp.num ne tmp.cmt_group }">
+												@<i>${tmp.target_nick }</i>
+											</c:if>
+											<span>
+												<small class="cmt-regdate">${tmp.regdate }</small>
+												</span>
+										</div>
+										<div class="col text-right">
+											<span>
+												<small>
+													<a data-num="${tmp.num }" href="javascript:" class="reply-link cmt-link">답글</a>
+													<c:if test="${tmp.writer eq nick }" >
+														<span class="cmt-link">|</span> 
+														<a data-num="${tmp.num }" href="javascript:" class="comment-update-link cmt-link">수정</a>
+														<span class="cmt-link">|</span> 
+														<a data-num="${tmp.num }" href="javascript:" class="comment-delete-link cmt-link">삭제</a>
+													</c:if>
+												</small>
+											</span>
+										</div>
+									</div>
 								</dt>
 								<dd>
 									<pre>${tmp.content }</pre>
@@ -339,16 +434,28 @@
 									value="${tmp.writer }"/>
 								<input type="hidden" name="cmt_group"
 									value="${tmp.cmt_group }"/>
-								<textarea class="form-control" name="content"></textarea>
-								<button class="btn btn-primary" type="submit">답글등록</button>
+								<div class="row">
+									<div class="col-12">
+										<textarea class="form-control" name="content"></textarea>
+									</div>
+									<div class="col text-right">
+										<button class="btn" type="submit">답글</button>
+									</div>
+								</div>
 							</form>
 							<!-- 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 -->
 							<c:if test="${tmp.writer eq nick }">
 								<form class="comment-form update-form" 
 									action="private/comment_update.do" method="post">
 									<input type="hidden" name="num" value="${tmp.num }"/>
-									<textarea class="form-control" name="content">${tmp.content }</textarea>
-									<button class="btn btn-primary" type="submit">수정등록</button>
+									<div class="row">
+										<div class="col-12">
+											<textarea class="form-control" name="content">${tmp.content }</textarea>
+										</div>
+										<div class="col text-right">
+											<button class="btn" type="submit">수정</button>
+										</div>
+									</div>
 								</form>
 							</c:if>
 						</li>						

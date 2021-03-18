@@ -47,10 +47,14 @@
 		background-position:center;
 		
 	}
-	.heart-link{
+	/* 하트 기본, 호버시 빨갛게 만들어주기 */
+	.heart-link,
+	.heart-link:hover{
 	/*
       font-size : 2em;
     */  
+    	color:red;
+    	text-decoration: none;
    	}
    	
 	/* 프로필 이미지를 작은 원형으로 만든다 */
@@ -59,16 +63,50 @@
       height: 25px;
       border: 1px solid #cecece;
       border-radius: 50%;
-   }
+    }
+	/*버튼 기본 노랑*/
+    .btn{
+    	background-color:#F7DC6F;
+    	/*color:sienna;*/
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    	/*color:sienna;*/
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn-a{
+    	/*color:sienna;*/
+    }
+    /* 버튼 링크 호버시 언더라인 삭제 */
+    .btn-a:hover{
+    	/*color:sienna;*/
+    	text-decoration:none;
+    }  
+    /* page-item active 색상 변경 */
+    .page-item.active .page-link{
+    	background-color:#F7DC6F;
+    	border-color:#F7DC6F;
+    } 
+    .page-link:hover{
+    	color:#212529;
+    	background-color:#FBEEE6;
+    	border-color:#FBEEE6;
+    }
+    .page-link{
+    	color:#212529;
+    }
 </style>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp">
 	<jsp:param value="public_report" name="thisPage"/>
 </jsp:include>
+<jsp:include page="../include/public_jumbotron.jsp"></jsp:include>
 <div class="container">
 		<form action="list.do" method="get">
-			<div class="row justify-content-md-center" style="margin:10px;">
+			<!-- 검색창 마진 띄우기 -->
+			<div class="row justify-content-md-center" style="margin-top:10px;margin-bottom:32px;">
 				<div class="col-2">
 					<select class="form-control" name="condition" id="condition">
 						<option value="booktitle_author" ${condition eq 'booktitle_author' ? 'selected' : '' }>책제목+저자</option>
@@ -80,13 +118,14 @@
 					<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
 				</div>
 				<span>
-					<button class="btn btn-primary" type="submit">검색</button>
+					<button class="btn" type="submit">검색</button>
 				</span>
 			</div>
 		</form>
 	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
 	<c:if test="${not empty keyword }">
-		<div class="alert alert-success">
+		<!-- 검색키워드 투명하게 보이기 + 가운데 정렬 -->
+		<div class="alert text-center">
 			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
 		</div>
 	</c:if>
@@ -161,7 +200,8 @@
 		</c:forEach>
 	</div>
 	<nav>
-		<ul class="pagination justify-content-center">
+		<!-- 페이지네이션 콘텐츠 간격 띄우기 설정 -->
+		<ul class="pagination justify-content-center" style="margin-top: 32px;margin-bottom: 32px;">
 			<c:choose>
 				<c:when test="${startPageNum != 1 }">
 					<li class="page-item">
