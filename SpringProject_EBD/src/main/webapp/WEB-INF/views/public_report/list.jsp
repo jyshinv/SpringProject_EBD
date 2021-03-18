@@ -47,10 +47,14 @@
 		background-position:center;
 		
 	}
-	.heart-link{
+	/* 하트 기본, 호버시 빨갛게 만들어주기 */
+	.heart-link,
+	.heart-link:hover{
 	/*
       font-size : 2em;
     */  
+    	color:red;
+    	text-decoration: none;
    	}
    	
 	/* 프로필 이미지를 작은 원형으로 만든다 */
@@ -59,7 +63,25 @@
       height: 25px;
       border: 1px solid #cecece;
       border-radius: 50%;
-   }
+    }
+	/*버튼 기본 노랑*/
+    .btn{
+    	background-color:#F7DC6F;
+    	/*color:sienna;*/
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    	/*color:sienna;*/
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn-a{
+    	/*color:sienna;*/
+    }
+    .btn-a:hover{
+    	/*color:sienna;*/
+    	text-decoration:none;
+    }   
 </style>
 </head>
 <body>
@@ -80,7 +102,7 @@
 					<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
 				</div>
 				<span>
-					<button class="btn btn-primary" type="submit">검색</button>
+					<button class="btn" type="submit">검색</button>
 				</span>
 			</div>
 		</form>

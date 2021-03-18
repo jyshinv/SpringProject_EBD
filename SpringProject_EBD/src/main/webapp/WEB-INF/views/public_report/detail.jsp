@@ -40,9 +40,18 @@
 		width: 100%;
 		height: 100px;
 	}
-	/* 댓글 버튼 폭 줄이기 */
+	/* 댓글 버튼 폭 줄이기 / 기본색 변경 */
 	.comment-form button{
 		width: 15%;
+		background-color:#F7DC6F;
+	}
+	/* 댓글 버튼 호버 시 색 변경 */
+	.comment-form button:hover,
+	.page-link:hover{
+		background-color:#FBEEE6;
+	}
+	.page-link{
+		background-color:#F7DC6F;
 	}
 	/* 댓글에 댓글을 다는 폼과 수정폼은 일단 숨긴다. */
 	.comments .comment-form{
@@ -85,8 +94,12 @@
 		z-index: 1000;
 		display: none; /* 일단 숨겨 놓기 */
 	}	
-	.heart-link{
+	/* 하트 hover시 색 변경 및 언더라인 삭제 */
+	.heart-link,
+	.heart-link:hover{
       	font-size : 2em;
+      	color:red;
+      	text-decoration: none;
     }
     /* 카드 테두리와 내용 간격두기 */	
     .card{
@@ -126,14 +139,34 @@
    h1{
    		margin-top:30px;
    }
-   /* 답글/수정/삭제 색 변경 */
+   /* 답글/수정/삭제 댓글알림글 색 변경 */
    .cmt-link,
-   .cmt-regdate{
+   .cmt-regdate,
+   .cmt-small{
    		color:grey;
    }
+   
    /* 모든 a링크의 hover 색깔 변경 (임시) */
-   a:hover{
-   		color:brown;
+   a:hover,
+   .link>a:hover{
+   		color:#F7DC6F;
+   		text-decoration: none;
+   }
+   /* 뷰카운트, 날짜 글자색 변경 */
+   #view-reg{
+   		color:grey;
+   }
+   /* 구매처 링크 노란색 (버튼색과 다름) / 공개 비공개 체크 버튼에도 동일하게 구현 */
+   .link>a,
+   .page-link,
+   .page-link:hover{
+   		color:#212529;
+   }
+   .page-link:hover{
+   		text-decoration: none;
+   }
+   th{
+   		color:grey;
    }
 </style>
 </head>
@@ -164,7 +197,7 @@
 			<h1>${dto.title }</h1>
 		</div>
 		<!-- &nbsp; 공백 태그 -->
-		<div class="text-right marg">
+		<div class="text-right marg" id="view-reg">
 			<span>
 				<small>
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
@@ -223,7 +256,7 @@
 	          		<label for="num"></label>
 	          		<input type="hidden" value="${dto.num }" id="num" name="num"/>
 	          		<button type="submit" class="btn btn-link" id="checkBtn">
-	          			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+	          			<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16" style="color:#FFCA28;">
 						  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
 						  <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
 						</svg>
@@ -251,7 +284,7 @@
 			</tr>
 			<tr>
 				<th scope="row">구매처 링크</th>
-				<td><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
+				<td class="link"><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
 			</tr>
 		</table>
 			<div class="marg">
@@ -309,7 +342,27 @@
 				<textarea class="form-control" name="content"><c:if test="${empty nick }">로그인이 필요합니다</c:if></textarea>
 			</div>
 			<div class="col text-right">
-				<button class="btn btn-primary" type="submit">댓글등록</button>
+				<button class="btn" type="submit">
+					등록
+					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="20px" height="20px" viewBox="0 0 467.276 467.276" style="enable-background:new 0 0 467.276 467.276;"
+	 xml:space="preserve">
+					<g>
+						<g>
+							<path d="M379.281,51.144C348.254,24.297,309.565,13.46,269.577,8.672C163.068-25.3,68.062,44.959,26.578,142.38
+								c-44.714,105.002-23.44,222.217,73.516,287.698c98.985,66.846,235.019,39.369,310.95-48.627
+								C494.023,285.274,473.539,132.719,379.281,51.144z M196.847,432.703C140.695,424.71,86.21,390.16,57.756,340.898
+								c-25.438-44.047-25.225-99.203-13.822-147.312c17.529-73.96,70.568-140.71,139.888-156.686c0.104,0.005,0.19,0.035,0.295,0.035
+								c24.95,0.739,51.292,0.782,77.046,3.567c2.438,0.764,4.88,1.523,7.332,2.42c4.062,1.48,7.612,1.29,10.588,0.071
+								c27.781,4.677,54.313,13.579,76.951,31.392c50.079,39.405,76.479,110.461,75.032,172.696
+								C428.354,364.389,307.965,448.516,196.847,432.703z"/>
+							<path d="M169.276,211.913c23.28,0,23.28-36.104,0-36.104C145.999,175.808,145.999,211.913,169.276,211.913z"/>
+							<path d="M293.833,213.715c23.277,0,23.277-36.102,0-36.102C270.551,177.613,270.551,213.715,293.833,213.715z"/>
+							<path d="M302.731,274.966c-43.25,42.975-99.046,38.689-142.352-1.808c-16.98-15.879-42.566,9.598-25.529,25.532
+								c57.625,53.893,136.062,58.787,193.407,1.802C344.792,284.065,319.254,258.544,302.731,274.966z"/>
+						</g>
+					</svg>
+				</button>
 			</div>
 		</div>
 	</form>	
@@ -383,7 +436,7 @@
 										<textarea class="form-control" name="content"></textarea>
 									</div>
 									<div class="col text-right">
-										<button class="btn btn-primary" type="submit">답글등록</button>
+										<button class="btn" type="submit">답글</button>
 									</div>
 								</div>
 							</form>
@@ -397,7 +450,7 @@
 											<textarea class="form-control" name="content">${tmp.content }</textarea>
 										</div>
 										<div class="col text-right">
-											<button class="btn btn-primary" type="submit">수정등록</button>
+											<button class="btn" type="submit">수정</button>
 										</div>
 									</div>
 								</form>

@@ -9,7 +9,8 @@
    }
    /* 모든 a링크의 hover 색깔 변경 (임시) */
    	a:hover{
-   		color:brown;
+   		color:#F7DC6F;
+   		text-decoration: none;
    }
    /* 답글 아이콘 180도 회전 */
    .reply-link{
@@ -85,7 +86,7 @@
 							<textarea class="form-control" name="content"></textarea>
 						</div>
 						<div class="col text-right">
-							<button class="btn btn-primary" type="submit">답글등록</button>
+							<button class="btn" type="submit">답글등록</button>
 						</div>
 					</div>
 				</form>
@@ -99,7 +100,7 @@
 								<textarea class="form-control" name="content">${tmp.content }</textarea>
 							</div>
 							<div class="col text-right">
-								<button class="btn btn-primary" type="submit">수정등록</button>
+								<button class="btn" type="submit">수정등록</button>
 							</div>
 						</div>
 					</form>
