@@ -60,7 +60,7 @@
 				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }"  disabled/>
 			</div>
 			<div class="col">
-				<label for="image" class="btn btn-primary btn-file">
+				<label for="image" class="btn btn-light btn-file" style="background-color:#F7DC6F;">
 					이미지 변경<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
 					accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 			</label>
