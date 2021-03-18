@@ -22,6 +22,7 @@
 		text-align: center;
 	}
 	
+	/*요소를 가운대로*/
 	#center{
 		text-align: center;
 	}
