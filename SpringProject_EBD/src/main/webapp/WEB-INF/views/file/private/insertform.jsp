@@ -10,6 +10,11 @@
 	.head{
 		text-align: center;
 	}
+	
+	.row{
+		margin-bottom: 20px;
+	}
+	
 	.btn-file{
         position: relative;
         overflow: hidden;
@@ -37,67 +42,61 @@
 </style>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp">
+	<jsp:param value="file" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<!-- 독후감 양식 파일 업로드(게시글) 추가 폼-->
 	<h1 class="head" >독후감 양식을 공유해주세요</h1>
-	
-	<%--
-			[ 파일 업로드 폼 작성법 ]
-			1. method="post"
-			2. 폼에 enctype="multipart/form-data" 속성 추가
-			3. <input type="file" /> 을 이용한다.  
-	
-			[ SmartEditor 를 사용하기 위한 설정 ]
-			
-			1. WebContent 에 SmartEditor  폴더를 복사해서 붙여 넣기
-			2. WebContent 에 upload 폴더 만들어 두기
-			3. WebContent/WEB-INF/lib 폴더에 
-			   commons-io.jar 파일과 commons-fileupload.jar 파일 붙여 넣기
-			4. <textarea id="content" name="content"> 
-			   content 가 아래의 javascript 에서 사용 되기때문에 다른 이름으로 바꾸고 
-			      싶으면 javascript 에서  content 를 찾아서 모두 다른 이름으로 바꿔주면 된다. 
-			5. textarea 의 크기가 SmartEditor  의 크기가 된다.
-			6. 폼을 제출하고 싶으면  submitContents(this) 라는 javascript 가 
-		      	폼 안에 있는 버튼에서 실행되면 된다.
-	 --%>
-	 
-	 <form action="insert.do" method="post" enctype="multipart/form-data">
-	 	<div class="form-group">
-	 		<label for="title">제목</label>
-	 		<input class="form-control" type="text" id="title" name="title" placeholder="제목을 입력해 주세요." />
-	 	</div>
+	<form action="insert.do" method="post" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-2">
+				<label for="title">제목</label>
+			</div>
+			<div class="col-8">
+				<input class="form-control" type="text" id="title" name="title" placeholder="제목을 입력해 주세요." />
+			</div>
+		</div>
 	 	<!-- 파일 업로드  -->
-	 	<div>
-	 		첨부 파일 : <input type="text" id="fileName2" placeholder="파일을 첨부해주세요" />
-	 		
-	 		<label for="myFile" class="btn btn-primary btn-sm btn-file">첨부할 파일 선택
-	 			<input type="file" name="myFile" id="myFile" onchange="reviewUploadImg2(this);" />
-	 		</label>
-	 		<br />
-	 		<small class="text-muted">공유할 독후감 양식파일을 넣어주세요.</small>
+	 	<div class="row">
+	 		<div class="col-2">
+	 			첨부 파일
+	 		</div>
+	 		<div class="col-8">
+	 			<input class="form-control" type="text" id="fileName2" placeholder="파일을 첨부해주세요" />
+	 			<small class="text-muted">공유할 독후감 양식파일을 넣어주세요.</small>
+	 		</div>
+	 		<div class="col">
+	 			<label for="myFile" class="btn btn-light btn-file" style="background-color:#F7DC6F;">파일 선택
+		 			<input type="file" name="myFile" id="myFile" onchange="reviewUploadImg2(this);" />
+		 		</label>
+	 		</div>
 	 	</div>
-	 	<br />
 	 	<!-- 이미지 업로드 -->
-	 	<div>
-	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
-	 	
-	 		<label for="myImg" class="btn btn-primary btn-sm btn-file">첨부할 이미지 선택
-	 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
-	 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
-	 		</label>
-	 		<br />
-	 		<small class="text-muted">예시 사진을 넣어주세요.</small>
+	 	<div class="row">
+	 		<div class="col-2">
+	 			이미지
+	 		</div>
+	 		<div class="col-8">
+	 			<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
+	 			<small class="text-muted">예시 사진을 넣어주세요.</small>
+	 		</div>
+	 		<div class="col">
+	 			<label for="myImg" class="btn btn-light btn-file" style="background-color:#F7DC6F;">이미지 선택
+		 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
+		 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+		 		</label>
+	 		</div>
 	 	</div>
-	 	<br />
-	 	
 	 	<div class="form-group">
-	 		<label for="content"></label>
 		    <textarea class="form-control" type="text"  name="content" id="content"></textarea>
 		</div>
-	 	
-		<button class="btn btn-dark" type="submit" onclick="submitContents(this);" >업로드</button>
-		<button class="btn btn-dark" type="reset">취소</button>
-	 	
+	 	<div class="text-center">
+	 		<button class="btn btn-light" type="submit" onclick="submitContents(this);" style="background-color:#F7DC6F;">
+	 		등록</button>
+			<button class="btn btn-dark" type="reset" style="background-color:#AF601A; border-color:#AF601A;">
+			취소</button>
+	 	</div>
 	 </form>
 	
 </div>

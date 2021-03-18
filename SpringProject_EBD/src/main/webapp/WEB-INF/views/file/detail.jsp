@@ -9,6 +9,7 @@
 <title>/file/detail.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+	/* 댓글 css */
 	/* 글 내용을 출력할 div 에 적용할 css */
 	.contents{
 		width: 100%;
@@ -86,15 +87,15 @@
 	
 	/* 하트 스타일 */
 	.heart-link{
-      font-size : 2.5em;
+      font-size : 2em;
       color:red;
    }
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
-      width: 30px;
-      height: 30px;
-      border: 1px solid #cecece;
+      width: 50px;
+      height: 50px;
+      
       border-radius: 50%;
    }
    
@@ -102,12 +103,23 @@
    		padding: 10px;
    }
    
+   .card-header{
+   		background-color:rgba(0, 0, 0, 0);
+   }
+   
+   .badge-size{
+   		font-size : 20px;
+   		margin-top: 10px;
+   }
+   
+   .file-img{
+   		max-width: 100%;
+   }
+   
    /* text-decoration 속성값을 none으로 설정하여 링크(link)가 설정된 텍스트의 밑줄을 제거하는데 자주 사용합니다. 
    		왜 적용 안됨 ㅋ 
    */
-    a { 
-    	text-decoration: none; 
-    }
+   
    
 </style>
 </head>
@@ -118,9 +130,8 @@
 <div class="container">
 	<br />
 	<div class="card mb-3 card-padding">
-		<!-- 제목 -->
-		<h3 class="card-title" style=" text-align: center;">${dto.title }</h3>
-		<h5 class="card-text">
+		
+		<h5 class="card-text card-header">
 			<!-- 프로필 이미지 -->
 			<c:choose>
 		         <c:when test="${empty dto.profile }">
@@ -134,111 +145,118 @@
 		            <img id="profileImage" src="${pageContext.request.contextPath }${dto.profile}"/>
 		         </c:otherwise>
 	      	</c:choose>
-			<!-- 작성자 이미지 -->
-			${dto.writer }
+			<!-- 작성자(닉네임) -->
+			&nbsp;${dto.writer }
 		</h5>
+		<!-- 제목 -->
+		<h1 class="card-title" style=" text-align:center; margin-top:30px;">${dto.title }</h1>
 		<!-- 조회수 등록일 -->
 		<p class="card-text text-right">
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-			  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-			  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-			</svg><small> ${dto.viewcnt } </small>    	
-			<small class="text-muted"> ${dto.regdate }</small>
+			<small> 
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+				  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+				  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+				</svg>
+				<span>&nbsp;${dto.viewcnt } </span>
+			</small> 
+			&nbsp;&nbsp;
+			<small class="text-muted">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
+				  <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+				  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+				  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+				</svg> 
+				<span>&nbsp;${dto.regdate }</span>
+			</small> 
 		</p>
 		<!-- 이미지 -->
-		<img class="card-img-top" 
+		<img class="card-img-top file-img" 
 			src="${pageContext.request.contextPath }${dto.imgpath}" alt="Card image cap">
 		  	  	
-		<div class="card-body card-css" >
-			<tabel>
-				<tr>
-					<td>
-						<!-- 로그인 했으면 하트 -->
-						<c:if test="${not empty nick }">
-					       <c:choose>
-					          <c:when test="${isheartclick eq true }">
-					             <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
-					          </c:when>
-					          <c:otherwise>
-					             <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
-					          </c:otherwise>
-					       </c:choose>
-					       <span class="heart-cnt">${heartcnt }</span>  
-					    </c:if>
-					    <!-- 로그인안했으면 하트 -->
-					    <c:if test="${empty id }">
-					            <span>♥</span>
-					            <span class="heart-cnt">${heartcnt }</span>
-					    </c:if>
-					</td>
-						
-					<td>
-						<!-- 작성자만 보이게 수정/삭제-->
-					    <c:if test="${dto.writer eq nick }">
-					    	<a href="${pageContext.request.contextPath }/file/private/updateform.do?num=${dto.num}" style="color:black;">
-						 		<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-								  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-								</svg>
-				 			</a>
-					</td>
-					
-					<td>
-							<a href="${pageContext.request.contextPath }/file/private/delete.do?num=${dto.num}" style="color:black;">
-								<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-								  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-								  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-								</svg>
-							</a>
-			   			</c:if>		
-					</td>
-				</tr>
-			</tabel>
-			
-			<!-- 파일 다운로드 -->
-	  		<p class="card-text">
-	  			<br />${dto.orgfname } <strong>|</strong> 
-	  			<fmt:formatNumber value="${dto.fileSize }" pattern="#,###"/><strong>byte</strong>
-	  			<a class="btn btn-secondary btn-sm" href="download.do?num=${dto.num }">
-	  				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16">
-					  <path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708l2 2z"/>
-					  <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
-					</svg>
-	  			</a>
-	  		</p>
+		<div class="card-body" >
+			<div class="row">
+				<div class="col text-left">
+					<!-- 로그인 했으면 하트 -->
+					<c:if test="${not empty nick }">
+				       <c:choose>
+				          <c:when test="${isheartclick eq true }">
+				             <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+				          </c:when>
+				          <c:otherwise>
+				             <a data-num="${dto.num }" href="javascript:" class="heart-link" href="list.do">♡</a>
+				          </c:otherwise>
+				       </c:choose>
+				       <span class="heart-cnt">${heartcnt }</span>  
+				    </c:if>
+				    <!-- 로그인안했으면 하트 -->
+				    <c:if test="${empty id }">
+				            <span>♥</span>
+				            <span class="heart-cnt">${heartcnt }</span>
+				    </c:if>
+				
+					<!-- 작성자만 보이게 수정/삭제-->
+				    <c:if test="${dto.writer eq nick }">
+				    	<a href="${pageContext.request.contextPath }/file/private/updateform.do?num=${dto.num}" style="color:black;">
+					 		<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16"
+					 		style="margin-left: 10px; margin-bottom: 10px;">
+							  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+							</svg>
+			 			</a>
+						<a href="${pageContext.request.contextPath }/file/private/delete.do?num=${dto.num}" style="color:black;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"\
+							style="margin-left: 10px; margin-bottom: 10px;">
+							  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+							  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+							</svg>
+						</a>
+		   			</c:if>		
+				</div>
+				<div class="col text-right">
+					<!-- 파일 다운로드 -->
+			  		${dto.orgfname } <strong>&nbsp;|&nbsp;</strong> 
+		  			<fmt:formatNumber value="${dto.fileSize }" pattern="#,###"/><strong>byte</strong>
+		  			&nbsp;
+		  			<a href="download.do?num=${dto.num }" style="color:black;">
+		  				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+						  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+						</svg>
+		  			</a>
+				</div>
+			</div><!-- row -->
+			<br />
 	  		<!-- 내용 -->
 		    <p class="card-text">${dto.content }</p>
 		</div><!-- card body -->
+		<!-- prev/next 페이징 -->
+		<nav>
+			<ul class="pagination justify-content-center">
+				<c:choose>
+					<c:when test="${dto.prevNum ne 0 }">
+						<li class="page-item mr-3">
+							<a class="page-link" href="detail.do?num=${dto.prevNum }" style="color:#AF601A;">&larr; Prev</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled mr-3">
+							<a class="page-link" href="javascript:">Prev</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${dto.nextNum ne 0 }">
+						<li class="page-item">
+							<a class="page-link" href="detail.do?num=${dto.nextNum }" style="color:#AF601A;">Next &rarr;</a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item disabled">
+							<a class="page-link" href="javascript:">Next</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+			</ul>
+		</nav>
 	</div><!-- card -->
-	
-	<!-- prev/next 페이징 -->
-	<nav>
-		<ul class="pagination justify-content-center">
-			<c:choose>
-				<c:when test="${dto.prevNum ne 0 }">
-					<li class="page-item mr-3">
-						<a class="page-link" href="detail.do?num=${dto.prevNum }">&larr; Prev</a>
-					</li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item disabled mr-3">
-						<a class="page-link" href="javascript:">Prev</a>
-					</li>
-				</c:otherwise>
-			</c:choose>
-			<c:choose>
-				<c:when test="${dto.nextNum ne 0 }">
-					<li class="page-item">
-						<a class="page-link" href="detail.do?num=${dto.nextNum }">Next &rarr;</a>
-					</li>
-				</c:when>
-				<c:otherwise>
-					<li class="page-item disabled">
-						<a class="page-link" href="javascript:">Next</a>
-					</li>
-				</c:otherwise>
-			</c:choose>
-		</ul>
-	</nav>
 	
 	<!-- 원글에 댓글을 작성하는 form -->
 	<form class="comment-form insert-form" action="private/cmt_insert.do" method="post">
@@ -317,57 +335,57 @@
 </div>
 
 <script>
-
-//하트를 클릭할 때마다 호출되는 함수 등록
-$(document).on("click",".heart-link",function(){
-   //글 번호를 불러온다.
-   var target_num=$(this).attr("data-num");
-
-   if($(this).text()=="♡"){ //하트일때 클릭하면
-      console.log("if문 들어왔다!"+target_num);
-      //insert 요청을 한다.(컨트롤러에서 responsebody사용)
-      $.ajax({
-         url:"${pageContext.request.contextPath }/file/saveheart.do",
-         method:"GET",
-         data: "target_num="+target_num,
-         success:function(data){ //나중에 구현 : 하트 수를 반환
-            $(".heart-cnt").text("("+data.heartCnt+")");
-         }
-      });
-      $(this).text("♥"); //하트 눌림으로 바뀐다.
-      
-      
-   
-   }else{//하트 눌림일 때 클릭하면 (하트를 해제한 효과)         
-      //delete 요청을 한다.(컨트롤러에서 responsebody사용)
-      $.ajax({
-         url:"${pageContext.request.contextPath }/file/removeheart.do",
-         method:"GET",
-         data: "target_num="+target_num,
-         success:function(data){
-            $(".heart-cnt").text("("+data.heartCnt+")");
-         }             
-      });
-      
-      $(this).text("♡");//하트로 바뀐다. 
-   }
-   
-});
-
-//페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
-//방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
-$(window).bind("pageshow", function (event) {
-   //파이어폭스와 사파리에서는 persisted를 통해서 뒤로가기 감지가 가능하지만 익스와 크롬에서는 불가  ||뒤의 코드를 추가한다. 
-   if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
-      console.log('BFCahe로부터 복원됨');
-      $(".heart-link").css("pointer-events","none");
-      location.reload();//새로고침 
-      
-   }
-   else {
-      console.log('새로 열린 페이지');
-   }
-});
+	
+	//하트를 클릭할 때마다 호출되는 함수 등록
+	$(document).on("click",".heart-link",function(){
+	   //글 번호를 불러온다.
+	   var target_num=$(this).attr("data-num");
+	
+	   if($(this).text()=="♡"){ //하트일때 클릭하면
+	      console.log("if문 들어왔다!"+target_num);
+	      //insert 요청을 한다.(컨트롤러에서 responsebody사용)
+	      $.ajax({
+	         url:"${pageContext.request.contextPath }/file/saveheart.do",
+	         method:"GET",
+	         data: "target_num="+target_num,
+	         success:function(data){ //나중에 구현 : 하트 수를 반환
+	            $(".heart-cnt").text(data.heartCnt);
+	         }
+	      });
+	      $(this).text("♥"); //하트 눌림으로 바뀐다.
+	      
+	      
+	   
+	   }else{//하트 눌림일 때 클릭하면 (하트를 해제한 효과)         
+	      //delete 요청을 한다.(컨트롤러에서 responsebody사용)
+	      $.ajax({
+	         url:"${pageContext.request.contextPath }/file/removeheart.do",
+	         method:"GET",
+	         data: "target_num="+target_num,
+	         success:function(data){
+	            $(".heart-cnt").text(data.heartCnt);
+	         }             
+	      });
+	      
+	      $(this).text("♡");//하트로 바뀐다. 
+	   }
+	   
+	});
+	
+	//페이지가 뒤로가기 하면 하트버튼과 하트수 갱신이 안된다. 이때 하트를 누르면 디비에 중복으로 값이 들어가진다.
+	//방지하기 위해 페이지가 뒤로가기 할때마다 css로 클릭을 막고 새로고침을 통해 갱신된 하트버튼과 하트수가 나오도록 한다.
+	$(window).bind("pageshow", function (event) {
+	   //파이어폭스와 사파리에서는 persisted를 통해서 뒤로가기 감지가 가능하지만 익스와 크롬에서는 불가  ||뒤의 코드를 추가한다. 
+	   if (event.originalEvent.persisted || (window.performance && window.performance.navigation.type == 2)) {
+	      console.log('BFCahe로부터 복원됨');
+	      $(".heart-link").css("pointer-events","none");
+	      location.reload();//새로고침 
+	      
+	   }
+	   else {
+	      console.log('새로 열린 페이지');
+	   }
+	});
 
 </script>
 <script src="${pageContext.request.contextPath }/resources/js/jquery.form.min.js"></script>

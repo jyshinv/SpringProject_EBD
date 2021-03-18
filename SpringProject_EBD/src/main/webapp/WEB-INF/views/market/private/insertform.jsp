@@ -12,6 +12,11 @@
 	.head{
 		text-align: center;
 	}
+	
+	.row{
+		margin-bottom: 20px;
+	}
+	
 	.btn-file{
         position: relative;
         overflow: hidden;
@@ -39,37 +44,33 @@
 </style>
 </head>
 <body>
-<!-- 
-		[ SmartEditor 를 사용하기 위한 설정 ]
-			
-		1. WebContent 에 SmartEditor  폴더를 복사해서 붙여 넣기
-		2. WebContent 에 upload 폴더 만들어 두기
-		3. WebContent/WEB-INF/lib 폴더에 
-		   commons-io.jar 파일과 commons-fileupload.jar 파일 붙여 넣기
-		4. <textarea id="content" name="content"> 
-		   content 가 아래의 javascript 에서 사용 되기때문에 다른 이름으로 바꾸고 
-		      싶으면 javascript 에서  content 를 찾아서 모두 다른 이름으로 바꿔주면 된다. 
-		5. textarea 의 크기가 SmartEditor  의 크기가 된다.
-		6. 폼을 제출하고 싶으면  submitContents(this) 라는 javascript 가 
-	      	폼 안에 있는 버튼에서 실행되면 된다.
- -->
+<jsp:include page="../../include/navbar.jsp">
+	<jsp:param value="market" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<h1 class="head" >중고 거래 글쓰기 폼</h1>
 	<form action="insert.do" method="post" enctype="multipart/form-data">
-	 	<div class="form-group">
-	 		<label for="title">제목</label>
-	 		<input class="form-control" type="text" id="title" name="title" 
-	 			placeholder="제목을 입력해 주세요."/>
+	 	<div class="row">
+	 		<div class="col-2">
+	 			<label for="title">제목</label>
+	 		</div>
+	 		<div class="col-8">
+	 			<input class="form-control" type="text" id="title" name="title" 
+	 				placeholder="제목을 입력해 주세요."/>
+	 		</div>	
 	 	</div>
-	 	
-	 	<div class="form-group">
-	 		<label for="salesType">거래 유형</label>
-	 		<select class="form-control" name="salesType" id="salesType">
+	 	<div class="row">
+	 		<div class="col-2">
+	 			<label for="salesType">거래 유형</label>
+	 		</div>
+	 		<div class="col-8">
+	 			<select class="form-control" name="salesType" id="salesType">
 				<option selected >도서 나눔</option>
 				<option>도서 교환</option>
 				<option>도서 판매</option>	 		
-	 		</select>
-	 		<small class="text-muted">거래 유형을 선택해주세요.</small>
+		 		</select>
+		 		<small class="text-muted">거래 유형을 선택해주세요.</small>
+	 		</div>
 	 	</div>
 	 	
 	 	<!-- <div class="form-group">
@@ -81,21 +82,29 @@
 	 	</div>-->
 	 	
 	 	<!-- 이미지 업로드 -->
-	 	<div>
-	 		이미지 : <input type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
-	 		
-	 		<label for="myImg" class="btn btn-primary btn-sm btn-file" >첨부할 이미지 선택
-	 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
-	 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
-	 		</label>
-	 		<p><small class="text-muted">거래할 도서의 사진을 넣어주세요</small></p>
+	 	<div class="row">
+	 		<div class="col-2">
+	 			이미지 첨부
+	 		</div>
+	 		<div class="col-8">
+	 			<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
+	 		</div>
+	 		<div class="col">
+	 			<label for="myImg" class="btn btn-light btn-file" style="background-color:#F7DC6F;">파일 선택
+		 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
+		 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
+		 		</label>
+	 		</div>
 	 	</div>
-	 	<br />
 	 	<div class="form-group">
 		    <textarea class="form-control" type="text" name="content" id="content"></textarea>
 		</div>
-		<button class="btn btn-dark" type="submit" onclick="submitContents(this);">업로드</button>
-		<button class="btn btn-dark" type="reset">입력 내용 취소</button>
+		<div class="text-center">
+			<button class="btn btn-light" type="submit" onclick="submitContents(this);" style="background-color:#F7DC6F;">
+			등록</button>
+			<button class="btn btn-dark" type="reset" style="background-color:#AF601A; border-color:#AF601A;">
+			취소</button>
+		</div>
 	 </form>
 </div>
 
