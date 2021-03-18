@@ -468,11 +468,6 @@ public class MarketServiceImpl implements MarketService {
 	    int heartcnt=marketDao.getHeartCntDetail(target_num);      return heartcnt;
 	}
 
-	@Override
-	public void getRecentList(ModelAndView mView) {
-		// TODO Auto-generated method stub
-		
-	}
 		
 	
 

@@ -55,8 +55,8 @@ public class HomeController {
 		report_service.getBestHeartList(mView); //좋아요 높은 순 Best3 (reportBestList[0~3])
 		episode_service.getBestViewCntList(mView); //조회수 높은 순 Best3 (episodeBestList[0~3])
 		file_service.getBestViewCntList(mView); //조회수 높은 순 Best3 (fileBestList[0~5])
-		market_service.getList(request); //최신매물 Top3		
-		//market_service.getRecentList(mView); //최신매물 Top3
+		market_service.getList(request); //최신매물 Top3 (marketService의 getList를 재사용함)		
+
 		
 		mView.setViewName("home");
 		return mView;
