@@ -171,7 +171,10 @@
 </style>
 </head>
 <body>
-<!--<jsp:include page="../include/navbar.jsp"></jsp:include>-->
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="public_report" name="thisPage"/>
+</jsp:include>
+<jsp:include page="../include/public_jumbotron.jsp"></jsp:include>
 <div class="container">
 	<div class="card">
 		<div class="row card-header" >
