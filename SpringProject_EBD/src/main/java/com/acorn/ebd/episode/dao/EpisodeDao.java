@@ -32,4 +32,6 @@ public interface EpisodeDao {
 	public void deleteDetail(int num);
 	//에피소드 뷰카운트 증가 요청처리 
 	public void addViewCount(int num);
+	//에피소드 조회수순으로 Best3를 불러오는 메소드 
+	public List<EpisodeDto> getBestViewCntList();
 }

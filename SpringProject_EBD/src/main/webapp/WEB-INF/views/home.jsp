@@ -69,34 +69,11 @@
 	<h4>Every Book Day TOP 3 명언 </h4>
 	<p>좋은 구절을 추천 해주세요!  
 	 	<a class="btn btn-outline-secondary btn-sm" href="#">더 보러가기</a></p>
-	<div class="container marketing">
-	    <!-- Three columns of text below the carousel -->
-	    <div class="row">
-	      <div class="col-lg-4 text-center">
-			<img class="card-img-top wording-img" src="https://i.pinimg.com/originals/95/a5/10/95a51074afed9b72b537b78b94f0a041.jpg" alt="Card image cap">
-	        <h5>Book Title 1</h5>
-	        <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-	      	<p> <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer></p>
-	      </div>
-	      <div class="col-lg-4 text-center">
-			<img class="card-img-top wording-img" src="https://i.pinimg.com/originals/95/a5/10/95a51074afed9b72b537b78b94f0a041.jpg" alt="Card image cap">
-	        <h5>Book Title 2</h5>
-	        <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-	      	 <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-	      </div>
-	      <div class="col-lg-4 text-center">
-			<img class="card-img-top wording-img" src="https://i.pinimg.com/originals/95/a5/10/95a51074afed9b72b537b78b94f0a041.jpg" alt="Card image cap">
-	        <h5>Book Title 3</h5>
-	        <p>And lastly this, the third column of representative placeholder content.</p>
-	       	 <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
-	      </div>
-	    </div><!-- /.row -->
-	</div>	
 	<br />
+	<%int isCheck=0; %><!-- Best 개수체크를 위한 변수 -->
 	<!-- 명언에 넣을 내용 -->
 	<div class="container marketing">
 		<div class="row">
-			<%int isCheck=0; %>
 			<c:forEach var="tmp" items="${wordingBestList }">
 					<%isCheck++; %>
 			      <div class="col-lg-4 text-center">
@@ -117,37 +94,12 @@
 			</c:forEach>
 		</div>
 	</div>	
-	
-	  <br />
+	<br />
     <%-- 독후감 BEST --%>
     <h4>TOP 3 독후감</h4>
 	<p>북스님들에게 가장 많은 좋아요를 받은 독후감
 		<a class="btn btn-outline-secondary btn-sm" href="#">더 보러가기</a></p>
 	<br />
-    <div class="card-deck">    	
-		  <div class="card">
-		    <img class="card-img-top" src="https://freight.cargo.site/t/original/i/3aaeb6e85db4d1a64043744a47249c05c1c3a58fb9989447cbc5241765359ba3/Mockup.jpg" alt="Card image cap">
-		    <div class="card-body">
-		      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-		      <p class="card-text"><footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer></p>
-		    </div>
-		  </div>
-		  <div class="card">
-		    <img class="card-img-top" src="https://freight.cargo.site/t/original/i/3aaeb6e85db4d1a64043744a47249c05c1c3a58fb9989447cbc5241765359ba3/Mockup.jpg" alt="Card image cap">
-		    <div class="card-body">
-		      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-		      <p class="card-text"><footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer></p>
-		    </div>
-		  </div>
-		  <div class="card">
-		    <img class="card-img-top" src="https://freight.cargo.site/t/original/i/3aaeb6e85db4d1a64043744a47249c05c1c3a58fb9989447cbc5241765359ba3/Mockup.jpg" alt="Card image cap">
-		    <div class="card-body">
-		      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-		      <p class="card-text"><footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer></p>
-		    </div>
-		  </div>
-	</div>
-	
 	<!-- 독후감 BEST3 내용 reportBestList -->
 	<div class="card-deck" >
 		<%isCheck=0; %>
@@ -172,23 +124,11 @@
 			 </div>
 	  	</c:forEach>
 	</div>
-	
-	
 	<br />
 	<%-- 독후감 양식 NEW --%>
 	<h4>TOP 5 다운로드</h4>
 	<p>북스님들이 공유해주신 독후감 양식
 		<a class="btn btn-outline-secondary btn-sm" href="#">더 보러가기</a></p>
-	<div class="card">
-	  <ul class="list-group list-group-flush">
-	    <li class="list-group-item">Download Title 1</li>
-	    <li class="list-group-item">Download Title 2</li>
-	    <li class="list-group-item">Download Title 3</li>
-	    <li class="list-group-item">Download Title 4</li>
-	    <li class="list-group-item">Download Title 5</li>
-	  </ul>
-	</div>
-
 	<!-- 독후감 양식 조회수 BEST5 -->	
 	<div class="card">
 		<ul class="list-group list-group-flush">
@@ -202,28 +142,27 @@
 			</c:forEach>
 		</ul>
 	</div>
-	
 	<br />
 	<h4>TOP 3 도서 매물</h4>
 	<p>따끈따끈한 도서 매물 구경하러가기
 		<a class="btn btn-outline-secondary btn-sm" href="#">더 보러가기</a></p>
 	<div class="card-deck">    	
 		  <div class="card">
-		    <img class="card-img-top" src="https://lh3.googleusercontent.com/proxy/Ir6E468i6aoEsyBznjgsN1EGhLBRv3rZPaehXGDSMPmFQFe6XY8nzZJzHZLUiwWwaOL1OaoEHI6EaFQNc-SMX-KCr1vXeS_hplaMwj0HHVHbY_CwtGOjw-HjDsZV1eO1" alt="Card image cap">
+		    <img class="card-img-top" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" alt="Card image cap">
 		    <div class="card-body">
 		      <h6 class="card-title">Card title</h6>
 		      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 		    </div>
 		  </div>
 		  <div class="card">
-		    <img class="card-img-top" src="https://lh3.googleusercontent.com/proxy/Ir6E468i6aoEsyBznjgsN1EGhLBRv3rZPaehXGDSMPmFQFe6XY8nzZJzHZLUiwWwaOL1OaoEHI6EaFQNc-SMX-KCr1vXeS_hplaMwj0HHVHbY_CwtGOjw-HjDsZV1eO1" alt="Card image cap">
+		    <img class="card-img-top" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" alt="Card image cap">
 		    <div class="card-body">
 		      <h6 class="card-title">Card title</h6>
 		      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
 		    </div>
 		  </div>
 		  <div class="card">
-		    <img class="card-img-top" src="https://lh3.googleusercontent.com/proxy/Ir6E468i6aoEsyBznjgsN1EGhLBRv3rZPaehXGDSMPmFQFe6XY8nzZJzHZLUiwWwaOL1OaoEHI6EaFQNc-SMX-KCr1vXeS_hplaMwj0HHVHbY_CwtGOjw-HjDsZV1eO1" alt="Card image cap">
+		    <img class="card-img-top" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" alt="Card image cap">
 		    <div class="card-body">
 		      <h6 class="card-title">Card title</h6>
 		      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
@@ -234,28 +173,29 @@
 	<h4>TOP 3 에피소드</h4>
 	<p>책과 관련된 재밌는 이야기 작성하러 가기
 		<a class="btn btn-outline-secondary btn-sm" href="#">더 보러가기</a></p>
-	<div class="card-deck">    	
-		  <div class="card">
-		    <img class="card-img-top" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" alt="Card image cap">
-		    <div class="card-body">
-		      <h6 class="card-title">Card title</h6>
-		      <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-		    </div>
-		  </div>
-		  <div class="card">
-		    <img class="card-img-top" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" alt="Card image cap">
-		    <div class="card-body">
-		      <h6 class="card-title">Card title</h6>
-		      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-		    </div>
-		  </div>
-		  <div class="card">
-		    <img class="card-img-top" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" alt="Card image cap">
-		    <div class="card-body">
-		      <h6 class="card-title">Card title</h6>
-		      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-		    </div>
-		  </div>
+	<!-- 에피소드 조회수 top3 -->
+	<div class="card-deck"> 
+		<%isCheck=0; %>
+		<c:forEach var="tmp" items="${episodeBestList }">
+			<%isCheck++; %>
+			<div class="card">
+			    <img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imgPath}" alt="Card image cap">
+			    <div class="card-body">
+			      <h6 class="card-title">조회수 : ${tmp.viewcnt }</h6>
+			      <h6 class="card-title">${tmp.title }</h6>
+			      <p class="card-text">${tmp.content }</p>
+			    </div>
+		  	</div>
+		</c:forEach>
+		<c:forEach var="i" begin="<%=isCheck %>" end="2">
+		   <div class="card">
+			    <img class="card-img-top" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" alt="Card image cap">
+			    <div class="card-body">
+			      <h6 class="card-title">아직 준비가 안됐어요!</h6>
+			      <p class="card-text">여러분들의 참여를 부탁드립니다!</p>
+			    </div>
+		  </div>			    	
+		</c:forEach>
 	</div>
 		
     <br />

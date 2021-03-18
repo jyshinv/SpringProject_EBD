@@ -416,9 +416,11 @@ public class EpisodeServiceImpl implements EpisodeService {
 		dao.deleteDetail(num);
 	}
 
+	//조회수 높은 순대로 Best3를 불러오는 메소드 
 	@Override
 	public void getBestViewCntList(ModelAndView mView) {
-		// TODO Auto-generated method stub
+		List<EpisodeDto> list=dao.getBestViewCntList();
+		mView.addObject("episodeBestList",list);
 		
 	}
 	

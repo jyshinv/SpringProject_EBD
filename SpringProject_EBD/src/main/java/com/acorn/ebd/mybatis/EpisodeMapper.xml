@@ -177,4 +177,16 @@
 		WHERE num=#{num}
 	</update>
 	
+	<!-- 조회수 순대로 Best3를 리턴 -->
+	<select id="getBestViewCntList" resultType="episodeDto">
+		SELECT *
+		FROM 
+		 (
+		  SELECT num, writer, title, content, imgpath, viewcnt, regdate
+		  FROM ebd_episode
+		  ORDER BY viewcnt DESC
+		 )
+		WHERE ROWNUM BETWEEN 1 AND 3
+	</select>
+	
 </mapper>

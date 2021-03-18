@@ -93,4 +93,11 @@ public class EpisodeDaoImpl implements EpisodeDao {
 		session.update("episode.addViewCount",num);
 	}
 
+	//조회수 순으로 Best3를 불러오는 메소드 
+	@Override
+	public List<EpisodeDto> getBestViewCntList() {
+		List<EpisodeDto> list=session.selectList("episode.getBestViewCntList");
+		return list;
+	}
+
 }
