@@ -72,5 +72,11 @@ public class HomeController {
 		return map;
     }
 	
+	//main jumbotron에서 more버튼 클릭 시 info.jsp 이동 요청 처리
+	@RequestMapping("/info.do")
+	public String info() {
+		return "info";
+	}
+	
 	
 }
