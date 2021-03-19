@@ -150,7 +150,7 @@ public class ReportServiceImpl implements ReportService{
 		
 		list=dao.getList(dto);
 		//글의 갯수
-		totalRow=dao.getCountTotal();
+		totalRow=dao.getCountTotal(dto);
 		
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;

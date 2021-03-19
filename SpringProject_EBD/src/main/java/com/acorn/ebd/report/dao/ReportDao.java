@@ -30,7 +30,7 @@ public interface ReportDao {
 	public int getCount(ReportDto dto);
 	
 	//독후감 검색 키워드 갯수 얻어오기 (비공개 독후감)
-	public int getCountTotal();
+	public int getCountTotal(ReportDto dto);
 	
 	//독후감을 수정하는 메소드
 	public void updateData(ReportDto dto);

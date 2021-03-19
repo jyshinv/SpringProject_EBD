@@ -24,21 +24,18 @@
             </when>
 		</choose>		
 	</select>
-	<select id="getCountTotal" resultType="int">
+	<select id="getCountTotal" parameterType="reportDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM ebd_report	
 		<choose>
 			<when test="booktitle != null and author != null">
 				WHERE booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%'
-				
 			</when>
 			<when test="booktitle != null">
 				WHERE booktitle LIKE '%'||#{booktitle}||'%'
-				
 			</when>
 			<when test="author != null">
 				WHERE author LIKE '%'||#{author}||'%'
-				
 			</when>
 		</choose>
 	</select>	

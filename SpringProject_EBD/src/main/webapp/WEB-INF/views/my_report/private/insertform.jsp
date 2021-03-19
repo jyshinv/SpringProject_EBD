@@ -30,14 +30,17 @@
     .row{
     	margin-bottom:5px;
     }
+    /* 스마트 에디터 전체 화면 보이게 하는 css */
+    #content{
+		width: 99.5%;
+		height: 400px;
+	}
 </style>
 </head>
 <body>
-<div class="container">
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-	<div class="text-center" style="margin:50px;">
-		<h1>당신이 남기고 싶은 책은 무엇인가요?</h1>
-	</div>
+<jsp:include page="../../include/report_insertform_jumbotron.jsp"></jsp:include>
+<div class="container">
 	<div class="row">
 		<div class="col-2">
 			<label for="search" class="col-form-label">책검색</label>
