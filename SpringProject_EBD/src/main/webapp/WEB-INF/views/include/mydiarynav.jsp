@@ -19,6 +19,13 @@
 		margin-top: 16px;
 		margin-bottom: 0px;
 	}
+	.navbar{
+		padding-top:0px;
+	}
+	/* active 걸리는 쪽 위에 짙은 줄 효과 넣기 */
+	.navbar-light .navbar-nav .active > .nav-link{
+		border-top:2px solid black;
+	}
 </style>
 <div class="container ">
 	<div class="container text-center">
@@ -33,7 +40,7 @@
 			<p style="color:grey;font-size:20px;">${sessionScope.id }</p>
 		</div>
 	</div>
-	<nav class="navbar navbar-expand-sm" id="mdnavbar">
+	<nav class="navbar navbar-expand-sm navbar-light" id="mdnavbar">
 		<div class="container">
 			<button class="navbar-toggler navbar-dark" data-toggle="collapse" data-target="#topNav">
 				<span class="navbar-toggler-icon"></span>
@@ -41,13 +48,13 @@
 			<div class="container collapse navbar-collapse justify-content-md-center" id="topNav">
 				<ul class="navbar-nav">
 					<li class="nav-item ${param.thisPage eq 'my_report' ? 'active':''}">
-						<a class="nav-link" href="${pageContext.request.contextPath }/my_report/private/list.do">나의 독후감</a>
+						<a class="nav-link" href="${pageContext.request.contextPath }/my_report/private/list.do"><b>나의 독후감</b></a>
 					</li>
 					<li class="nav-item ${param.thisPage eq '' ? 'active':''}">
-						<a class="nav-link" href="#">내가 누른 하트</a>
+						<a class="nav-link" href="#"><b>내가 누른 하트</b></a>
 					</li>
 					<li class="nav-item ${param.thisPage eq 'market' ? 'active':''}">
-						<a class="nav-link" href="#">내가 쓴 게시글</a>
+						<a class="nav-link" href="#"><b>내가 쓴 게시글</b></a>
 					</li>
 				</ul>
 			</div>
@@ -55,7 +62,6 @@
 	</nav>
 </div>
 <script>
-	$(document).ready(function() {
 		$.ajax({
             url:"${pageContext.request.contextPath }/include/mydiarynav.do",
             method:"GET",
@@ -69,5 +75,4 @@
             	}
             }
         });
-	});
 </script>

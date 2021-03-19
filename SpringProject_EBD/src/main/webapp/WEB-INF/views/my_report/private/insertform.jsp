@@ -38,15 +38,15 @@
 	<div class="text-center" style="margin:50px;">
 		<h1>당신이 남기고 싶은 책은 무엇인가요?</h1>
 	</div>
+	<div class="row">
+		<div class="col-2">
+			<label for="search" class="col-form-label">책검색</label>
+		</div >
+		<div class="col">
+			<button class="btn btn-primary"><a href="${pageContext.request.contextPath }/my_report/private/bookList.do" style="color:white">검색</a></button>
+		</div >
+	</div>
 	<form action="insert.do" method="post" enctype="multipart/form-data" class="form-group">
-		<div class="row">
-			<div class="col-2">
-				<label for="search" class="col-form-label">책검색</label>
-			</div >
-			<div class="col">
-				<button class="btn btn-primary"><a href="${pageContext.request.contextPath }/my_report/private/bookList.do" style="color:white">검색</a></button>
-			</div >
-		</div>
 		<div class="row">
 			<div class="col-2">
 				<label for="title" class="col-form-label">제목</label>

@@ -26,7 +26,7 @@
    		 		</p>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/mydiary.png" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/mydiary2.png" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>

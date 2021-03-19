@@ -212,29 +212,31 @@
 	<jsp:param value="my_report" name="thisPage"/>
 </jsp:include>
 <div class="container">
-	<form action="list.do" method="get">
-			<!-- 검색창 마진 띄우기 -->
-			<div class="row justify-content-md-center" style="margin-top:10px;margin-bottom:32px;">
-				<span>
-					<button class="btn">
-						<a href="${pageContext.request.contextPath}/my_report/private/insertform.do">새 독후감 작성</a>
-					</button>
-				</span>
-				<div class="col-2">
-					<select class="form-control" name="condition" id="condition">
-						<option value="booktitle_author" ${condition eq 'booktitle_author' ? 'selected' : '' }>책제목+저자</option>
-						<option value="booktitle" ${condition eq 'booktitle' ? 'selected' : '' }>책제목</option>
-						<option value="author" ${condition eq 'author' ? 'selected' : '' }>저자</option>
-					</select>
-				</div>
-				<div class="col-md-6">
-					<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
-				</div>
-				<span>
-					<button class="btn" type="submit">검색</button>
-				</span>
+		<!-- 검색창 마진 띄우기 -->
+		<div class="row justify-content-md-center" style="margin-top:10px;margin-bottom:32px;">
+			<span class="col">
+				<button class="btn">
+					<a href="${pageContext.request.contextPath}/my_report/private/insertform.do">새 독후감 작성</a>
+				</button>
+			</span>
+			<div>
+				<form action="list.do" method="get">
+					<div class="col-2">
+						<select class="form-control" name="condition" id="condition">
+							<option value="booktitle_author" ${condition eq 'booktitle_author' ? 'selected' : '' }>책제목+저자</option>
+							<option value="booktitle" ${condition eq 'booktitle' ? 'selected' : '' }>책제목</option>
+							<option value="author" ${condition eq 'author' ? 'selected' : '' }>저자</option>
+						</select>
+					</div>
+					<div class="col-md-6">
+						<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
+					</div>
+					<span>
+						<button class="btn" type="submit">검색</button>
+					</span>
+				</form>
 			</div>
-		</form>
+		</div>
 	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
 	<c:if test="${not empty keyword }">
 		<div class="alert alert-success">
@@ -306,6 +308,7 @@
 </nav>
 </div>
 <script>
+	$(".hover").removeClass("hover");
 	/* Demo purposes only */
 	$(".hover").mouseleave(
 	  function () {
