@@ -25,6 +25,15 @@ public class MarketServiceImpl implements MarketService {
 	@Autowired
 	private MarketCmtDao cmtDao;
 
+	//html요소를 없애주는 메소드 
+   public String replaceInfo(String info) {
+      String binfo=null;
+      if(info !=null) {
+         binfo=info.replaceAll("<(/)?([a-zA-Z]*)(\\s[a-zA-Z]*=[^>]*)?(\\s)*(/)?>", "");
+      }
+      return binfo;
+   }
+	   
 	// 글 추가
 	@Override
 	public void insert(HttpServletRequest request, MarketDto dto) {
@@ -144,6 +153,12 @@ public class MarketServiceImpl implements MarketService {
 		
 		//글 목록 얻어오기
 		marketList=marketDao.getList(dto);
+		//contents의 html요소를 없애준다. 
+	      for(MarketDto tmp : marketList ) {
+	         String replace_content=replaceInfo(tmp.getContent());
+	         tmp.setContent(replace_content);
+	      }
+	      
 		//글의 갯수
 		totalRow=marketDao.getCount(dto);
 		
