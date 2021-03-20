@@ -260,7 +260,7 @@
 	
 	
 	//닉네임 중복 & 유효성 검사
-	$("#nick").on("input", function(){
+	$("#nick").on("keyup", function(){
 		//입력한 닉네임을 읽어온다.
 		let inputNick= $("#nick").val();
 		
