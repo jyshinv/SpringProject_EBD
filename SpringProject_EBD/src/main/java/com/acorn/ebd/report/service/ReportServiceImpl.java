@@ -388,6 +388,7 @@ public class ReportServiceImpl implements ReportService{
 		
 		ReportDto dto2=new ReportDto();
 		dto2.setNum(ref_group);
+		/*getData 로 하면 cmt 를 받아주는 곳이 없기 때문에 댓글 로딩바 오류가 난다.*/
 		ReportDto dto=dao.getPublicData(dto2);
 		request.setAttribute("dto", dto);
 
