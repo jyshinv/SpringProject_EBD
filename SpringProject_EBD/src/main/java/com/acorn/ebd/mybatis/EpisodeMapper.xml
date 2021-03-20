@@ -26,7 +26,7 @@
 				 	</when>
 					<!--writer이 null이 아니라면-->
 				 	<when test="writer != null">
-				 		WHERE writer LIKE '%' || #{writer} || '%' AND (ebd_episde.writer=ebd_users.nick)
+				 		WHERE writer LIKE '%' || #{writer} || '%' AND (ebd_episode.writer=ebd_users.nick)
 				 	</when>
 				 	<!-- 모두 null이라면 -->
 					<when test="title ==null and content == null and writer == null">
