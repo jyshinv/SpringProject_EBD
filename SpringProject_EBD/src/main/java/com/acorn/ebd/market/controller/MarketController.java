@@ -86,12 +86,12 @@ public class MarketController {
 	}
 	
 	// 추가 댓글 목록 (ajax)
-	@RequestMapping("/market/ajax_cmt_list")
+	@RequestMapping("/market/ajax_cmt_list.do")
 	public ModelAndView ajaxCmtList(HttpServletRequest request, 
 				ModelAndView mview) {
 		
 		marketService.moreCmtList(request);
-		mview.setViewName("cafe/ajax_cmt_list");
+		mview.setViewName("market/ajax_cmt_list");
 		return mview;
 	}
 	
