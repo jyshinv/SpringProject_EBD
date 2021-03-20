@@ -11,8 +11,11 @@ public interface ReportDao {
 	//독후감 목록 불러오기 
 	public List<ReportDto> getList(ReportDto dto);
 	
-	//독후감 하나의 정보 얻어오기
+	//비공개 독후감 하나의 정보 얻어오기
 	public ReportDto getData(ReportDto dto);
+	
+	//공개 독후감 하나의 정보 얻어오기
+	public ReportDto getPublicData(ReportDto dto);
 	
 	//독후감 조회수 올리기
 	public void addViewCount(ReportDto dto);

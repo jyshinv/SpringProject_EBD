@@ -124,4 +124,9 @@ public class ReportDaoImpl implements ReportDao{
 		return list;
 	}
 
+	@Override
+	public ReportDto getPublicData(ReportDto dto) {
+		return session.selectOne("report.getPublicData", dto);
+	}
+
 }
