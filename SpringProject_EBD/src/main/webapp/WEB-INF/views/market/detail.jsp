@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/market/detail</title>
+<title>/market/detail.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/* 댓글 css */
@@ -28,26 +28,36 @@
 		margin-left: 50px;
 	}
 	.comment-form textarea, .comment-form button{
-		float: left;
+		float: none;
 	}
 	.comments li{
 		clear: left;
 	}
 	.comments ul li{
-		border-top: 1px solid #888;
+		border-top: 1px solid lightgrey;
 	}
 	.comment-form textarea{
-		width: 85%;
+		width: 100%;
 		height: 100px;
 	}
 	.comment-form button{
 		width: 15%;
-		height: 100px;
+		background-color:#F7DC6F;
+	}
+	/* 댓글 버튼 호버 시 색 변경 */
+	.comment-form button:hover,
+	.page-link:hover{
+		background-color:#FBEEE6;
+	}
+	
+	.page-link{
+		background-color:#F7DC6F;
 	}
 	/* 댓글에 댓글을 다는 폼과 수정폼은 일단 숨긴다. */
 	.comments .comment-form{
 		display: none;
 	}
+	
 	/* .reply_icon 을 li 요소를 기준으로 배치 하기 */
 	.comments li{
 		position: relative;
@@ -56,7 +66,7 @@
 		position: absolute;
 		top: 1em;
 		left: 1em;
-		color: red;
+		transform: rotate(180deg);
 	}
 	pre {
 	  display: block;
@@ -67,15 +77,24 @@
 	  color: #333333;
 	  word-break: break-all;
 	  word-wrap: break-word;
-	  background-color: #f5f5f5;
-	  border: 1px solid #ccc;
-	  border-radius: 4px;
+	  background-color: none;
 	}
 	
 	/* 글 내용중에 이미지가 있으면 최대 폭을 100%로 제한하기 */
 	.contents img{
 		max-width: 100%;
 	}
+	
+	 /* 답글 아이콘 180도 회전 */
+   .reply-link{
+   		transform: rotate(180deg);
+   }
+   /* 답글/수정/삭제 댓글알림글 색 변경 */
+   .cmt-link,
+   .cmt-regdate,
+   .cmt-small{
+   		color:grey;
+   }
 	
 	.loader{
 		position: fixed; /* 좌하단 고정된 위치에 배치 하기 위해 */
@@ -91,6 +110,8 @@
 	.heart-link{
       font-size : 2em;
       color:red;
+      text-decoration: none;
+      
    }
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
@@ -102,6 +123,7 @@
    }
    
    .card-padding{
+   		margin-top:50px;
    		padding: 10px;
    }
    
@@ -205,7 +227,7 @@
 							  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
 							</svg>
 					 	</a>
-						<a href="${pageContext.request.contextPath }/market/private/delete.do?num=${dto.num}" style="color:black;">
+						<a href="javascript:deleteConfirm()" style="color:black;">
 							<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"
 								style="margin-left: 10px; margin-bottom: 10px;"
 								>
@@ -278,15 +300,15 @@
 				<!-- 판매 상태 -->
 				<c:choose>
 					<c:when test="${dto.salesStatus eq '판매 완료'}">
-						<span class="badge badge-pill badge-secondary" style="padding:10px;">
+						<span class="badge badge-pill badge-secondary" style="padding:10px; background-color:#8D8D8D;">
 						${dto.salesStatus }</span>
 					</c:when>
 					<c:when test="${dto.salesStatus eq '나눔 완료'}">
-						<span class="badge badge-pill badge-secondary" style="black; padding:10px;">
+						<span class="badge badge-pill badge-secondary" style="black; padding:10px; background-color:#8D8D8D;">
 						${dto.salesStatus }</span>
 					</c:when>
 					<c:when test="${dto.salesStatus eq '교환 완료'}">
-						<span class="badge badge-pill badge-secondary" style="black; padding:10px;">
+						<span class="badge badge-pill badge-secondary" style="black; padding:10px; background-color:#8D8D8D;">
 						${dto.salesStatus }</span>
 					</c:when>
 					<c:otherwise>
@@ -295,8 +317,6 @@
 					</c:otherwise>
 				</c:choose>
 			</p>
-	  		
-	  		<!-- 내용 -->
 		    <p class="card-text">${dto.content }</p>
 		</div><!-- card body -->
 		<!-- 페이징 -->
@@ -330,14 +350,52 @@
 		</nav>
 	</div><!-- card -->
 	
+	<div style="margin-top:20px;">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text cmt-small" viewBox="0 0 16 16">
+		  <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+		  <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+		</svg>
+		<small>
+			<span class="cmt-small">
+				Every Book Day는 선한 댓글 문화를 지향합니다.
+			</span>
+		</small>
+	</div>
+	<hr/>
 	<!-- 원글에 댓글을 작성하는 form -->
 	<form class="comment-form insert-form" action="private/cmt_insert.do" method="post">
 		<!-- 원글의 글번호가 ref_group 번호가 된다. -->
 		<input type="hidden" name="ref_group" value="${dto.num }"/>
 		<!-- 원글의 작성자가 댓글의 수신자가 된다. -->
 		<input type="hidden" name="target_nick" value="${dto.writer }"/>
-		<textarea name="content"><c:if test="${empty nick }">로그인이 필요합니다</c:if></textarea>
-		<button type="submit">등록</button>
+		<div class="row">
+			<div class="col-12">
+				<textarea class="form-control" name="content"><c:if test="${empty nick }">로그인이 필요합니다</c:if></textarea>
+			</div>
+			<div class="col text-right">
+				<button class="btn" type="submit">
+					등록
+					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+					 width="20px" height="20px" viewBox="0 0 467.276 467.276" style="enable-background:new 0 0 467.276 467.276;"
+					 xml:space="preserve">
+						<g>
+							<g>
+								<path d="M379.281,51.144C348.254,24.297,309.565,13.46,269.577,8.672C163.068-25.3,68.062,44.959,26.578,142.38
+									c-44.714,105.002-23.44,222.217,73.516,287.698c98.985,66.846,235.019,39.369,310.95-48.627
+									C494.023,285.274,473.539,132.719,379.281,51.144z M196.847,432.703C140.695,424.71,86.21,390.16,57.756,340.898
+									c-25.438-44.047-25.225-99.203-13.822-147.312c17.529-73.96,70.568-140.71,139.888-156.686c0.104,0.005,0.19,0.035,0.295,0.035
+									c24.95,0.739,51.292,0.782,77.046,3.567c2.438,0.764,4.88,1.523,7.332,2.42c4.062,1.48,7.612,1.29,10.588,0.071
+									c27.781,4.677,54.313,13.579,76.951,31.392c50.079,39.405,76.479,110.461,75.032,172.696
+									C428.354,364.389,307.965,448.516,196.847,432.703z"/>
+								<path d="M169.276,211.913c23.28,0,23.28-36.104,0-36.104C145.999,175.808,145.999,211.913,169.276,211.913z"/>
+								<path d="M293.833,213.715c23.277,0,23.277-36.102,0-36.102C270.551,177.613,270.551,213.715,293.833,213.715z"/>
+								<path d="M302.731,274.966c-43.25,42.975-99.046,38.689-142.352-1.808c-16.98-15.879-42.566,9.598-25.529,25.532
+									c57.625,53.893,136.062,58.787,193.407,1.802C344.792,284.065,319.254,258.544,302.731,274.966z"/>
+							</g>
+					</svg>
+				</button>
+			</div>
+		</div>
 	</form>	
 	
 	<!-- 댓글 목록 -->
@@ -348,26 +406,46 @@
 					<c:when test="${tmp.deleted eq 'yes' }">
 						<li>삭제된 댓글 입니다.</li>
 					</c:when>
-					
 					<c:otherwise>
 						<li id="comment${tmp.num }" <c:if test="${tmp.num ne tmp.cmt_group }">style="padding-left:50px;"</c:if>>
-							<c:if test="${tmp.num ne tmp.cmt_group }"><svg class="reply-icon" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-return-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-		  						<path fill-rule="evenodd" d="M10.146 5.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 9l-2.647-2.646a.5.5 0 0 1 0-.708z"/>
-		  						<path fill-rule="evenodd" d="M3 2.5a.5.5 0 0 0-.5.5v4A2.5 2.5 0 0 0 5 9.5h8.5a.5.5 0 0 0 0-1H5A1.5 1.5 0 0 1 3.5 7V3a.5.5 0 0 0-.5-.5z"/></svg>
+							<c:if test="${tmp.num ne tmp.cmt_group }">
+								<!-- 답글 아이콘 svg에서 색상을 변경할 때는 fill 요소를 사용할 것 -->
+								<svg class="reply-link reply-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+								 viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001; width:20px; height:20px; margin-top:20px; fill:grey;" xml:space="preserve" >
+									<g>
+										<g>
+											<path d="M324.104,156.152H76.526l91.949-91.949l-28.268-28.268L0,176.141l140.206,140.206l28.268-28.268L76.526,196.13h247.579
+												c81.562,0,147.918,66.356,147.918,147.918c0,38.36-19.398,70.958-35.671,91.548l-12.393,15.682l31.366,24.788l12.393-15.682
+												c20.202-25.563,44.284-66.497,44.284-116.336C512,240.441,427.71,156.152,324.104,156.152z"/>
+										</g>
+								</svg>
 							</c:if>
 							<dl>
 								<dt>
-								
-									<span>${tmp.writer }</span>
-									<c:if test="${tmp.num ne tmp.cmt_group }">
-										@<i>${tmp.target_nick }</i>
-									</c:if>
-									<span>${tmp.regdate }</span>
-									<a data-num="${tmp.num }" href="javascript:" class="reply-link">답글</a>
-									<c:if test="${tmp.writer eq nick }">
-										| <a data-num="${tmp.num }" href="javascript:" class="comment-update-link">수정</a>
-										| <a data-num="${tmp.num }" href="javascript:" class="comment-delete-link">삭제</a>
-									</c:if>
+									<div class="row">
+										<div class="col">
+											<span>${tmp.writer }</span>
+											<c:if test="${tmp.num ne tmp.cmt_group }">
+												@<i>${tmp.target_nick }</i>
+											</c:if>
+											<span>
+												<small class="cmt-regdate">${tmp.regdate }</small>
+											</span>
+										</div>
+										<div class="col text-right">
+											<span>
+												<small>
+													<a data-num="${tmp.num }" href="javascript:" class="reply-link">답글</a>
+													<c:if test="${tmp.writer eq nick }">
+														<span class="cmt-link">|</span> 
+														<a data-num="${tmp.num }" href="javascript:" class="comment-update-link cmt-link">수정</a>
+														<span class="cmt-link">|</span> 
+														<a data-num="${tmp.num }" href="javascript:" class="comment-delete-link cmt-link">삭제</a>
+													</c:if>
+												</small>
+											</span>
+										</div>
+									</div>
 								</dt>
 								<dd>
 									<pre>${tmp.content }</pre>
@@ -376,14 +454,17 @@
 							
 							<form class="comment-form re-insert-form" 
 								action="private/cmt_insert.do" method="post">
-								<input type="hidden" name="ref_group"
-									value="${dto.num }"/>
-								<input type="hidden" name="target_nick"
-									value="${tmp.writer }"/>
-								<input type="hidden" name="cmt_group"
-									value="${tmp.cmt_group }"/>
-								<textarea name="content"></textarea>
-								<button type="submit">등록</button>
+								<input type="hidden" name="ref_group" value="${dto.num }"/>
+								<input type="hidden" name="target_nick" value="${tmp.writer }"/>
+								<input type="hidden" name="cmt_group" value="${tmp.cmt_group }"/>
+								<div class="row">
+									<div class="col-12">
+										<textarea class="form-control" name="content"></textarea>
+									</div>
+									<div class="col text-right">
+										<button class="btn" type="submit">답글</button>
+									</div>
+								</div>	
 							</form>
 							
 							<!-- 로그인된 아이디와 댓글의 작성자가 같으면 수정 폼 출력 -->
@@ -391,8 +472,14 @@
 								<form class="comment-form update-form" 
 									action="private/cmt_update.do" method="post">
 									<input type="hidden" name="num" value="${tmp.num }"/>
-									<textarea name="content">${tmp.content }</textarea>
-									<button type="submit">수정</button>
+									<div class="row">
+										<div class="col-12">
+											<textarea class="form-control" name="content">${tmp.content }</textarea>
+										</div>
+										<div class="col text-right">
+											<button class="btn" type="submit">수정</button>
+										</div>
+									</div>
 								</form>
 							</c:if>
 						</li>						
@@ -402,11 +489,9 @@
 		</ul>
 	</div>
 </div><!-- container -->
-
 <div class="loader">
 	<img src="${pageContext.request.contextPath }/resources/images/ajax-loader.gif"/>
 </div>
-
 <script>
 	//하트를 클릭할 때마다 호출되는 함수 등록
 	$(document).on("click",".heart-link",function(){
@@ -536,13 +621,6 @@
 		}
 	});
 	
-	function deleteConfirm(){
-		var isDelete=confirm("이 글을 삭제 하시겠습니까?");
-		if(isDelete){
-			location.href="delete.do?num=${dto.num}";
-		}
-	}
-	
 	//페이지가 처음 로딩될때 1page 를 보여준다고 가정
 	var currentPage=1;
 	//전체 페이지의 수를 javascript 변수에 담아준다.
@@ -617,5 +695,14 @@
 		}
 	});			
 </script>
+<script>
+	//삭제 컨펌 자바스크립트
+	function deleteConfirm(){
+		var isDelete=confirm("이 글을 삭제 하시겠습니까?");
+		if(isDelete){
+			location.href="${pageContext.request.contextPath }/market/private/delete.do?num=${dto.num}";
+		}
+	}
+</script>	
 </body>
 </html>
