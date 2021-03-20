@@ -117,6 +117,7 @@
 				<div class="form-group">
 					<input class="form-control" type="text" name="birth_day" id="birth_day" value="${dto.birth_day }" placeholder="일" />
 					<div class="invalid-feedback">생년월일을 확인해주세요</div>
+					<div class="valid-feedback">생년월일을 확인해주세요</div>
 				</div>
 			</div>
 		</div>		
