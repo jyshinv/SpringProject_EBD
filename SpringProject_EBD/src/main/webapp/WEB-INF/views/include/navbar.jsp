@@ -18,7 +18,7 @@
 		<%-- 아래 href는 최상위 경로 요청이다. 링크를 클릭하면 최상위 경로 즉, index.jsp로 이동한다. --%>
 	  	<%-- 브랜드 로고 svg --%>
 		<a class="navbar-brand" href="${pageContext.request.contextPath }/">
-			<img src="${pageContext.request.contextPath }/svg/ebd_logo.svg" width="70" height="70" alt="ebd로고" />
+			<img src="${pageContext.request.contextPath }/svg/ebd_logo.svg" width="60" height="60" alt="ebd로고" />
 		</a>
 		
 		<%--화면을 줄이면 토글 버튼이 생긴다. data속성을 추가해 버튼을 클릭하면 사라진 링크가 뜰 수 있도록 한다.  --%>
