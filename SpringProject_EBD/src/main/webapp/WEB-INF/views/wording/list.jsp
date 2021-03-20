@@ -156,8 +156,8 @@
 										</c:forEach>
 										<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
 										<c:if test="${tmp.writer eq sessionScope.nick }">
-											|<a href="private/updateform.do?num=${tmp.num }"> 수정</a>
-											|<a href="private/delete.do?num=${tmp.num }"> 삭제</a>	
+											| <a href="private/updateform.do?num=${tmp.num }">수정</a>
+											| <a id="delete" data-num="${tmp.num }" href="javascript:deleteConfirm()">삭제</a>	
 										</c:if>	
 									</c:if>
 								</p>
@@ -315,6 +315,15 @@
 		 
 		
 	});
+	
+	//삭제 요청 시 삭제 여부 확인하는 스크립트 코드
+	function deleteConfirm(){
+		let num=$("#delete").attr("data-num");
+		let isDelete=confirm("삭제하시겠습니까?");
+		if(isDelete){
+			location.href="private/delete.do?num="+num;
+		}
+	}
 	
 	
 	
