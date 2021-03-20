@@ -38,19 +38,65 @@
     .btn:hover{
     	background-color:#FBEEE6;
     }
+
+    /*세로 크기를 300px로 */
+   	#content{
+   		width: 100%;
+     	height: 300px;
+   	}
 </style>
 </head>
 <body>
-	<form action="update.do" method="post">
-		<input type="hidden" name="num" value="${dto.num }" />
-		<label for="title">책 제목</label>
-		<input type="text" name="title" id="title" value="${dto.title }" disabled/><br />			
-		<label for="author">작가</label>
-		<input type="text" name="author" id="author" value="${dto.author }" disabled/><br />
-		<label for="content">내용</label>
-		<input type="text" name="content" id="content" value="${dto.content }" /><br />
-		<input type="submit" value="수정하기" />
-		<input type="reset" value="취소" />
-	</form>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
+<div class="container">
+	 <form action="update.do" method="post" class="form-group">
+	 	<input type="hidden" name="num" value="${dto.num }" />
+	    <div class="row">
+	       <div class="col-2">
+	          <label for="title" class="col-form-label">도서명</label>
+	       </div >
+	       <div class="col">
+	       	<input class="form-control" type="text" name="title" id="title" value="${dto.title }"/><br />
+	       </div >
+	    </div>
+	    <div class="row">
+	       <div class="col-2">
+	          <label for="author" class="col-form-label">작가</label>
+	       </div >
+	       <div class="col">
+	          <input class="form-control" type="text" name="author" id="author" value="${dto.author }" /><br />
+	       </div >
+	    </div>
+	    <div class="row">
+	       <div class="col-2">
+	          <label for="content" class="col-form-label">내용</label>
+	       </div >
+	       <div class="col">
+	       	<textarea class="form-control DOC_TEXT" type="text" name="content" id="content"/>${dto.content }</textarea><br />
+	       	<span style="color:#aaa;" id="counter">(0 / 최대 200자)</span>
+	       </div >
+	    </div>
+	    <div id="content" class="text-center" style="margin-top:50px; margin-bottom:50px;">
+	       <button class="btn" type="submit">저장</button>
+	    </div>
+	 </form>
+</div>
+<script>
+	//글자수를 카운트 해주고 시작
+	var content = $('.DOC_TEXT').val();
+	$('#counter').html("("+content.length+" / 최대 200자)");    //글자수 실시간 카운팅
+
+	//글자수 카운트 해주는 함수 
+	$('.DOC_TEXT').keyup(function (e){
+	    var content = $(this).val();
+	    $('#counter').html("("+content.length+" / 최대 200자)");    //글자수 실시간 카운팅
+	
+	    if (content.length > 200){
+	        alert("최대 200자까지 입력 가능합니다.");
+	        $(this).val(content.substring(0, 200));
+	        $('#counter').html("(200 / 최대 200자)");
+	    }
+	});
+</script>	
 </body>
 </html>

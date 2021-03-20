@@ -39,10 +39,11 @@
     	background-color:#FBEEE6;
     }
     
-   #content{
-      width: 100%;
-      height: 300px;
-   }
+    /*세로 크기를 300px로 */
+   	#content{
+   		width: 100%;
+     	height: 300px;
+   	}
     
 </style>
 </head>
