@@ -128,7 +128,7 @@
 					</select>
 				</div>
 				<div class="col-md-6">
-					<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
+					<input class="form-control" type="text" name="keyword" placeholder="검색어를 입력해주세요." value="${keyword }"/>
 				</div>
 				<span>
 					<button class="btn" type="submit">검색</button>
