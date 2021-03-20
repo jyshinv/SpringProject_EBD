@@ -48,10 +48,6 @@
 		color:red;
 	}
 	
-	a{
-		font-size : 0.8em;
-		color:black;
-	}
 	
 	/* 프로필 이미지를 작은 원형으로 만든다 */
 	#profileImage{
