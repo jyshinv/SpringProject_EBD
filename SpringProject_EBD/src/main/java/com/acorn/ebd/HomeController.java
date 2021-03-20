@@ -78,5 +78,24 @@ public class HomeController {
 		return "info";
 	}
 	
+	//mydiary 내가누른 하트 요청처리
+	@RequestMapping("/my_heart/private/list.do")
+	public String myHeart() {
+		return "my_heart/private/list";
+	}
+	
+	//mydiarty 내가 누른 하트 카테고리별 요청
+	@RequestMapping("/my_heart/private/my_heart.do")
+	public String myHeartList(String condition) {
+		String go=null;
+		if(condition.equals("episode")) {
+			go="my_heart/private/ajax_episode_list";
+		}else if(condition.equals("market")) {
+			go="my_heart/private/ajax_market_list";
+		}
+		return go;
+			
+	}
+	
 	
 }
