@@ -84,8 +84,7 @@ CREATE TABLE ebd_report_cmt(
 	ref_group NUMBER, -- 원글(거래 글)의 글 번호 
 	cmt_group NUMBER, -- 댓글의 그룹번호
 	deleted CHAR(3) DEFAULT 'no', --삭제된 댓글인지의 여부
-	regdate DATE, --댓글 작성일
-	CONSTRAINT rc_ref_group_fk FOREIGN KEY(ref_group) REFERENCES ebd_report(num) ON DELETE CASCADE
+	regdate DATE --댓글 작성일
 );
 
 -- 독후감 댓글의 글번호를 얻어낼 시퀀스
@@ -110,7 +109,6 @@ CREATE TABLE ebd_episode(
 	content CLOB, --내용
 	viewcnt NUMBER, --조회수
 	regdate DATE, --등록일
-	heartcnt INT, --좋아요 수 
 	CONSTRAINT e_writer_fk FOREIGN KEY(writer) REFERENCES ebd_users(nick) ON DELETE CASCADE --지우지마세영~
 );
 
@@ -126,8 +124,7 @@ CREATE TABLE ebd_episode_cmt(
 	ref_group NUMBER, -- 원글(거래 글)의 글 번호 
 	cmt_group NUMBER, -- 댓글의 그룹번호
 	deleted CHAR(3) DEFAULT 'no', --삭제된 댓글인지의 여부
-	regdate DATE, --댓글 작성일 
-	CONSTRAINT ec_ref_group_fk FOREIGN KEY(ref_group) REFERENCES ebd_episode(num) ON DELETE CASCADE	
+	regdate DATE --댓글 작성일 
 );
 
 -- 독후감 댓글의 글번호를 얻어낼 시퀀스
@@ -207,8 +204,7 @@ CREATE TABLE ebd_market_cmt(
 	ref_group NUMBER, -- 원글(거래 글)의 글 번호 
 	cmt_group NUMBER, -- 댓글의 그룹번호
 	deleted CHAR(3) DEFAULT 'no', --삭제된 댓글인지의 여부
-	regdate DATE, --댓글 작성일
-	CONSTRAINT mc_ref_group_fk FOREIGN KEY(ref_group) REFERENCES ebd_market(num) ON DELETE CASCADE
+	regdate DATE --댓글 작성일
 );
 
 -- 도서 거래 댓글의 글번호를 얻어낼 시퀀스
@@ -241,8 +237,7 @@ CREATE TABLE ebd_file_cmt(
 	ref_group NUMBER, -- 원글(거래 글)의 글 번호 
 	cmt_group NUMBER, -- 댓글의 그룹번호
 	deleted CHAR(3) DEFAULT 'no', --삭제된 댓글인지의 여부
-	regdate DATE, --댓글 작성일 
-	CONSTRAINT fc_ref_group_fk FOREIGN KEY(ref_group) REFERENCES ebd_file(num) ON DELETE CASCADE
+	regdate DATE --댓글 작성일 
 );
 
 -- 독후감 양식 파일 업로드 댓글의 글번호를 얻어낼 시퀀스
