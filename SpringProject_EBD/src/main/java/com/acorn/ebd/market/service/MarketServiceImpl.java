@@ -85,32 +85,27 @@ public class MarketServiceImpl implements MarketService {
 	// 전체 글 목록
 	@Override
 	public void getList(HttpServletRequest request) {
-		// 검색기능이 지금은 제목/내용 인데
-		// 판매상태랑 판매유형을 추가하고싶음 
 		
 		//한 페이지에 나타낼 row 의 갯수
 		final int PAGE_ROW_COUNT=6;
 		//하단 디스플레이 페이지 갯수
 		final int PAGE_DISPLAY_COUNT=5;
 		
-		//보여줄 페이지의 번호
+		//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
 		int pageNum=1;
-		
 		//보여줄 페이지의 번호가 파라미터로 전달되는지 읽어와 본다.	
 		//pageNum을 request객체를 이용하여 getParameter메소드를 이용하여 받아오고
 		String strPageNum=request.getParameter("pageNum");
-		
-		if(strPageNum != null){//페이지 번호가 파라미터로 넘어온다면
-			//페이지 번호를 설정한다.
+		//만일 페이지 번호가 파라미터로 넘어온다면
+		if(strPageNum != null){
+			//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
 			pageNum=Integer.parseInt(strPageNum);
 		}
 		
-		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		//보여줄 페이지 데이터의 시작 ROWNUM ResultSet row 번호
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
-		
-		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		//보여줄 페이지 데이터의 끝 ROWNUM ResultSet row 번호
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
-		
 		
 		//검색 키워드에 관련된 처리 
 		String keyword=request.getParameter("keyword"); //검색 키워드
@@ -119,7 +114,8 @@ public class MarketServiceImpl implements MarketService {
 			keyword=""; //빈 문자열을 넣어준다. 
 			condition="";
 		}
-		//인코딩된 키워드를 미리 만들어 둔다. 
+		
+		//특수기호를 인코딩한 키워드를 미리 만들어 둔다. 
 		String encodedK=URLEncoder.encode(keyword);
 		
 		//검색 키워드와 startRowNum, endRowNum 을 담을 marketDto 객체 생성
@@ -128,9 +124,15 @@ public class MarketServiceImpl implements MarketService {
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		
-		if(!keyword.equals("")){ //만일 키워드가 넘어온다면 
+		// ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
+		List<MarketDto> marketList=null;
+		//전체 row의 갯수를 담을 지역변수를 미리 만든다.
+		int totalRow=0;
+		
+		//만일 키워드가 넘어온다면 
+		if(!keyword.equals("")){ 
 			if(condition.equals("title_content")){
-				//검색 키워드를 FileDto 객체의 필드에 담는다. 
+				//검색 키워드를 MarketDto 객체의 필드에 담는다. 
 				dto.setTitle(keyword);
 				dto.setContent(keyword);	
 			}else if(condition.equals("title")){
@@ -140,24 +142,24 @@ public class MarketServiceImpl implements MarketService {
 			}
 		}
 		
-		//파일 목록 얻어오기
-		List<MarketDto> marketList=marketDao.getList(dto);
-		//전체 row의 갯수
-		int totalRow=marketDao.getCount(dto);
+		//글 목록 얻어오기
+		marketList=marketDao.getList(dto);
+		//글의 갯수
+		totalRow=marketDao.getCount(dto);
+		
+		//하단 시작 페이지 번호 
+		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+		//하단 끝 페이지 번호
+		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 		
 		//전체 페이지의 갯수 구하기
-		int totalPageCount=
-				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
-		//시작 페이지 번호
-		int startPageNum=
-			1+((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
-		//끝 페이지 번호
-		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
-		//끝 페이지 번호가 잘못된 값이라면 
-		if(totalPageCount < endPageNum){
-			endPageNum=totalPageCount; //보정해준다. 
+		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		//끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
+		if(endPageNum > totalPageCount){
+			endPageNum=totalPageCount; //보정해 준다. 
 		}
 		
+		//하트 관련 
 		//로그인된 아이디의 nick 정보 불러오기
 		String nick=(String)request.getSession().getAttribute("nick");
 		dto.setNick(nick);
