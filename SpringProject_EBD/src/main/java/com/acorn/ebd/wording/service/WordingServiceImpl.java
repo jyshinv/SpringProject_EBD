@@ -55,7 +55,7 @@ public class WordingServiceImpl implements WordingService {
 	@Override
 	public void getList(ModelAndView mView, HttpServletRequest request) {
 		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=10;
+		final int PAGE_ROW_COUNT=2;
 		//하단 페이지를 몇개씩 표시할 것인지 (스크롤 페이징이라 필요없음)
 		final int PAGE_DISPLAY_COUNT=5;
 
