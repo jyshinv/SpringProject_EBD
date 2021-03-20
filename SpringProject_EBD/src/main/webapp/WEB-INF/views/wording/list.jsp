@@ -45,6 +45,12 @@
 	
 	.heart-link{
 		font-size : 1.5em;
+		color:red;
+	}
+	
+	a{
+		font-size : 0.8em;
+		color:black;
 	}
 	
 	/* 프로필 이미지를 작은 원형으로 만든다 */
@@ -107,7 +113,7 @@
 	<!-- 명언/글귀 목록 select했을 때 해당 id가 누른 번호가 있다면 heartck="하트눌림~", 그게 아니라면 heartck="하트"가 나오게 한다.-->
 	<div id="wordingList">
 			<c:forEach var="tmp" items="${list }">
-				<div class="card">
+				<div class="card" style="background-color: #FEFCF4; border:white">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-3">
@@ -154,8 +160,8 @@
 										</c:forEach>
 										<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
 										<c:if test="${tmp.writer eq sessionScope.nick }">
-											<a href="private/updateform.do?num=${tmp.num }">| 수정</a>
-											<a href="private/delete.do?num=${tmp.num }">| 삭제</a>	
+											|<a href="private/updateform.do?num=${tmp.num }"> 수정</a>
+											|<a href="private/delete.do?num=${tmp.num }"> 삭제</a>	
 										</c:if>	
 									</c:if>
 								</p>
