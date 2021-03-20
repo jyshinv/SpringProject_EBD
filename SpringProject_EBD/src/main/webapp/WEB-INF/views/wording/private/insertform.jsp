@@ -38,24 +38,56 @@
     .btn:hover{
     	background-color:#FBEEE6;
     }
+    
+   #content{
+      width: 100%;
+      height: 300px;
+   }
+    
 </style>
 </head>
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
+<jsp:include page="../../include/wording_insertform_jumbotron.jsp"></jsp:include>
 <div class="container">
-	<form action="bookList.do" class="form-group">
-		<label for="booksearch">책검색</label>
-		<button id="booksearch" class="btn" type="submit">등록</button>
-	</form>
-	<form action="insert.do" method="post">
-		<label for="title">책 제목</label>
-		<input type="text" name="title" id="title" value="${title }"/><br />			
-		<label for="author">작가</label>
-		<input type="text" name="author" id="author" value="${author }" /><br />
-		<label for="content">내용</label>
-		<input type="text" name="content" id="content" /><br />
-		<input type="submit" value="입력하기" />
-	</form>
+   <div class="row">
+      <div class="col-2">
+         <label for="search" class="col-form-label">책검색</label>
+      </div >
+      <div class="col">
+         <button class="btn"><a href="${pageContext.request.contextPath }/wording/private/bookList.do">검색</a></button>
+      </div >
+   </div>
+   <br />
+   <form action="insert.do" method="post" class="form-group">
+      <div class="row">
+         <div class="col-2">
+            <label for="title" class="col-form-label">도서명</label>
+         </div >
+         <div class="col">
+         	<input class="form-control" type="text" name="title" id="title" value="${title }"/><br />
+         </div >
+      </div>
+      <div class="row">
+         <div class="col-2">
+            <label for="author" class="col-form-label">작가</label>
+         </div >
+         <div class="col">
+            <input class="form-control" type="text" name="author" id="author" value="${author }" /><br />
+         </div >
+      </div>
+      <div class="row">
+         <div class="col-2">
+            <label for="content" class="col-form-label">내용</label>
+         </div >
+         <div class="col">
+         	<textarea class="form-control" type="text" name="content" id="content" /></textarea><br />	
+         </div >
+      </div>
+      <div id="content" class="text-center" style="margin-top:50px; margin-bottom:50px;">
+         <button class="btn" type="submit">저장</button>
+      </div>
+   </form>
 </div>
 
 </body>
