@@ -91,6 +91,25 @@
 	    margin-left: 0px;
 	    margin-right: 0px;
     }
+    /*버튼 기본 노랑*/
+    .btn{
+    	background-color:#F7DC6F;
+    	/*color:sienna;*/
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    	/*color:sienna;*/
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn-a{
+    	/*color:sienna;*/
+    }
+    /* 버튼 링크 호버시 언더라인 삭제 */
+    .btn-a:hover{
+    	/*color:sienna;*/
+    	text-decoration:none;
+    }
 </style>
 </head>
 <body>
@@ -115,7 +134,7 @@
 				  	 class="form-control">
 			</div>
 			<span>
-				<button class="btn btn-light" type="submit" style=" background-color:#F7DC6F ;">
+				<button class="btn" type="submit">
 				검색</button>
 			</span>
 		</div>
