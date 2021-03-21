@@ -38,12 +38,16 @@
     .btn:hover{
     	background-color:#FBEEE6;
     }
-    
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn>a{
+    	color:#212529;
+    	text-decoration: none;
+    }
     /*세로 크기를 300px로 */
    	#content{
-   		width: 100%;
-     	height: 300px;
-   	}
+		width: 99.5%;
+		height: 400px;
+	}
     
 </style>
 </head>
@@ -56,17 +60,16 @@
          <label for="search" class="col-form-label">책검색</label>
       </div >
       <div class="col">
-         <button class="btn"><a href="${pageContext.request.contextPath }/wording/private/bookList.do">검색</a></button>
+         <a class="btn" href="${pageContext.request.contextPath }/wording/private/bookList.do">검색</a>
       </div >
    </div>
-   <br />
    <form action="insert.do" method="post" class="form-group">
       <div class="row">
          <div class="col-2">
             <label for="title" class="col-form-label">도서명</label>
          </div >
          <div class="col">
-         	<input class="form-control" type="text" name="title" id="title" value="${title }"/><br />
+         	<input class="form-control" type="text" name="title" id="title" value="${title }"/>
          </div >
       </div>
       <div class="row">
@@ -74,7 +77,7 @@
             <label for="author" class="col-form-label">작가</label>
          </div >
          <div class="col">
-            <input class="form-control" type="text" name="author" id="author" value="${author }" /><br />
+            <input class="form-control" type="text" name="author" id="author" value="${author }" />
          </div >
       </div>
       <div class="row">
@@ -82,7 +85,7 @@
             <label for="content" class="col-form-label">내용</label>
          </div >
          <div class="col">
-         	<textarea class="form-control DOC_TEXT" type="text" name="content" id="content" placeholder="200글자까지 가능" /></textarea><br />
+         	<textarea class="form-control DOC_TEXT" type="text" name="content" id="content" placeholder="200글자까지 가능" /></textarea>
          	<span style="color:#aaa;" id="counter">(0 / 최대 200자)</span>
          </div >
       </div>

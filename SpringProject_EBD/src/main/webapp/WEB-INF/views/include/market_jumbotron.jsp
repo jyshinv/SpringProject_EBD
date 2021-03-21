@@ -17,12 +17,24 @@
 	.jumbotron_table{
 		margin-left: 100px;
 	}
-	
+	/*버튼 기본 노랑*/
+    .btn {
+    	background-color:#F7DC6F ;
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn>a{
+    	color:#212529;
+    	text-decoration: none;
+    }
 </style>
 
 <%-- market jumbotron --%>
 <div class="jumbotron jumbotron-fluid" style="background-color: #FEF9E7;">
-  <div class="container">
+  <div class="container justify-content-md-center">
   	<table class="jumbotron_table">
   		<tr>
   			<td>
@@ -36,7 +48,7 @@
    		 		</p>
    		 		<p>
 					<a href="${pageContext.request.contextPath }/market/private/insertform.do" 
-						class="btn btn-light" style="background-color:#F7DC6F;">
+						class="btn">
 						글 쓰러가기
 					</a>
    		 		</p>

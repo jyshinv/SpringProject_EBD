@@ -96,13 +96,12 @@
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
 <jsp:include page="../../include/mydiary_jumbotron.jsp"></jsp:include>
 <jsp:include page="../../include/mydiarynav.jsp">
-	<jsp:param value="my_heart" name="thisPage"/>
+	<jsp:param value="my_write" name="thisPage"/>
 </jsp:include>
 <div class="container">
 	<div class="row justify-content-md-center" style="margin:10px;">
 		<div class="col-8">
 			<select class="form-control" name="condition" id="condition">
-				<option value="report">독후감</option>
 				<option value="market">마켓</option>
 				<option value="file">파일</option>
 				<option value="episode">에피소드</option>
@@ -114,29 +113,29 @@
 		</span>
 	</div>
 	<!-- ajax요청 내용이 나오는 곳 -->
-	<div id="list">
+	<div cass="container" id="list">
 	</div>
 </div>
 <script>
 	//처음에 요청되는 ajax요청(리포트가 기본적으로 요청된다.)
-	let condition=$("#condition option:selected").val();
-	$.ajax({
-		url:"${pageContext.request.contextPath }/my_heart/private/my_heart.do",
-		method:"GET",
-		data: "condition="+condition,
-		success:function(data){ 
+	//let condition=$("#condition option:selected").val();
+	//$.ajax({
+	//	url:"${pageContext.request.contextPath }/my_write/private/my_write.do",
+	//	method:"GET",
+	//	data: "condition="+condition,
+	//	success:function(data){ 
 			//id가 list인 요소를 일단 비워준다.
-			$("#list").empty();
+			//$("#list").empty();
 			//id가 list인 요소에 append 해준다.
-			$("#list").append(data);
-		}
-	});
+			//$("#list").append(data);
+	//	}
+	//});
 	//검색 버튼을 클릭할 때마다 ajax요청을 한다. 
 	$(document).on("click",".btn", function(){
 		//어떤 카테고리를 선택했는 지 읽어온다. 
 		let condition=$("#condition option:selected").val();
 		$.ajax({
-			url:"${pageContext.request.contextPath }/my_heart/private/my_heart.do",
+			url:"${pageContext.request.contextPath }/my_write/private/my_write.do",
 			method:"GET",
 			data: "condition="+condition,
 			success:function(data){ 

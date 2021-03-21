@@ -183,5 +183,26 @@
        FROM ebd_market_heart
        WHERE target_num=#{num} and writer=#{nick}          
     </select>
+    
+    <!-- 마이다이어리 내가 쓴글 리스트를 요청 -->
+   	<select id="getMyList" parameterType="marketDto" resultType="marketDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, writer, title, salesType, salesStatus,
+					imgpath, content, viewcnt, ebd_market.regdate, profile
+				FROM ebd_market, ebd_users
+				WHERE ebd_market.writer=ebd_users.nick AND ebd_market.writer=#{nick}
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+    <!-- 마이다이어리 내가 쓴글 리스트 개수를 요청 -->
+	<select id="getMyCount" parameterType="marketDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM ebd_market
+		WHERE writer = #{nick}
+	</select>
    
 </mapper>
