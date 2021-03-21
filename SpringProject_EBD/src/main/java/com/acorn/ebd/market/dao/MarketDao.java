@@ -24,5 +24,10 @@ public interface MarketDao {
 	public List<Integer> getHeartCnt(MarketDto dto);
 	public boolean getHeartInfoDetail(MarketDto dto);
 	
+	//마이다이어리에서 내가 쓴글 요청
+	public List<MarketDto> getMyList(MarketDto dto);
+	//마이다이어리에서 내가 쓴글의 count요청
+	public int getMyCount(MarketDto dto);
+	
 	
 }

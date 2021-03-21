@@ -113,5 +113,19 @@ public class MarketDaoImpl implements MarketDao{
 	       return true;
 	    }
 	}
+
+	@Override
+	public List<MarketDto> getMyList(MarketDto dto) {
+		// 파일 목록을 담아서
+		List<MarketDto> list=session.selectList("market.getMyList",dto);
+		// 리턴 
+		return list;
+	}
+
+	@Override
+	public int getMyCount(MarketDto dto) {
+		int count=session.selectOne("market.getMyCount", dto);
+		return count;
+	}
 	
 }
