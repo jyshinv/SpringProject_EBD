@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<jsp:include page="../include/episode_jumbotron.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath }/resources/js/imgLiquid.js"></script>
 <style>
 	/* card 이미지 부모요소의 높이 지정 */
@@ -123,12 +124,6 @@
 	<jsp:param value="episode" name="thisPage"/>
 </jsp:include>
 <div class="container">
-	<!-- 점보트론에 들어갈 입력 버튼 (삭제) -->
-	<span>
-		<button class="btn">
-			<a href="private/uploadform.do" class="btn-a">에피소드 작성하러 가기</a>	
-		</button>
-	</span>
 	<!-- 검색 -->
 	<form action="list.do" method="get">
 		<div class="row justify-content-md-center" style="margin:10px;margin-bottom:32px;">

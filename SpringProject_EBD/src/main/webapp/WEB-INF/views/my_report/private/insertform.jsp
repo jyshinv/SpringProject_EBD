@@ -59,7 +59,7 @@
 			<label for="search" class="col-form-label">책검색</label>
 		</div >
 		<div class="col">
-			<button class="btn"><a href="${pageContext.request.contextPath }/my_report/private/bookList.do" style="color:">검색</a></button>
+			<a class="btn" href="${pageContext.request.contextPath }/my_report/private/bookList.do">검색</a>
 		</div >
 	</div>
 	<form action="insert.do" method="post" enctype="multipart/form-data" class="form-group">
