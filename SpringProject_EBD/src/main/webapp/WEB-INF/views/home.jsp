@@ -82,9 +82,7 @@
 
 	<%-- 명언 BEST 제목 --%>
 	<h4>Every Book Day 좋아요 TOP 3 명언 </h4>
-	<p id="center">좋은 구절을 추천 해주세요!  
-	 	<!--<a class="btn btn-outline-secondary btn-sm" href="#">더 보러가기</a></p>-->
-	 	<a href="#"><u style="color: gray">More</u></a>
+	<p id="center">좋은 구절을 추천 해주세요!</p>
 	<br />
 	<!-- 명언 BEST 내용 -->
 	<div class="container marketing">
@@ -116,12 +114,15 @@
 				</c:choose>
 			</c:forEach>			     
 		</div>
-	</div>	
+	</div>
+	<br />
+	<p id="center">
+		<a class="btn btn-outline-secondary btn-sm" href="#" style="border-radius:20px;">더 보러가기</a>
+	</p>
 	<br /><br /><br />
     <%-- 독후감 BEST 제목 --%>
     <h4>좋아요 TOP 3 독후감</h4>
-	<p id="center">북스님들에게 가장 많은 좋아요를 받은 독후감
-			<br /><br /><a class="btn btn-outline-secondary btn-sm" href="#" style="border-radius:20px;" >더 보러가기</a></p>
+	<p id="center">북스님들에게 가장 많은 좋아요를 받은 독후감</p>
 	<br />
 	<!-- 독후감 BEST3 내용-->
 	<div class="card-deck" >
@@ -158,10 +159,15 @@
 			</c:choose>
 		</c:forEach>
 	</div>
+	<br />
+	<p id="center">
+		<a class="btn btn-outline-secondary btn-sm" href="#" style="border-radius:20px;">더 보러가기</a>
+	</p>
 	<br /><br /><br />
 	<%-- 독후감 양식 BEST 제목 --%>
 	<h4>독후감 양식 조회수 TOP 5 다운로드</h4>
-	<p id="center">북스님들이 공유해주신 독후감 양식  <a href="#"><u style="color: gray">More</u></a></p>
+	<p id="center">북스님들이 공유해주신 독후감 양식</p>
+	<br />
 	<!-- 독후감 양식 BEST 내용 -->	
 	<div class="card" style="border:none;">
 		<c:forEach var="i" begin="0" end="4">
@@ -194,6 +200,10 @@
 			</div>			
 		</c:forEach>
 	</div>
+	<br />
+	<p id="center">
+		<a class="btn btn-outline-secondary btn-sm" href="#" style="border-radius:20px;">더 보러가기</a>
+	</p>
 	<br /><br /><br />
 	<!-- 도서매물 BEST 제목 -->
 	<h4>최신 TOP 3 도서 매물</h4>
@@ -238,12 +248,12 @@
 	</div>
 	<br />
 	<p id="center">
-		<a class="btn btn-outline-secondary btn-sm" href="#" style="border-radius:20px;">♥ 더 보러가기</a>
+		<a class="btn btn-outline-secondary btn-sm" href="#" style="border-radius:20px;">더 보러가기</a>
 	</p>
 	<br /><br /><br />
 	<!-- 에피소드 BEST 제목 -->
 	<h4>조회수 TOP 3 에피소드</h4>
-	<p id="center">책과 관련된 재밌는 이야기 작성하러 가기
+	<p id="center">책과 관련된 재밌는 이야기 작성하러 가기</p>
 		<a href="#"><u style="color: gray">More</u></a>
 	<!-- 에피소드 BEST 내용-->
 	<div class="card-deck"> 
@@ -282,6 +292,10 @@
 			</c:choose>
 		</c:forEach>
 	</div>
+	<br />
+	<p id="center">
+		<a class="btn btn-outline-secondary btn-sm" href="#" style="border-radius:20px;">더 보러가기</a>
+	</p>
     <br /><br /><br />
     
  	<div class="card">

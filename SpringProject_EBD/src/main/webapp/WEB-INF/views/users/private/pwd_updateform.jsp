@@ -7,11 +7,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
+<style>
+	.form-style{
+		margin-top:20px;
+	}
+	.h-style{
+		margin-top:50px;
+		color:#AF601A;
+		text-align:center;
+	}
+</style>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
+<%-- jumborton --%>
+<jsp:include page="../../include/pwd_jumbotron.jsp"></jsp:include>
 <div class="container">
-	<h1>비밀번호 수정 </h1>
-	<form action="pwd_update.do" method="post" id="myForm" novalidate>
+	<form class="form-style" action="pwd_update.do" method="post" id="myForm" novalidate>
 		<div class="form-group">
 			<input class="form-control" type="password" name="pwd" id="pwd" placeholder="비밀번호" />
 		</div>
@@ -26,8 +38,12 @@
 			<div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
 			<div class="valid-feedback">비밀번호가 일치합니다.</div>
 		</div>
-		<button type="submit" class="btn btn-outline-primary">수정</button>
-		<button type="reset" class="btn btn-outline-danger" >취소</button>
+		<div class="text-center">
+			<button type="submit" class="btn btn-dark" style="background-color:#F7DC6F; border:none;">
+			수정</button>
+			<button type="reset" class="btn btn-danger" style="background-color:#AF601A; border:none;">
+			취소</button>
+		</div>
 	</form>
 </div>
 <script>
