@@ -30,23 +30,39 @@
     .row{
     	margin-bottom:5px;
     }
+    /* 스마트 에디터 전체 화면 보이게 하는 css */
+    #content{
+		width: 99.5%;
+		height: 400px;
+	}
+	/*버튼 기본 노랑*/
+    .btn {
+    	background-color:#F7DC6F ;
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn>a{
+    	color:#212529;
+    	text-decoration: none;
+    }
 </style>
 </head>
 <body>
-<div class="container">
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
-	<div class="text-center" style="margin:50px;">
-		<h1>당신이 남기고 싶은 책은 무엇인가요?</h1>
+<jsp:include page="../../include/report_insertform_jumbotron.jsp"></jsp:include>
+<div class="container">
+	<div class="row">
+		<div class="col-2">
+			<label for="search" class="col-form-label">책검색</label>
+		</div >
+		<div class="col">
+			<button class="btn"><a href="${pageContext.request.contextPath }/my_report/private/bookList.do" style="color:">검색</a></button>
+		</div >
 	</div>
 	<form action="insert.do" method="post" enctype="multipart/form-data" class="form-group">
-		<div class="row">
-			<div class="col-2">
-				<label for="search" class="col-form-label">책검색</label>
-			</div >
-			<div class="col">
-				<button class="btn btn-primary"><a href="${pageContext.request.contextPath }/my_report/private/bookList.do" style="color:white">검색</a></button>
-			</div >
-		</div>
 		<div class="row">
 			<div class="col-2">
 				<label for="title" class="col-form-label">제목</label>
@@ -121,7 +137,7 @@
 				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
 			</div >
 			<div class="col" style="padding-left:0px;">
-				<label for="image" class="btn btn-primary btn-file" style="margin-bottom:0px;">파일첨부
+				<label for="image" class="btn btn-file" style="margin-bottom:0px;">파일첨부
 					<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
 			    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 				</label>
@@ -134,7 +150,7 @@
 			</div>
 		</div>
 		<div class="text-center" style="margin-top:50px; margin-bottom:50px;">
-			<button class="btn btn-primary" type="submit" onclick="submitContents(this);">독후감 저장</button>
+			<button class="btn" type="submit" onclick="submitContents(this);">독후감 저장</button>
 		</div>
 	</form>
 </div>

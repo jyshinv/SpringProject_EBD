@@ -10,7 +10,7 @@
 		margin-left: 100px;
 	}
 </style>
-<div class="jumbotron jumbotron-fluid" style="background-color:#FEF9E7;">
+<div class="jumbotron jumbotron-fluid" style="background-color:white;">
   <div class="container">
   	<table class="jumbotron_table">
   		<tr>
@@ -26,7 +26,7 @@
    		 		</p>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/mydiary2.png" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/report_insertform.png" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>

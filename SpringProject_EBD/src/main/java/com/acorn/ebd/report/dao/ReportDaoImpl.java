@@ -68,8 +68,8 @@ public class ReportDaoImpl implements ReportDao{
 	}
 
 	@Override
-	public int getCountTotal() {
-		int count = session.selectOne("report.getCountTotal");
+	public int getCountTotal(ReportDto dto) {
+		int count = session.selectOne("report.getCountTotal", dto);
 		return count;
 	}
 
@@ -122,6 +122,11 @@ public class ReportDaoImpl implements ReportDao{
 	public List<ReportDto> getBestHeartList() {
 		List<ReportDto> list=session.selectList("report.getBestHeartList");
 		return list;
+	}
+
+	@Override
+	public ReportDto getPublicData(ReportDto dto) {
+		return session.selectOne("report.getPublicData", dto);
 	}
 
 }

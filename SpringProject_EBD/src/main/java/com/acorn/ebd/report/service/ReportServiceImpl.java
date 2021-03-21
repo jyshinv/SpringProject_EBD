@@ -149,8 +149,13 @@ public class ReportServiceImpl implements ReportService{
 		}
 		
 		list=dao.getList(dto);
+		
+		//로그인된 아이디의 nick 정보 불러오기
+	    String nick=(String)request.getSession().getAttribute("nick");
+	    dto.setNick(nick);
+	    
 		//글의 갯수
-		totalRow=dao.getCountTotal();
+		totalRow=dao.getCountTotal(dto);
 		
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
@@ -163,9 +168,6 @@ public class ReportServiceImpl implements ReportService{
 		if(endPageNum > totalPageCount){
 			endPageNum=totalPageCount; //보정해 준다. 
 		}
-		//로그인된 아이디의 nick 정보 불러오기
-	    String nick=(String)request.getSession().getAttribute("nick");
-	    dto.setNick(nick);
 		
 		mView.addObject("list", list);
 		mView.addObject("pageNum", pageNum);
@@ -177,9 +179,13 @@ public class ReportServiceImpl implements ReportService{
 		mView.addObject("encodedK", encodedK);
 		mView.addObject("totalRow", totalRow);		
 	}
-
+	//비공개 독후감 디테일
 	@Override
 	public void getDetail(ReportDto dto, ModelAndView mView, HttpSession session) {
+		//현재 로그인 되어있는 유저의 닉네임 저장
+	    String nick=(String)session.getAttribute("nick");
+	    dto.setNick(nick);
+	    
 		ReportDto dto1=dao.getData(dto);
 		mView.addObject("dto", dto1);
 		dao.addViewCount(dto);
@@ -193,46 +199,10 @@ public class ReportServiceImpl implements ReportService{
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
 		//보여줄 페이지 데이터의 끝 ResultSet row 번호
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
-
-		//전체 row 의 갯수를 읽어온다.
-		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
-		int totalRow=cmtdao.getCount(dto.getNum());
-		//전체 페이지의 갯수 구하기
-		int totalPageCount=
-				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
-
-		// CafeCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다.
-		ReportCmtDto commentDto=new ReportCmtDto();
-		commentDto.setStartRowNum(startRowNum);
-		commentDto.setEndRowNum(endRowNum);
-		//ref_group 번호도 담는다.
-		commentDto.setRef_group(dto.getNum());
-
-		
-		//DB 에서 댓글 목록을 얻어온다.
-		List<ReportCmtDto> commentList=cmtdao.getList(commentDto);
 		
 		String filename=dto1.getImgpath().substring(21);
-		//현재 로그인 되어있는 유저의 닉네임 저장
-	    String nick=(String)session.getAttribute("nick");
-	    dto.setNick(nick);
-	    //하트 정보를 저장할 변수 heart
-	    boolean isheartclick=false;
-	    if(nick != null) { //닉네임이 null이 아닐때만 getHeartInfoDatail을 호출 null일 경우 전달하는 파라메터가 null이라는 오류를 낸다.
-	       isheartclick = dao.getHeartInfoDetail(dto); //해당 닉네임이 하트를 클릭했으면 target_num이 return되고, 그게 아니면 아무것도 리턴하지 않는다.
-	    }
-	      
-	    //하트 개수 정보를 저장할 변수 heartcnt
-	    int heartcnt=dao.getHeartCntDetail(dto.getNum());
 		
-		//ModelAndView 객체에 댓글 목록도 담아준다.
-		mView.addObject("commentList", commentList);
-		mView.addObject("totalPageCount", totalPageCount);	
 		mView.addObject("filename",filename);
-		//하트정보 
-		mView.addObject("isheartclick",isheartclick);
-		//하트개수 정보
-		mView.addObject("heartcnt",heartcnt);		
 	}
 
 	@Override
@@ -418,7 +388,8 @@ public class ReportServiceImpl implements ReportService{
 		
 		ReportDto dto2=new ReportDto();
 		dto2.setNum(ref_group);
-		ReportDto dto=dao.getData(dto2);
+		/*getData 로 하면 cmt 를 받아주는 곳이 없기 때문에 댓글 로딩바 오류가 난다.*/
+		ReportDto dto=dao.getPublicData(dto2);
 		request.setAttribute("dto", dto);
 
 		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
@@ -533,6 +504,63 @@ public class ReportServiceImpl implements ReportService{
 	public void getBestHeartList(ModelAndView mView) {
 		List<ReportDto> list=dao.getBestHeartList();
 		mView.addObject("reportBestList",list);
+	}
+
+	@Override
+	public void getPublicDetail(ReportDto dto, ModelAndView mView, HttpSession session) {
+		ReportDto dto1=dao.getPublicData(dto);
+		mView.addObject("dto", dto1);
+		dao.addViewCount(dto);
+		/* 아래는 댓글 페이징 처리 관련 비즈니스 로직 입니다.*/
+		final int PAGE_ROW_COUNT=5;
+
+		//보여줄 페이지의 번호
+		int pageNum=1;
+
+		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+
+		//전체 row 의 갯수를 읽어온다.
+		//자세히 보여줄 글의 번호가 ref_group  번호 이다. 
+		int totalRow=cmtdao.getCount(dto.getNum());
+		//전체 페이지의 갯수 구하기
+		int totalPageCount=
+				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+
+		// CafeCommentDto 객체에 위에서 계산된 startRowNum 과 endRowNum 을 담는다.
+		ReportCmtDto commentDto=new ReportCmtDto();
+		commentDto.setStartRowNum(startRowNum);
+		commentDto.setEndRowNum(endRowNum);
+		//ref_group 번호도 담는다.
+		commentDto.setRef_group(dto.getNum());
+		
+		//DB 에서 댓글 목록을 얻어온다.
+		List<ReportCmtDto> commentList=cmtdao.getList(commentDto);
+		
+		String filename=dto1.getImgpath().substring(21);
+		//현재 로그인 되어있는 유저의 닉네임 저장
+	    String nick=(String)session.getAttribute("nick");
+	    dto.setNick(nick);
+	    //하트 정보를 저장할 변수 heart
+	    boolean isheartclick=false;
+	    if(nick != null) { //닉네임이 null이 아닐때만 getHeartInfoDatail을 호출 null일 경우 전달하는 파라메터가 null이라는 오류를 낸다.
+	       isheartclick = dao.getHeartInfoDetail(dto); //해당 닉네임이 하트를 클릭했으면 target_num이 return되고, 그게 아니면 아무것도 리턴하지 않는다.
+	    }
+	      
+	    //하트 개수 정보를 저장할 변수 heartcnt
+	    int heartcnt=dao.getHeartCntDetail(dto.getNum());
+		
+		//ModelAndView 객체에 댓글 목록도 담아준다.
+		mView.addObject("commentList", commentList);
+		mView.addObject("totalPageCount", totalPageCount);	
+		mView.addObject("filename",filename);
+		//하트정보 
+		mView.addObject("isheartclick",isheartclick);
+		//하트개수 정보
+		mView.addObject("heartcnt",heartcnt);
+		
 	}
 
 }

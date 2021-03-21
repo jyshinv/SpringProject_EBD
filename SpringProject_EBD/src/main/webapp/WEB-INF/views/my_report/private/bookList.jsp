@@ -8,6 +8,21 @@
 <title>/my_report/private/bookList.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
+<style>
+	/*버튼 기본 노랑*/
+    .btn {
+    	background-color:#F7DC6F ;
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn>a{
+    	color:#212529;
+    	text-decoration: none;
+    }
+</style>
 <body>
 <div class="container-fluid">
 	<div class="container" style="margin-bottom:10px;">
@@ -17,7 +32,7 @@
                   <input class="form-control" type="text" name="keyword" >
               </div>
               <span>
-                  <input class="btn btn-primary" type="submit" value="검색">
+                  <input class="btn" type="submit" value="검색">
               <span>
            </div>              
         </form>        
@@ -55,7 +70,7 @@
                 		<input type="hidden" id="author" name="author" value="${b.author }"/>
                 		<label for="link"></label>
                 		<input type="hidden" id="link" name="link" value="${b.link }"/>
-                		<input class="btn btn-primary" type="submit" value="선택"/>
+                		<input class="btn" type="submit" value="선택"/>
                 	</form>
                 </td>
                 <!-- 

@@ -127,7 +127,7 @@ public class ReportController {
   	//공개 독후감 글 하나 정보 요청 처리
   	@RequestMapping("/public_report/detail")
   	public ModelAndView detail_pub(ReportDto dto, ModelAndView mView, HttpSession session) {
-  		service.getDetail(dto, mView, session);
+  		service.getPublicDetail(dto, mView, session);
   		mView.setViewName("public_report/detail");
   		return mView;
   	}

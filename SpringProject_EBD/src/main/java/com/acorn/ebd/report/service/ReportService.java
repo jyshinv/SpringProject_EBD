@@ -18,8 +18,11 @@ public interface ReportService {
 	//독후감을 불러오는 메소드
 	public void getList(ModelAndView mView, HttpServletRequest request);
 	
-	//독후감 하나의 정보를 불러오는 메소드
+	//비공개 독후감 하나의 정보를 불러오는 메소드
 	public void getDetail(ReportDto dto, ModelAndView mView, HttpSession session);
+	
+	//공개 독후감 하나의 정보를 불러오는 메소드
+	public void getPublicDetail(ReportDto dto, ModelAndView mView, HttpSession session);
 	
 	//독후감을 삭제하는 메소드
 	public void deleteContent(int num);

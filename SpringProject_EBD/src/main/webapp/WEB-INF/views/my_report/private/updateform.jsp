@@ -8,6 +8,9 @@
 <title>/my_report/private/updateform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
+	body{
+		padding-top:75px;
+	}
     .btn-file{
         position: relative;
         overflow: hidden;
@@ -30,9 +33,23 @@
     .row{
     	margin-bottom:5px;
     }
+    /*버튼 기본 노랑*/
+    .btn {
+    	background-color:#F7DC6F ;
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    }
+    /* 스마트 에디터 전체 화면 보이게 하는 css */
+    #content{
+		width: 99.5%;
+		height: 400px;
+	}
 </style>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
 <div class="container">
 	<form action="update.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="num" value="${dto.num }"/>
@@ -89,7 +106,7 @@
 				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
 			</div >
 			<div class="col" style="padding-left:0px;">
-				<label for="image" class="btn btn-primary btn-file" style="margin-bottom:0px;">파일수정
+				<label for="image" class="btn btn-file" style="margin-bottom:0px;">파일수정
 					<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
 			    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 				</label>
@@ -102,7 +119,7 @@
 			</div>
 		</div>
 		<div class="text-center" style="margin-top:50px; margin-bottom:50px;">
-			<button class="btn btn-primary" type="submit" onclick="submitContents(this);">독후감 수정</button>
+			<button class="btn" type="submit" onclick="submitContents(this);">독후감 수정</button>
 		</div>
 	</form>
 </div>

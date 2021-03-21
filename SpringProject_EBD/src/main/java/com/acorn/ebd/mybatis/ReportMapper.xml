@@ -24,22 +24,22 @@
             </when>
 		</choose>		
 	</select>
-	<select id="getCountTotal" resultType="int">
+	<select id="getCountTotal" parameterType="reportDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM ebd_report	
 		<choose>
 			<when test="booktitle != null and author != null">
-				WHERE booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%'
-				
+				WHERE (booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%') and writer=#{nick}
 			</when>
 			<when test="booktitle != null">
-				WHERE booktitle LIKE '%'||#{booktitle}||'%'
-				
+				WHERE booktitle LIKE '%'||#{booktitle}||'%' and writer=#{nick}
 			</when>
 			<when test="author != null">
-				WHERE author LIKE '%'||#{author}||'%'
-				
+				WHERE author LIKE '%'||#{author}||'%' and writer=#{nick}
 			</when>
+			<when test="author == null and booktitle==null">
+               WHERE writer=#{nick}
+            </when>
 		</choose>
 	</select>	
 	<select id="getList" parameterType="reportDto" resultType="reportDto">
@@ -108,6 +108,18 @@
 				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
 				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum
 			FROM ebd_report
+			WHERE writer=#{nick}
+			ORDER BY num DESC) r1, ebd_users
+		WHERE num=#{num} and r1.writer = ebd_users.nick
+	</select>
+	<select id="getPublicData" parameterType="reportDto" resultType="reportDto">
+		SELECT r1.*, ebd_users.profile 
+		FROM
+			(SELECT num, writer, booktitle, title, author, genre, stars, publicck, imgpath, link, content, viewcnt, regdate,
+				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
+				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum
+			FROM ebd_report
+			WHERE publicck='public'
 			ORDER BY num DESC) r1, ebd_users
 		WHERE num=#{num} and r1.writer = ebd_users.nick
 	</select>
