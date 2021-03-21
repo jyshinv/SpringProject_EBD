@@ -263,10 +263,10 @@
 			</div>
 		</div>
 		<c:forEach var="tmp" items="${requestScope.list }">
-		<div class="col">
-			<div class="card" style="width: 18rem;">
-				<div style="height:255px;">
-					<c:if test="${nick eq tmp.writer }">
+		<c:if test="${nick eq tmp.writer }">
+			<div class="col">
+				<div class="card" style="width: 18rem;">
+					<div style="height:255px;">
 						<figure class="snip1273 hover">
 							<img src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" id="img"/>
 							<a href="${pageContext.request.contextPath}/my_report/private/detail.do?num=${tmp.num }">
@@ -276,10 +276,10 @@
 								</figcaption>							
 							</a>
 						</figure>
-					</c:if>
+					</div>
 				</div>
 			</div>
-		</div>
+		</c:if>
 		</c:forEach>
 	</div>
 	<nav>
