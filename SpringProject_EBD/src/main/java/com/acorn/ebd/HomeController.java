@@ -84,16 +84,48 @@ public class HomeController {
 		return "my_heart/private/list";
 	}
 	
-	//mydiarty 내가 누른 하트 카테고리별 요청
+	//mydiary 내가 누른 하트 카테고리별 요청
 	@RequestMapping("/my_heart/private/my_heart.do")
-	public String myHeartList(String condition) {
-		String go=null;
-		if(condition.equals("episode")) {
-			go="my_heart/private/ajax_episode_list";
+	public ModelAndView myHeartList(String condition, ModelAndView mView, HttpSession session) {
+
+		if(condition.equals("report")) {
+			mView.setViewName("my_heart/private/ajax_report_list");
 		}else if(condition.equals("market")) {
-			go="my_heart/private/ajax_market_list";
+			mView.setViewName("my_heart/private/ajax_market_list");
+		}else if(condition.equals("file")) {
+			mView.setViewName("my_heart/private/ajax_file_list");
+		}else if(condition.equals("episode")) {
+			mView.setViewName("my_heart/private/ajax_episode_list");
+		}else if(condition.equals("wording")) {
+			mView.setViewName("my_heart/private/ajax_wording_list");			
 		}
-		return go;
+		return mView;
+			
+	}
+	
+	//mydiary 내가 쓴 글
+	@RequestMapping("/my_write/private/list.do")
+	public String myWrite() {
+		return "my_write/private/list";
+	}
+	
+	//mydiary 내가 쓴 글 카테고리별 요청
+	@RequestMapping("/my_write/private/my_write.do")
+	public ModelAndView myWriteList(String condition, ModelAndView mView, HttpServletRequest request) {
+		if(condition.equals("market")) { //ajax 요청 시 condition이 market일 때
+			market_service.getMyWriteList(mView, request);
+			mView.setViewName("my_write/private/ajax_market_list");
+		}else if(condition.equals("file")) {//ajax 요청 시 condition이 file일 때
+			//file_service.getMyWriteList(mView, request);
+			mView.setViewName("my_write/private/ajax_file_list");
+		}else if(condition.equals("episode")) {//ajax 요청 시 condition이 episode일 때
+			//episode_service.getMyWriteList(mView, request);
+			mView.setViewName("my_write/private/ajax_episode_list");
+		}else if(condition.equals("wording")) {//ajax 요청 시 condition이 wording일 때
+			//wording_service.getMyWriteList(mView, request);
+			mView.setViewName("my_write/private/ajax_wording_list");
+		}
+		return mView;
 			
 	}
 	
