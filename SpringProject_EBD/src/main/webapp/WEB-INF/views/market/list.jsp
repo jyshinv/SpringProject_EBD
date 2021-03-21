@@ -27,6 +27,10 @@
 		white-space : nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
+		color:grey;
+	}
+	#text-writer{
+		color:black;
 	}
 	
 	#img{
@@ -47,11 +51,17 @@
 	/* 하트 */
 	.heart-link,
 	.heart-link:hover{
-		font-size: 1.5em;
+		font-size: 1.8em;
 		color: red;
 		text-decoration: none;
    }
-   
+   	.heart-link-logout{
+   		font-size : 1.8em;
+   		color:grey;
+   	}
+   	.heart-cnt-logout{
+   		color:grey;
+   	}   
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
       width: 25px;
@@ -64,7 +74,42 @@
    		padding: 5px;
    		margin-right: 5px;
    }
-	
+    /* page-item active 색상 변경 */
+    .page-item.active .page-link{
+    	background-color:#F7DC6F;
+    	border-color:#F7DC6F;
+    } 
+    .page-link:hover{
+    	color:#212529;
+    	background-color:#FBEEE6;
+    	border-color:#FBEEE6;
+    }
+    .page-link{
+    	color:#212529;
+    }	
+    .card-head{
+	    margin-left: 0px;
+	    margin-right: 0px;
+    }
+    /*버튼 기본 노랑*/
+    .btn{
+    	background-color:#F7DC6F;
+    	/*color:sienna;*/
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    	/*color:sienna;*/
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn-a{
+    	/*color:sienna;*/
+    }
+    /* 버튼 링크 호버시 언더라인 삭제 */
+    .btn-a:hover{
+    	/*color:sienna;*/
+    	text-decoration:none;
+    }
 </style>
 </head>
 <body>
@@ -89,7 +134,7 @@
 				  	 class="form-control">
 			</div>
 			<span>
-				<button class="btn btn-light" type="submit" style=" background-color:#F7DC6F ;">
+				<button class="btn" type="submit">
 				검색</button>
 			</span>
 		</div>
@@ -109,20 +154,24 @@
 		<c:forEach var="tmp" items="${marketList }">
 			<div class="card" style="width: 20rem;">
 				<div class="card-title">
-					<!-- 프로필 이미지 -->
-					<c:choose>
-		               <c:when test="${empty tmp.profile }">
-		                  <!-- 비어있다면 기본이미지 -->
-		                  <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-		                       <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-		                  </svg>
-		               </c:when>
-		               <c:otherwise>
-		                  <!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
-		                  <img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
-		               </c:otherwise>
-            		</c:choose>
-					${tmp.writer } <!-- 작성자 -->
+					<div class="row card-head">
+						<!-- 프로필 이미지 -->
+						<c:choose>
+			               <c:when test="${empty tmp.profile }">
+			                  <!-- 비어있다면 기본이미지 -->
+			                  <svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+			                       <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+			                  </svg>
+			               </c:when>
+			               <c:otherwise>
+			                  <!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
+			                  <img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
+			               </c:otherwise>
+	            		</c:choose>
+	            		<p class="card-text col" id="text-writer">
+	            			<strong>${tmp.writer } <!-- 작성자 --></strong>
+	            		</p>
+					</div>
 				</div><!-- card title -->
 				
 				<!-- 이미지를 누르면 디테일 페이지 이동 -->
@@ -133,53 +182,60 @@
 					</div>
 				</a>
 				<div class="card-body">
-					<p class="card-text">
-						<!-- 판매 유형 -->
-						<span class="badge badge-pill badge-warning" style="background-color:#F8C471; ">${tmp.salesType }</span>
-						<!-- 판매 상태 -->
-						<c:choose>
-							<c:when test="${tmp.salesStatus eq '판매 완료'}">
-								<span class="badge badge-pill badge-secondary" style="background-color:#8D8D8D;" >${tmp.salesStatus }</span>
-							</c:when>
-							<c:when test="${tmp.salesStatus eq '나눔 완료'}">
-								<span class="badge badge-pill badge-secondary" style="background-color:#8D8D8D;">${tmp.salesStatus }</span>
-							</c:when>
-							<c:when test="${tmp.salesStatus eq '교환 완료'}">
-								<span class="badge badge-pill badge-secondary" style="background-color:#8D8D8D;">${tmp.salesStatus }</span>
-							</c:when>
-							<c:otherwise>
-								<span class="badge badge-pill badge-success" style="background-color:#DC7633; ">${tmp.salesStatus }</span>
-							</c:otherwise>
-						</c:choose>
-					</p>
-					<p class="card-text" style="color:black;">
-						<strong>${tmp.title }</strong>
-					</p>
-					<p class="card-text">
-						<!-- 하트 -->
-						<!-- 로그인이 된 사용자만 볼 수 있다. -->
-						<c:if test="${not empty id }">
-							<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
-							<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
-							<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+					<div class="row">
+						<div class="col" style="padding-top: 10px;">
+							<p class="card-text">
+								<!-- 판매 유형 -->
+								<span class="badge badge-pill badge-warning" style="background-color:#F8C471; ">${tmp.salesType }</span>
+								<!-- 판매 상태 -->
 								<c:choose>
-									<c:when test="${isHeartClickList[i] eq 0 }">
-										<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
+									<c:when test="${tmp.salesStatus eq '판매 완료'}">
+										<span class="badge badge-pill badge-secondary" style="background-color:#8D8D8D;" >${tmp.salesStatus }</span>
+									</c:when>
+									<c:when test="${tmp.salesStatus eq '나눔 완료'}">
+										<span class="badge badge-pill badge-secondary" style="background-color:#8D8D8D;">${tmp.salesStatus }</span>
+									</c:when>
+									<c:when test="${tmp.salesStatus eq '교환 완료'}">
+										<span class="badge badge-pill badge-secondary" style="background-color:#8D8D8D;">${tmp.salesStatus }</span>
 									</c:when>
 									<c:otherwise>
-										<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+										<span class="badge badge-pill badge-success" style="background-color:#DC7633; ">${tmp.salesStatus }</span>
 									</c:otherwise>
 								</c:choose>
-								<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>                  
-							</c:forEach>
-						</c:if>
-						<c:if test="${empty id }"> <!-- 로그인이 안되어있는 사람 -->
-		                     <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-		                     <span>♥</span>
-		                     <span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>
-		                     </c:forEach>
-		                </c:if>
-		
+							</p>
+						</div>
+						<div class="col text-right">
+							<p class="card-text">
+								<!-- 하트 -->
+								<!-- 로그인이 된 사용자만 볼 수 있다. -->
+								<c:if test="${not empty id }">
+									<!-- 안쪽 forEach i는 항상 n에서 n+1만큼만 돌다.-->
+									<!-- list2[n]의 target_num이 0이면 하트를 클릭하지 않은 것 -->
+									<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+										<c:choose>
+											<c:when test="${isHeartClickList[i] eq 0 }">
+												<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>                              
+											</c:when>
+											<c:otherwise>
+												<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+											</c:otherwise>
+										</c:choose>
+										<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>                  
+									</c:forEach>
+								</c:if>
+								<c:if test="${empty id }"> <!-- 로그인이 안되어있는 사람 -->
+				                     <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+				                     <span class="heart-link-logout">♥</span>
+				                     <span class="heart-cnt-logout heart-cnt${tmp.num }">${heartCntList[i]}</span>
+				                     </c:forEach>
+				                </c:if>
+				
+							</p>
+						</div>
+					</div>
+					<hr />
+					<p class="card-text text-center">
+						${tmp.title }
 					</p>
 				</div><!-- card-body -->
 			</div>
@@ -190,7 +246,7 @@
 	
 	<!-- 하단에 페이징 -->
 	<nav>
-		<ul class="pagination justify-content-center">
+		<ul class="pagination justify-content-center" style="margin-top: 32px;margin-bottom: 32px;">
 			<c:choose>
 				<c:when test="${startPageNum != 1}">
 					<li class="page-item">
@@ -207,13 +263,13 @@
 				<c:choose>
 					<c:when test="${i eq requestScope.pageNum }">
 						<li class="page-item active">
-							<a class="page-link" style="color:#AF601A; background-color:#F7DC6F; border-color: #F7DC6F;" 
+							<a class="page-link"  
 							href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
-							<a class="page-link" style="color:#AF601A;" 
+							<a class="page-link"  
 							href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
 						</li>
 					</c:otherwise>
