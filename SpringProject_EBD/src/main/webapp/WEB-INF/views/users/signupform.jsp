@@ -7,60 +7,72 @@
 <head>
 <meta charset="UTF-8">
 <title>EBD 회원가입</title>
+<style>
+	.btn-style{
+		margin-top:30px;
+		margin-bottom:20px;
+	}
+	
+	.form-margin{
+		margin-top:30px;
+	}
+</style>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
+<%-- jumborton --%>
+<jsp:include page="../include/signup_jumbotron.jsp"></jsp:include>
 <div class="container">
-	<img src="${pageContext.request.contextPath }/resources/images/logo_book.png"/>
-	<h3>Create your Account</h3>
 	<!-- 
 		[ novalidate 로 웹브라우저 자체의 검증기능 사용하지 않기 ]
 		<input type="email" />  같은경우 웹브라우저가 직접 개입하기도 한다.
 		해당기능 사용하지 않기 위해서는 novalidate 를 form 에 명시해야 한다. 
 	 -->
 	<form action="signup.do" method="post" id="myForm" novalidate>
-		<div class="form-group" id="form-id">
+		<div class="form-group form-margin" id="form-id">
 			<input class="form-control" type="text" name="id" id="id" placeholder="아이디" />
 			<small class="form-text text-muted"><b>영소문자</b>로 시작하고 <b>영소문자,대문자,숫자</b>만 사용가능합니다.(<b>5~15글자</b> 이내)</small>
 			<div class="invalid-feedback">사용할 수 없는 아이디 입니다.</div>
 			<div class="valid-feedback">사용 가능한 아이디 입니다.</div>
 		</div>
-		<div class="form-group" id="form-pwd">
+		<div class="form-group form-margin" id="form-pwd">
 			<input class="form-control" type="password" name="pwd" id="pwd" placeholder="비밀번호" />
 			<small class="form-text text-muted"><b>영소문자+숫자 </b>조합으로 <b>5~15글자</b> 이내로 입력해주세요</small>
 			<div class="invalid-feedback">비밀번호를 확인 하세요 (영소문자+숫자 조합으로 5~15글자 이내로 입력해주세요)</div>
 			<div class="valid-feedback">사용가능한 비밀번호 입니다.</div>
 		</div>
-		<div class="form-group" id="form-pwd2">
+		<div class="form-group form-margin" id="form-pwd2">
 			<input class="form-control" type="password" id="pwd2" placeholder="비밀번호 확인" />
 			<div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
 			<div class="valid-feedback">비밀번호가 일치합니다.</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group form-margin">
 			<input class="form-control" type="text" name="name" id="name" placeholder="이름" />
 			<div class="invalid-feedback">이름을 다시 입력해주세요.</div>
 		</div>
-		<div class="form-group" id="form-nick">
+		<div class="form-group form-margin" id="form-nick">
 			<input class="form-control" type="text" name="nick" id="nick" placeholder="닉네임" />
 			<small class="form-text text-muted">한글, 영소문자, 대문자, 숫자만 사용가능 (<b>1~6글자</b> 이내로 입력해주세요)</small>
 			<div class="invalid-feedback">이미 존재하거나 사용할 수 없는 닉네임 입니다.</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group form-margin">
 			<fieldset>
-				<p>성별 정보 선택</p>
+				<span style="font-size:1.1rem;">성별</span>&nbsp;&nbsp;
 				<label>
-					<input type="radio" name="gender" value="남" checked/>남자
+					<input type="radio" name="gender" value="남" checked/>남자&nbsp;&nbsp;
 				</label>
 				<label>
-					<input type="radio" name="gender" value="여" />여자
+					<input type="radio" name="gender" value="여" />여자&nbsp;&nbsp;
 				</label>
 			</fieldset>
 		</div>
 		<div class="row">
+			<div class="col-1" style="padding-top:27px;">
+				<span>생년월일</span>
+			</div>
 			<div class="col">
 				<div class="form-group">	
-					<span>생년월일</span>
 					<label for="birth_year"></label>
 					<select class="form-control" name="birth_year" id="birth_year">
 						<option value="">년도</option><!-- 아무것도 선택하지 않으면 빈 문자열이 서버로 전송된다. -->
@@ -93,17 +105,19 @@
 				</div>
 			</div>
 		</div>		
-		<div class="form-group">
+		<div class="form-group form-margin">
 			<input class="form-control" type="email" name="email" id="email" placeholder="이메일 예)ebd@acorn.com" />
 			<div class="invalid-feedback">이메일 형식을 확인해주세요.</div>
 			<div class="valid-feedback">사용가능한 이메일 입니다.</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group form-margin">
 			<input class="form-control" type="text" name="phone" id="phone" placeholder="연락처를 - 없이 입력해주세요" />
 			<div class="invalid-feedback">숫자만 입력해주세요.</div>
 			<div class="valid-feedback">사용가능한 연락처 입니다.</div>
 		</div>		
-		<button class="btn btn-outline-primary" type="submit">가입</button>
+		<div class="text-center">
+			<button class="btn btn-light btn-style" type="submit" style="background-color:#F7DC6F; border:none;">가입</button>
+		</div>
 	</form>
 </div>
 <script>

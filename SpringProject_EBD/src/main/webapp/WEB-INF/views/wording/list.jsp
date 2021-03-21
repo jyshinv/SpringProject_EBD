@@ -65,7 +65,7 @@
 
 
     /*자식요소의 text-align를 center로*/
-   div{
+   #wording-container{
        text-align: center;
    }
    
@@ -78,7 +78,7 @@
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
 <jsp:include page="../include/wording_jumbotron.jsp"></jsp:include>
-<div class="container">
+<div class="container" id="wording-container">
 	<!-- 검색 버튼과 form -->
 	<form action="list.do" method="get">
 		<div class="row justify-content-md-center">

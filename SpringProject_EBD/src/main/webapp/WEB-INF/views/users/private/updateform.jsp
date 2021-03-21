@@ -11,9 +11,9 @@
 <style>
 	/* 프로필 이미지를 작은 원형으로 만든다 */
 	#profileImage{
-		width: 100px;
-		height: 100px;
-		border: 1px solid #cecece;
+		width: 200px;
+		height: 200px;
+		
 		border-radius: 50%;
 	}
 	/* 프로필 업로드 폼을 화면에 안보이게 숨긴다 */
@@ -21,25 +21,47 @@
 		display: none;
 	}
 	
+	.h-style{
+		margin-top:50px;
+		margin-bottom:20px;
+	}
+	
+	/* 수정 완료 버튼 */
+	.btn-style{
+		margin-top:20px;
+	}
+	
+	/* 수정 완료 버튼 */
+	.update-style{
+		margin-top:10px;
+		margin-bottom:20px;
+	}
+	
 </style>
 </head>
 <body>
+<jsp:include page="../../include/navbar.jsp"></jsp:include>
+<%-- jumborton --%>
+<jsp:include page="../../include/updateform_jumbotron.jsp"></jsp:include>
 <div class="container">
-	<h1>회원정보 수정 </h1>
-	<!-- 프로필 수정 -->
-	<c:choose>
-		<c:when test="${empty dto.profile }">
-			<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-  				<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-			</svg>
-		</c:when>
-		<c:otherwise>
-			<img id="profileImage" 
-				src="${pageContext.request.contextPath }${dto.profile}" />
-		</c:otherwise>
-	</c:choose>
-	<button class="btn btn-outline-primary" id="profileLink" href="javascript:">수정하기</button>
-	<br />
+	<div class="text-center" >
+		<!-- 프로필 수정 -->
+		<c:choose>
+			<c:when test="${empty dto.profile }">
+				<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+	  				<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+				</svg>
+			</c:when>
+			<c:otherwise>
+				<img id="profileImage" 
+					src="${pageContext.request.contextPath }${dto.profile}" />
+			</c:otherwise>
+		</c:choose>
+	</div>
+	<div class="text-center btn-style">
+		<button class="btn btn-light" id="profileLink" href="javascript:" 
+		style="background-color:#F7DC6F; border:none;">프로필 수정</button>
+	</div>
 	<form action="profile_upload.do" method="post" 
 		enctype="multipart/form-data" id="profileForm">
 		<label for="image">프로필 이미지 선택</label>
@@ -70,18 +92,18 @@
 				<c:choose>
 					<c:when test="${dto.gender eq '남' }">
 						<label>
-							<input type="radio" name="gender" value="남" checked/>남자
+							<input type="radio" name="gender" value="남" checked/>남자&nbsp;&nbsp;
 						</label>
 						<label>
-							<input type="radio" name="gender" value="여" />여자
+							<input type="radio" name="gender" value="여" />여자&nbsp;&nbsp;
 						</label>
 					</c:when>
 					<c:otherwise>
 						<label>
-							<input type="radio" name="gender" value="남"/>남자
+							<input type="radio" name="gender" value="남"/>남자&nbsp;&nbsp;
 						</label>
 						<label>
-							<input type="radio" name="gender" value="여" checked/>여자
+							<input type="radio" name="gender" value="여" checked/>여자&nbsp;&nbsp;
 						</label>
 					</c:otherwise>
 				</c:choose>
@@ -131,7 +153,10 @@
 			<input class="form-control" type="text" name="phone" id="phone" value="${dto.phone }" placeholder="연락처를 - 없이 입력해주세요" />
 			<div class="invalid-feedback">숫자만 입력해주세요.</div>
 		</div>		
-		<button type="submit" class="btn btn-outline-primary">수정</button>
+		<div class="text-center update-style">
+			<button type="submit" class="btn btn-light" style="background-color:#F7DC6F; border:none;">
+			수정</button>
+		</div>
 	</form>
 </div>
 <script>

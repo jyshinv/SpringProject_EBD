@@ -30,26 +30,26 @@
 		<%--화면을 줄였을 때  링크가 사라지며 토글버튼이 생긴다. --%>
 		<div class="collapse navbar-collapse" id="topNav">
 			<%-- margin-right auto 속성값을 추가하면 ul태그 아래에 있는 속성들이 화면 우측으로 이동함 --%>
-			<ul class="navbar-nav mx-auto" style="width: 400px;">
+			<ul class="navbar-nav" >
 				<%--thisPage에 저장된 값이 "public_report"이면 active시켜라 포커싱된다. --%>
 				<li class="nav-item ${param.thisPage eq 'public_report' ? 'active':''}">
 					<%--글 목록 링크를 누르면 href로 설정한 곳으로 이동(요청) --%>
-					<a class="nav-link" href="${pageContext.request.contextPath }/public_report/list.do">독후감</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/public_report/list.do">북스토리</a>
 				</li>
 				<%--thisPage에 저장된 값이 "market"이면 active시켜라 포커싱된다. --%>
 				<li class="nav-item ${param.thisPage eq 'market' ? 'active':''}">
 					<%--글 목록 링크를 누르면 href로 설정한 곳으로 이동(요청) --%>
-					<a class="nav-link" href="${pageContext.request.contextPath }/market/list.do">북 마켓</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/market/list.do">북스 마켓</a>
 				</li>
 				<%--thisPage에 저장된 값이 "file"이면 active시켜라 포커싱된다. --%>
 				<li class="nav-item ${param.thisPage eq 'file' ? 'active':''}">
 					<%--글 목록 링크를 누르면 href로 설정한 곳으로 이동(요청) --%>
-					<a class="nav-link" href="${pageContext.request.contextPath }/file/list.do">파일 공유</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/file/list.do">파일공유</a>
 				</li>
 				<%--thisPage에 저장된 값이 "episode"이면 active시켜라 포커싱된다. --%>
 				<li class="nav-item ${param.thisPage eq 'episode' ? 'active':''}">
 					<%--글 목록 링크를 누르면 href로 설정한 곳으로 이동(요청) --%>
-					<a class="nav-link" href="${pageContext.request.contextPath }/episode/list.do">자유게시판</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/episode/list.do">커뮤니티</a>
 				</li>
 				<%--thisPage에 저장된 값이 "gallery"이면 active시켜라 포커싱된다. --%>
 				<li class="nav-item ${param.thisPage eq 'wording' ? 'active':''}">
