@@ -45,7 +45,9 @@
 	
 	.heart-link{
 		font-size : 1.5em;
+		color:red;
 	}
+	
 	
 	/* 프로필 이미지를 작은 원형으로 만든다 */
 	#profileImage{
@@ -75,20 +77,27 @@
 </head>
 <body>
 <jsp:include page="../include/navbar.jsp"></jsp:include>
+<jsp:include page="../include/wording_jumbotron.jsp"></jsp:include>
 <div class="container">
-	<h1>책/명언 페이지 입니다.</h1>
-	<a href="private/insertform.do">책 명언/글귀 작성하러 가기</a>
 	<!-- 검색 버튼과 form -->
 	<form action="list.do" method="get">
-			<label for="condition">검색조건</label>
-			<select name="condition" id="condition">
-				<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
-				<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
-				<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
-			</select>
-			<label for="keyword"></label>
-			<input type="text" id="keyword" name="keyword" placeholder="검색어..." value="${keyword }"/>
-			<button type="submit">검색</button>
+		<div class="row justify-content-md-center">
+			<div class="col-2">
+				<select class="form-control" name="condition" id="condition">
+					<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
+					<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
+					<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+				</select>
+			</div>
+			<div class="col-md-6">
+				<input value="${keyword }" type="text" name="keyword" placeholder="검색어..."
+				  	 class="form-control">
+			</div>
+			<span>
+				<button class="btn btn-light" type="submit" style=" background-color:#F7DC6F ;">
+				검색</button>
+			</span>
+		</div>
 	</form>
 	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
 	<c:if test="${not empty keyword }">
@@ -100,7 +109,7 @@
 	<!-- 명언/글귀 목록 select했을 때 해당 id가 누른 번호가 있다면 heartck="하트눌림~", 그게 아니라면 heartck="하트"가 나오게 한다.-->
 	<div id="wordingList">
 			<c:forEach var="tmp" items="${list }">
-				<div class="card">
+				<div class="card" style="background-color: #FEFCF4; border:white">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-3">
@@ -147,8 +156,8 @@
 										</c:forEach>
 										<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
 										<c:if test="${tmp.writer eq sessionScope.nick }">
-											<a href="private/updateform.do?num=${tmp.num }">| 수정</a>
-											<a href="private/delete.do?num=${tmp.num }">| 삭제</a>	
+											| <a href="private/updateform.do?num=${tmp.num }">수정</a>
+											| <a id="delete" data-num="${tmp.num }" href="javascript:deleteConfirm()">삭제</a>	
 										</c:if>	
 									</c:if>
 								</p>
@@ -306,6 +315,15 @@
 		 
 		
 	});
+	
+	//삭제 요청 시 삭제 여부 확인하는 스크립트 코드
+	function deleteConfirm(){
+		let num=$("#delete").attr("data-num");
+		let isDelete=confirm("삭제하시겠습니까?");
+		if(isDelete){
+			location.href="private/delete.do?num="+num;
+		}
+	}
 	
 	
 	

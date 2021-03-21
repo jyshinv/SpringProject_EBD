@@ -44,7 +44,7 @@
    		 			매일 책을 읽는다면 당신의 하루는 어떻게 달라질까요?<br />
    		 			이곳에서 일상이 책이 되는 순간을 경험해 보세요.
    		 		</p>
-   		 		<a href="#" style=" color:#AF601A; ">More</a>
+   		 		<a href="info.do" style=" color:#AF601A; ">More</a>
   			</td>
   			<td>
   				<img class="jumbotronImg" src="https://resource.grapplet.com/marketplace/7176/1591667231081/i.svg.preview.580x870.png" alt="대문이미지" />
