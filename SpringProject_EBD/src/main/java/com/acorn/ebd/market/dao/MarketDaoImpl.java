@@ -62,8 +62,8 @@ public class MarketDaoImpl implements MarketDao{
 	// 전체 글 갯수
 	@Override
 	public int getCount(MarketDto dto) {
-		int num=session.selectOne("market.getCount", dto);
-		return num;
+		int count=session.selectOne("market.getCount", dto);
+		return count;
 	}
 
 	// 디테일 페이지 판매 상태 수정

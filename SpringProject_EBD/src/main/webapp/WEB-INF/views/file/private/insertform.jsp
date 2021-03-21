@@ -45,9 +45,10 @@
 <jsp:include page="../../include/navbar.jsp">
 	<jsp:param value="file" name="thisPage"/>
 </jsp:include>
+<%-- jumborton --%>
+<jsp:include page="../../include/file_insertform_jumbotron.jsp"></jsp:include>
 <div class="container">
 	<!-- 독후감 양식 파일 업로드(게시글) 추가 폼-->
-	<h1 class="head" >독후감 양식을 공유해주세요</h1>
 	<form action="insert.do" method="post" enctype="multipart/form-data">
 		<div class="row">
 			<div class="col-2">
@@ -92,10 +93,8 @@
 		    <textarea class="form-control" type="text"  name="content" id="content"></textarea>
 		</div>
 	 	<div class="text-center">
-	 		<button class="btn btn-light" type="submit" onclick="submitContents(this);" style="background-color:#F7DC6F;">
-	 		등록</button>
-			<button class="btn btn-dark" type="reset" style="background-color:#AF601A; border-color:#AF601A;">
-			취소</button>
+	 		<button class="btn btn-light" type="submit" onclick="submitContents(this);" style="background-color:#F7DC6F;">등록</button>
+			<button class="btn btn-dark" type="reset" style="background-color:#AF601A; border-color:#AF601A;">취소</button>
 	 	</div>
 	 </form>
 	

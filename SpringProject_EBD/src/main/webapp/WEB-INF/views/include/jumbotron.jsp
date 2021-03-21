@@ -24,10 +24,12 @@
 				<form> 
 					<div class="form-row">
 					  <div class="col-8">
-					    <input class="form-control mr-sm-2" type="search" placeholder="도서를 검색해주세요" aria-label="Search">
+					    <input class="form-control mr-sm-2" type="search" placeholder="도서를 검색해주세요" aria-label="Search"
+					    style="border-radius:30px;">
 					  </div>
 					  <div class="col">
-					    <button class="btn btn-light my-2 my-sm-0" type="submit" style=" background-color:#F7DC6F ;">
+					    <button class="btn btn-light my-2 my-sm-0" type="submit" 
+					    style=" background-color:#F7DC6F ; border-radius:20px;">
 			   			Search</button>
 					  </div>
 					</div>
@@ -47,7 +49,7 @@
    		 		<a href="info.do" style=" color:#AF601A; ">More</a>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="https://resource.grapplet.com/marketplace/7176/1591667231081/i.svg.preview.580x870.png" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_home.svg" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>

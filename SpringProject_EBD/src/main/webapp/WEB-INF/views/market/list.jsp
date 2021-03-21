@@ -8,25 +8,10 @@
 <meta charset="UTF-8">
 <title>/market/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
-<script src="${pageContext.request.contextPath }/resources/js/imgLiquid.js"></script>
-<style>
-	*{
-		font-family: 'Noto Serif KR', serif;
-	}
-	
+<style> 
 	/* card 이미지 부모요소의 높이 지정 */
 	.img-wrapper{
-		
-		height: 250px;
-		
-		/*
-			position: center;
-			size: cover;
-		*/
-		
-		
+		height: 315px;
 		/* transform 을 적용할대 0.3s 동안 순차적으로 적용하기 */
 		transition: transform 0.3s ease-out;
 	}
@@ -42,29 +27,8 @@
 		white-space : nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
-		
 	}
 	
-/*  
-	img  가  가운데 정렬 되도록
-	.back-drop{
-		일단 숨겨 놓는다. 
-		display:none;
-	
-		화면 전체를 투명도가 있는 회색으로 덮기 위한  css
-		position: fixed;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		background-color: #cecece;
-		padding-top: 300px;
-		z-index: 10000;
-		opacity: 0.5;
-		text-align: center;
-	}
-*/
-
 	#img{
 		object-fit: cover;
 		background-position:center;
@@ -81,16 +45,18 @@
 	}
 	
 	/* 하트 */
-	.heart-link{
-		font-size: 20px;
+	.heart-link,
+	.heart-link:hover{
+		font-size: 1.5em;
 		color: red;
+		text-decoration: none;
    }
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
       width: 25px;
       height: 25px;
-      border: 1px solid #cecece;
+ 
       border-radius: 50%;
    }
    
@@ -108,14 +74,6 @@
 <%-- jumborton --%>
 <jsp:include page="../include/market_jumbotron.jsp"></jsp:include>
 <div class="container">
-	<div class="col">
-		<!-- 글 쓰러가기 -->
-		<a href="private/insertform.do" style=" color:#AF601A;">
-			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-			  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-			</svg> UPLOAD
-		</a>
-	</div>
 	<!-- 검색 -->
 	<form action="list.do" method="get">
 		<div class="row justify-content-md-center" style="margin:10px;">
@@ -144,12 +102,12 @@
 	</c:if>
 		
 	<!-- 목록 -->
-	<div class="row" id="galleryList">
+	<div class="row">
 		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
       	<%int isCheck=0; %>
 		<!-- 반복문 돌려서 목록 출력 --> 	
 		<c:forEach var="tmp" items="${marketList }">
-			<div class="card" style="width: 18rem;">
+			<div class="card" style="width: 20rem;">
 				<div class="card-title">
 					<!-- 프로필 이미지 -->
 					<c:choose>
@@ -166,27 +124,28 @@
             		</c:choose>
 					${tmp.writer } <!-- 작성자 -->
 				</div><!-- card title -->
+				
 				<!-- 이미지를 누르면 디테일 페이지 이동 -->
 				<a href="detail.do?num=${tmp.num }">
 					<!-- 이미지 -->
-					<div class="img-wrapper" style="height:255px;">	
-						<img class="card-img-top" src="${pageContext.request.contextPath }${tmp.imgpath }">
+					<div>	
+						<img class="card-img-top img-wrapper" src="${pageContext.request.contextPath }${tmp.imgpath }" id="img">
 					</div>
 				</a>
 				<div class="card-body">
-					<p class="card-text" style="margin-top:20px;">
+					<p class="card-text">
 						<!-- 판매 유형 -->
 						<span class="badge badge-pill badge-warning" style="background-color:#F8C471; ">${tmp.salesType }</span>
 						<!-- 판매 상태 -->
 						<c:choose>
 							<c:when test="${tmp.salesStatus eq '판매 완료'}">
-								<span class="badge badge-pill badge-secondary" >${tmp.salesStatus }</span>
+								<span class="badge badge-pill badge-secondary" style="background-color:#8D8D8D;" >${tmp.salesStatus }</span>
 							</c:when>
 							<c:when test="${tmp.salesStatus eq '나눔 완료'}">
-								<span class="badge badge-pill badge-secondary" >${tmp.salesStatus }</span>
+								<span class="badge badge-pill badge-secondary" style="background-color:#8D8D8D;">${tmp.salesStatus }</span>
 							</c:when>
 							<c:when test="${tmp.salesStatus eq '교환 완료'}">
-								<span class="badge badge-pill badge-secondary" >${tmp.salesStatus }</span>
+								<span class="badge badge-pill badge-secondary" style="background-color:#8D8D8D;">${tmp.salesStatus }</span>
 							</c:when>
 							<c:otherwise>
 								<span class="badge badge-pill badge-success" style="background-color:#DC7633; ">${tmp.salesStatus }</span>
@@ -233,40 +192,37 @@
 	<nav>
 		<ul class="pagination justify-content-center">
 			<c:choose>
-				<%-- 시작페이지가 1과 같지 않다면 --%>
-				<c:when test="${startPageNum ne 1 }">
+				<c:when test="${startPageNum != 1}">
 					<li class="page-item">
-						<a class="page-link" href="list.do?pageNum=${startPageNum-1 }">Prev</a>
+						<a class="page-link" href="list.do?pageNum=${startPageNum-1}&condition=${condition}&keyword=${encodedK}">Prev</a>
 					</li>
 				</c:when>
-				<%-- 시작페이지가 1과 같다면 --%>
 				<c:otherwise>	
 					<li class="page-item disabled">
 						<a class="page-link" href="javascript:">Prev</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
-			<%-- 반복 --%>
-			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">
+			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 				<c:choose>
 					<c:when test="${i eq requestScope.pageNum }">
 						<li class="page-item active">
 							<a class="page-link" style="color:#AF601A; background-color:#F7DC6F; border-color: #F7DC6F;" 
-							href="list.do?pageNum=${i }">${i }</a>
+							href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
-							<a class="page-link" style="color:#AF601A;" href="list.do?pageNum=${i }">${i }</a>
+							<a class="page-link" style="color:#AF601A;" 
+							href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			
 			<c:choose>
-				<c:when test="${endPageNum lt totalPageCount }">
+				<c:when test="${endPageNum lt totalPageCount}">
 					<li class="page-item">
-						<a class="page-link" href="list.do?pageNum=${endPageNum+1 }">Next</a>
+						<a class="page-link" href="list.do?pageNum=${endPageNum+1}&condition=${condition}&keyword=${encodedK}">Next</a>
 					</li>
 				</c:when>
 				<c:otherwise>

@@ -34,7 +34,6 @@ public class FileServiceImpl implements FileService{
 		final int PAGE_DISPLAY_COUNT=5;
 		//보여줄 페이지의 번호
 		int pageNum=1;
-		
 		//보여줄 페이지의 번호가 파라미터로 전달되는지 읽어와 본다.	
 		//pageNum을 request객체를 이용하여 getParameter메소드를 이용하여 받아오고
 		String strPageNum=request.getParameter("pageNum");
@@ -44,10 +43,9 @@ public class FileServiceImpl implements FileService{
 			pageNum=Integer.parseInt(strPageNum);
 		}
 		
-		//보여줄 페이지 데이터의 시작 ResultSet row 번호
+		//보여줄 페이지의 시작 ROWNUM
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
-		
-		//보여줄 페이지 데이터의 끝 ResultSet row 번호
+		//보여줄 페이지의 끝 ROWNUM
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
 		
 		//검색 키워드에 관련된 처리 
@@ -66,6 +64,11 @@ public class FileServiceImpl implements FileService{
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		
+		//ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
+		List<FileDto> list=null;
+		//전체 row 의 갯수를 담을 지역변수를 미리 만든다.
+		int totalRow=0;
+		
 		if(!keyword.equals("")){ //만일 키워드가 넘어온다면 
 			if(condition.equals("title")){
 				dto.setTitle(keyword);
@@ -75,23 +78,24 @@ public class FileServiceImpl implements FileService{
 		}
 		
 		//파일 목록 얻어오기
-		List<FileDto> list=fdao.getList(dto);
+		list=fdao.getList(dto);
 		//전체 row 의 갯수 
-		int totalRow=fdao.getCount(dto);
+		totalRow=fdao.getCount(dto);
+		
+		//하단 시작 페이지 번호 
+		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
+		//하단 끝 페이지 번호
+		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 		
 		//전체 페이지의 갯수 구하기
-		int totalPageCount=
-				(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
-		//시작 페이지 번호
-		int startPageNum=
-			1+((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
-		//끝 페이지 번호
-		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
-		//끝 페이지 번호가 잘못된 값이라면 
-		if(totalPageCount < endPageNum){
-			endPageNum=totalPageCount; //보정해준다. 
+		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		
+		//끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
+		if(endPageNum > totalPageCount){
+			endPageNum=totalPageCount; //보정해 준다. 
 		}
 		
+		//하트 관련
 		//로그인된 아이디의 nick 정보 불러오기
 		String nick=(String)request.getSession().getAttribute("nick");
 		dto.setNick(nick);

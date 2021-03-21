@@ -47,8 +47,9 @@
 <jsp:include page="../../include/navbar.jsp">
 	<jsp:param value="market" name="thisPage"/>
 </jsp:include>
+<%-- jumborton --%>
+<jsp:include page="../../include/market_insertform_jumbotron.jsp"></jsp:include>
 <div class="container">
-	<h1 class="head" >중고 거래 글쓰기 폼</h1>
 	<form action="insert.do" method="post" enctype="multipart/form-data">
 	 	<div class="row">
 	 		<div class="col-2">

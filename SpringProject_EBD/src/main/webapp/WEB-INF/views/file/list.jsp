@@ -8,12 +8,7 @@
 <meta charset="UTF-8">
 <title>file/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 <style>
-	*{
-		font-family: 'Noto Serif KR', serif;
-	}
 	
 	.card-margin{
 		margin-top: 30px;
@@ -21,16 +16,18 @@
 		border:none;
 	}
 	
-	.heart-link{
+	.heart-link,
+	.heart-link:hover{
       font-size : 1.5em;
       color: red;
+       text-decoration: none;
    }
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
       width: 25px;
       height: 25px;
-      border: 1px solid #cecece;
+     
       border-radius: 50%;
    }
 	
@@ -43,13 +40,6 @@
 <%-- jumborton --%>
 <jsp:include page="../include/file_jumbotron.jsp"></jsp:include>
 <div class="container">
-	<div class="col">
-		<a href="${pageContext.request.contextPath }/file/private/insertform.do" style=" color:#AF601A;">
-			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-			  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-			</svg> UPLOAD
-		</a>
-	</div>
 	<!-- 검색 -->
 	<form action="list.do" method="get">
 		<div class="row justify-content-md-center" style="margin:10px;">
@@ -82,8 +72,8 @@
 		<!-- 반복문 돌려서 목록 출력 --> 	
 		<c:forEach var="tmp" items="${list }">
 			<div class="card card-margin">
-				<ul class="list-group list-group-flush" >
-					<li class="list-group-item" style="background-color: #FEFCF4">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item" style="background-color: #FEFCF4; padding-top:20px;">
 						<div class="row">
 						    <div class="col-1 text-left">
 						      	<!-- 하트 -->
@@ -111,8 +101,9 @@
 				                </c:if>
 						    </div>
 						    <div class="col-md-6">
-						      <a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;">
-								${tmp.title }</a>
+						    	<a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;">
+									<strong>${tmp.title }</strong></a>
+								
 						    </div>
 						    <div class="col text-right">
 						    	<!-- 프로필 이미지 -->
@@ -129,6 +120,16 @@
 					               </c:otherwise>
 			            		</c:choose>
 						      	<strong>${tmp.writer }</strong>
+						      	<p>
+									<small>
+										<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
+										  <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+										  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+										  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+										</svg> 
+										<span>&nbsp;${tmp.regdate }</span>
+									</small> 
+								</p>
 						    </div>
 						 </div>
 					 </li>
@@ -145,40 +146,37 @@
 	<nav>
 		<ul class="pagination justify-content-center">
 			<c:choose>
-				<%-- 시작페이지가 1과 같지 않다면 --%>
-				<c:when test="${startPageNum ne 1 }">
+				<c:when test="${startPageNum != 1 }">
 					<li class="page-item">
-						<a class="page-link" href="list.do?pageNum=${startPageNum-1 }">Prev</a>
+						<a class="page-link" href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a>
 					</li>
 				</c:when>
-				<%-- 시작페이지가 1과 같다면 --%>
 				<c:otherwise>	
 					<li class="page-item disabled">
 						<a class="page-link" href="javascript:">Prev</a>
 					</li>
 				</c:otherwise>
 			</c:choose>
-			
-			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }" step="1">
+			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 				<c:choose>
 					<c:when test="${i eq requestScope.pageNum }">
 						<li class="page-item active">
 							<a class="page-link" style="color:#AF601A; background-color:#F7DC6F; border-color: #F7DC6F;"
-							href="list.do?pageNum=${i }">${i }</a>
+							href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
-							<a class="page-link" style="color:#AF601A;" href="list.do?pageNum=${i }">${i }</a>
+							<a class="page-link" style="color:#AF601A;" 
+							href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
 						</li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			
 			<c:choose>
 				<c:when test="${endPageNum lt totalPageCount }">
 					<li class="page-item">
-						<a class="page-link" href="list.do?pageNum=${endPageNum+1 }">Next</a>
+						<a class="page-link" href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">Next</a>
 					</li>
 				</c:when>
 				<c:otherwise>
