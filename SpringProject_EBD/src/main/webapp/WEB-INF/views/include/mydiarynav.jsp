@@ -64,7 +64,7 @@
 					<li class="nav-item ${param.thisPage eq 'my_report' ? 'active':''}">
 						<a class="nav-link" href="${pageContext.request.contextPath }/my_report/private/list.do"><b>나의 독후감</b></a>
 					</li>
-					<li class="nav-item ${param.thisPage eq '' ? 'active':''}"
+					<li class="nav-item ${param.thisPage eq '' ? 'active':''}">
 						<a class="nav-link" href="${pageContext.request.contextPath }/my_heart/private/list.do">내가 누른 하트</a>
 					</li>
 					<li class="nav-item ${param.thisPage eq 'market' ? 'active':''}">
