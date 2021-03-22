@@ -194,6 +194,40 @@
 		FROM ebd_wording
 		WHERE writer=#{nick}
 	</select>
+	
+	<!--wording 목록을 select regdate컬럼은 두 테이블에 모두 존재하므로 어떤 테이블의 regdate인지 명시해주어야한다.(여기선 글 쓴 regdate가 필요)-->
+	<select id="getMyHeartList" parameterType="wordingDto" resultType="wordingDto">
+		SELECT *
+		FROM
+			(SELECT r1.target_num, r1.num, r1.writer, r1.title, r1.content, r1.author, r1.regdate, r1.profile, ROWNUM AS rnum
+			FROM
+				(SELECT w.num, NVL(h.target_num,0) target_num, w.writer, w.title, w.content, w.author, w.regdate, u.profile
+				FROM ebd_wording w, ebd_wording_heart h, ebd_users u
+				WHERE w.num = h.target_num AND h.writer=#{nick} AND w.writer=u.nick
+				ORDER BY num DESC) r1) 
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getMyHeartCount" parameterType="wordingDto" resultType="int">
+		SELECT COUNT(*)
+		FROM ebd_wording_heart
+		WHERE writer=#{nick}
+	</select>
+	
+	<!-- 로그인이 되어있다면 로그인된 아이디의 하트 테이블 정보를 select해준다. -->
+	<select id="selectMyHeartInfo" parameterType="wordingDto" resultType="int">
+		SELECT target_num
+		FROM
+			(SELECT r1.target_num, ROWNUM AS rnum
+			FROM
+				(SELECT w.num, NVL(h.target_num,0) target_num
+				FROM ebd_wording w, ebd_wording_heart h
+				WHERE w.num = h.target_num AND h.writer=#{nick}
+				ORDER BY num DESC) r1) 
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+
 
 
 </mapper>

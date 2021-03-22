@@ -86,6 +86,7 @@
 		<div class="row justify-content-md-center" style="margin:10px;">
 			<div class="col-8">
 				<select class="form-control" name="condition" id="condition">
+					<option value="report">공개독후감</option>
 					<option value="wording">명언/글귀</option>
 					<option value="episode">에피소드</option>
 					<option value="market">마켓</option>

@@ -30,5 +30,7 @@ public interface WordingService {
 	public void getBestHeartList(ModelAndView mView);
 	//나의 서재에 내가 쓴글을 불러오는 메소드 
 	public void getMyWriteList(ModelAndView mView, HttpServletRequest request);
+	//나의 서재에 내가 누른 하트 리스트 불러오는 메소드
+	public void getMyHeartList(ModelAndView mView, HttpServletRequest request);
 	
 }

@@ -106,8 +106,28 @@ public class WordingDaoImpl implements WordingDao {
 		// TODO Auto-generated method stub
 		return session.selectOne("wording.getMyCount",dto);
 	}
-	
 
+
+	//나의 서재 내가 누른 하트 리스트 리턴
+	@Override
+	public List<WordingDto> getMyHeartList(WordingDto dto) {
+		// TODO Auto-generated method stub
+		return session.selectList("wording.getMyHeartList", dto);
+	}
+
+	//나의 서재 내가 누른 하트 리스트 개수 리턴
+	@Override
+	public int getMyHeartCount(WordingDto dto) {
+		return session.selectOne("wording.getMyHeartCount",dto);
+	}
+
+
+	//나의 서재 내가 누른 하트 리스트의 하트 클릭 여부 리턴
+	@Override
+	public List<Integer> getMyHeartInfo(WordingDto dto) {
+		List<Integer> list=session.selectList("wording.selectMyHeartInfo",dto);
+		return list;
+	}
 
 	
 }

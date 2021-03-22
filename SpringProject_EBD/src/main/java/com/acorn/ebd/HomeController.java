@@ -80,8 +80,11 @@ public class HomeController {
 	
 	//mydiary 내가누른 하트 요청처리 (내가 하트 누른 독후감으로 가도록 한다.)
 	@RequestMapping("/my_heart/private/my_heart.do")
-	public String myHeart() {
-		return "my_heart/private/report_list";
+	public ModelAndView myHeart(ModelAndView mView, HttpServletRequest request) {
+		report_service.getMyHeartList(mView, request);
+		mView.setViewName("my_heart/private/report_list");
+		return mView;
+		
 	}
 	
 	//mydiary 내가 누른 하트 카테고리별 요청
@@ -89,8 +92,8 @@ public class HomeController {
 	public ModelAndView myHeartList(String condition, ModelAndView mView, HttpServletRequest request) {
 		//condition에 따라 요청 정보를 다르게 
 		if(condition.equals("report")) {
-			mView.setViewName("my_heart/private/report_list");
 			report_service.getMyHeartList(mView, request);
+			mView.setViewName("my_heart/private/report_list");
 		}else if(condition.equals("market")) {
 			market_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/market_list");
@@ -101,7 +104,7 @@ public class HomeController {
 			episode_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/episode_list");
 		}else if(condition.equals("wording")) {
-			//wording_service.getMyHeartList(mView, request);
+			wording_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/wording_list");			
 		}
 		return mView;
@@ -137,11 +140,19 @@ public class HomeController {
 			
 	}
 	
-	//wording ajax요청처리
+	//wording ajax요청처리(내가쓴글)
 	@RequestMapping("/my_write/private/wording_ajax_page.do")
 	public ModelAndView ajaxPage(ModelAndView mView, HttpServletRequest request) {
 		wording_service.getMyWriteList(mView, request);
 		mView.setViewName("my_write/private/wording_ajax_page");
+		return mView;
+	}
+	
+	//wording ajax요청처리(내가 누른 하트)
+	@RequestMapping("/my_heart/private/wording_ajax_page.do")
+	public ModelAndView ajaxPage2(ModelAndView mView, HttpServletRequest request) {
+		wording_service.getMyHeartList(mView, request);
+		mView.setViewName("my_heart/private/wording_ajax_page");
 		return mView;
 	}
 	

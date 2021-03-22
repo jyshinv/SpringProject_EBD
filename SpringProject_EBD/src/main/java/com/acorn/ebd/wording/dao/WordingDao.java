@@ -36,4 +36,11 @@ public interface WordingDao {
 	public List<WordingDto> getMyList(WordingDto dto);
 	//나의 서재 내가 쓴글 리스트의 개수를 불러오는 메소드 
 	public int getMyCount(WordingDto dto);
+	//나의 서재 내가 누른 하트 리스트를 불러오는 메소드
+	public List<WordingDto> getMyHeartList(WordingDto dto);
+	//나의 서재 내가 누른 하트 리스트 개수를 불러오는 메소드
+	public int getMyHeartCount(WordingDto dto);
+	//나의 서재 내가 누른 하트 리스트 하트 클릭여부를 불러오는 메소드
+	public List<Integer> getMyHeartInfo(WordingDto dto);
+
 }
