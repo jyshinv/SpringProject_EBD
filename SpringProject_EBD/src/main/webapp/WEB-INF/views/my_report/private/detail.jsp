@@ -201,7 +201,12 @@
 			</tr>
 			<tr>
 				<th>구매처 링크</th>
-				<td class="link"><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
+				<c:if test="${empty dto.link }">
+					<td class="link"></td>
+				</c:if>
+				<c:if test="${not empty dto.link }">
+					<td class="link"><a href="${dto.link }"><b>${dto.booktitle } </b>바로가기</a></td>
+				</c:if>
 			</tr>
 		</table>
 		<div class="marg">
