@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
+	body{
+		padding-top:120px;
+	}
  	.btn-file{
         position: relative;
         overflow: hidden;
@@ -28,7 +31,7 @@
         display: block;
     }
     .row{
-    	margin-bottom:5px;
+    	margin-bottom:10px;
     }
     /*버튼 기본 노랑*/
     .btn {
@@ -41,9 +44,9 @@
 
     /*세로 크기를 300px로 */
    	#content{
-   		width: 100%;
-     	height: 300px;
+     	height: 150px;
    	}
+
 </style>
 </head>
 <body>
@@ -56,7 +59,7 @@
 	          <label for="title" class="col-form-label">도서명</label>
 	       </div >
 	       <div class="col">
-	       	<input class="form-control" type="text" name="title" id="title" value="${dto.title }"/><br />
+	       	<input class="form-control" type="text" name="title" id="title" value="${dto.title }"/>
 	       </div >
 	    </div>
 	    <div class="row">
@@ -64,21 +67,23 @@
 	          <label for="author" class="col-form-label">작가</label>
 	       </div >
 	       <div class="col">
-	          <input class="form-control" type="text" name="author" id="author" value="${dto.author }" /><br />
+	          <input class="form-control" type="text" name="author" id="author" value="${dto.author }" />
 	       </div >
 	    </div>
 	    <div class="row">
-	       <div class="col-2">
-	          <label for="content" class="col-form-label">내용</label>
-	       </div >
-	       <div class="col">
-	       	<textarea class="form-control DOC_TEXT" type="text" name="content" id="content"/>${dto.content }</textarea><br />
-	       	<span style="color:#aaa;" id="counter">(0 / 최대 200자)</span>
-	       </div >
-	    </div>
-	    <div id="content" class="text-center" style="margin-top:50px; margin-bottom:50px;">
-	       <button class="btn" type="submit">저장</button>
-	    </div>
+         <div class="col-2">
+            <label for="content" class="col-form-label">내용</label>
+         </div >
+         <div class="col">
+         	<textarea class="form-control DOC_TEXT" type="text" name="content" id="content" placeholder="200글자까지 가능" /></textarea>
+         	<span style="color:#aaa;" id="counter">
+         		<small>(0 / 최대 200자)</small>
+         	</span>
+         </div >
+	      </div>
+	      <div id="content" class="text-center" style="margin-top:50px; margin-bottom:50px;">
+	         <button class="btn" type="submit">저장</button>
+	      </div>
 	 </form>
 </div>
 <script>

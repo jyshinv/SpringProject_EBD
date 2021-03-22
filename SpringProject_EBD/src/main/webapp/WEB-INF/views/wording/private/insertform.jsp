@@ -28,7 +28,7 @@
         display: block;
     }
     .row{
-    	margin-bottom:5px;
+    	margin-bottom:10px;
     }
     /*버튼 기본 노랑*/
     .btn {
@@ -45,8 +45,7 @@
     }
     /*세로 크기를 300px로 */
    	#content{
-		width: 99.5%;
-		height: 400px;
+		height: 150px;
 	}
     
 </style>
