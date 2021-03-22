@@ -176,6 +176,24 @@
 		WHERE ROWNUM BETWEEN 1 AND 3
 	</select>
 	
+	<!--wording 목록을 select regdate컬럼은 두 테이블에 모두 존재하므로 어떤 테이블의 regdate인지 명시해주어야한다.(여기선 글 쓴 regdate가 필요)-->
+	<select id="getMyList" parameterType="wordingDto" resultType="wordingDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num, writer, title, content, author, ebd_wording.regdate, profile
+				FROM ebd_wording, ebd_users 
+				WHERE ebd_wording.writer = ebd_users.nick AND ebd_wording.writer=#{nick}
+				ORDER BY num DESC) result1) 
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getMyCount" parameterType="wordingDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM ebd_wording
+		WHERE writer=#{nick}
+	</select>
 
 
 </mapper>

@@ -28,5 +28,7 @@ public interface WordingService {
 	public void delete(int num, HttpServletRequest request);
 	//홈 화면에 좋아요 Best3를 요청하는 메소드 
 	public void getBestHeartList(ModelAndView mView);
+	//나의 서재에 내가 쓴글을 불러오는 메소드 
+	public void getMyWriteList(ModelAndView mView, HttpServletRequest request);
 	
 }

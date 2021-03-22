@@ -67,7 +67,6 @@
         align-items: center;
         height: 280px;
     }
-
     /*자식요소의 text-align를 center로*/
    #wording-container{
        text-align: center;
@@ -343,13 +342,12 @@
 		let author=$(this).attr("data-author");
 		let msg = '['+title+']\n\n'+content+' by'+author; 
 		
-
 	    Kakao.Link.sendDefault({
 	      objectType: 'text',
 	      text: msg,
 	      link: {
-	        mobileWebUrl: 'https://book.naver.com',
-	        webUrl: 'https://book.naver.com',
+	        mobileWebUrl: 'https://developers.kakao.com/docs/js/kakaotalklink#텍스트-템플릿-보내기',
+	        webUrl: 'https://developers.kakao.com/docs/js/kakaotalklink#텍스트-템플릿-보내기',
 	      },
 	    })
 		 

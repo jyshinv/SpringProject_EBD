@@ -92,5 +92,22 @@ public class WordingDaoImpl implements WordingDao {
 	}
 
 
+	//나의 서재 내가 쓴글 리스트 리턴
+	@Override
+	public List<WordingDto> getMyList(WordingDto dto) {
+		// TODO Auto-generated method stub
+		return session.selectList("wording.getMyList", dto);
+	}
+
+
+	//나의 서재 내가 쓴글 리스트 개수 리턴
+	@Override
+	public int getMyCount(WordingDto dto) {
+		// TODO Auto-generated method stub
+		return session.selectOne("wording.getMyCount",dto);
+	}
+	
+
+
 	
 }

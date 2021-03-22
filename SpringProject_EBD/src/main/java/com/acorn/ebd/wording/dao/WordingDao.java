@@ -32,4 +32,8 @@ public interface WordingDao {
 	public void delete(int num);
 	//좋아요 best3를 리턴해주는 메소드 
 	public List<WordingDto> getBestHeartList();
+	//나의 서재 내가 쓴글 리스트를 불러오는 메소드
+	public List<WordingDto> getMyList(WordingDto dto);
+	//나의 서재 내가 쓴글 리스트의 개수를 불러오는 메소드 
+	public int getMyCount(WordingDto dto);
 }

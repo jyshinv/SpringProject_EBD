@@ -105,8 +105,10 @@ public class HomeController {
 	
 	//mydiary 내가 쓴 글 클릭 요청(내가 작성한 명언/글귀로 간다)
 	@RequestMapping("/my_write/private/my_write.do")
-	public String myWrite() {
-		return "my_write/private/wording_list";
+	public ModelAndView myWrite(ModelAndView mView, HttpServletRequest request) {
+		wording_service.getMyWriteList(mView, request);
+		mView.setViewName("my_write/private/wording_list");
+		return mView;
 	}
 	
 	//mydiary 내가 쓴 글 카테고리별 요청
@@ -123,11 +125,19 @@ public class HomeController {
 			episode_service.getMyWriteList(mView, request);
 			mView.setViewName("my_write/private/episode_list");
 		}else if(condition.equals("wording")) {
-			//wording_service.getMyWriteList(mView, request);
+			wording_service.getMyWriteList(mView, request);
 			mView.setViewName("my_write/private/wording_list");
 		}
 		return mView;
 			
+	}
+	
+	//wording ajax요청처리
+	@RequestMapping("/my_write/private/wording_ajax_page.do")
+	public ModelAndView ajaxPage(ModelAndView mView, HttpServletRequest request) {
+		wording_service.getMyWriteList(mView, request);
+		mView.setViewName("my_write/private/wording_ajax_page");
+		return mView;
 	}
 	
 	// 카카오 지도 API 요청

@@ -75,7 +75,7 @@
             <label for="content" class="col-form-label">내용</label>
          </div >
          <div class="col">
-         	<textarea class="form-control DOC_TEXT" type="text" name="content" id="content" placeholder="200글자까지 가능" /></textarea>
+         	<textarea class="form-control DOC_TEXT" type="text" name="content" id="content" placeholder="200글자까지 가능" />${dto.content }</textarea>
          	<span style="color:#aaa;" id="counter">
          		<small>(0 / 최대 200자)</small>
          	</span>
