@@ -78,52 +78,53 @@ public class HomeController {
 		return "info";
 	}
 	
-	//mydiary 내가누른 하트 요청처리
-	@RequestMapping("/my_heart/private/list.do")
+	//mydiary 내가누른 하트 요청처리 (내가 하트 누른 독후감으로 가도록 한다.)
+	@RequestMapping("/my_heart/private/my_heart.do")
 	public String myHeart() {
-		return "my_heart/private/list";
+		return "my_heart/private/report_list";
 	}
 	
 	//mydiary 내가 누른 하트 카테고리별 요청
-	@RequestMapping("/my_heart/private/my_heart.do")
+	@RequestMapping("/my_heart/private/my_heart_category.do")
 	public ModelAndView myHeartList(String condition, ModelAndView mView, HttpSession session) {
-
+		//condition에 따라 요청 정보를 다르게 
 		if(condition.equals("report")) {
-			mView.setViewName("my_heart/private/ajax_report_list");
+			mView.setViewName("my_heart/private/report_list");
 		}else if(condition.equals("market")) {
-			mView.setViewName("my_heart/private/ajax_market_list");
+			mView.setViewName("my_heart/private/market_list");
 		}else if(condition.equals("file")) {
-			mView.setViewName("my_heart/private/ajax_file_list");
+			mView.setViewName("my_heart/private/file_list");
 		}else if(condition.equals("episode")) {
-			mView.setViewName("my_heart/private/ajax_episode_list");
+			mView.setViewName("my_heart/private/episode_list");
 		}else if(condition.equals("wording")) {
-			mView.setViewName("my_heart/private/ajax_wording_list");			
+			mView.setViewName("my_heart/private/wording_list");			
 		}
 		return mView;
 			
 	}
 	
-	//mydiary 내가 쓴 글
-	@RequestMapping("/my_write/private/list.do")
+	//mydiary 내가 쓴 글 클릭 요청(내가 작성한 명언/글귀로 간다)
+	@RequestMapping("/my_write/private/my_write.do")
 	public String myWrite() {
-		return "my_write/private/list";
+		return "my_write/private/wording_list";
 	}
 	
 	//mydiary 내가 쓴 글 카테고리별 요청
-	@RequestMapping("/my_write/private/my_write.do")
+	@RequestMapping("/my_write/private/my_write_category.do")
 	public ModelAndView myWriteList(String condition, ModelAndView mView, HttpServletRequest request) {
-		if(condition.equals("market")) { //ajax 요청 시 condition이 market일 때
+		//condition에 따라 요청을 다르게 한다. 
+		if(condition.equals("market")) { 
 			market_service.getMyWriteList(mView, request);
-			mView.setViewName("my_write/private/ajax_market_list");
-		}else if(condition.equals("file")) {//ajax 요청 시 condition이 file일 때
+			mView.setViewName("my_write/private/market_list");
+		}else if(condition.equals("file")) {
 			//file_service.getMyWriteList(mView, request);
-			mView.setViewName("my_write/private/ajax_file_list");
-		}else if(condition.equals("episode")) {//ajax 요청 시 condition이 episode일 때
+			mView.setViewName("my_write/private/file_list");
+		}else if(condition.equals("episode")) {
 			//episode_service.getMyWriteList(mView, request);
-			mView.setViewName("my_write/private/ajax_episode_list");
-		}else if(condition.equals("wording")) {//ajax 요청 시 condition이 wording일 때
+			mView.setViewName("my_write/private/episode_list");
+		}else if(condition.equals("wording")) {
 			//wording_service.getMyWriteList(mView, request);
-			mView.setViewName("my_write/private/ajax_wording_list");
+			mView.setViewName("my_write/private/wording_list");
 		}
 		return mView;
 			
