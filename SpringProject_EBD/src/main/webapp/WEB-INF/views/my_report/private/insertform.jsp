@@ -149,7 +149,7 @@
 				<textarea name="content" id="content"></textarea>
 			</div>
 		</div>
-		<div class="text-center" style="margin-top:50px; margin-bottom:50px;">
+		<div class="text-center" style="margin-top:30px; margin-bottom:30px;">
 			<button class="btn" type="submit" onclick="submitContents(this);">독후감 저장</button>
 		</div>
 	</form>

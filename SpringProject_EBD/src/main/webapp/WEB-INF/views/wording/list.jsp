@@ -44,25 +44,29 @@
 	}
 	
 	.heart-link{
-		font-size : 1.5em;
+		font-size : 1.8em;
 		color:red;
 	}
-	
+	.heart-link-logout{
+		font-size : 1.8em;
+		color:grey;
+	}
+	.heart-cnt-logout{
+		color:grey;
+	}
 	
 	/* 프로필 이미지를 작은 원형으로 만든다 */
 	#profileImage{
 		width: 100px;
 		height: 100px;
-		border: 1px solid #cecece;
 		border-radius: 50%;
 	}
 	
 	/*부모요소의 items를 center로*/
     .row{
         align-items: center;
-        height: 200px;
+        height: 280px;
     }
-
 
     /*자식요소의 text-align를 center로*/
    #wording-container{
@@ -71,8 +75,42 @@
    
    /*card의 모서리를 둥글게*/
    .card{
-   		border-radius: 10px;
+   		background-color:#FEF9E7;
+   		border-radius: 50px;
+   		border:none;
+   		height:280px;
    }
+   	/* 답글/수정/삭제 색 변경 */
+	.cmt-link{
+   		color:grey;
+   }
+   /* 모든 a링크의 hover 색깔 변경 (임시) */
+   	a:hover{
+   		color:#F7DC6F;
+   		text-decoration: none;
+   }
+   /* 하트 기본, 호버시 빨갛게 만들어주기 */
+	.heart-link,
+	.heart-link:hover{
+	    font-size : 1.8em;
+    	color:red;
+    	text-decoration: none;
+   	}
+   	#writer{
+    	font-size:0.9em;
+    	padding-top: 13px;
+    	margin-bottom: 0px;
+    }
+    #title{
+    	color:grey;
+    }
+    #card-width{
+    	width: 950px;
+    	margin-bottom:30px;
+    }
+    #search{
+    	height:100px;
+    }
 </style>
 </head>
 <body>
@@ -81,7 +119,7 @@
 <div class="container" id="wording-container">
 	<!-- 검색 버튼과 form -->
 	<form action="list.do" method="get">
-		<div class="row justify-content-md-center">
+		<div class="row justify-content-md-center" id="search">
 			<div class="col-2">
 				<select class="form-control" name="condition" id="condition">
 					<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
@@ -90,18 +128,18 @@
 				</select>
 			</div>
 			<div class="col-md-6">
-				<input value="${keyword }" type="text" name="keyword" placeholder="검색어..."
+				<input value="${keyword }" type="text" name="keyword" placeholder="검색어를 입력해주세요"
 				  	 class="form-control">
 			</div>
 			<span>
-				<button class="btn btn-light" type="submit" style=" background-color:#F7DC6F ;">
+				<button class="btn" type="submit">
 				검색</button>
 			</span>
 		</div>
 	</form>
 	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
 	<c:if test="${not empty keyword }">
-		<div class="alert alert-success">
+		<div class="alert text-center">
 			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
 		</div>
 	</c:if>
@@ -109,81 +147,83 @@
 	<!-- 명언/글귀 목록 select했을 때 해당 id가 누른 번호가 있다면 heartck="하트눌림~", 그게 아니라면 heartck="하트"가 나오게 한다.-->
 	<div id="wordingList">
 			<c:forEach var="tmp" items="${list }">
-				<div class="card" style="background-color: #FEFCF4; border:white">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-3">
-								<p>
-									<!-- 프로필 이미지 나오는 곳 -->
-									<c:choose>
-										<c:when test="${empty tmp.profile }">
-											<!-- 비어있다면 기본이미지 -->
-											<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-									  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-											</svg>
-										</c:when>
-										<c:otherwise>
-											<!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
-											<img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
-										</c:otherwise>
-									</c:choose>
-
-								</p>
-								<p>
+				<div class="container" id="card-width">
+					<div class="card">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-3">
+									<p>
+										<!-- 프로필 이미지 나오는 곳 -->
+										<c:choose>
+											<c:when test="${empty tmp.profile }">
+												<!-- 비어있다면 기본이미지 -->
+												<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+										  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+												</svg>
+											</c:when>
+											<c:otherwise>
+												<!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
+												<img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
+											</c:otherwise>
+										</c:choose>
+	
+									</p>
 									<!-- 닉네임  -->
-									${tmp.writer }
-								</p>
-								<p>
-									<!-- 하트, 수정, 삭제  -->
-									<c:if test="${empty id }">
-										<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-										<span>♥</span>
-										<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>
-										</c:forEach>
-									</c:if>
-									<c:if test="${not empty id }">
-										<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-											<!-- heartInfoList가 0이면 하트를 누르지 않은 것이다.  -->
-											<c:choose>
-												<c:when test="${heartInfoList[i] eq 0 }">
-													<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>										
-												</c:when>
-												<c:otherwise>
-													<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
-												</c:otherwise>
-											</c:choose>
-											<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>
-										</c:forEach>
-										<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
-										<c:if test="${tmp.writer eq sessionScope.nick }">
-											| <a href="private/updateform.do?num=${tmp.num }">수정</a>
-											| <a id="delete" data-num="${tmp.num }" href="javascript:deleteConfirm()">삭제</a>	
-										</c:if>	
-									</c:if>
-								</p>
+									<p id="writer"><strong>${tmp.writer }</strong></p>
+									<p>
+										<!-- 하트, 수정, 삭제  -->
+										<c:if test="${empty id }">
+											<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+											<span class="heart-link-logout">♥</span>
+											<span class="heart-cnt-logout heart-cnt${tmp.num }">${heartCntList[i]}</span>
+											</c:forEach>
+										</c:if>
+										<c:if test="${not empty id }">
+											<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
+												<!-- heartInfoList가 0이면 하트를 누르지 않은 것이다.  -->
+												<c:choose>
+													<c:when test="${heartInfoList[i] eq 0 }">
+														<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♡</a>										
+													</c:when>
+													<c:otherwise>
+														<a data-num="${tmp.num }" href="javascript:" class="heart-link" href="list.do">♥</a>
+													</c:otherwise>
+												</c:choose>
+												<span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>
+											</c:forEach>
+											<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
+											<c:if test="${tmp.writer eq sessionScope.nick }">
+											<span class="cmt-link"><small>|</small></span>
+												<a class="cmt-link" href="private/updateform.do?num=${tmp.num }"><small>수정</small></a>
+											<span class="cmt-link"><small>|</small></span>
+												<a class="cmt-link" id="delete" data-num="${tmp.num }" href="javascript:deleteConfirm()"><small>삭제</small></a>	
+											</c:if>	
+										</c:if>
+									</p>
+								</div>
+								<div class="col-7">
+									<!-- 글귀와 제목, 작가 -->
+									<p><strong>${tmp.content }</strong></p>
+									<br />
+									<p id="title">
+										<small>
+											${tmp.title }, ${tmp.author }
+										</small>
+									</p>
+								</div>
+								<div class="col-2">
+									<p>
+										<!-- 카카오 이미지 링크 넣기 -->
+										<a class="kakao-link" href="javascript:" data-profile="${tmp.profile }" data-title="${tmp.title }" data-content="${tmp.content }" data-author="${tmp.author }" >
+												<svg enable-background="new 0 0 24 24" height="30" viewBox="0 0 24 24" width="30" xmlns="http://www.w3.org/2000/svg"><path d="m12 1c-6.627 0-12 4.208-12 9.399 0 3.356 2.246 6.301 5.625 7.963-1.678 5.749-2.664 6.123 4.244 1.287.692.097 1.404.148 2.131.148 6.627 0 12-4.208 12-9.399 0-5.19-5.373-9.398-12-9.398z" fill="#3e2723"/><g fill="#ffeb3b"><path d="m10.384 8.27c-.317-.893-1.529-.894-1.845-.001-.984 3.052-2.302 4.935-1.492 5.306 1.078.489 1.101-.611 1.359-1.1h2.111c.257.487.282 1.588 1.359 1.1.813-.371-.489-2.195-1.492-5.305zm-1.614 2.987.692-1.951.691 1.951z"/><path d="m5.365 13.68c-1.198 0-.49-1.657-.692-4.742-.429-.074-1.76.297-1.76-.673 0-.371.305-.673.679-.673 2.518.18 4.224-.47 4.224.673 0 .987-1.275.59-1.76.673-.2 3.075.505 4.742-.691 4.742z"/><path d="m13.154 13.579c-1.159 0-.454-1.565-.663-5.301 0-.91 1.413-.909 1.413 0v4.04c.669.089 2.135-.33 2.135.63-.001 1.007-1.576.503-2.885.631z"/><path d="m19.556 13.38-1.624-2.137-.24.239v1.5c0 .38-.31.688-.693.688-1.203 0-.482-1.732-.692-5.392 0-.379.31-.688.692-.688 1.045 0 .594 1.478.692 2.166 1.96-1.873 1.913-2.072 2.316-2.072.556 0 .897.691.527 1.058l-1.578 1.567 1.704 2.243c.556.725-.555 1.556-1.104.828z"/></g></svg>
+										</a>
+									</p>
+								</div>
 							</div>
-							<div class="col-7">
-								<!-- 글귀와 제목, 작가 -->
-								<p>
-									<b>${tmp.content }</b>
-								</p>
-								<br />
-								<p>
-									${tmp.title }, ${tmp.author }
-								</p>
-							</div>
-							<div class="col-2">
-								<p>
-									<!-- 카카오 이미지 링크 넣기 -->
-									<a class="kakao-link" href="javascript:" data-profile="${tmp.profile }" data-title="${tmp.title }" data-content="${tmp.content }" data-author="${tmp.author }" >
-											<svg id="Bold" enable-background="new 0 0 32 32" height="30" viewBox="0 0 32 32" width="30" xmlns="http://www.w3.org/2000/svg"><path d="m26 32h-20c-3.314 0-6-2.686-6-6v-20c0-3.314 2.686-6 6-6h20c3.314 0 6 2.686 6 6v20c0 3.314-2.686 6-6 6z" fill="#e3f8fa"/><path d="m14.308 14.204-.461 1.301h.922z" fill="#8ce1eb"/><path d="m16 8.667c-4.418 0-8 2.805-8 6.266 0 2.237 1.497 4.2 3.75 5.309-.866 2.966-.889 2.98-.742 3.066.184.108.423-.003 3.571-2.208.461.065.936.099 1.421.099 4.418 0 8-2.805 8-6.266s-3.582-6.266-8-6.266zm-3.962 8.015c0 .241-.207.438-.462.438s-.462-.196-.462-.438v-2.724h-.72c-.25 0-.453-.201-.453-.449 0-.247.203-.449.453-.449h2.363c.25 0 .453.201.453.449 0 .247-.203.449-.453.449h-.72v2.724zm3.586.432c-.48 0-.391-.377-.613-.797h-1.407c-.22.417-.133.797-.613.797-.462 0-.543-.281-.403-.714l1.104-2.887c.078-.22.314-.446.615-.453.301.007.538.233.616.453.729 2.261 1.769 3.602.701 3.601zm2.626-.061h-1.481c-.772 0-.302-1.043-.442-3.534 0-.253.211-.458.471-.458s.471.206.471.458v2.694h.981c.244 0 .442.189.442.42 0 .232-.198.42-.442.42zm3.613-.345c-.017.121-.081.229-.179.302-.637.481-1.107-.921-1.729-1.514l-.16.159v1c0 .253-.207.458-.462.459-.255 0-.462-.206-.462-.458v-3.136c0-.253.207-.458.462-.458s.462.206.462.458v.985c.851-.639 1.323-1.78 1.861-1.246.528.524-.565.982-1.018 1.614 1.069 1.475 1.272 1.511 1.225 1.835z" fill="#26c6da"/></svg>
-									</a>
-								</p>
-							</div>
-						</div>
-
-					</div><!-- div card-body -->
-				</div><!-- div card -->
+	
+						</div><!-- div card-body -->
+					</div><!-- div card -->
+				</div>
 				<%isCheck++; %><!-- 바깥 for문 빠져나가기 전에 isCheck증가시키기 -->
 				<br />
 			</c:forEach><!-- 바깥 for문 -->

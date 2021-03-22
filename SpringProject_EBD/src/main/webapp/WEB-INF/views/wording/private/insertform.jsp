@@ -88,7 +88,7 @@
          	<span style="color:#aaa;" id="counter">(0 / 최대 200자)</span>
          </div >
       </div>
-      <div id="content" class="text-center" style="margin-top:50px; margin-bottom:50px;">
+      <div class="text-center" style="margin-top:30px; margin-bottom:30px;">
          <button class="btn" type="submit">저장</button>
       </div>
    </form>
