@@ -1,7 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>    
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet"> 
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR&display=swap" rel="stylesheet">  
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +16,16 @@
 <title>/market/detail.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+	/*전체 페이지 폰트 적용*/
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
+	
+	body{
+		padding-top:120px;
+      	margin-bottom:30px;
+	}
+
 	/* 댓글 css */
 	/* 글 내용을 출력할 div 에 적용할 css */
 	.contents{
@@ -49,7 +66,6 @@
 	.page-link:hover{
 		background-color:#FBEEE6;
 	}
-	
 	.page-link{
 		background-color:#F7DC6F;
 	}
@@ -57,7 +73,6 @@
 	.comments .comment-form{
 		display: none;
 	}
-	
 	/* .reply_icon 을 li 요소를 기준으로 배치 하기 */
 	.comments li{
 		position: relative;
@@ -79,13 +94,11 @@
 	  word-wrap: break-word;
 	  background-color: none;
 	}
-	
 	/* 글 내용중에 이미지가 있으면 최대 폭을 100%로 제한하기 */
 	.contents img{
 		max-width: 100%;
 	}
-	
-	 /* 답글 아이콘 180도 회전 */
+	/* 답글 아이콘 180도 회전 */
    .reply-link{
    		transform: rotate(180deg);
    }
@@ -95,6 +108,16 @@
    .cmt-small{
    		color:grey;
    }
+   .loader{
+		position: fixed; /* 좌하단 고정된 위치에 배치 하기 위해 */
+		width: 100%;
+		left: 0;
+		bottom: 0;
+		text-align: center; /* 이미지를 좌우로 가운데  정렬 */
+		z-index: 1000;
+		display: none; /* 일단 숨겨 놓기 */
+	}
+   
     /* 모든 a링크의 hover 색깔 변경 (임시) */
    a:hover,
    .link>a:hover{
@@ -104,6 +127,7 @@
    .page-link:hover{
    		text-decoration: none;
    }
+   
    /* 구매처 링크 노란색 (버튼색과 다름) / 공개 비공개 체크 버튼에도 동일하게 구현 */
    .link>a,
    .page-link,
@@ -113,23 +137,13 @@
    .page-link{
    		border:none;
    }
-	.loader{
-		position: fixed; /* 좌하단 고정된 위치에 배치 하기 위해 */
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		text-align: center; /* 이미지를 좌우로 가운데  정렬 */
-		z-index: 1000;
-		display: none; /* 일단 숨겨 놓기 */
-	}
 	
 	/* 하트 스타일 */
 	.heart-link,
 	.heart-link:hover{
-      font-size : 2em;
+      font-size : 1.7em;
       color:red;
       text-decoration: none;
-      
    }
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
@@ -158,25 +172,27 @@
    		background-color:rgba(0, 0, 0, 0);
    }
    
+   /*판매상태 유형*/
    .badge-size{
    		font-size : 20px;
    		margin-top: 10px;
    }
+   
    /* 뷰카운트, 날짜 글자색 변경 */
    #view-reg{
    		color:grey;
    }
-   /* text-decoration 속성값을 none으로 설정하여 링크(link)가 설정된 텍스트의 밑줄을 제거하는데 자주 사용합니다. 
-   		왜 적용 안됨 ㅋ 
-   */
+   
     /* 전체적으로 보기 좋게 하기 위해 간격 띄우기 */
     .marg{
     	margin-bottom:20px;
     }
+    
     /* 제목과 헤더 사이 간격 띄우기 */
    h1{
    		margin-top:30px;
    }
+   
     .bi-pencil,
 	.bi-trash{
 		color:#FFCA28;
@@ -187,6 +203,7 @@
 		color:#FFCA28;
 		margin-bottom:5px;
 	}
+	
 	.btn-link{
 		padding-left:0px;
 		padding-right:0px;
@@ -222,6 +239,7 @@
 		<div class="text-center marg">
 			<h1>${dto.title }</h1>
 		</div>
+		<!-- 조회수 등록일 -->
 		<div class="text-right marg" id="view-reg">
 			<span>
 				<small> 
@@ -235,14 +253,14 @@
 			<span>
 				<small>
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar2-check" viewBox="0 0 16 16">
-				  <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
-				  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
-				  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
-				</svg> 
-				<span>&nbsp;${dto.regdate }</span>
+					  <path d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+					  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2z"/>
+					  <path d="M2.5 4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5V4z"/>
+					</svg> 
+					<span>&nbsp;${dto.regdate }</span>
 				</small>
 			</span>
-		</div class="text-right marg" id="view-reg">
+		</div>
 		<!-- 이미지 -->
 		<center class="centerimg">
 			<img src="${pageContext.request.contextPath }${dto.imgpath}" alt="Card image cap">
@@ -250,7 +268,6 @@
 		<div class="card-body">
 			<div class="row">
 				<div class="col text-left">
-				
 					<!-- 로그인했으면 하트 -->
 					<c:if test="${not empty nick }">
 				       <c:choose>
@@ -268,7 +285,6 @@
 				            <span>♥</span>
 				            <span class="heart-cnt" style="color:red;">${heartcnt }</span>
 				    </c:if>
-				    
 				    <!-- 작성자만 보이게 수정/삭제-->
 				    <c:if test="${dto.writer eq nick }">
 				    	<a href="${pageContext.request.contextPath }/market/private/updateform.do?num=${dto.num}">
@@ -337,8 +353,7 @@
 						</form>
 		  			</c:if>	
 				</div><!-- col -->
-			</div><!-- row -->
-											  		
+			</div><!-- row -->							  		
 	  		<p class="card-text badge-size" style="margin-top:20px;">
 				<!-- 판매 유형 -->
 				<span class="badge badge-pill badge-warning" style="padding:10px;">
@@ -365,7 +380,7 @@
 			</p>
 		    <p class="card-text">${dto.content }</p>
 		</div><!-- card body -->
-		<!-- 페이징 -->
+		<!-- prev/next 페이징 -->
 		<nav>
 			<ul class="pagination justify-content-center">
 				<c:choose>

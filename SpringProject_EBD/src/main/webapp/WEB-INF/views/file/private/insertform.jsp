@@ -12,7 +12,7 @@
 	}
 	
 	.row{
-		margin-bottom: 5px;
+		margin-bottom: 10px;
 	}
 	
 	.btn-file{
@@ -39,7 +39,8 @@
         cursor: inherit;
         display: block;
     }
-    	/*버튼 기본 노랑*/
+    
+    /*버튼 기본 노랑*/
     .btn {
     	background-color:#F7DC6F ;
     }
@@ -52,6 +53,7 @@
     	color:#212529;
     	text-decoration: none;
     }
+    
     /* 스마트 에디터 전체 화면 보이게 하는 css */
     #content{
 		width: 99.5%;
@@ -85,7 +87,7 @@
 	 			<input class="form-control" type="text" id="fileName2" placeholder="파일을 첨부해주세요" />
 	 			<small class="text-muted">공유할 독후감 양식파일을 넣어주세요.</small>
 	 		</div>
-	 		<div class="col" style="padding-left:0px;">
+	 		<div class="col" style="padding-left:5px;">
 	 			<label for="myFile" class="btn btn-file">파일 선택
 		 			<input type="file" name="myFile" id="myFile" onchange="reviewUploadImg2(this);" />
 		 		</label>
@@ -100,7 +102,7 @@
 	 			<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
 	 			<small class="text-muted">예시 사진을 넣어주세요.</small>
 	 		</div>
-	 		<div class="col" style="padding-left:0px;">
+	 		<div class="col" style="padding-left:5px;">
 	 			<label for="myImg" class="btn btn-file" >이미지 선택
 		 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
 		 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
@@ -110,7 +112,7 @@
 	 	<div class="form-group">
 		    <textarea class="form-control" type="text"  name="content" id="content"></textarea>
 		</div>
-	 	<div class="text-center" style="margin-top:50px; margin-bottom:50px;">
+	 	<div class="text-center" style="margin-top:30px; margin-bottom:30px;">
 	 		<button class="btn" type="submit" onclick="submitContents(this);" >등록</button>
 	 	</div>
 	 </form>

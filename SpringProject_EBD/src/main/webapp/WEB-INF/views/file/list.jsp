@@ -9,7 +9,6 @@
 <title>file/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
-	
 	.card-margin{
 		margin-top: 30px;
 		margin-bottom: 30px;
@@ -20,16 +19,57 @@
 	.heart-link:hover{
       font-size : 1.5em;
       color: red;
-       text-decoration: none;
+      text-decoration: none;
    }
+   
+   	.heart-link-logout{
+   		font-size : 1.5em;
+   		color:grey;
+   	}
+   	.heart-cnt-logout{
+   		color:grey;
+   	}   
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
       width: 25px;
       height: 25px;
-     
       border-radius: 50%;
    }
+   
+    /* page-item active 색상 변경 */
+    .page-item.active .page-link{
+    	background-color:#F7DC6F;
+    	border-color:#F7DC6F;
+    } 
+    .page-link:hover{
+    	color:#212529;
+    	background-color:#FBEEE6;
+    	border-color:#FBEEE6;
+    }
+    .page-link{
+    	color:#212529;
+    }
+    
+    /*버튼 기본 노랑*/
+    .btn{
+    	background-color:#F7DC6F;
+    	/*color:sienna;*/
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    	/*color:sienna;*/
+     }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn-a{
+    	/*color:sienna;*/
+    }
+    /* 버튼 링크 호버시 언더라인 삭제 */
+    .btn-a:hover{
+    	/*color:sienna;*/
+    	text-decoration:none;
+    }
 	
 </style>
 </head>
@@ -50,11 +90,11 @@
 				</select>
 			</div>
 			<div class="col-md-6">
-				<input value="${keyword }" type="text" name="keyword" placeholder="검색어..."
+				<input value="${keyword }" type="text" name="keyword" placeholder="검색어를 입력해주세요"
 					 class="form-control" >
 			</div>
 			<span>
-				<button class="btn btn-light" type="submit" style="background-color:#F7DC6F ;">검색</button>
+				<button class="btn" type="submit">검색</button>
 			</span>
 		</div>
 	</form>
@@ -95,8 +135,8 @@
 								</c:if>
 						    	<c:if test="${empty id }"> <!-- 로그인이 안되어있는 사람 -->
 				                     <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-				                     <span>♥</span>
-				                     <span class="heart-cnt${tmp.num }">${heartCntList[i]}</span>
+					                     <span class="heart-link-logout">♥</span>
+					                     <span class="heart-cnt-logout heart-cnt${tmp.num }">${heartCntList[i]}</span>
 				                     </c:forEach>
 				                </c:if>
 						    </div>
@@ -144,7 +184,7 @@
 
 	<!-- 하단에 페이징 -->
 	<nav>
-		<ul class="pagination justify-content-center">
+		<ul class="pagination justify-content-center" style="margin-top: 32px;margin-bottom: 32px;">
 			<c:choose>
 				<c:when test="${startPageNum != 1 }">
 					<li class="page-item">
@@ -161,13 +201,13 @@
 				<c:choose>
 					<c:when test="${i eq requestScope.pageNum }">
 						<li class="page-item active">
-							<a class="page-link" style="color:#AF601A; background-color:#F7DC6F; border-color: #F7DC6F;"
+							<a class="page-link"
 							href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
-							<a class="page-link" style="color:#AF601A;" 
+							<a class="page-link"
 							href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
 						</li>
 					</c:otherwise>

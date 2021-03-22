@@ -51,22 +51,22 @@
 	/* 하트 */
 	.heart-link,
 	.heart-link:hover{
-		font-size: 1.8em;
+		font-size: 1.4em;
 		color: red;
 		text-decoration: none;
    }
    	.heart-link-logout{
-   		font-size : 1.8em;
+   		font-size : 1.4em;
    		color:grey;
    	}
    	.heart-cnt-logout{
    		color:grey;
    	}   
+   	
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
       width: 25px;
       height: 25px;
- 
       border-radius: 50%;
    }
    
@@ -130,7 +130,7 @@
 				</select>
 			</div>
 			<div class="col-md-6">
-				<input value="${keyword }" type="text" name="keyword" placeholder="검색어..."
+				<input value="${keyword }" type="text" name="keyword" placeholder="검색어를 입력해주세요"
 				  	 class="form-control">
 			</div>
 			<span>
@@ -225,8 +225,8 @@
 								</c:if>
 								<c:if test="${empty id }"> <!-- 로그인이 안되어있는 사람 -->
 				                     <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
-				                     <span class="heart-link-logout">♥</span>
-				                     <span class="heart-cnt-logout heart-cnt${tmp.num }">${heartCntList[i]}</span>
+					                     <span class="heart-link-logout">♥</span>
+					                     <span class="heart-cnt-logout heart-cnt${tmp.num }">${heartCntList[i]}</span>
 				                     </c:forEach>
 				                </c:if>
 				
