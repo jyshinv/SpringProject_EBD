@@ -28,7 +28,7 @@
         display: block;
     }
     .row{
-    	margin-bottom:5px;
+    	margin-bottom:10px;
     }
     /*버튼 기본 노랑*/
     .btn {
@@ -45,8 +45,7 @@
     }
     /*세로 크기를 300px로 */
    	#content{
-		width: 99.5%;
-		height: 400px;
+		height: 150px;
 	}
     
 </style>
@@ -89,7 +88,7 @@
          	<span style="color:#aaa;" id="counter">(0 / 최대 200자)</span>
          </div >
       </div>
-      <div id="content" class="text-center" style="margin-top:50px; margin-bottom:50px;">
+      <div class="text-center" style="margin-top:30px; margin-bottom:30px;">
          <button class="btn" type="submit">저장</button>
       </div>
    </form>

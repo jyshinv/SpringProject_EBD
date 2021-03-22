@@ -12,7 +12,6 @@
    #profileImage{
       width: 50px;
       height: 50px;
-      border: 1px solid #cecece;
       border-radius: 50%;
    }
    /* 제목 간격 띄우기 */
@@ -76,10 +75,10 @@
    th{
    		color:grey;
    }
-   body{
-   		padding-top:75px;
-   		margin-bottom:10px;
-   }
+   	body{
+		padding-top:120px;
+		margin-bottom:30px;
+	}
 </style>
 </head>
 <body>
@@ -202,7 +201,12 @@
 			</tr>
 			<tr>
 				<th>구매처 링크</th>
-				<td class="link"><a href="${dto.link }"><b>${dto.booktitle } </b>네이버 도서로 바로가기</a></td>
+				<c:if test="${empty dto.link }">
+					<td class="link"></td>
+				</c:if>
+				<c:if test="${not empty dto.link }">
+					<td class="link"><a href="${dto.link }"><b>${dto.booktitle } </b>바로가기</a></td>
+				</c:if>
 			</tr>
 		</table>
 		<div class="marg">

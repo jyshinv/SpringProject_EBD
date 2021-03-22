@@ -28,7 +28,7 @@
         display: block;
     }
     .row{
-    	margin-bottom:5px;
+    	margin-bottom:10px;
     }
     /* 스마트 에디터 전체 화면 보이게 하는 css */
     #content{
@@ -136,7 +136,7 @@
 			<div class="col-8" style="padding-right:0px;">
 				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" />
 			</div >
-			<div class="col" style="padding-left:0px;">
+			<div class="col" style="padding-left:5px;">
 				<label for="image" class="btn btn-file" style="margin-bottom:0px;">파일첨부
 					<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
 			    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
@@ -146,10 +146,10 @@
 		<div class="row">
 			<div class="col">
 				<label for="content"></label>
-				<textarea class="form-control" name="content" id="content"></textarea>
+				<textarea name="content" id="content"></textarea>
 			</div>
 		</div>
-		<div class="text-center" style="margin-top:50px; margin-bottom:50px;">
+		<div class="text-center" style="margin-top:30px; margin-bottom:30px;">
 			<button class="btn" type="submit" onclick="submitContents(this);">독후감 저장</button>
 		</div>
 	</form>

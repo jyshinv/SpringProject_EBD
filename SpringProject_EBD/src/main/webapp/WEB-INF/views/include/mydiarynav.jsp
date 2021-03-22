@@ -7,7 +7,6 @@
 	#profileImage2{
 		width: 200px;
 	    height: 200px;
-	    border: 1px solid #cecece;
 	    border-radius: 50%;
 		display:none;
 	}
@@ -20,9 +19,10 @@
 		margin-top: 16px;
 		margin-bottom: 0px;
 	}
-	/* active 걸리는 쪽 위에 짙은 줄 효과 넣기 */
+	/* active 걸리는 쪽 위에 짙은 줄 효과 넣기 / 글자 굵게 하기 */
 	.navbar-light .navbar-nav .active > .nav-link{
 		border-top:2px solid black;
+		font-weight: bold;
 	}
 </style>
 <div class="container ">
@@ -62,13 +62,13 @@
 			<div class="container collapse navbar-collapse justify-content-md-center" id="topNav">
 				<ul class="navbar-nav">
 					<li class="nav-item ${param.thisPage eq 'my_report' ? 'active':''}">
-						<a class="nav-link" href="${pageContext.request.contextPath }/my_report/private/list.do"><b>나의 독후감</b></a>
+						<a class="nav-link" href="${pageContext.request.contextPath }/my_report/private/list.do">나의 독후감</a>
 					</li>
 					<li class="nav-item ${param.thisPage eq 'my_heart' ? 'active':''}">
-						<a class="nav-link" href="${pageContext.request.contextPath }/my_heart/private/my_heart.do"><b>내가 누른 하트<b></b></a>
+						<a class="nav-link" href="${pageContext.request.contextPath }/my_heart/private/my_heart.do">내가 누른 하트</a>
 					</li>
 					<li class="nav-item ${param.thisPage eq 'my_write' ? 'active':''}">
-						<a class="nav-link" href="${pageContext.request.contextPath }/my_write/private/my_write.do"><b>내가 쓴 게시글</b></a>
+						<a class="nav-link" href="${pageContext.request.contextPath }/my_write/private/my_write.do">내가 쓴 게시글</a>
 					</li>
 				</ul>
 			</div>

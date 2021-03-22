@@ -2,33 +2,27 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
-	.jumbotronImg{
-		height: 350px;
-		margin-left: 50px;
+	.jumbo-font{
+		
 	}
-	.jumbotron_table{
-		margin-left: 100px;
+	.jumbotron{
+		background-color:white;
+		margin-bottom:0px;
+	}
+	.jumbotronImg{
+		height: 250px;
 	}
 </style>
-<div class="jumbotron jumbotron-fluid" style="background-color:white;">
-  <div class="container">
-  	<table class="jumbotron_table">
-  		<tr>
-  			<td>
-  				<h1 class="display-4">
-  					<b>
-	  					Every moment<br/> 
-	  					written in My Diary!
-  					</b>
-  				</h1>
-   		 		<p class="lead">
-   		 			에브리북데이에서 함께한 시간들을 추억해 보세요.
-   		 		</p>
-  			</td>
-  			<td>
-  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/report_insertform.png" alt="대문이미지" />
-  			</td>
-  		</tr>
-  	</table>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container text-center">
+  	<div>
+  		<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/public_report.png" alt="대문이미지" />
+  	</div>
+    <h1 class="display-4">
+    	<b>
+	    Book Report
+	    </b>
+	</h1>
+    <p class="lead">당신이 남기고 싶은 책을 기록해보세요.</p>
   </div>
 </div>

@@ -28,7 +28,7 @@
         display: block;
     }
     .row{
-    	margin-bottom:5px;
+    	margin-bottom:10px;
     }
     /*버튼 기본 노랑*/
     .btn {
@@ -47,6 +47,7 @@
 </head>
 <body>
 <jsp:include page="../../include/navbar.jsp"></jsp:include>
+<jsp:include page="../../include/episode_insertform_jumbotron.jsp"></jsp:include>
 <div class="container">
 	<form action="upload.do" method="post" enctype="multipart/form-data" class="form-group">
 		<div class="row">
@@ -64,7 +65,7 @@
 			<div class="col-8" style="padding-right:0px;">
 				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" disabled/>
 			</div>
-			<div class="col" style="padding-left:0px;">
+			<div class="col" style="padding-left:5px;">
 				<label for="image" class="btn btn-file" style="margin-bottom:0px;">파일첨부
 				<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
 				accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
@@ -77,7 +78,7 @@
 				<textarea class="form-control" id="content" name="content"></textarea>
 			</div>
 		</div>
-		<div class="text-center" style="margin-top:50px; margin-bottom:50px;">
+		<div class="text-center" style="margin-top:30px; margin-bottom:30px;">
 			<button class="btn" type="submit" onclick="submitContents(this);">등록</button>
 		</div>
 	</form>
