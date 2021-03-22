@@ -192,4 +192,23 @@
 		WHERE ROWNUM BETWEEN 1 AND 3
 	</select>
 	
+	<select id="getMyList" parameterType="episodeDto" resultType="episodeDto">
+		<!-- mybatis의 특징 중 하나는  dynamic query를 지원한다는 것이다 아래 query문을 통해 dynamic query문을 어떻게 구성하는지 알아보자 -->
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM		
+				(SELECT num, writer, title, content, imgpath , viewcnt, ebd_episode.regdate, profile
+				FROM ebd_episode, ebd_users
+				WHERE ebd_episode.writer=ebd_users.nick AND ebd_episode.writer = #{nick}
+				ORDER BY num DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getMyCount" parameterType="episodeDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM),0)
+		FROM ebd_episode
+		WHERE writer=#{nick}
+	</select>
+	
 </mapper>

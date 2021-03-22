@@ -34,4 +34,8 @@ public interface EpisodeDao {
 	public void addViewCount(int num);
 	//에피소드 조회수순으로 Best3를 불러오는 메소드 
 	public List<EpisodeDto> getBestViewCntList();
+	//나의 서재 중 내가 쓴글 리스트를 불러오는 메소드 
+	public List<EpisodeDto> getMyList(EpisodeDto dto);
+	//나의 서재 중 내가 쓴 글 리스트의 개수를 불러오는 메소드 
+	public int getMyCount(EpisodeDto dto);
 }

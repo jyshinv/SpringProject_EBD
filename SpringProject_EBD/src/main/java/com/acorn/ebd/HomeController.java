@@ -120,7 +120,7 @@ public class HomeController {
 			file_service.getMyWriteList(mView, request);
 			mView.setViewName("my_write/private/file_list");
 		}else if(condition.equals("episode")) {
-			//episode_service.getMyWriteList(mView, request);
+			episode_service.getMyWriteList(mView, request);
 			mView.setViewName("my_write/private/episode_list");
 		}else if(condition.equals("wording")) {
 			//wording_service.getMyWriteList(mView, request);

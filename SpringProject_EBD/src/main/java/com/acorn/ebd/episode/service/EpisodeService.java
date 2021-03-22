@@ -37,5 +37,7 @@ public interface EpisodeService {
 	public void deleteDetail(int num);
 	//홈화면에 조회수Best3 요청 메소드
 	public void getBestViewCntList(ModelAndView mView);
+	//나의 서재 중 내가쓴글에 리스트를 불러오는 메소드 
+	public void getMyWriteList(ModelAndView mView, HttpServletRequest request);
 	
 }

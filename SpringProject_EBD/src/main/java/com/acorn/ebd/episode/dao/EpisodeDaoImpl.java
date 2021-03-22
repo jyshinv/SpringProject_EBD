@@ -100,4 +100,17 @@ public class EpisodeDaoImpl implements EpisodeDao {
 		return list;
 	}
 
+	//내가 쓴글 리스트를 리턴
+	@Override
+	public List<EpisodeDto> getMyList(EpisodeDto dto) {
+		return session.selectList("episode.getMyList",dto);
+	}
+
+	//내가 쓴글 리스트의 개수를 리턴
+	@Override
+	public int getMyCount(EpisodeDto dto) {
+		return session.selectOne("episode.getMyCount",dto);
+	}
+	
+
 }
