@@ -22,10 +22,10 @@
   		<tr>
   			<td>
 	  			<div class="mx-auto mt-3" style="margin-bottom: 16px;">
-					<form> 
+					<form action="${pageContext.request.contextPath }/bookList.do"> 
 						<div class="form-row">
 						  <div class="col-8">
-						    <input class="form-control mr-sm-2" type="search" placeholder="도서를 검색해주세요" aria-label="Search"
+						    <input class="form-control mr-sm-2" type="search" name="keyword" placeholder="도서를 검색해주세요" aria-label="Search"
 						    style="border-radius:30px;">
 						  </div>
 						  <div class="col">

@@ -92,7 +92,7 @@ public class WordingController {
         
         if(keyword !=null)
         {
-            mav.addObject("bookList",bservice.searchBook(keyword,10,1));
+            mav.addObject("bookList",bservice.searchBook(keyword,20,1));
         }
         mav.setViewName("wording/private/bookList");
         return mav;

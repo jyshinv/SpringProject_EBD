@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.acorn.ebd.booksearch.service.BookSearchService;
 import com.acorn.ebd.episode.service.EpisodeService;
 import com.acorn.ebd.file.service.FileService;
 import com.acorn.ebd.market.service.MarketService;
@@ -30,22 +31,25 @@ import com.acorn.ebd.wording.service.WordingService;
 @Controller
 public class HomeController {
 	@Autowired
-	UsersService users_service;
+	private UsersService users_service;
 	
 	@Autowired
-	EpisodeService episode_service;
+	private EpisodeService episode_service;
 	
 	@Autowired
-	FileService file_service;
+	private FileService file_service;
 	
 	@Autowired
-	MarketService market_service;
+	private MarketService market_service;
 	
 	@Autowired
-	ReportService report_service;
+	private ReportService report_service;
 	
 	@Autowired
-	WordingService wording_service;
+	private WordingService wording_service;
+	
+	@Autowired
+	private BookSearchService bservice;
 	
 	
 	//메인화면 요청처리
@@ -155,6 +159,30 @@ public class HomeController {
 		mView.setViewName("my_heart/private/wording_ajax_page");
 		return mView;
 	}
+	
+	//메인화면에서 bookList.do요청
+//	@RequestMapping("/bookList.do")
+//	public ModelAndView bookList(String search, ModelAndView mView) {
+//		mView.addObject("search");
+//		mView.setViewName("bookList");
+//		return mView;
+//	}
+	
+	//메인화면에서 bookList.do요청
+	//required=false는 폼에서 넘어오는 값이 없을때에도 오류를 일으키지 않는다.
+	//네이버 도서검색 api의 검색 결과 요청을 처리한다. 
+    @RequestMapping("/bookList.do")
+    public ModelAndView bookList(@RequestParam(required = false) String keyword){
+        ModelAndView mav = new ModelAndView();
+        
+        if(keyword !=null)
+        {
+            mav.addObject("bookList",bservice.searchBook(keyword,20,1));
+        }
+        mav.addObject("keyword",keyword);
+        mav.setViewName("bookList");
+        return mav;
+    }
 	
 	// 카카오 지도 API 요청
    @RequestMapping("/map.do")
