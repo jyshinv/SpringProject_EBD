@@ -92,7 +92,7 @@ public class HomeController {
 			mView.setViewName("my_heart/private/report_list");
 			//report_service.getMyHeartList(mView, request);
 		}else if(condition.equals("market")) {
-			//market_service.getMyHeartList(mView, request);
+			market_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/market_list");
 		}else if(condition.equals("file")) {
 			file_service.getMyHeartList(mView, request);

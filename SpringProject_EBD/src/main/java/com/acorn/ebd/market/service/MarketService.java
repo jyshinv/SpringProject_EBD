@@ -31,5 +31,8 @@ public interface MarketService {
 	//마이다이어리 내가 쓴 Market의 리스트를 요청
 	public void getMyWriteList(ModelAndView mView, HttpServletRequest request);
 	
+	//마이다이어리 내가 누른 하트 리스트를 요청
+	public void getMyHeartList(ModelAndView mView, HttpServletRequest request);
+	
 	
 }

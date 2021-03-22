@@ -204,5 +204,25 @@
 		FROM ebd_market
 		WHERE writer = #{nick}
 	</select>
+	
+	<!-- 마이다이어리 내가 쓴글 리스트를 요청 -->
+   	<select id="getMyHeartList" parameterType="marketDto" resultType="marketDto">
+		SELECT *
+       FROM
+          (SELECT r1.target_num, r1.num, r1.writer, r1.title, r1.salestype, r1.salesstatus, r1.imgpath, r1.content, r1.viewcnt, r1.regdate, r1.profile, ROWNUM AS rnum
+          FROM
+             (SELECT e.num, NVL(h.target_num,0) target_num, e.writer, e.title, e.salestype, e.salesstatus, e.imgpath, e.content, e.viewcnt, e.regdate, u.profile
+             FROM ebd_market e, ebd_market_heart h, ebd_users u
+             WHERE e.num = h.target_num AND h.writer=#{nick} AND u.nick=e.writer
+             ORDER BY num DESC) r1) 
+       WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+    <!-- 마이다이어리 내가 쓴글 리스트 개수를 요청 -->
+	<select id="getMyHeartCount" parameterType="marketDto" resultType="int">
+		SELECT COUNT(*)
+		FROM ebd_market_heart
+		WHERE writer=#{nick}
+	</select>
    
 </mapper>

@@ -114,6 +114,7 @@ public class MarketDaoImpl implements MarketDao{
 	    }
 	}
 
+	//내가 쓴글 리스트 요청
 	@Override
 	public List<MarketDto> getMyList(MarketDto dto) {
 		// 파일 목록을 담아서
@@ -122,9 +123,27 @@ public class MarketDaoImpl implements MarketDao{
 		return list;
 	}
 
+	//내가 쓴글 리스트 개수
 	@Override
 	public int getMyCount(MarketDto dto) {
 		int count=session.selectOne("market.getMyCount", dto);
+		return count;
+	}
+
+	//내가 누른 하트 리스트 요청
+	@Override
+	public List<MarketDto> getMyHeartList(MarketDto dto) {
+		// 파일 목록을 담아서
+		List<MarketDto> list=session.selectList("market.getMyHeartList",dto);
+		// 리턴 
+		return list;
+		
+	}
+
+	//내가 누른 하트 리스트 개수 요청
+	@Override
+	public int getMyHeartCount(MarketDto dto) {
+		int count=session.selectOne("market.getMyHeartCount", dto);
 		return count;
 	}
 	
