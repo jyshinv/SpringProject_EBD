@@ -19,25 +19,23 @@
 <div class="jumbotron jumbotron-fluid" style="background-color: #FEF9E7;">
   <div class="container">
   	<table class="jumbotron_table">
-  		<th>
-  			<div class="mx-auto mt-3" style="width: 400px;" >
-				<form> 
-					<div class="form-row">
-					  <div class="col-8">
-					    <input class="form-control mr-sm-2" type="search" placeholder="도서를 검색해주세요" aria-label="Search"
-					    style="border-radius:30px;">
-					  </div>
-					  <div class="col">
-					    <button class="btn btn-light my-2 my-sm-0" type="submit" 
-					    style=" background-color:#F7DC6F ; border-radius:20px;">
-			   			Search</button>
-					  </div>
-					</div>
-				</form>
-			</div>
-  		</th>
   		<tr>
   			<td>
+	  			<div class="mx-auto mt-3" style="margin-bottom: 16px;">
+					<form> 
+						<div class="form-row">
+						  <div class="col-8">
+						    <input class="form-control mr-sm-2" type="search" placeholder="도서를 검색해주세요" aria-label="Search"
+						    style="border-radius:30px;">
+						  </div>
+						  <div class="col">
+						    <button class="btn btn-light my-2 my-sm-0" type="submit" 
+						    style=" background-color:#F7DC6F ; border-radius:20px;">
+				   			Search</button>
+						  </div>
+						</div>
+					</form>
+				</div>
   				<h1 class="display-4">
   					Make Every Day <br />
   					Your Book Day
