@@ -129,4 +129,17 @@ public class ReportDaoImpl implements ReportDao{
 		return session.selectOne("report.getPublicData", dto);
 	}
 
+	//내가 누른 하트 목록을 리턴
+	@Override
+	public List<ReportDto> getMyHeartPublicList(ReportDto dto) {
+		return session.selectList("report.getMyHeartPublicList", dto);
+	}
+
+	//내가 누른 하트 목록 개수를 리턴
+	@Override
+	public int getMyHeartCount(ReportDto dto) {
+		int count = session.selectOne("report.getMyHeartCount", dto);
+		return count;
+	}
+
 }

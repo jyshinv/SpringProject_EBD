@@ -246,4 +246,20 @@
             ORDER BY heartcnt DESC) 
       WHERE ROWNUM BETWEEN 1 AND 3
    </select>
+   <select id="getMyHeartPublicList" parameterType="reportDto" resultType="reportDto">
+	  SELECT *
+      FROM
+         (SELECT r1.target_num, r1.num, r1.booktitle, r1.title, r1.writer, r1.author, r1.imgpath, r1.content, r1.viewcnt, r1.regdate, r1.profile, ROWNUM AS rnum
+         FROM
+            (SELECT e.num, NVL(h.target_num,0) target_num, e.booktitle, e.title, e.writer, e.author, e.imgpath, e.content, e.viewcnt, e.regdate, u.profile
+            FROM ebd_report e, ebd_report_heart h, ebd_users u
+            WHERE e.num = h.target_num AND h.writer=#{nick} and publicck=#{publicck} AND e.writer=u.nick
+            ORDER BY num DESC) r1) 
+      WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}		
+	</select>
+   <select id="getMyHeartCount" parameterType="reportDto" resultType="int">
+		SELECT COUNT(*)
+		FROM ebd_report_heart h, ebd_report r
+		WHERE h.writer='홍주' AND r.publicck='public' AND h.target_num = r.num	
+	</select>
 </mapper>

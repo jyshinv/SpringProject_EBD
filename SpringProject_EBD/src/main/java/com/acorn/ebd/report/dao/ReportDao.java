@@ -58,6 +58,12 @@ public interface ReportDao {
 
 	//홈화면에서 BEST3를 불러오는 메소드 
 	public List<ReportDto> getBestHeartList();
+
+	//내가 누른 하트 리스트 불러오는 메소드
+	public List<ReportDto> getMyHeartPublicList(ReportDto dto);
+
+	//내가 누른 하트 리스트 개수 불러오는 메소드 
+	public int getMyHeartCount(ReportDto dto);
 	
 	
 }

@@ -90,7 +90,7 @@ public class HomeController {
 		//condition에 따라 요청 정보를 다르게 
 		if(condition.equals("report")) {
 			mView.setViewName("my_heart/private/report_list");
-			//report_service.getMyHeartList(mView, request);
+			report_service.getMyHeartList(mView, request);
 		}else if(condition.equals("market")) {
 			market_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/market_list");

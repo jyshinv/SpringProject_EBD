@@ -56,4 +56,7 @@ public interface ReportService {
 
 	//홈 화면에 Best3를 요청하는 메소드 
 	public void getBestHeartList(ModelAndView mView);
+
+	//내가 누른 하트 목록 불러오는 메소드
+	public void getMyHeartList(ModelAndView mView, HttpServletRequest request);
 }
