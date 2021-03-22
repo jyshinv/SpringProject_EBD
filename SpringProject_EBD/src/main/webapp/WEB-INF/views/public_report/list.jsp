@@ -66,7 +66,6 @@
    #profileImage{
       width: 25px;
       height: 25px;
-      border: 1px solid #cecece;
       border-radius: 50%;
       margin-top:10px;
     }
@@ -128,7 +127,7 @@
 					</select>
 				</div>
 				<div class="col-md-6">
-					<input class="form-control" type="text" name="keyword" placeholder="검색어를 입력해주세요." value="${keyword }"/>
+					<input class="form-control" type="text" name="keyword" placeholder="검색어를 입력해주세요" value="${keyword }"/>
 				</div>
 				<span>
 					<button class="btn" type="submit">검색</button>
@@ -146,7 +145,7 @@
 		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
       	<%int isCheck=0; %><!-- 이중 for문에서 for문이 똑같은 숫자로 돌게 하기 위해 isCheck 사용 이해 안되면 노트에 적어보거나 따로 코딩해서 돌려보기 -->
 		<c:forEach var="tmp" items="${requestScope.list }">
-			<div class="col">
+			<div class="col" style="margin-bottom: 15px;">
 				<div class="card" style="width: 18rem;">
 					<div style="height:255px;">
 						<figure>

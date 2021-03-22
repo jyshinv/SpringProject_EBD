@@ -13,7 +13,6 @@
 		height: 250px;
 		/* transform 을 적용할대 0.3s 동안 순차적으로 적용하기 */
 		transition: transform 0.3s ease-out;
-		
 	}
 	/* .img-wrapper 에 마우스가 hover 되었을때 적용할 css */
 	.img-wrapper:hover{
@@ -43,12 +42,7 @@
 		background-position:center;
 		
 	}
-	.heart-link{
-	/*
-      font-size : 2em;
-    */  
-   	}
-   	
+	
 	/*hover 기능 css*/  
 	 
 	.snip1273 {
@@ -58,22 +52,6 @@
 	  background-color: #000000;
 	  font-size: 16px;
 	}
-	
-	/*
-	.snip1273 * {
-	  -webkit-box-sizing: border-box;
-	  box-sizing: border-box;
-	  -webkit-transition: all 0.4s ease-in;
-	  transition: all 0.4s ease-in;
-	}
-	*/
-	/*
-	.snip1273 img {
-	  position: relative;
-	  max-width: 100%;
-	  vertical-align: top;
-	}
-	*/
 	.snip1273 figcaption {
 	  position: absolute;
 	  top: 0;
@@ -84,7 +62,9 @@
 	  opacity: 0;
 	  padding: 20px 30px;
 	}
+	
 	/* 이미지 경계선에 효과가 들어오는 css */
+	
 	.snip1273 figcaption:before,
 	.snip1273 figcaption:after {
 	  width: 5px;
@@ -98,11 +78,9 @@
 	  left: 0;
 	  bottom: 0;
 	}
-	
 	.snip1273 h5{
 	  line-height: 5em;
 	}
-	
 	.snip1273 h5 {
 	  margin: 0 0 5px;
 	  font-weight: 700;
@@ -237,7 +215,7 @@
 				</select>
 			</div>
 			<div class="col-md-6">
-				<input class="form-control" type="text" name="keyword" placeholder="검색어..." value="${keyword }"/>
+				<input class="form-control" type="text" name="keyword" placeholder="검색어를 입력해주세요" value="${keyword }"/>
 			</div>
 			<span>
 				<button class="btn" type="submit">검색</button>
@@ -251,7 +229,7 @@
 		</div>
 	</c:if>
 	<div class="row row-cols-1 row-cols-md-3">
-			<div class="col">
+			<div class="col" style="margin-bottom:15px;">
 			<div class="card" style="width: 18rem;">
 				<div class="border1" style="height:255px;">
 					<figure id="svgfigure" class="hover">
@@ -264,7 +242,7 @@
 		</div>
 		<c:forEach var="tmp" items="${requestScope.list }">
 		<c:if test="${nick eq tmp.writer }">
-			<div class="col">
+			<div class="col" style="margin-bottom:15px;">
 				<div class="card" style="width: 18rem;">
 					<div style="height:255px;">
 						<figure class="snip1273 hover">

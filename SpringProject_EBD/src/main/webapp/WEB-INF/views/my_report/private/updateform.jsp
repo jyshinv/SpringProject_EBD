@@ -31,7 +31,7 @@
         display: block;
     }
     .row{
-    	margin-bottom:5px;
+    	margin-bottom:10px;
     }
     /*버튼 기본 노랑*/
     .btn {
@@ -105,7 +105,7 @@
 			<div class="col-8" style="padding-right:0px;">
 				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
 			</div >
-			<div class="col" style="padding-left:0px;">
+			<div class="col" style="padding-left:5px;">
 				<label for="image" class="btn btn-file" style="margin-bottom:0px;">파일수정
 					<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
 			    			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>

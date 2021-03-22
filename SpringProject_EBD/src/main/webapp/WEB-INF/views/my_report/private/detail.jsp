@@ -12,7 +12,6 @@
    #profileImage{
       width: 50px;
       height: 50px;
-      border: 1px solid #cecece;
       border-radius: 50%;
    }
    /* 제목 간격 띄우기 */
