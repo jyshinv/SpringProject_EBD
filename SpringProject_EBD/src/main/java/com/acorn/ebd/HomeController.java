@@ -130,5 +130,10 @@ public class HomeController {
 			
 	}
 	
+	// 카카오 지도 API 요청
+   @RequestMapping("/map.do")
+   public String map() {
+      return "map";
+   }
 	
 }
