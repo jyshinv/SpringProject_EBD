@@ -39,5 +39,7 @@ public interface EpisodeService {
 	public void getBestViewCntList(ModelAndView mView);
 	//나의 서재 중 내가쓴글에 리스트를 불러오는 메소드 
 	public void getMyWriteList(ModelAndView mView, HttpServletRequest request);
+	//나의 서재 중 내가 누른 하트 리스트를 불러오는 메소드 
+	public void getMyHeartList(ModelAndView mView, HttpServletRequest request);
 	
 }

@@ -86,17 +86,22 @@ public class HomeController {
 	
 	//mydiary 내가 누른 하트 카테고리별 요청
 	@RequestMapping("/my_heart/private/my_heart_category.do")
-	public ModelAndView myHeartList(String condition, ModelAndView mView, HttpSession session) {
+	public ModelAndView myHeartList(String condition, ModelAndView mView, HttpServletRequest request) {
 		//condition에 따라 요청 정보를 다르게 
 		if(condition.equals("report")) {
 			mView.setViewName("my_heart/private/report_list");
+			//report_service.getMyHeartList(mView, request);
 		}else if(condition.equals("market")) {
+			//market_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/market_list");
 		}else if(condition.equals("file")) {
+			//file_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/file_list");
 		}else if(condition.equals("episode")) {
+			episode_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/episode_list");
 		}else if(condition.equals("wording")) {
+			//wording_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/wording_list");			
 		}
 		return mView;

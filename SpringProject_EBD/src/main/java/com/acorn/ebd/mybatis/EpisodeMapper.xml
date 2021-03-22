@@ -211,4 +211,22 @@
 		WHERE writer=#{nick}
 	</select>
 	
+	<select id="getMyHeartList" parameterType="episodeDto" resultType="episodeDto">
+		SELECT *
+		FROM
+			(SELECT r1.target_num, r1.num, r1.writer, r1.title, r1.imgpath, r1.content, r1.viewcnt, r1.regdate, r1.profile, ROWNUM AS rnum
+			FROM
+				(SELECT e.num, NVL(h.target_num,0) target_num, e.writer, e.title, e.imgpath, e.content, e.viewcnt, e.regdate, u.profile
+				FROM ebd_episode e, ebd_episode_heart h, ebd_users u
+				WHERE e.num = h.target_num AND h.writer=#{nick} AND u.nick=e.writer
+				ORDER BY num DESC) r1) 
+		WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+	<select id="getMyHeartCount" parameterType="episodeDto" resultType="int">
+		SELECT COUNT(*)
+		FROM ebd_episode_heart
+		WHERE writer=#{nick}
+	</select>
+	
 </mapper>

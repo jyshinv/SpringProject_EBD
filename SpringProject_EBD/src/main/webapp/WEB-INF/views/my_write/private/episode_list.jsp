@@ -143,7 +143,7 @@
 				<div class="card" style="width: 18rem;">
 					<div style="height:255px;">
 						<figure>
-							<a href="detail.do?num=${tmp.num }">
+							<a href="${pageContext.request.contextPath }/episode/detail.do?num=${tmp.num }">
 								<!-- 아래 코드의 src 해석결과는 spring05/upload/xxx.jpg임! DB의 imagePath컬럼에 저장된 값을 확인해볼 것 -->
 								<img class="card-img-top img-wrapper" id="img" src="${pageContext.request.contextPath }${tmp.imgPath}" />
 							</a>

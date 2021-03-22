@@ -38,4 +38,8 @@ public interface EpisodeDao {
 	public List<EpisodeDto> getMyList(EpisodeDto dto);
 	//나의 서재 중 내가 쓴 글 리스트의 개수를 불러오는 메소드 
 	public int getMyCount(EpisodeDto dto);
+	//나의 서재 중 내가 누른 하트 리스트를 불러오는 메소드
+	public List<EpisodeDto> getMyHeartList(EpisodeDto dto);
+	//나의 서재 중 내가 누른 하트 리스트의 개수를 불러오는 메소드 
+	public int getMyHeartCount(EpisodeDto dto);
 }

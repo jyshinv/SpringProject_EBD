@@ -111,6 +111,18 @@ public class EpisodeDaoImpl implements EpisodeDao {
 	public int getMyCount(EpisodeDto dto) {
 		return session.selectOne("episode.getMyCount",dto);
 	}
+
+	@Override
+	public List<EpisodeDto> getMyHeartList(EpisodeDto dto) {
+		// TODO Auto-generated method stub
+		return session.selectList("episode.getMyHeartList",dto);
+	}
+
+	@Override
+	public int getMyHeartCount(EpisodeDto dto) {
+		// TODO Auto-generated method stub
+		return session.selectOne("episode.getMyHeartCount",dto);
+	}
 	
 
 }
