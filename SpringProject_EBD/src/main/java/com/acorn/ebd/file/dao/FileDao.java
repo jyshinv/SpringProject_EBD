@@ -36,4 +36,8 @@ public interface FileDao {
 	public List<FileDto> getMyList(FileDto dto);
 	//나의 서재에서 내가 쓴글 리스트의 count를 불러오는 메소드 
 	public int getMyCount(FileDto dto);
+	//나의 서재에서 내가 누른 하트의 리스트를 불러오는 메소드
+	public List<FileDto> getMyHeartList(FileDto dto);
+	//나의 서재에서 내가 누른 하트의 리스트 개수를 불러오는 메소드 
+	public int getMyHeartCount(FileDto dto);
 }

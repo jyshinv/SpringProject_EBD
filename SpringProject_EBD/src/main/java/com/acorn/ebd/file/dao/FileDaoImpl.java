@@ -123,4 +123,17 @@ public class FileDaoImpl implements FileDao {
 		return session.selectOne("file.getMyCount", dto);
 	}
 
+	@Override
+	public List<FileDto> getMyHeartList(FileDto dto) {
+		//나의 서재에서 내가 누른 하트 파일목록을 리턴
+		List<FileDto> list=session.selectList("file.getMyHeartList", dto);
+		return list;
+	}
+
+	@Override
+	public int getMyHeartCount(FileDto dto) {
+		//나의 서재에서 내가 누른 하트 파일목록 개수를 리턴
+		return session.selectOne("file.getMyHeartCount", dto);
+	}
+
 }

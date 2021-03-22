@@ -190,6 +190,26 @@
 		FROM ebd_file
 		WHERE writer=#{nick}	
 	</select>
+	
+	<!-- 내가 누른 하트 리스트를 리턴 -->
+    <select id="getMyHeartList" parameterType="fileDto" resultType="fileDto">
+		SELECT *
+       FROM
+          (SELECT r1.target_num, r1.num, r1.writer, r1.title, r1.content, r1.viewcnt, r1.regdate, r1.profile, ROWNUM AS rnum
+          FROM
+             (SELECT e.num, NVL(h.target_num,0) target_num, e.writer, e.title, e.content, e.viewcnt, e.regdate, u.profile
+             FROM ebd_file e, ebd_file_heart h, ebd_users u
+             WHERE e.num = h.target_num AND h.writer=#{nick} AND u.nick=e.writer
+             ORDER BY num DESC) r1) 
+       WHERE rnum BETWEEN #{startRowNum} AND #{endRowNum}
+	</select>
+	
+    <!-- 내가 누른 하트 리스트 count를 리턴-->
+	<select id="getMyHeartCount" parameterType="fileDto" resultType="int">
+		SELECT COUNT(*)
+		FROM ebd_file_heart
+		WHERE writer=#{nick}
+	</select>
    
     
     

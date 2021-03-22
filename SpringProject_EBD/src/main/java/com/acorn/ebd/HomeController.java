@@ -95,7 +95,7 @@ public class HomeController {
 			//market_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/market_list");
 		}else if(condition.equals("file")) {
-			//file_service.getMyHeartList(mView, request);
+			file_service.getMyHeartList(mView, request);
 			mView.setViewName("my_heart/private/file_list");
 		}else if(condition.equals("episode")) {
 			episode_service.getMyHeartList(mView, request);

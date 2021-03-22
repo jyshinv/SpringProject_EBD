@@ -36,4 +36,7 @@ public interface FileService {
 	//나의 서재에서 내가 쓴글의 리스트를 불러오는 메소드 
 	public void getMyWriteList(ModelAndView mView, HttpServletRequest request);
 	
+	//나의 서재에서 내가 누른 하트의 리스트를 불러오는 메소드
+	public void getMyHeartList(ModelAndView mView, HttpServletRequest request);
+	
 }
