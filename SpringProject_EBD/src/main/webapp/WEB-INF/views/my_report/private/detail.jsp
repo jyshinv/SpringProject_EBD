@@ -75,10 +75,10 @@
    th{
    		color:grey;
    }
-   body{
-   		padding-top:75px;
-   		margin-bottom:10px;
-   }
+   	body{
+		padding-top:120px;
+		margin-bottom:30px;
+	}
 </style>
 </head>
 <body>

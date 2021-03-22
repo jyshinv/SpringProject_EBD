@@ -18,7 +18,11 @@
   	<div>
   		<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/public_report.png" alt="대문이미지" />
   	</div>
-    <h1 class="display-4"><b>Write Report</b></h1>
+    <h1 class="display-4">
+    	<b>
+	    Book Report
+	    </b>
+	</h1>
     <p class="lead">당신이 남기고 싶은 책을 기록해보세요.</p>
   </div>
 </div>
