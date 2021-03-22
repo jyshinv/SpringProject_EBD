@@ -65,10 +65,10 @@
 						<a class="nav-link" href="${pageContext.request.contextPath }/my_report/private/list.do">나의 독후감</a>
 					</li>
 					<li class="nav-item ${param.thisPage eq 'my_heart' ? 'active':''}">
-						<a class="nav-link" href="${pageContext.request.contextPath }/my_heart/private/list.do">내가 누른 하트</a>
+						<a class="nav-link" href="${pageContext.request.contextPath }/my_heart/private/my_heart.do">내가 누른 하트</a>
 					</li>
 					<li class="nav-item ${param.thisPage eq 'my_write' ? 'active':''}">
-						<a class="nav-link" href="${pageContext.request.contextPath }/my_write/private/list.do">내가 쓴 게시글</a>
+						<a class="nav-link" href="${pageContext.request.contextPath }/my_write/private/my_write.do">내가 쓴 게시글</a>
 					</li>
 				</ul>
 			</div>
