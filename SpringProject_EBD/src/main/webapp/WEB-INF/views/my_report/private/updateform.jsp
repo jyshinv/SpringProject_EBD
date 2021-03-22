@@ -9,7 +9,7 @@
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	body{
-		padding-top:100px;
+		padding-top:120px;
 	}
     .btn-file{
         position: relative;
