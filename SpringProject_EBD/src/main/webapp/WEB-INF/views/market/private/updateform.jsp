@@ -9,11 +9,12 @@
 <title>/market/private/updateform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
-	.head{
-		text-align: center;
+	body{
+		padding-top:100px;
 	}
+	
 	.row{
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	}
 	
 	.btn-file{
@@ -40,6 +41,25 @@
         cursor: inherit;
         display: block;
     }
+    /*버튼 기본 노랑*/
+    .btn {
+    	background-color:#F7DC6F ;
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn>a{
+    	color:#212529;
+    	text-decoration: none;
+    }
+    
+    /* 스마트 에디터 전체 화면 보이게 하는 css */
+    #content{
+		width: 99.5%;
+		height: 400px;
+	}
 </style>
 </head>
 <body>
@@ -47,7 +67,6 @@
 	<jsp:param value="market" name="thisPage"/>
 </jsp:include>
 <div class="container">
-	<h1 class="head" >중고 거래 글쓰기  수정 폼</h1>
 	<form action="update.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="num" value="${dto.num }"/>
 	 	<input type="hidden" name="imgpath" value="${dto.imgpath }" } />
@@ -104,24 +123,25 @@
 	 		<div class="col-2">
 	 			이미지
 	 		</div>
-	 		<div class="col-8">
-	 			 <input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
+	 		<div class="col-8" style="padding-right:0px;">
+	 			 <input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" disabled/>
 	 		</div>
-	 		<div class="col">
+	 		<div class="col" style="padding-left:5px;">
 	 			<label for="myImg" class="btn btn-light btn-file" style="background-color:#F7DC6F;">파일 선택
 		 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
 		 			accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 	 		</label>
 	 		</div>
 	 	</div>
-	 	<div class="form-group">
-		    <textarea class="form-control" type="text" name="content" id="content">${dto.content }</textarea>
-		</div>
-		<div class="text-center">
-			<button class="btn btn-light text-center" type="submit" onclick="submitContents(this);" style="background-color:#F7DC6F;">
+	 	<div class="row">
+	 		<div class="col">
+	 			<label for="content"></label>
+			    <textarea class="form-control" type="text" name="content" id="content">${dto.content }</textarea>
+	 		</div>
+	 	</div>
+		<div class="text-center" style="margin-top:30px; margin-bottom:30px;">
+			<button class="btn" type="submit" onclick="submitContents(this);">
 			수정 완료</button>
-			<button class="btn btn-dark text-center" type="reset" style="background-color:#AF601A; border-color:#AF601A;">
-			취소</button>
 		</div>
 	 </form>
 </div>

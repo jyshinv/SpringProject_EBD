@@ -153,7 +153,7 @@
 			<input class="form-control" type="text" name="phone" id="phone" value="${dto.phone }" placeholder="연락처를 - 없이 입력해주세요" />
 			<div class="invalid-feedback">숫자만 입력해주세요.</div>
 		</div>		
-		<div class="text-center update-style">
+		<div class="text-center update-style" style="margin-top:30px; margin-bottom:30px;">
 			<button type="submit" class="btn btn-light" style="background-color:#F7DC6F; border:none;">
 			수정</button>
 		</div>

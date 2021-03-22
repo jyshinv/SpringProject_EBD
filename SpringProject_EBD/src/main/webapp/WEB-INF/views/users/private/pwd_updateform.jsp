@@ -38,11 +38,9 @@
 			<div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
 			<div class="valid-feedback">비밀번호가 일치합니다.</div>
 		</div>
-		<div class="text-center">
-			<button type="submit" class="btn btn-dark" style="background-color:#F7DC6F; border:none;">
+		<div class="text-center" style="margin-top:30px; margin-bottom:30px;">
+			<button type="submit" class="btn btn-light" style="background-color:#F7DC6F; border:none;">
 			수정</button>
-			<button type="reset" class="btn btn-danger" style="background-color:#AF601A; border:none;">
-			취소</button>
 		</div>
 	</form>
 </div>

@@ -9,18 +9,14 @@
 <title>/file/private/updateform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
-	.head{
-		text-align: center;
-	}
+	body{
+			padding-top:100px;
+		}
+	
 	.row{
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	}
-	
-	.fileImg{
-		width: 360px;
-		height: auto;
-	}
-	
+		
 	.btn-file{
         position: relative;
         overflow: hidden;
@@ -40,6 +36,26 @@
         cursor: inherit;
         display: block;
     }
+    
+    /*버튼 기본 노랑*/
+    .btn {
+    	background-color:#F7DC6F ;
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn>a{
+    	color:#212529;
+    	text-decoration: none;
+    }
+    
+    /* 스마트 에디터 전체 화면 보이게 하는 css */
+    #content{
+		width: 99.5%;
+		height: 400px;
+	}
 </style>
 </head>
 <body>
@@ -52,16 +68,13 @@
 	정보를 그대로 가져오기  -->
 	
 <div class="container">
-	<!-- 독후감 양식 파일 업로드(게시글) 추가 폼-->
-	<h1 class="head" >수정 페이지</h1>
-		 
+	<!-- 독후감 양식 파일 업로드(게시글) 업데이트 폼-->	 
 	<form action="update.do" method="post" enctype="multipart/form-data">
 	 	<input type="hidden" name="num" value="${dto.num }"/>
 	 	<input type="hidden" name="imgpath" value="${dto.imgpath }" } />
 	 	<input type="hidden" name="orgfname" value="${dto.orgfname }" } />
 	 	<input type="hidden" name="savefname" value="${dto.savefname }" } />
 	 	<input type="hidden" name="fileSize" value="${dto.fileSize }" } />
-	 	
 	 	<div class="row">
 	 		<div class="col-2">
 	 			<label for="title">제목</label> 
@@ -75,12 +88,12 @@
 	 		<div class="col-2">
 	 			첨부 파일
 	 		</div>
-	 		<div class="col-8">
-	 			<input class="form-control" type="text" id="fileName2" placeholder="파일을 첨부해주세요" value="${dto.orgfname }" />
+	 		<div class="col-8" style="padding-right:0px;">
+	 			<input class="form-control" type="text" id="fileName2" placeholder="파일을 첨부해주세요" value="${dto.orgfname }" disabled/>
 	 			<small class="text-muted">수정할 독후감 양식파일을 넣어주세요</small>
 	 		</div>
-	 		<div class="col">
-	 			<label for="myFile" class="btn btn-light btn-file" style="background-color:#F7DC6F;">파일 선택
+	 		<div class="col" style="padding-left:5px;">
+	 			<label for="myFile" class="btn btn-light btn-file" style="background-color:#F7DC6F;" style="padding-left:5px;">파일 선택
 		 			<input type="file" name="myFile" id="myFile" value="${filename2 }" onchange="reviewUploadImg2(this);"/>
 		 		</label>
 	 		</div>
@@ -90,25 +103,26 @@
 	 		<div class="col-2">
 	 			이미지
 	 		</div>
-	 		<div class="col-8">
-	 			<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
+	 		<div class="col-8" style="padding-right:0px;">
+	 			<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" disabled/>
 	 			<small class="text-muted">수정할 독후감 양식 이미지를 넣어주세요</small>
 	 		</div>
-	 		<div class="col">
+	 		<div class="col" style="padding-left:5px;">
 	 			<label for="myImg" class="btn btn-light btn-file" style="background-color:#F7DC6F;">이미지 선택
 		 			<input type="file" name="myImg" id="myImg" onchange="reviewUploadImg(this);"
 		 			accept=".jpg, .jpeg, .png, .JPG, .JPEG" />
 		 		</label>
 	 		</div> 		
 	 	</div>
-	 	<div class="form-group">
-		    <textarea class="form-control" type="text" name="content" id="content">${dto.content }</textarea>
-		</div>
-		<div class="text-center">
-			<button class="btn btn-light" type="submit" onclick="submitContents(this);" style="background-color:#F7DC6F;">
+	 	<div class="row">
+	 		<div class="col">
+		 		<label for="content"></label>
+				<textarea class="form-control" type="text" name="content" id="content">${dto.content }</textarea>
+	 		</div>
+	 	</div>
+		<div class="text-center" style="margin-top:30px; margin-bottom:30px;">
+			<button class="btn" type="submit" onclick="submitContents(this);" style="background-color:#F7DC6F;">
 			수정 완료</button>
-			<button class="btn btn-dark" type="reset" style="background-color:#AF601A; border-color:#AF601A;">
-			취소</button>
 		</div>
 	 </form>
 	

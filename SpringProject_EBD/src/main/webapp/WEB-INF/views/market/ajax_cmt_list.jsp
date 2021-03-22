@@ -26,8 +26,9 @@
 		<c:otherwise>						<!-- num과 cmt_group가 같지 않다면 -->
 			<li id="comment${tmp.num }" <c:if test="${tmp.num ne tmp.cmt_group }">style="padding-left:50px;"</c:if>>
 				<!-- num과 cmt_group가 같지 않다면 -->
-				<c:if test="${tmp.num ne tmp.cmt_group }"><svg class="reply-link reply-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001; width:20px; height:20px; margin-top:20px; fill:#F7DC6F;" xml:space="preserve" >
+				<c:if test="${tmp.num ne tmp.cmt_group }">
+				<svg class="reply-link reply-icon" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 			viewBox="0 0 512.001 512.001" style="enable-background:new 0 0 512.001 512.001; width:20px; height:20px; margin-top:20px; fill:#F7DC6F;" xml:space="preserve" >
 				<g>
 					<g>
 						<path d="M324.104,156.152H76.526l91.949-91.949l-28.268-28.268L0,176.141l140.206,140.206l28.268-28.268L76.526,196.13h247.579
