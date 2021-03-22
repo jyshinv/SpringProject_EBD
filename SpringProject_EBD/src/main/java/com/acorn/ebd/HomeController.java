@@ -117,7 +117,7 @@ public class HomeController {
 			market_service.getMyWriteList(mView, request);
 			mView.setViewName("my_write/private/market_list");
 		}else if(condition.equals("file")) {
-			//file_service.getMyWriteList(mView, request);
+			file_service.getMyWriteList(mView, request);
 			mView.setViewName("my_write/private/file_list");
 		}else if(condition.equals("episode")) {
 			//episode_service.getMyWriteList(mView, request);

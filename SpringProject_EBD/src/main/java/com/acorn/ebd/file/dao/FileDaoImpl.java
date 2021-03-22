@@ -110,4 +110,17 @@ public class FileDaoImpl implements FileDao {
 		return list;
 	}
 
+	@Override
+	public List<FileDto> getMyList(FileDto dto) {
+		//나의 서재에서 파일목록을 리턴
+		List<FileDto> list=session.selectList("file.getMyList", dto);
+		return list;
+	}
+
+	@Override
+	public int getMyCount(FileDto dto) {
+		//나의 서재에서 파일목록의 count를 리턴
+		return session.selectOne("file.getMyCount", dto);
+	}
+
 }

@@ -33,4 +33,7 @@ public interface FileService {
 	//홈화면에 조회수 Best3을 요청하는 메소드 
 	public void getBestViewCntList(ModelAndView mView);
 	
+	//나의 서재에서 내가 쓴글의 리스트를 불러오는 메소드 
+	public void getMyWriteList(ModelAndView mView, HttpServletRequest request);
+	
 }
