@@ -170,7 +170,7 @@
 				</div><!-- card title -->
 				
 				<!-- 이미지를 누르면 디테일 페이지 이동 -->
-				<a href="${pageContext.request.contextPath }/market/detail.do?num=${tmp.num }&category=market">
+				<a href="${pageContext.request.contextPath }/market/detail.do?num=${tmp.num }">
 					<!-- 이미지 -->
 					<div>	
 						<img class="card-img-top img-wrapper" src="${pageContext.request.contextPath }${tmp.imgpath }" id="img">
