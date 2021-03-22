@@ -108,6 +108,10 @@
     .viewcnt{
     	color:grey;
     }
+    #writer{
+    	font-size:0.9em;
+    	padding-top: 13px;
+    }
 </style>
 </head>
 <body>
@@ -168,7 +172,7 @@
 			                  <img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
 			               </c:otherwise>
 			            </c:choose>
-					    <p class="card-text col" style="padding-top:10px;"><strong>${tmp.writer }</strong></p>
+					    <p id="writer" class="card-text col"><strong>${tmp.writer }</strong></p>
 					    <span class="col text-right">
 					    	<c:if test="${empty id }">
 						    	<span style="margin-right:5px;">

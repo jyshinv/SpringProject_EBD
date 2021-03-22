@@ -8,6 +8,9 @@
 <title>/episode/private/updateform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
+	body{
+		padding-top:100px;
+	}
     .btn-file{
         position: relative;
         overflow: hidden;
@@ -31,8 +34,21 @@
 		text-align: center;
 	}
 	.row{
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	}
+    /*버튼 기본 노랑*/
+    .btn {
+    	background-color:#F7DC6F ;
+    }
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    }
+    /* 스마트 에디터 전체 화면 보이게 하는 css */
+    #content{
+		width: 99.5%;
+		height: 400px;
+	}	
 </style>
 </head>
 <body>
@@ -40,7 +56,6 @@
 	<jsp:param value="episode" name="thisPage"/>
 </jsp:include>
 <div class="container">
-	<h1 class="head">에피소드 글쓰기 수정 폼 </h1>
 	<form action="update.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="num" value="${dataDto.num }" />
 		<input type="hidden" name="imgPath" value="${dataDto.imgPath }" } />
@@ -56,11 +71,11 @@
 			<div class="col-2">
 				이미지
 			</div>
-			<div class="col-8">
+			<div class="col-8" style="padding-right:0px;">
 				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }"  disabled/>
 			</div>
-			<div class="col">
-				<label for="image" class="btn btn-light btn-file" style="background-color:#F7DC6F;">
+			<div class="col" style="padding-left:5px;">
+				<label for="image" class="btn btn-file">
 					이미지 변경<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
 					accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 			</label>
@@ -69,8 +84,8 @@
 		<div class="form-group">
 			 <textarea class="form-control" type="text" name="content" id="content">${dataDto.content }</textarea>
 		</div>
-		<div class="text-center">
-			<button class="btn btn-dark" type="submit">등록</button>
+		<div class="text-center"  style="margin-top:50px; margin-bottom:50px;">
+			<button class="btn" type="submit">등록</button>
 		</div>
 	</form>
 </div>

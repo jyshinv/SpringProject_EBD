@@ -57,7 +57,6 @@
     #profileImage{
       width: 25px;
       height: 25px;
-      border: 1px solid #cecece;
       border-radius: 50%;
       margin-top:10px;
     }
@@ -116,7 +115,11 @@
     }
     .viewcnt{
     	color:grey;
-    }    
+    }  
+    #writer{
+    	font-size:0.9em;
+    	padding-top: 13px;
+    }      
 </style>
 </head>
 <body>
@@ -135,7 +138,7 @@
 				</select>
 			</div>
 			<div class="col-md-6">
-				<input class="form-control" type="text" name="keyword" placeholder="검색어를 입력해주세요." value="${keyword }"/>
+				<input class="form-control" type="text" name="keyword" placeholder="검색어를 입력해주세요" value="${keyword }"/>
 			</div>
 			<span>
 				<button class="btn" type="submit">검색</button>
@@ -153,7 +156,7 @@
 		<%int isCheck=0; %>
 		<!-- tmp는 GalleryDto type임 따라서 Dto의 필드명을 정확하게 명시해주어야한다. (tmp가 무슨타입인지 정확히 알고있어야한다.)-->
 		<c:forEach var="tmp" items="${list }">
-			<div class="col">
+			<div class="col"  style="margin-bottom: 15px;">
 				<div class="card" style="width: 18rem;">
 					<div style="height:255px;">
 						<figure>
@@ -178,7 +181,7 @@
 			                  <img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
 			               </c:otherwise>
 			            </c:choose>
-						<p class="col card-text" style="padding-top:10px;"><strong>${tmp.writer }</strong></p>
+						<p id="writer" class="col card-text"><strong>${tmp.writer }</strong></p>
 						<span class="col text-right">
 							<c:if test="${empty id }">
 								<span style="margin-right:5px;">

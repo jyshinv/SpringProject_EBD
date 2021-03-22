@@ -45,7 +45,7 @@
    		 			북스북스 회원들이 내놓은 보물, <br />
    		 			지금 만나 보세요!
    		 		</p>
-   		 		<button type="btn" class="btn"><a href="private/uploadform.do">책 명언/글귀 작성</a></button>
+   		 		<button type="btn" class="btn"><a href="private/uploadform.do">에피소드 작성</a></button>
   			</td>
   			<td>
   				<img class="jumbotronImg" src="https://resource.grapplet.com/marketplace/7176/1591667231081/i.svg.preview.580x870.png" alt="대문이미지" />
