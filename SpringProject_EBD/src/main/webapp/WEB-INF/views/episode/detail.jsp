@@ -141,9 +141,6 @@
    		padding-left:20px;
    		padding-right:20px;
    }  
-   .card-padding{
-   		margin-top:50px;
-   }
    .card-body{
    		padding-left:0px;
    		padding-right:0px;
@@ -176,7 +173,11 @@
 		color:#FFCA28;
 		margin-left:5px;
 		margin-bottom:10px;
-	}   
+	}  
+	body{
+		padding-top:120px;
+		margin-bottom:30px;
+	} 
 </style>
 </head>
 <body>

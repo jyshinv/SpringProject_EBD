@@ -9,7 +9,7 @@
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	body{
-		padding-top:100px;
+		padding-top:120px;
 	}
     .btn-file{
         position: relative;
@@ -63,26 +63,30 @@
 			<div class="col-2">
 				<label for="title">글 제목</label>
 			</div>
-			<div class="col-8">
+			<div class="col">
 				<input class="form-control" type="text" id="title" name="title" value="${dataDto.title }"  placeholder="내용을 입력해주세요"/>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-2">
-				이미지
+				<label for="image" class="col-form-label">이미지</label>
 			</div>
 			<div class="col-8" style="padding-right:0px;">
 				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }"  disabled/>
 			</div>
 			<div class="col" style="padding-left:5px;">
-				<label for="image" class="btn btn-file">
-					이미지 변경<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
+				<label for="image" class="btn btn-file" style="margin-bottom:0px;">
+					이미지 변경
+					<input type="file" id="image" name="image" onchange="reviewUploadImg(this);" 
 					accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 			</label>
 			</div>
 		</div>
-		<div class="form-group">
-			 <textarea class="form-control" type="text" name="content" id="content">${dataDto.content }</textarea>
+		<div class="row">
+			<div class="col">
+				<label for="content"></label>
+				<textarea class="form-control" type="text" name="content" id="content">${dataDto.content }</textarea>
+			</div>
 		</div>
 		<div class="text-center"  style="margin-top:50px; margin-bottom:50px;">
 			<button class="btn" type="submit">등록</button>
