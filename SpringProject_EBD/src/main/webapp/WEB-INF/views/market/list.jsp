@@ -6,9 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/market/list.jsp</title>
+<title>북스마켓</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style> 
+	/*전체 페이지 폰트 적용*/
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	/* card 이미지 부모요소의 높이 지정 */
 	.img-wrapper{
 		height: 315px;
@@ -124,8 +128,9 @@
 		<div class="row justify-content-md-center" style="margin:10px;">
 			<div class="col-2">
 				<select class="form-control" name="condition" id="condition">
+					<option value="salesType" ${condition eq 'salesType' ? 'selected' : '' }>거래 유형</option>
+					<option value="salesStatus" ${condition eq 'salesStatus' ? 'selected' : '' }>거래 상태</option>
 					<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
-					<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
 					<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
 				</select>
 			</div>
@@ -141,11 +146,11 @@
 	</form>
 	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
 	<c:if test="${not empty keyword }">
-		<div class="alert alert-success">
+		<!-- 검색키워드 투명하게 보이기 + 가운데 정렬 -->
+		<div class="alert text-center">
 			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
 		</div>
 	</c:if>
-		
 	<!-- 목록 -->
 	<div class="row">
 		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->

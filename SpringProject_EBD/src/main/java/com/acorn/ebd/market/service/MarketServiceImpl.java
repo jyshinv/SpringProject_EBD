@@ -135,8 +135,10 @@ public class MarketServiceImpl implements MarketService {
 				//검색 키워드를 MarketDto 객체의 필드에 담는다. 
 				dto.setTitle(keyword);
 				dto.setContent(keyword);	
-			}else if(condition.equals("title")){
-				dto.setTitle(keyword);
+			}else if(condition.equals("salesType")){
+				dto.setSalesType(keyword);
+			}else if(condition.equals("salesStatus")) {
+				dto.setSalesStatus(keyword);
 			}else if(condition.equals("writer")){
 				dto.setWriter(keyword);
 			}

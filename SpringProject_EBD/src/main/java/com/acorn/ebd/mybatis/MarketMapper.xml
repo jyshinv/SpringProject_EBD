@@ -24,15 +24,19 @@
 				 		OR content LIKE '%' || #{content} || '%') 
 				 		AND (ebd_market.writer=ebd_users.nick)
 				 	</when>
-					<when test="title != null">
-						WHERE title LIKE '%'||#{title}||'%' 
+					<when test="salesType != null">
+						WHERE salesType LIKE '%'||#{salesType}||'%' 
+						AND (ebd_market.writer=ebd_users.nick)
+					</when>
+					<when test="salesStatus != null">
+						WHERE salesStatus LIKE '%'||#{salesStatus}||'%' 
 						AND (ebd_market.writer=ebd_users.nick)
 					</when>
 					<when test="writer != null">
 						WHERE writer LIKE '%'||#{writer}||'%' 
 						AND (ebd_market.writer=ebd_users.nick)
 					</when>
-					<when test="title == null and content ==null and writer==null">
+					<when test="title ==null and content ==null and writer ==null and salesType ==null and salesStatus ==null">
 						WHERE ebd_market.writer=ebd_users.nick
 					</when>
 				</choose>
@@ -86,8 +90,11 @@
 		 		WHERE title LIKE '%' || #{title} || '%' 
 		 		OR content LIKE '%' || #{content} || '%'
 		 	</when>
-			<when test="title != null">
-				WHERE title LIKE '%'|| #{title}||'%'
+			<when test="salesType != null">
+				WHERE salesType LIKE '%'|| #{salesType}||'%'
+			</when>
+			<when test="salesStatus != null">
+				WHERE salesStatus LIKE '%'|| #{salesStatus}||'%'
 			</when>
 			<when test="writer != null">
 				WHERE writer LIKE '%'|| #{writer}||'%'
@@ -129,16 +136,20 @@
 			  	<when test="title != null and content != null">
 			 		WHERE (title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick}   
 			 	</when>
-                <!--title이 null이 아니라면-->
-                <when test="title != null">
-                   WHERE (title LIKE '%' || #{title} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick}
+                <!--salesType 이 null이 아니라면-->
+                <when test="salesType != null">
+                   WHERE (salesType LIKE '%' || #{salesType} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick}
+                </when>
+                <!--salesStatus 이 null이 아니라면-->
+                <when test="salesStatus != null">
+                   WHERE (salesStatus LIKE '%' || #{salesStatus} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick}
                 </when>
                 <!--writer이 null이 아니라면-->
                 <when test="writer != null">
                    WHERE (e.writer LIKE '%' || #{writer} || '%') AND e.num = h.target_num(+) AND h.writer(+)=#{nick} 
                 </when>
-                <!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
-                <when test="title ==null and writer ==null">
+               <!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
+				<when test="title ==null and content ==null and writer ==null and salesType ==null and salesStatus ==null">
                    WHERE e.num = h.target_num(+) AND h.writer(+)=#{nick}
                 </when>
              </choose>
@@ -160,16 +171,20 @@
 			 	<when test="title != null and content != null">
 			 		WHERE (title LIKE '%' || #{title} || '%' OR content LIKE '%' || #{content} || '%') AND r1.target_num(+) = e.num   
 			 	</when>
-                <!--title이 null이 아니라면-->
-                <when test="title != null">
-                   WHERE (title LIKE '%' || #{title} || '%') AND r1.target_num(+) = e.num
+                <!--salesType이 null이 아니라면-->
+                <when test="salesType != null">
+                   WHERE (salesType LIKE '%' || #{salesType} || '%') AND r1.target_num(+) = e.num
+                </when>
+                <!--salesType이 null이 아니라면-->
+                <when test="salesStatus != null">
+                   WHERE (salesStatus LIKE '%' || #{salesStatus} || '%') AND r1.target_num(+) = e.num
                 </when>
                 <!--writer이 null이 아니라면-->
                 <when test="writer != null">
                    WHERE (e.writer LIKE '%' || #{writer} || '%') AND r1.target_num(+) = e.num
                 </when>
-                <!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
-                <when test="title ==null and writer ==null">
+               <!-- 모두 null 이라면 WHERE절에 이런 쿼리문만 들어간다. -->
+				<when test="title ==null and content ==null and writer ==null and salesType ==null and salesStatus ==null">
                    WHERE r1.target_num(+) = e.num
                 </when>  
             </choose>
