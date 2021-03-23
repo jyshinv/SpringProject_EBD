@@ -9,7 +9,6 @@
 </head>
 <body>
 <div class="container">
-	<h1>알림</h1>
 	<c:choose>
 		<c:when test="${requestScope.isValid}">
 			<p>
