@@ -137,7 +137,7 @@
 				</select>
 			</div>
 			<span>
-				<button id="button" class="btn btn-light" style="background-color:#F7DC6F;">이동</button>
+				<button id="button" class="btn">이동</button>
 			</span>
 		</div>
 	</form>	
