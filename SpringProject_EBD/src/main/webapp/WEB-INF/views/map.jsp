@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="include/resource.jsp"></jsp:include>
-
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 <title>전국 서점 지도</title>
@@ -56,10 +55,9 @@
 <body>
 <%-- nav bar --%>
 <jsp:include page="include/navbar.jsp"></jsp:include>
+<%-- jumborton --%>
+<jsp:include page="include/map_jumbotron.jsp"></jsp:include>
 <div class="container">
-	<div class="text-center map-h">
-		<h1>전국 서점 위치</h1>
-	</div>
 	<div class="map_wrap">
 	    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 	
@@ -67,7 +65,7 @@
 	        <div class="option">
 	            <div>
 	                <form onsubmit="searchPlaces(); return false;">
-	                    키워드 : <input type="text" value="서울 서점" id="keyword" size="15"> 
+	                    <input type="text" value="서울 서점" id="keyword" size="15"> 
 	                    <button type="submit">검색하기</button> 
 	                </form>
 	            </div>
@@ -77,6 +75,7 @@
 	        <div id="pagination"></div>
 	    </div>
 	</div>
+	<br /><br /><br />
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f830be4f1d8ecc3e316f6cc0292ad2d3&libraries=services"></script>
