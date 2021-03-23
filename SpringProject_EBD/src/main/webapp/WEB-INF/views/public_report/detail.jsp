@@ -104,10 +104,18 @@
 	/* 하트 hover시 색 변경 및 언더라인 삭제 */
 	.heart-link,
 	.heart-link:hover{
-      	font-size : 2em;
+      	font-size : 1.6em;
       	color:red;
       	text-decoration: none;
     }
+    	
+   	.heart-link-logout{
+   		font-size : 1.6em;
+   		color:grey;
+   	}
+   	.heart-cnt-logout{
+   		color:grey;
+   	}   
     /* 카드 테두리와 내용 간격두기 */	
     .card{
     	padding-left:20px;
@@ -123,7 +131,7 @@
     }
     #checkBtn{
     	padding-top:0px;
-    	padding-bottom:10px;
+    	padding-bottom:3px;
     	padding-left:0px;
     	padding-right:0px;
     }
@@ -242,8 +250,8 @@
 			&nbsp;
 			<div class="col text-left">
 				<c:if test="${empty id }">
-		           <span>♥</span>
-		           <span class="heart-cnt">${heartcnt }</span>
+		           <span class="heart-link-logout">♥</span>
+		           <span class="heart-cnt-logout heart-cnt">${heartcnt }</span>
 		        </c:if>
 				<c:if test="${not empty nick }">
 		            <c:choose>

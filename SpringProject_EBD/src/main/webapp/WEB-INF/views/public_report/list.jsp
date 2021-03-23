@@ -55,7 +55,7 @@
    	}
    	
    	.heart-link-logout{
-   		font-size : 1.8em;
+   		font-size : 1.4em;
    		color:grey;
    	}
    	.heart-cnt-logout{
