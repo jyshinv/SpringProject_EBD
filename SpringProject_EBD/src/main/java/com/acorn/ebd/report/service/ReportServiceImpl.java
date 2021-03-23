@@ -424,6 +424,16 @@ public class ReportServiceImpl implements ReportService{
 
 	@Override
 	public void updateData(ReportDto dto, HttpServletRequest request) {
+		
+		//선택안함을 선택한 경우 빈문자열을 넣어준다.
+		if(dto.getStars().equals("선택안함")) {
+			dto.setStars("");
+		}
+		
+		//선택안함을 선택한 경우 빈문자열을 넣어준다.
+		if(dto.getGenre().equals("선택안함")) {
+			dto.setGenre("");
+		}
 		//이미지가 비어있다면 MultipartFile image는 비어있는 상태이다.
 		//따라서 이미지 수정은 하지 않은 상태이므로 title과 content만 update한다. 
 		if(dto.getImage().isEmpty()) {

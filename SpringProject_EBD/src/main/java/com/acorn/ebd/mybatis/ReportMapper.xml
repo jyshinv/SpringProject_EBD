@@ -139,7 +139,7 @@
 	</update>
 	<update id="update" parameterType="reportDto">
 		UPDATE ebd_report
-		SET title=#{title }, imgpath=#{imgpath }, content=#{content }
+		SET title=#{title }, imgpath=#{imgpath }, content=#{content }, stars=#{stars}, genre=#{genre}
 		WHERE num=#{num}
 	</update>
 	

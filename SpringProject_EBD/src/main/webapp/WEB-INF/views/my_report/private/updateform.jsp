@@ -83,8 +83,11 @@
 				<label for="genre" class="col-form-label">장르</label>
 			</div >
 			<div class="col">
-				<select class="form-control" name="genre" id="genre" disabled>
-					<option value="${dto.genre}" selected>${dto.genre}</option>
+				<%String[] genreArr={"선택안함","소설","시","수필","역사","예술","종교","인문","철학","자기계발"}; %>
+				<select class="form-control" name="genre" id="genre">
+					<c:forEach var="tmp" items="<%=genreArr %>">
+						<option value="${tmp }" <c:if test="${dto.genre eq tmp }">selected</c:if>>${tmp }</option>						
+					</c:forEach>
 				</select>
 			</div >
 		</div>
@@ -93,8 +96,11 @@
 				<label for="stars" class="col-form-label">평점</label>
 			</div >
 			<div class="col">
-				<select class="form-control" name="stars" id="stars" disabled>
-					<option value="${dto.stars }" selected>${dto.stars }</option>
+				<%String[] starsArr={"선택안함","★","★★","★★★","★★★★","★★★★★"}; %>
+				<select class="form-control" name="stars" id="stars">
+					<c:forEach var="tmp" items="<%=starsArr %>">
+						<option value="${tmp }" <c:if test="${dto.stars eq tmp }">selected</c:if>>${tmp }</option>						
+					</c:forEach>
 				</select>
 			</div >
 		</div>
