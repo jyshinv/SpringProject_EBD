@@ -24,8 +24,8 @@
   			<td>
   				<h1 class="display-4">
   					<b>
-	  					Sharing <br/>
-	  					a Book Report
+	  					Share <br/>
+	  				    Your Book Report !
   					</b>
   				</h1>
    		 		<p class="lead">
@@ -33,7 +33,7 @@
    		 		</p>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_public.svg" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_episode.svg" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>

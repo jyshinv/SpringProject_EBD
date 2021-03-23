@@ -9,7 +9,7 @@
 <body>
 <!-- 글 수정 완료 알림 -->
 <script>
-	alert("수정 완료! ");
+	alert("게시글이 수정 되었습니다.");
 	location.href="${pageContext.request.contextPath}/market/detail.do?num=${num }";
 </script>
 </body>

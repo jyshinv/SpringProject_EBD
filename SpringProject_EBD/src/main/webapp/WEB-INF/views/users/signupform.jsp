@@ -19,6 +19,16 @@
 	.form-margin{
 		margin-top:30px;
 	}
+	
+    #btn-submit{
+    	background-color:#F7DC6F;
+    	margin-top:10px;
+    	margin-bottom:30px;
+    }
+    
+    #btn-submit:hover{
+    	background-color:#FBEEE6;
+    }
 </style>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 </head>
@@ -119,7 +129,7 @@
 			<div class="valid-feedback">사용가능한 연락처 입니다.</div>
 		</div>		
 		<div class="text-center">
-			<button class="btn btn-light btn-style" type="submit" style="background-color:#F7DC6F; border:none;">가입</button>
+			<button id="btn-submit" class="btn" type="submit">가입</button>
 		</div>
 	</form>
 </div>
@@ -182,7 +192,7 @@
 		}
 		
 		
-		
+	
 	});
 	
 	//생년월일일 중 년,월에 따라 일을 올바르게 입력했는 지 검사하는 함수 
@@ -418,12 +428,7 @@
 		}
 		
 	});
-	
-	
-	
-	
 
-	
 </script>
 </body>
 </html>

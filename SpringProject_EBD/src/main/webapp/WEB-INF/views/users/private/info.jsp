@@ -90,9 +90,9 @@
 		</tr>
 	</table>
 	<div class="text-center btn-style">
-		<a class="btn btn-light" style="background-color:#F7DC6F; border:none;"
+		<a class="btn" style="background-color:#F7DC6F; border:none;"
 		 href="updateform.do">개인 정보 수정</a>
-		<a class="btn btn-dark" style="background-color:#AF601A; border:none;"
+		<a class="btn" style="background-color:#AECA9F; border:none;"
 		href="javascript:deleteConfirm()">탈퇴</a>
 	</div>
 </div>

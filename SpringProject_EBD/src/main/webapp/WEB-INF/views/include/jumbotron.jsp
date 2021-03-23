@@ -5,14 +5,28 @@
 
 <style>
 	.jumbotronImg{
-		width: 350px;
-		height: 350px;
+		width: 400px;
+		height: 400px;
 		margin-left: 50px;
 	}
 	.jumbotron_table{
 		margin-left: 100px;
 	}
 	
+	.jumbotron{
+		padding-top:40px;
+		padding-bottom:40px;
+	}
+	
+	 /*버튼 기본 노랑*/
+    #btn-s {
+    	background-color:#F7DC6F ;
+    }
+    
+    /*버튼 호버시 연한 노랑*/
+    #btn-s:hover{
+    	background-color:#FBEEE6;
+    }
 </style>
 
 <%-- jumbotron --%>
@@ -29,8 +43,7 @@
 						    style="border-radius:30px;">
 						  </div>
 						  <div class="col">
-						    <button class="btn btn-light my-2 my-sm-0" type="submit" 
-						    style=" background-color:#F7DC6F ; border-radius:20px;">
+						    <button id="btn-s" class="btn my-2 my-sm-0" type="submit" style="border-radius:20px;">
 				   			Search</button>
 						  </div>
 						</div>
@@ -44,10 +57,10 @@
    		 			매일 책을 읽는다면 당신의 하루는 어떻게 달라질까요?<br />
    		 			이곳에서 일상이 책이 되는 순간을 경험해 보세요.
    		 		</p>
-   		 		<a href="info.do" style=" color:#AF601A; ">More</a>
+   		 		<a href="info.do" style=" color:#6DB286; "><strong>More</strong></a>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_home.svg" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_public.svg" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>

@@ -9,7 +9,7 @@
 </head>
 <body>
 <script>
-	alert("삭제 완료");
+	alert("게시글이 삭제 되었습니다.");
 	//wording의 list로 이동
 	location.href="${pageContext.request.contextPath }/wording/list.do";
 </script>

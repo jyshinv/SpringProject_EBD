@@ -19,14 +19,17 @@
 	.jumbotron_table{
 		margin-left: 100px;
 	}
+	
 	/*버튼 기본 노랑*/
     .btn {
-    	background-color:#F7DC6F ;
+    	background-color:#F7DC6F;
     }
+    
     /*버튼 호버시 연한 노랑*/
     .btn:hover{
     	background-color:#FBEEE6;
     }
+    
     /*버튼안에 링크 걸려있을시 적용할 css*/
     .btn>a{
     	color:#212529;
@@ -41,12 +44,12 @@
   		<tr>
   			<td>
    		 		<h1 class="display-4">
-  					Books Books Market
+   		 			Everyday <br />
+  					Books Market
   				</h1>
    		 		<p class="lead">
-   		 			아직 읽지 않은 책은 숨겨진 보물 입니다 <br />
-   		 			북스북스 회원들이 내놓은 보물, <br />
-   		 			지금 만나 보세요!
+   		 			아직 읽지 않은 책은 숨겨진 보물 입니다. <br />
+   		 			당신의 삶을 빛내줄 가치있는 보물을 발견해보세요.
    		 		</p>
    		 		<p>
 					<a href="${pageContext.request.contextPath }/market/private/insertform.do" 

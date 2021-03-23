@@ -8,7 +8,7 @@
 </head>
 <body>
 <script>
-	alert("수정 완료! ");
+	alert("수정이 완료되었습니다.");
 	location.href="${pageContext.request.contextPath}/market/detail.do?num=${num }";
 </script>
 </body>
