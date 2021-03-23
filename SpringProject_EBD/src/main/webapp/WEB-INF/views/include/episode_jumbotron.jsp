@@ -3,8 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
 	.jumbotronImg{
-		width: 350px;
-		height: 350px;
+		height: 310px;
 		margin-left: 50px;
 	}
 	.jumbotron_table{
@@ -31,7 +30,7 @@
 	
 </style>
 
-<%-- market jumbotron --%>
+<%-- episode jumbotron --%>
 <div class="jumbotron jumbotron-fluid" style="background-color: #FEF9E7;">
   <div class="container">
   	<table class="jumbotron_table">
@@ -42,9 +41,13 @@
   					Book Day !
   				</h1>
    		 		<p class="lead">
-   		 			오늘 당신이 겪은 책과 관련된 재미있는 경험을 공유해주세요.
+   		 			당신이 오늘, <br />
+   		 			겪은 책과 관련된 재미있는 경험을 공유해주세요.
    		 		</p>
-   		 		<button type="btn" class="btn"><a href="private/uploadform.do">에피소드 작성</a></button>
+   		 		<p>
+					<a href="${pageContext.request.contextPath }/episode/private/uploadform.do" class="btn">
+						에피소드 작성</a>
+   		 		</p>
   			</td>
   			<td>
   				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_signup.svg" alt="대문이미지" />

@@ -137,6 +137,13 @@
       color:red;
       text-decoration: none;
    }
+   	.heart-link-logout{
+ 		font-size : 1.6em;
+ 		color:grey;
+   	}
+   	.heart-cnt-logout{
+   		color:grey;
+   	}   
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
@@ -272,8 +279,8 @@
 				    </c:if>
 				    <!-- 로그인안했으면 하트 -->
 				    <c:if test="${empty id }">
-				            <span>♥</span>
-				            <span class="heart-cnt">${heartcnt }</span>
+				            <span class="heart-link-logout">♥</span>
+				            <span class="heart-cnt-logout heart-cnt">${heartcnt }</span>
 				    </c:if>
 					<!-- 작성자만 보이게 수정/삭제-->
 				    <c:if test="${dto.writer eq nick }">

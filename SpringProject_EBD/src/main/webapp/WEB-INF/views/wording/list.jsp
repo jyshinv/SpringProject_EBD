@@ -5,11 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>책 명언/글귀</title>
+<title>조각글</title>
 <!-- kakao api를 사용하기 위한 sdk를 추가해주기 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+	/*전체 페이지 폰트 적용*/
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	.back-drop{
 		/* 일단 숨겨 놓는다. */
 		display:none;
@@ -41,18 +45,6 @@
 		100%{
 			transform: rotate(360deg);
 		}
-	}
-	
-	.heart-link{
-		font-size : 1.4em;
-		color:red;
-	}
-	.heart-link-logout{
-		font-size : 1.8em;
-		color:grey;
-	}
-	.heart-cnt-logout{
-		color:grey;
 	}
 	
 	/* 프로필 이미지를 작은 원형으로 만든다 */
@@ -91,10 +83,18 @@
    /* 하트 기본, 호버시 빨갛게 만들어주기 */
 	.heart-link,
 	.heart-link:hover{
-	    font-size : 1.8em;
+	    font-size : 1.4em;
     	color:red;
     	text-decoration: none;
    	}
+   	.heart-link-logout{
+		font-size : 1.4em;
+		color:grey;
+	}
+	.heart-cnt-logout{
+		color:grey;
+	}
+	
    	#writer{
     	font-size:0.9em;
     	padding-top: 13px;

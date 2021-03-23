@@ -6,7 +6,6 @@
 		height: 150px;
 		margin-bottom: 20px;
 	}
-	
 </style>
 
 <div class="jumbotron jumbotron-fluid" style="background-color:#FEF9E7;">

@@ -5,7 +5,6 @@
 
 <style>
 	.jumbotronImg{
-		width: 400px;
 		height: 400px;
 		margin-left: 50px;
 	}
@@ -60,7 +59,7 @@
    		 		<a href="info.do" style=" color:#6DB286; "><strong>More</strong></a>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_public.svg" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_home1.svg" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>

@@ -3,12 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 
-
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet"> 
-
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Sans+KR&display=swap" rel="stylesheet">  
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,6 +139,13 @@
       color:red;
       text-decoration: none;
    }
+   	.heart-link-logout{
+ 		font-size : 1.6em;
+ 		color:grey;
+   	}
+   	.heart-cnt-logout{
+   		color:grey;
+   	}   
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
@@ -281,8 +282,8 @@
 				    </c:if>
 				    <!-- 로그인안했으면 하트 -->
 				    <c:if test="${empty id }">
-			            <span>♥</span>
-			            <span class="heart-cnt">${heartcnt }</span>
+			            <span class="heart-link-logout">♥</span>
+			            <span class="heart-cnt-logout heart-cnt">${heartcnt }</span>
 				    </c:if>
 				    <!-- 작성자만 보이게 수정/삭제-->
 				    <c:if test="${dto.writer eq nick }">

@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
-	.jumbo-font{
-		
-	}
 	.jumbotron{
 		background-color:white;
 		margin-bottom:0px;
@@ -16,7 +13,7 @@
 <div class="jumbotron jumbotron-fluid">
   <div class="container text-center">
   	<div>
-  		<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/public_report.png" alt="대문이미지" />
+  		<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd1.svg" alt="대문이미지" />
   	</div>
     <h1 class="display-4">
     	<b>
