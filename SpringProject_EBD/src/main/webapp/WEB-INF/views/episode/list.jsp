@@ -9,7 +9,12 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <jsp:include page="../include/episode_jumbotron.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath }/resources/js/imgLiquid.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
+
 <style>
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	/* card 이미지 부모요소의 높이 지정 */
 	.img-wrapper{
 		height: 250px;
@@ -41,13 +46,13 @@
 	/* 하트 기본, 호버시 빨갛게 만들어주기 */
 	.heart-link,
 	.heart-link:hover{
-	    font-size : 1.8em;
+	    font-size : 1.4em;
     	color:red;
     	text-decoration: none;
    	}
    	
    	.heart-link-logout{
-   		font-size : 1.8em;
+   		font-size : 1.4em;
    		color:grey;
    	}
    	.heart-cnt-logout{
@@ -110,7 +115,7 @@
     	color:#212529;
     }
     .bi-eye{
-    	margin-bottom:10px;
+    	margin-bottom:4px;
     	color:#212529;
     }
     .viewcnt{

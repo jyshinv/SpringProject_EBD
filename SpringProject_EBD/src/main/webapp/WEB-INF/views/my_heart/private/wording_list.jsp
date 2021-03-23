@@ -235,6 +235,7 @@
 				<%isCheck++; %><!-- 바깥 for문 빠져나가기 전에 isCheck증가시키기 -->
 				<br />
 			</c:forEach><!-- 바깥 for문 -->
+	</div><!-- div wordingList -->
 </div><!-- div container -->
 <div class="back-drop">
 	<!-- cpath/ 에서 '/'는 webapp을 의미한다. 웹앱 폴더의 svg폴더 안에 spinner-solid.svg가 들어있다.  -->

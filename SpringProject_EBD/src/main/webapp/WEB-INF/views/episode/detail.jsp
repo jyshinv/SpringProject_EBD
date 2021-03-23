@@ -7,7 +7,12 @@
 <meta charset="UTF-8">
 <title>episode/detail.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
+
 <style>
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	/* 댓글 css */
 	/* 글 내용을 출력할 div 에 적용할 css */
 	.contents{
@@ -125,10 +130,18 @@
 	/*하트의 크기와 색을 조절*/
 	.heart-link,
 	.heart-link:hover{
-		font-size : 2em;
+		font-size : 1.6em;
 		color: red;
 		text-decoration: none;
 	}
+	
+	.heart-link-logout{
+   		font-size : 1.6em;
+   		color:grey;
+   	}
+   	.heart-cnt-logout{
+   		color:grey;
+   	}
 	
 	/* 프로필 이미지를 작은 원형으로 만든다 */
 	#profileImage{
@@ -240,8 +253,8 @@
 			<div class="row">
 				<div class="col text-left">
 					<c:if test="${empty id }">
-						<span>♥</span>
-						<span class="heart-cnt">${heartcnt }</span>
+						<span class="heart-link-logout">♥</span>
+						<span class="heart-cnt heart-cnt-logout">${heartcnt }</span>
 					</c:if>
 					<!-- 로그인을 해야지만 하트를 누를 수 있다. -->
 					<c:if test="${not empty nick }">
@@ -257,12 +270,12 @@
 						<!-- 작성자와 닉네임이 같으면 수정과 삭제를 출력 -->
 						<c:if test="${dataDto.writer eq nick }">
 					    	<a href="private/updateform.do?num=${dataDto.num }">
-						 		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+						 		<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
 								  <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
 								</svg>
 				 			</a>
 							<a href="private/delete.do?num=${dataDto.num }">
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+								<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
 								  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
 								  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
 								</svg>
