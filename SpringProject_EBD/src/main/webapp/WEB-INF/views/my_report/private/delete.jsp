@@ -9,7 +9,7 @@
 </head>
 <body>
 <script>
-	alert("독후감을 삭제 했습니다.");
+	alert("게시글이 삭제 되었습니다.");
 	location.href="${pageContext.request.contextPath }/my_report/private/list.do";
 </script>
 </body>

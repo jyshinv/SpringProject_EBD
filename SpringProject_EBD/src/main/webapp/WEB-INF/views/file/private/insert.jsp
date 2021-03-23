@@ -8,7 +8,7 @@
 </head>
 <body>
 <script>
-	alert("업로드 완료!");
+	alert("게시글이 등록 되었습니다.");
 	location.href="${pageContext.request.contextPath}/file/list.do";
 </script>
 </body>

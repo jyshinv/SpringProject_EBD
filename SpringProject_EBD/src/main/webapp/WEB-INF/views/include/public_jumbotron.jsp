@@ -24,8 +24,8 @@
   			<td>
   				<h1 class="display-4">
   					<b>
-	  					Sharing <br/>
-	  					a Book Report
+	  					Share <br/>
+	  				    Your Book Report !
   					</b>
   				</h1>
    		 		<p class="lead">

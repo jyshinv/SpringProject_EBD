@@ -9,7 +9,7 @@
 </head>
 <body>
 <script>
-	alert("입력 완료");
+	alert("게시글이 등록 되었습니다.");
 	//episode의 list로 이동
 	location.href="${pageContext.request.contextPath }/episode/list.do";
 </script>

@@ -38,12 +38,11 @@
   		<tr>
   			<td>
    		 		<h1 class="display-4">
-  					Books Episode
+  					Write Your <br />
+  					Book Day !
   				</h1>
    		 		<p class="lead">
-   		 			아직 읽지 않은 책은 숨겨진 보물 입니다 <br />
-   		 			북스북스 회원들이 내놓은 보물, <br />
-   		 			지금 만나 보세요!
+   		 			오늘 당신이 겪은 책과 관련된 재미있는 경험을 공유해주세요.
    		 		</p>
    		 		<button type="btn" class="btn"><a href="private/uploadform.do">에피소드 작성</a></button>
   			</td>

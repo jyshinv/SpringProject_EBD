@@ -47,8 +47,8 @@
   					Share it with us !
   				</h1>
    		 		<p class="lead">
-   		 			매일 책을 읽는다면 당신의 하루는 어떻게 달라질까요?<br />
-   		 			이곳에서 일상이 책이 되는 순간을 경험해 보세요.
+   		 			당신이 만든 독후감 양식을 회원들과 공유하고 <br />
+   		 			나눔의 기쁨을 느껴보세요.
    		 		</p>
    		 		<p>
 					<a href="${pageContext.request.contextPath }/file/private/insertform.do" class="btn">

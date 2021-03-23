@@ -9,7 +9,7 @@
 <body>
 <!-- 글 삭제 알림 -->
 <script>
-	alert("삭제 완료");
+	alert("게시글이 삭제 되었습니다.");
 	location.href="${pageContext.request.contextPath }/market/list.do";
 </script>
 </body>
