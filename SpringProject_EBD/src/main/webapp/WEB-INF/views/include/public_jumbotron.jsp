@@ -33,7 +33,7 @@
    		 		</p>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_public.svg" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_episode.svg" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>

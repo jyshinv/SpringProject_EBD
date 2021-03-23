@@ -9,17 +9,31 @@
 <style>
    *{
       font-family: 'Gothic A1', sans-serif;
-   }
-	
+    }
 	.jumbotronImg{
-		width: 400px;
-		height: 400px;
+		width: 350px;
+		height: 350px;
 		margin-left: 50px;
 	}
 	.jumbotron_table{
 		margin-left:100px;
 	}
 	
+	/*버튼 기본 노랑*/
+    .btn {
+    	background-color:#F7DC6F;
+    }
+    
+    /*버튼 호버시 연한 노랑*/
+    .btn:hover{
+    	background-color:#FBEEE6;
+    }
+    
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn>a{
+    	color:#212529;
+    	text-decoration: none;
+    }
 </style>
 
 <%-- file jumbotron --%>
@@ -37,14 +51,13 @@
    		 			이곳에서 일상이 책이 되는 순간을 경험해 보세요.
    		 		</p>
    		 		<p>
-					<a href="${pageContext.request.contextPath }/file/private/insertform.do" 
-						class="btn btn-light" style="background-color:#F7DC6F;">
+					<a href="${pageContext.request.contextPath }/file/private/insertform.do" class="btn">
 						양식 공유 하러가기
 					</a>
    		 		</p>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_img4.svg" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_myreport.svg" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>

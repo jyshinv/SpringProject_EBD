@@ -18,8 +18,9 @@
 		margin-top:16px;
 	}
 	h4{
-		color: #DC7633;
+		color: #4F708B;
 		text-align: center;
+		font-weight:bold;
 	}
 	/*요소를 가운대로*/
 	.center{
@@ -68,10 +69,23 @@
    		padding:10px;
    		margin-top: 10px;
    }
+   #badge-color{
+   
+   	background-color:#6DB286;
+   }
    .center-2{
 		text-align: center;
 		margin-top: 5px;
 	}
+	
+	.best{
+		animation: motion 0.4s linear 0s infinite alternate; margin-left: 0;
+	}
+	
+	@keyframes motion {
+		   0% {margin-left: 0px;}
+		   100% {margin-left: 15px;}
+		}
 	
 </style>
 </head>
@@ -108,8 +122,8 @@
 					</c:when>
 					<c:otherwise>
 						 <div class="col-lg-4 text-center">
-						 	<p>
-								<span class="badge badge-pill badge-secondary badge-size" style="background-color:#DC7633;">
+						 	<p class="best">
+								<span class="badge badge-pill badge-secondary badge-size" id="badge-color">
 								BEST ${i+1 }</span>
 							</p>
 					      	<p>♥ ${wordingBestList[i].heartcnt }</p>
@@ -154,8 +168,8 @@
 			  	</c:when>
 			  	<c:otherwise>
 					<div class="card">	
-						<p class="center-2">
-							<span class="badge badge-pill badge-secondary badge-size" style="background-color:#DC7633;">
+						<p class="center-2 best">
+							<span class="badge badge-pill badge-secondary badge-size" id="badge-color">
 							BEST ${i+1 }</span>
 						</p>
 						<!-- 이미지 클릭하면 이동 -->
@@ -201,8 +215,8 @@
 						<li class="list-group-item">아직 준비되지 않았어요! 여러분들의 참여를 부탁드립니다~</li>	
 					</c:when>
 					<c:otherwise>						
-					    <p>
-							<span class="badge badge-pill badge-secondary badge-size" style="background-color:#DC7633;">
+					    <p class="best">
+							<span class="badge badge-pill badge-secondary badge-size" id="badge-color">
 							BEST ${i+1 }</span>
 						</p>
 					    <li class="list-group-item">
@@ -259,8 +273,8 @@
 				 </c:when>
 				 <c:otherwise>
 				 	 <div class="card">
-				 	 	<p class="center-2">
-							<span class="badge badge-pill badge-secondary badge-size" style="background-color:#DC7633;">
+				 	 	<p class="center-2 best">
+							<span class="badge badge-pill badge-secondary badge-size" id="badge-color">
 							BEST ${i+1 }</span>
 						</p>
 				 	 	<!-- 이미지 클릭하면 이동 -->
@@ -319,8 +333,8 @@
 				</c:when>
 				<c:otherwise>
 					<div class="card">
-						<p class="center-2">
-							<span class="badge badge-pill badge-secondary badge-size" style="background-color:#DC7633;">
+						<p class="center-2 best">
+							<span class="badge badge-pill badge-secondary badge-size" id="badge-color">
 							BEST ${i+1 }</span>
 						</p>
 						<!-- 이미지 클릭하면 이동 -->

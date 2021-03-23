@@ -3,14 +3,37 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
-	.btn-border{
+	.btn-login{
 		border:none;
-		
+		background-color:#F7DC6F; 
+		border-radius:20px;
 	}
-	.round{
-	 	
-	 	
+	
+    /*버튼 호버시 연한 노랑*/
+    .btn-login:hover{
+    	background-color:#FBEEE6;
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    .btn-login>a{
+    	color:#212529;
+    	text-decoration: none;
+    }
+    
+   	#btn-signup{
+		border:none;
+		background-color:#AECA9F;
+		border-radius:20px;
 	}
+    /*버튼 호버시 연한 노랑*/
+    #btn-signup:hover{
+    	background-color:#FBEEE6;
+    }
+    /*버튼안에 링크 걸려있을시 적용할 css*/
+    #btn-signup>a{
+    	color:#212529;
+    	text-decoration: none;
+    }
+    
 </style>
 <nav class="navbar navbar-light navbar-expand-sm fixed-top" style="background-color: #FEF9E7;" >
 	<div class="container-fluid">
@@ -64,9 +87,9 @@
 			<c:choose>
 				<%--session scope에 로그인 된 아이디가 있는지 찾아본다.--%>
 				<c:when test="${empty sessionScope.id }">
-					<a class="btn btn-light btn-sm btn-border" style=" background-color:#F7DC6F; border-radius:20px;"
+					<a class="btn btn-login"
 					href="${pageContext.request.contextPath }/users/loginform.do">로그인</a>
-					<a class="btn btn-secondary btn-sm ml-1 btn-border" style="background-color:#AF601A; border-radius:20px;"
+					<a class="btn" id="btn-signup"
 					href="${pageContext.request.contextPath }/users/signupform.do">회원가입</a>
 				</c:when>
 				

@@ -38,7 +38,7 @@
   		<tr>
   			<td>
    		 		<h1 class="display-4">
-  					Books Books Episode
+  					Books Episode
   				</h1>
    		 		<p class="lead">
    		 			아직 읽지 않은 책은 숨겨진 보물 입니다 <br />
@@ -48,7 +48,7 @@
    		 		<button type="btn" class="btn"><a href="private/uploadform.do">에피소드 작성</a></button>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="https://resource.grapplet.com/marketplace/7176/1591667231081/i.svg.preview.580x870.png" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_signup.svg" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>

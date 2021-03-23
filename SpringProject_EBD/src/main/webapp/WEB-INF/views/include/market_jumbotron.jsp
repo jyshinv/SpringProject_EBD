@@ -19,14 +19,17 @@
 	.jumbotron_table{
 		margin-left: 100px;
 	}
+	
 	/*버튼 기본 노랑*/
     .btn {
-    	background-color:#F7DC6F ;
+    	background-color:#F7DC6F;
     }
+    
     /*버튼 호버시 연한 노랑*/
     .btn:hover{
     	background-color:#FBEEE6;
     }
+    
     /*버튼안에 링크 걸려있을시 적용할 css*/
     .btn>a{
     	color:#212529;
