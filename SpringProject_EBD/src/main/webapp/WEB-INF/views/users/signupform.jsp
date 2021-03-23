@@ -6,11 +6,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EBD 회원가입</title>
+<title>회원가입</title>
+<jsp:include page="../include/resource.jsp"></jsp:include>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
+
 <style>
-	.btn-style{
-		margin-top:30px;
-		margin-bottom:20px;
+	*{
+		font-family: 'Gothic A1', sans-serif;
 	}
 	
 	.form-margin{
