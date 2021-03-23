@@ -49,7 +49,7 @@
 	/* 하트 기본, 호버시 빨갛게 만들어주기 */
 	.heart-link,
 	.heart-link:hover{
-	    font-size : 1.8em;
+	    font-size : 1.4em;
     	color:red;
     	text-decoration: none;
    	}
@@ -102,7 +102,7 @@
     	color:#212529;
     }
     .bi-eye{
-    	margin-bottom:10px;
+    	margin-bottom:5px;
     	color:#212529;
     }
     .viewcnt{
@@ -159,7 +159,7 @@
 						</figure>
 					</div>
 				 	<div class="card-body">
-					    <div class="row">
+					    <div class="row" >
 					    <c:choose>
 			               <c:when test="${empty tmp.profile }">
 			                  <!-- 비어있다면 기본이미지 -->
@@ -173,7 +173,7 @@
 			               </c:otherwise>
 			            </c:choose>
 					    <p id="writer" class="card-text col"><strong>${tmp.writer }</strong></p>
-					    <span class="col text-right">
+					    <span class="col text-right" style="padding-top:8px;">
 					    	<c:if test="${empty id }">
 						    	<span style="margin-right:5px;">
 				                    <c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">
