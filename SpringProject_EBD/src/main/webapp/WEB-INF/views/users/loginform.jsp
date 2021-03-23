@@ -5,9 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EBD 로그인</title>
+<title>로그인</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
+
 <style>
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	/* example 로그인 폼을 만들기 위한 css */
 	html,
 	body {
@@ -90,6 +96,8 @@
 	    </label>
 	</div>
 	<button class="btn btn-lg btn-light btn-block" type="submit" style="background-color:#F7DC6F; border:none;">로그인</button>
+	<a href="${pageContext.request.contextPath }/users/signupform.do" class="btn btn-lg btn-light btn-block" style="background-color:#F7DC6F; border:none;">
+	회원가입</a>
 	<p class="mt-5 mb-3 text-muted">EveryBookDay 2021</p>
 </form>
 </body>

@@ -13,7 +13,7 @@
 	}
 </style>
 <nav class="navbar navbar-light navbar-expand-sm fixed-top" style="background-color: #FEF9E7;" >
-	<div class="container">
+	<div class="container-fluid">
 
 		<%-- 아래 href는 최상위 경로 요청이다. 링크를 클릭하면 최상위 경로 즉, index.jsp로 이동한다. --%>
 	  	<%-- 브랜드 로고 svg --%>
