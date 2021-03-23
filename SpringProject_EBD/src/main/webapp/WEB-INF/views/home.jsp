@@ -22,7 +22,7 @@
 		text-align: center;
 	}
 	/*요소를 가운대로*/
-	#center{
+	.center{
 		text-align: center;
 	}
 
@@ -68,7 +68,7 @@
    		padding:10px;
    		margin-top: 10px;
    }
-   #center-2{
+   .center-2{
 		text-align: center;
 		margin-top: 5px;
 	}
@@ -85,7 +85,7 @@
 <div class="container">
 	<%-- 명언 BEST 제목 --%>
 	<h4>좋아요 TOP 3  책글귀 </h4>
-	<p id="center">북스님들에게 가장 많은 좋아요를 받은 책글귀</p>
+	<p class="center">북스님들에게 가장 많은 좋아요를 받은 책글귀</p>
 	<br />
 	<!-- 명언 BEST 내용 -->
 	<div class="container marketing">
@@ -125,7 +125,7 @@
 		</div>
 	</div>
 	<br />
-	<p id="center">
+	<p class="center">
 		<a class="btn btn-outline-secondary btn-sm" style="border-radius:20px;" href="${pageContext.request.contextPath }/wording/list.do">
 		더 보러가기 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
 		  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
@@ -135,7 +135,7 @@
 	<br /><br /><br />
     <%-- 독후감 BEST 제목 --%>
     <h4>좋아요 TOP 3  독후감</h4>
-	<p id="center">북스님들에게 가장 많은 좋아요를 받은 독후감</p>
+	<p class="center">북스님들에게 가장 많은 좋아요를 받은 독후감</p>
 	<br />
 	<!-- 독후감 BEST3 내용-->
 	<div class="card-deck" >
@@ -154,7 +154,7 @@
 			  	</c:when>
 			  	<c:otherwise>
 					<div class="card">	
-						<p id="center-2">
+						<p class="center-2">
 							<span class="badge badge-pill badge-secondary badge-size" style="background-color:#DC7633;">
 							BEST ${i+1 }</span>
 						</p>
@@ -176,7 +176,7 @@
 		</c:forEach>
 	</div>
 	<br />
-	<p id="center">
+	<p class="center">
 		<a class="btn btn-outline-secondary btn-sm" style="border-radius:20px;" href="${pageContext.request.contextPath }/public_report/list.do">
 		더 보러가기 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
 		  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
@@ -186,11 +186,11 @@
 	<br /><br /><br />
 	<%-- 독후감 양식 BEST 제목 --%>
 	<h4>조회수 TOP 5  독후감 양식 공유</h4>
-	<p id="center" >북스님들에게 가장 높은 조회수를 기록한 독후감 양식</p>
+	<p class="center" >북스님들에게 가장 높은 조회수를 기록한 독후감 양식</p>
 	<!-- 독후감 양식 BEST 내용 -->	
 	<div class="card" style="border:none;">
 		<c:forEach var="i" begin="0" end="4">
-		  	<div class="card-body" style="padding-top: 10px; padding-bottom: 10px;">
+		  	<div class="card-body" style="padding-top: 5px; padding-bottom: 5px;">
 				<!-- 글이 없다면 기본문구를 삽입, 글이 있다면 글을 삽입 -->
 				<c:choose>
 					<c:when test="${empty fileBestList[i] }">
@@ -227,7 +227,7 @@
 		</c:forEach>
 	</div>
 	<br />
-	<p id="center">
+	<p class="center">
 		<a class="btn btn-outline-secondary btn-sm" style="border-radius:20px;" href="${pageContext.request.contextPath }/file/list.do">
 		더 보러가기 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
 		  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
@@ -237,7 +237,7 @@
 	<br /><br /><br />
 	<!-- 도서매물 BEST 제목 -->
 	<h4>최신 TOP 3  도서 매물</h4>
-	<p id="center">북스님들이 갓 올린 따끈따끈한 도서 매물들</p>
+	<p class="center">북스님들이 갓 올린 따끈따끈한 도서 매물들</p>
 	<br />
 	<!-- 도서매물 BEST 내용 -->
 	<div class="card-deck">
@@ -245,7 +245,7 @@
 			 <c:choose>
 				 <c:when test="${empty marketList[i] }">
 				 	<div class="card">
-				 		<p id="center-2">
+				 		<p class="center-2">
 							<span class="badge badge-pill badge-secondary badge-size">
 							BEST ${i+1 }</span>
 						</p>
@@ -259,7 +259,7 @@
 				 </c:when>
 				 <c:otherwise>
 				 	 <div class="card">
-				 	 	<p id="center-2">
+				 	 	<p class="center-2">
 							<span class="badge badge-pill badge-secondary badge-size" style="background-color:#DC7633;">
 							BEST ${i+1 }</span>
 						</p>
@@ -286,7 +286,7 @@
 		</c:forEach>
 	</div>
 	<br />
-	<p id="center">
+	<p class="center">
 		<a class="btn btn-outline-secondary btn-sm" style="border-radius:20px;" href="${pageContext.request.contextPath }/market/list.do">
 		더 보러가기 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
 		  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
@@ -296,7 +296,7 @@
 	<br /><br /><br />
 	<!-- 에피소드 BEST 제목 -->
 	<h4>조회수 TOP 3  에피소드</h4>
-	<p id="center">북스님들에게 가장 높은 조회수를 기록한 에피소드</p>
+	<p class="center">북스님들에게 가장 높은 조회수를 기록한 에피소드</p>
 	<br />
 	<!-- 에피소드 BEST 내용-->
 	<div class="card-deck"> 
@@ -305,7 +305,7 @@
 			<c:choose>
 				<c:when test="${empty episodeBestList[i] }">
 					<div class="card">
-						<p id="center-2">
+						<p class="center-2">
 							<span class="badge badge-pill badge-secondary badge-size">
 							BEST ${i+1 }</span>
 						</p>
@@ -319,7 +319,7 @@
 				</c:when>
 				<c:otherwise>
 					<div class="card">
-						<p id="center-2">
+						<p class="center-2">
 							<span class="badge badge-pill badge-secondary badge-size" style="background-color:#DC7633;">
 							BEST ${i+1 }</span>
 						</p>
@@ -343,7 +343,7 @@
 		</c:forEach>
 	</div>
 	<br />
-	<p id="center">
+	<p class="center">
 		<a class="btn btn-outline-secondary btn-sm" style="border-radius:20px;" href="${pageContext.request.contextPath }/episode/list.do">
 		더 보러가기 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
 		  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zM4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>

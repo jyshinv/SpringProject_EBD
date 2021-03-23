@@ -78,8 +78,8 @@
 					          <img src="${pageContext.request.contextPath}/svg/ebd_icon.svg" width="25" height="25"/><span> ${sessionScope.nick }님</span>
 					        </a>
 					        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					          <a class="dropdown-item" href="${pageContext.request.contextPath }/users/private/info.do">나의 정보</a>
 					          <a class="dropdown-item" href="${pageContext.request.contextPath }/my_report/private/list.do">나의 서재</a>
+					          <a class="dropdown-item" href="${pageContext.request.contextPath }/users/private/info.do">나의 정보</a>
 					          <a class="dropdown-item" href="${pageContext.request.contextPath }/users/logout.do">로그아웃</a>
 					        </div>
 					      </dt>	

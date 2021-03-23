@@ -250,9 +250,11 @@
 			</span>
 		</div>	
 		<!-- 이미지 -->
-		<center class="centerimg">
-			<img src="${pageContext.request.contextPath }${dto.imgpath}" alt="Card image cap">
-		</center>	
+		<div class="marg">
+			<center class="centerimg">
+				<img src="${pageContext.request.contextPath }${dto.imgpath}" alt="파일이미지">
+			</center>	
+		</div>
 		<div class="card-body" >
 			<div class="row">
 				<div class="col text-left">
