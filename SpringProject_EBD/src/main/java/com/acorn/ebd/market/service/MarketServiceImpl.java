@@ -146,7 +146,18 @@ public class MarketServiceImpl implements MarketService {
 		
 		//글 목록 얻어오기
 		marketList=marketDao.getList(dto);
-	      
+	    
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(MarketDto tmp : marketList) {
+			String filename=tmp.getImgpath().substring(21);
+			System.out.println("리스트 filename"+filename);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgpath("emptyImg");
+			}
+		}
+		
 		//글의 갯수
 		totalRow=marketDao.getCount(dto);
 		
@@ -237,16 +248,16 @@ public class MarketServiceImpl implements MarketService {
 		List<MarketCmtDto> cmtList=cmtDao.getList(cmtDto);
 		
 		//현재 로그인 되어있는 유저의 닉네임 저장
-	      String nick=(String)session.getAttribute("nick");
-	      dto.setNick(nick);
-	      //하트 정보를 저장할 변수 heart
-	      boolean isheartclick=false;
-	      if(nick != null) { //닉네임이 null이 아닐때만 getHeartInfoDatail을 호출 null일 경우 전달하는 파라메터가 null이라는 오류를 낸다.
-	         isheartclick = marketDao.getHeartInfoDetail(dto); //해당 닉네임이 하트를 클릭했으면 target_num이 return되고, 그게 아니면 아무것도 리턴하지 않는다.
-	      }
-	      
-	      //하트 개수 정보를 저장할 변수 heartcnt
-	      int heartcnt=marketDao.getHeartCntDetail(dto.getNum());
+        String nick=(String)session.getAttribute("nick");
+        dto.setNick(nick);
+        //하트 정보를 저장할 변수 heart
+        boolean isheartclick=false;
+        if(nick != null) { //닉네임이 null이 아닐때만 getHeartInfoDatail을 호출 null일 경우 전달하는 파라메터가 null이라는 오류를 낸다.
+          isheartclick = marketDao.getHeartInfoDetail(dto); //해당 닉네임이 하트를 클릭했으면 target_num이 return되고, 그게 아니면 아무것도 리턴하지 않는다.
+        }
+      
+        //하트 개수 정보를 저장할 변수 heartcnt
+        int heartcnt=marketDao.getHeartCntDetail(dto.getNum());
 		
 		//ModelAndView 객체에 댓글 목록도 담아준다.
 		mview.addObject("cmtList", cmtList);
@@ -518,7 +529,18 @@ public class MarketServiceImpl implements MarketService {
 		
 		//글 목록 얻어오기
 		marketList=marketDao.getMyList(dto);
-	      
+	     
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(MarketDto tmp : marketList) {
+			String filename=tmp.getImgpath().substring(21);
+			System.out.println("리스트 filename"+filename);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgpath("emptyImg");
+			}
+		}
+				
 		//글의 갯수
 		totalRow=marketDao.getMyCount(dto);
 		
@@ -587,7 +609,18 @@ public class MarketServiceImpl implements MarketService {
 		
 		//글 목록 얻어오기
 		marketList=marketDao.getMyHeartList(dto);
-	      
+	    
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(MarketDto tmp : marketList) {
+			String filename=tmp.getImgpath().substring(21);
+			System.out.println("리스트 filename"+filename);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgpath("emptyImg");
+			}
+		}
+		
 		//글의 갯수
 		totalRow=marketDao.getMyHeartCount(dto);
 		

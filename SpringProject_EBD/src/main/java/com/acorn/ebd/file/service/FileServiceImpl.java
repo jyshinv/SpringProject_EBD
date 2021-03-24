@@ -17,6 +17,7 @@ import com.acorn.ebd.file.dao.FileCmtDao;
 import com.acorn.ebd.file.dao.FileDao;
 import com.acorn.ebd.file.dto.FileCmtDto;
 import com.acorn.ebd.file.dto.FileDto;
+import com.acorn.ebd.market.dto.MarketDto;
 
 @Service
 public class FileServiceImpl implements FileService{
@@ -79,6 +80,7 @@ public class FileServiceImpl implements FileService{
 		
 		//파일 목록 얻어오기
 		list=fdao.getList(dto);
+		
 		//전체 row 의 갯수 
 		totalRow=fdao.getCount(dto);
 		
@@ -576,6 +578,7 @@ public class FileServiceImpl implements FileService{
 		
 		//파일 목록 얻어오기
 		list=fdao.getMyList(dto);
+		
 		//전체 row 의 갯수 
 		totalRow=fdao.getMyCount(dto);
 		
@@ -604,6 +607,7 @@ public class FileServiceImpl implements FileService{
 		
 	}
 
+	// 내가 누른 하트 리스트 
 	@Override
 	public void getMyHeartList(ModelAndView mView, HttpServletRequest request) {
 		//한 페이지에 나타낼 row 의 갯수
@@ -626,7 +630,6 @@ public class FileServiceImpl implements FileService{
 		//보여줄 페이지의 끝 ROWNUM
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
 		
-		
 		//검색 키워드와 startRowNum, endRowNum 을 담을 FileDto 객체 생성
 		FileDto dto=new FileDto();
 		//dto에서 가져오고
@@ -635,6 +638,7 @@ public class FileServiceImpl implements FileService{
 		
 		//ArrayList 객체의 참조값을 담을 지역변수를 미리 만든다.
 		List<FileDto> list=null;
+		
 		//전체 row 의 갯수를 담을 지역변수를 미리 만든다.
 		int totalRow=0;
 		

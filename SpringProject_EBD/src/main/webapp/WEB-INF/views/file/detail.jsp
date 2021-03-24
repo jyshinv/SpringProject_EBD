@@ -258,9 +258,17 @@
 		</div>	
 		<!-- 이미지 -->
 		<div class="marg">
+			<!-- 이미지 -->
 			<center class="centerimg">
-				<img src="${pageContext.request.contextPath }${dto.imgpath}" alt="파일이미지">
-			</center>	
+				<c:choose>
+					<c:when test="${filename eq ''}">
+						<img src="${pageContext.request.contextPath}/resources/images/ebd_emptyimg.jpg" alt="EBD기본이미지">
+					</c:when>
+					<c:otherwise>
+						<img src="${pageContext.request.contextPath }${dto.imgpath}" alt="북스마켓 이미지">
+					</c:otherwise>
+				</c:choose>
+			</center>
 		</div>
 		<div class="card-body" >
 			<div class="row">
