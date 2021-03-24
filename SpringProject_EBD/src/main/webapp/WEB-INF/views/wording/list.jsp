@@ -123,8 +123,8 @@
 		<div class="row justify-content-md-center" id="search">
 			<div class="col-2">
 				<select class="form-control" name="condition" id="condition">
-					<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
-					<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
+					<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>책제목+내용</option>
+					<option value="title" ${condition eq 'title' ? 'selected' : '' }>책제목</option>
 					<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
 				</select>
 			</div>

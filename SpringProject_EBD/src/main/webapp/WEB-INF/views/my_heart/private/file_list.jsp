@@ -135,8 +135,16 @@
 							    	</span>
 								</div>
 							    <div class="col-md-6">
-							    	<a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;">
-										<strong>${tmp.title }</strong></a>
+							    	<c:choose>
+							    		<c:when test="${empty tmp.title }">
+									    	<a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;">
+												<strong>제목없음</strong></a>
+							    		</c:when>
+							    		<c:otherwise>
+									    	<a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;">
+												<strong>${tmp.title }</strong></a>
+							    		</c:otherwise>
+							    	</c:choose>
 							    </div>
 							    <div class="col text-right">
 							    	<!-- 프로필 이미지 -->

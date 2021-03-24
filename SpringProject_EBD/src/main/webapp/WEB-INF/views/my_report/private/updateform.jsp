@@ -112,7 +112,7 @@
 				<label for="image" class="col-form-label">이미지 첨부</label>
 			</div >
 			<div class="col-8" style="padding-right:0px;">
-				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" />
+				<input class="form-control" type="text" id="fileName" placeholder="이미지를 첨부해주세요" value="${filename }" disabled/>
 			</div >
 			<div class="col" style="padding-left:5px;">
 				<label for="image" class="btn btn-file" style="margin-bottom:0px;">파일수정

@@ -88,7 +88,7 @@
 	 			첨부 파일
 	 		</div>
 	 		<div class="col-8" style="padding-right:0px;">
-	 			<input class="form-control" type="text" id="fileName2" placeholder="파일을 첨부해주세요" />
+	 			<input class="form-control" type="text" id="fileName2" placeholder="파일을 첨부해주세요" disabled/>
 	 			<small class="text-muted">공유할 독후감 양식파일을 넣어주세요.</small>
 	 		</div>
 	 		<div class="col" style="padding-left:5px;">
