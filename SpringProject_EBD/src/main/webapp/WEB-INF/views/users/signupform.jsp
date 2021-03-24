@@ -235,9 +235,12 @@
 			$("#birth_day").addClass("is-invalid");
 			isBirthValid=false;
 			return;
+		}else{
+			//검사가 true이면 isBirthValid를 true로 바꾸고 검증 클래스를 추가한다.
+			$("#birth_day").addClass("is-valid");
+			isBirthValid=true;
 		}
 		
-		isBirthValid=true;
         
 		 
 		
