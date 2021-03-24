@@ -125,7 +125,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
 		for(EpisodeDto tmp : list) {
 			String filename=tmp.getImgPath().substring(21);
-			System.out.println("리스트 filename"+filename);
+			//System.out.println("리스트 filename"+filename);
 			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
 			if(filename.equals("")) {
 				tmp.setImgPath("emptyImg");
@@ -229,7 +229,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		
 		//수정폼에서 저장한 이미지의 오리지널 파일명을 불러오기 위해 문자열을 자른다.
 		String filename=dataDto.getImgPath().substring(21);
-		System.out.println("filename은"+	filename);
+		//System.out.println("filename은"+	filename);
 		
 		
 		/*아래는 댓글 펭징 처리 관련 비즈니스 로직 입니다.*/
@@ -286,7 +286,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 			
 			// imgPath 는 /upload/~~ 로 저장되어있으므로 앞에 /upload/를 잘라준다. 
 			String filename=dto.getImgPath().substring(8);
-			System.out.println("filename2는"+filename);
+			//System.out.println("filename2는"+filename);
 			//기존의 파일은 파일시스템에서 삭제해준다.
 			String path=request.getServletContext().getRealPath("/upload")+File.separator+filename;
 			System.out.println("path="+path);
@@ -485,7 +485,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
 		for(EpisodeDto tmp : list) {
 			String filename=tmp.getImgPath().substring(21);
-			System.out.println("리스트 filename"+filename);
+			//System.out.println("리스트 filename"+filename);
 			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
 			if(filename.equals("")) {
 				tmp.setImgPath("emptyImg");
@@ -559,7 +559,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
 		for(EpisodeDto tmp : list) {
 			String filename=tmp.getImgPath().substring(21);
-			System.out.println("리스트 filename"+filename);
+			//System.out.println("리스트 filename"+filename);
 			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
 			if(filename.equals("")) {
 				tmp.setImgPath("emptyImg");

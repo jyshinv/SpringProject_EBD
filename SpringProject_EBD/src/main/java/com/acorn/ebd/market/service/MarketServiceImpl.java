@@ -151,7 +151,7 @@ public class MarketServiceImpl implements MarketService {
 		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
 		for(MarketDto tmp : marketList) {
 			String filename=tmp.getImgpath().substring(21);
-			System.out.println("리스트 filename"+filename);
+			//System.out.println("리스트 filename"+filename);
 			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
 			if(filename.equals("")) {
 				tmp.setImgpath("emptyImg");
@@ -364,7 +364,7 @@ public class MarketServiceImpl implements MarketService {
 		String cmt_group=request.getParameter("cmt_group");
 		
 		int cmtSeq=cmtDao.getSeq(); //새 댓글의 글 번호를 미리 얻어낸다
-		System.out.println("seq의번호는"+cmtSeq);
+		//System.out.println("seq의번호는"+cmtSeq);
 		
 		//새댓글의 정보를 dto에 담기
 		MarketCmtDto dto=new MarketCmtDto();
@@ -374,12 +374,12 @@ public class MarketServiceImpl implements MarketService {
 		dto.setContent(content);
 		dto.setRef_group(ref_group);
 		
-		System.out.println("널나와라!!!!"+cmt_group);
+		//System.out.println("널나와라!!!!"+cmt_group);
 		if(cmt_group == null) {
 			// 댓글의 글 번호와 cmt_group 번호를 같게 한다 
 			dto.setCmt_group(cmtSeq);
-			System.out.println("글번호num : "+dto.getNum());
-			System.out.println("글번호num2 : "+dto.getCmt_group());
+			//System.out.println("글번호num : "+dto.getNum());
+			//System.out.println("글번호num2 : "+dto.getCmt_group());
 		}else {//댓글의 댓글이라면
 			// 폼 전송된 cmt_group 번호를 숫자로 바꿔서 dto에 담아준다.
 			dto.setCmt_group(Integer.parseInt(cmt_group));
@@ -534,7 +534,7 @@ public class MarketServiceImpl implements MarketService {
 		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
 		for(MarketDto tmp : marketList) {
 			String filename=tmp.getImgpath().substring(21);
-			System.out.println("리스트 filename"+filename);
+			//System.out.println("리스트 filename"+filename);
 			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
 			if(filename.equals("")) {
 				tmp.setImgpath("emptyImg");
@@ -614,7 +614,7 @@ public class MarketServiceImpl implements MarketService {
 		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
 		for(MarketDto tmp : marketList) {
 			String filename=tmp.getImgpath().substring(21);
-			System.out.println("리스트 filename"+filename);
+			//System.out.println("리스트 filename"+filename);
 			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
 			if(filename.equals("")) {
 				tmp.setImgpath("emptyImg");
