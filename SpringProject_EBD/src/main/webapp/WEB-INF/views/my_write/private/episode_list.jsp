@@ -151,7 +151,7 @@
 							<a href="${pageContext.request.contextPath }/episode/detail.do?num=${tmp.num }">
 								<c:choose>
 									<c:when test="${tmp.imgPath eq 'emptyImg' }">
-										<img class="card-img-top img-wrapper" id="img" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" />
+										<img class="card-img-top img-wrapper" id="img" src="${pageContext.request.contextPath}/resources/images/ebd_emptyimg.jpg" alt="EBD기본이미지" />
 									</c:when>
 									<c:otherwise>
 										<img class="card-img-top img-wrapper" id="img" src="${pageContext.request.contextPath }${tmp.imgPath}" />

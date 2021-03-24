@@ -185,7 +185,6 @@
 												<img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
 											</c:otherwise>
 										</c:choose>
-	
 									</p>
 									<!-- 닉네임  -->
 									<p id="writer"><strong>${tmp.writer }</strong></p>
