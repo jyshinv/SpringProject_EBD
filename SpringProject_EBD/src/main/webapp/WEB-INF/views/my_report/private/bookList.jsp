@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/my_report/private/bookList.jsp</title>
+<title>도서 검색</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 </head>
 <style>

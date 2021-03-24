@@ -16,7 +16,6 @@
 	#profileImage{
 		width: 200px;
 		height: 200px;
-		border: 1px solid #cecece;
 		border-radius: 50%;
 	}
 	

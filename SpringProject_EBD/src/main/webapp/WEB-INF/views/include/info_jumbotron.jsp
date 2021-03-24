@@ -19,7 +19,6 @@
 	  				${sessionScope.nick}님 개인 공간
   				</h1>
    		 		<p class="lead">
-   		 			Every Day Book Day <br />
    		 			나의 정보를 확인 할 수 있는 공간입니다.
    		 		</p>
   			</td>

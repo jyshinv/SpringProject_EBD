@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>북스마켓</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	/*전체 페이지 폰트 적용*/
@@ -132,10 +132,10 @@
 		<div class="row justify-content-md-center" style="margin:10px;">
 			<div class="col-8">
 				<select class="form-control" name="condition" id="condition">
-					<option value="wording">명언/글귀</option>
+					<option value="wording">조각글</option>
 					<option value="episode">에피소드</option>
-					<option value="market" selected>마켓</option>
-					<option value="file">파일</option>
+					<option value="market" selected>북스마켓</option>
+					<option value="file">북클라우드</option>
 				</select>
 			</div>
 			<span>

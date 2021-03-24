@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/file/detail.jsp</title>
+<title>${dto.title }</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	/*전체 페이지 폰트 적용*/

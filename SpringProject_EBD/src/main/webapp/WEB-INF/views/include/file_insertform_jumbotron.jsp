@@ -17,6 +17,8 @@
         <img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd2.svg" alt="대문이미지" />
      </div>
      <br />
-     <p class="lead">북스북스 회원들과 내가 만든 양식을 나누고, 공유하고 </p>
+     <p class="lead">
+     	오늘은 무엇을 회원님들에게 공유해주시나요?
+     </p>
   </div>
 </div>

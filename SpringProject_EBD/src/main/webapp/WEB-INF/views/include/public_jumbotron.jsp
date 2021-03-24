@@ -22,6 +22,10 @@
    		 		<p class="lead">
    		 			당신이 경험한 새로운 세계를 다른 사람들과 공유해보세요.
    		 		</p>
+   		 		<p>
+					<a href="${pageContext.request.contextPath }/my_report/private/list.do" class="btn">
+						나의 서재 입장하기</a>
+   		 		</p>
   			</td>
   			<td>
   				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_report.svg" alt="대문이미지" />

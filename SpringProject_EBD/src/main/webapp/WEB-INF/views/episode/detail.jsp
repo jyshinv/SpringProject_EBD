@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>episode/detail.jsp</title>
+<title>${dataDto.title }</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
 	*{

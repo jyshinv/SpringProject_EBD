@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/my_report/private/detail.jsp</title>
+<title>${dto.title }</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
    *{

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>책 검색결과입니다.</title>
+<title>도서 검색</title>
 <jsp:include page="include/resource.jsp"></jsp:include>
 </head>
 <style>
