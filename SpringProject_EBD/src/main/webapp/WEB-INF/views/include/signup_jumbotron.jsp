@@ -11,7 +11,7 @@
 <div class="jumbotron jumbotron-fluid" style="background-color: #FEF9E7;">
 	<div class="container text-center">
 		<div>
-			<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_img3.svg" alt="대문이미지" />
+			<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_signup1.svg" alt="대문이미지" />
   		</div>
   		<br />
     	<h1 class="display-4">
