@@ -331,7 +331,7 @@
 		</svg>
 		<small>
 			<span class="cmt-small">
-				Every Book Day는 선한 댓글 문화를 지향합니다.
+				말도 아름다운 꽃처럼 그 색깔을 지니고 있다. - E.리스
 			</span>
 		</small>
 	</div>

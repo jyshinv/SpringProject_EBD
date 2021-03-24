@@ -150,6 +150,17 @@ public class ReportServiceImpl implements ReportService{
 		
 		list=dao.getList(dto);
 		
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(ReportDto tmp : list) {
+			String filename=tmp.getImgpath().substring(21);
+			System.out.println("리스트 filename"+filename);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgpath("emptyImg");
+			}
+		}
+		
 		//로그인된 아이디의 nick 정보 불러오기
 	    String nick=(String)request.getSession().getAttribute("nick");
 	    dto.setNick(nick);
@@ -286,6 +297,17 @@ public class ReportServiceImpl implements ReportService{
 		list=dao.getPublicList(dto);
 		//글의 갯수
 		totalRow=dao.getCount(dto);
+		
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(ReportDto tmp : list) {
+			String filename=tmp.getImgpath().substring(21);
+			System.out.println("리스트 filename"+filename);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgpath("emptyImg");
+			}
+		}
 		
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
@@ -616,6 +638,17 @@ public class ReportServiceImpl implements ReportService{
 		list=dao.getMyHeartPublicList(dto);
 		//글의 갯수
 		totalRow=dao.getMyHeartCount(dto);
+		
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(ReportDto tmp : list) {
+			String filename=tmp.getImgpath().substring(21);
+			System.out.println("리스트 filename"+filename);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgpath("emptyImg");
+			}
+		}
 		
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;

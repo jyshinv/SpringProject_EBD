@@ -135,13 +135,26 @@
 		<c:forEach var="tmp" items="${requestScope.list }">
 			<div class="col" style="margin-bottom: 15px;">
 				<div class="card" style="width: 18rem;">
-					<div style="height:255px;">
-						<figure>
-							<a href="${pageContext.request.contextPath}/public_report/detail.do?num=${tmp.num}">
-								<img id="img" src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" >
-							</a>
-						</figure>
-					</div>
+					<c:choose>
+						<c:when test="${tmp.imgpath eq 'emptyImg' }">
+							<div style="height:255px;">
+								<figure>
+									<a href="${pageContext.request.contextPath}/public_report/detail.do?num=${tmp.num}">
+										<img id="img" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" class="card-img-top img-wrapper" >
+									</a>
+								</figure>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div style="height:255px;">
+								<figure>
+									<a href="${pageContext.request.contextPath}/public_report/detail.do?num=${tmp.num}">
+										<img id="img" src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" >
+									</a>
+								</figure>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				 	<div class="card-body">
 					    <div class="row">
 					    <c:choose>

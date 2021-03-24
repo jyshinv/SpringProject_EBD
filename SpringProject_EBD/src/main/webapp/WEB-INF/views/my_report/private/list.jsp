@@ -248,17 +248,34 @@
 		<c:if test="${nick eq tmp.writer }">
 			<div class="col" style="margin-bottom:15px;">
 				<div class="card" style="width: 18rem;">
-					<div style="height:255px;">
-						<figure class="snip1273 hover">
-							<img src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" id="img"/>
-							<a href="${pageContext.request.contextPath}/my_report/private/detail.do?num=${tmp.num }">
-								<figcaption class=" card-img-top img-wrapper" style="height:240px;">
-									<!-- <h5 class="card-title">${tmp.booktitle }</h5> -->							
-									<MARQUEE behavior="scroll" class="card-title">${tmp.booktitle }</MARQUEE>
-								</figcaption>							
-							</a>
-						</figure>
-					</div>
+					<c:choose>
+						<c:when test="${tmp.imgpath eq 'emptyImg' }">
+							<div style="height:255px;">
+								<figure class="snip1273 hover">
+									<img src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" class="card-img-top img-wrapper" id="img"/>
+									<a href="${pageContext.request.contextPath}/my_report/private/detail.do?num=${tmp.num }">
+										<figcaption class=" card-img-top img-wrapper" style="height:240px;">
+											<!-- <h5 class="card-title">${tmp.booktitle }</h5> -->							
+											<MARQUEE behavior="scroll" class="card-title">${tmp.booktitle }</MARQUEE>
+										</figcaption>							
+									</a>
+								</figure>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div style="height:255px;">
+								<figure class="snip1273 hover">
+									<img src="${pageContext.request.contextPath }${tmp.imgpath}" class="card-img-top img-wrapper" id="img"/>
+									<a href="${pageContext.request.contextPath}/my_report/private/detail.do?num=${tmp.num }">
+										<figcaption class=" card-img-top img-wrapper" style="height:240px;">
+											<!-- <h5 class="card-title">${tmp.booktitle }</h5> -->							
+											<MARQUEE behavior="scroll" class="card-title">${tmp.booktitle }</MARQUEE>
+										</figcaption>							
+									</a>
+								</figure>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</c:if>

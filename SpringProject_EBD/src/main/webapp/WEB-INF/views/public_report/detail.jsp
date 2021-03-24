@@ -239,6 +239,14 @@
 		</div>
 		<div class="marg">
 			<center class="centerimg">
+				<c:choose>
+					<c:when test="${filename eq '' }">
+						<img src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg"/>
+					</c:when>
+					<c:otherwise>
+						<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
+					</c:otherwise>
+				</c:choose>
 				<img src="${pageContext.request.contextPath }${dto.imgpath }"/>
 			</center>
 		</div>
@@ -342,8 +350,8 @@
 		</svg>
 		<small>
 			<span class="cmt-small">
-				Every Book Day는 선한 댓글 문화를 지향합니다.
-			</span>
+				말도 아름다운 꽃처럼 그 색깔을 지니고 있다. - E.리스
+			</span class="cmt-small">
 		</small>
 	</div>
 	<hr/>
