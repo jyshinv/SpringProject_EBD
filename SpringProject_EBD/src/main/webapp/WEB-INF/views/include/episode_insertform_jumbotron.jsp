@@ -16,6 +16,8 @@
   		<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd3.svg" alt="대문이미지" />
   	</div>
   	<br />
-    <p class="lead">오늘은 어떤 이야기를 들려주고 싶은가요?</p>
+    <p class="lead">
+    	오늘은 어떤 이야기를 들려주고 싶은가요?
+    </p>
   </div>
 </div>

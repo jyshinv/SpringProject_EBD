@@ -349,8 +349,8 @@
 	      objectType: 'text',
 	      text: msg,
 	      link: {
-	        mobileWebUrl: 'https://developers.kakao.com/docs/js/kakaotalklink#텍스트-템플릿-보내기',
-	        webUrl: 'https://developers.kakao.com/docs/js/kakaotalklink#텍스트-템플릿-보내기',
+	        mobileWebUrl: 'https://book.naver.com/',
+	        webUrl: 'https://book.naver.com/',
 	      },
 	    })
 		 

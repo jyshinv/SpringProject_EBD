@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>에피소드</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <jsp:include page="../include/episode_jumbotron.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath }/resources/js/imgLiquid.js"></script>

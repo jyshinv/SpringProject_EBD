@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/my_report/private/detail.jsp</title>
+<title>${dto.title }</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
    *{
@@ -137,7 +137,7 @@
 			<center class="centerimg">
 				<c:choose>
 					<c:when test="${filename eq '' }">
-						<img src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg"/>
+						<img src="${pageContext.request.contextPath}/resources/images/ebd_emptyimg.jpg" alt="EBD기본이미지"/>
 					</c:when>
 					<c:otherwise>
 						<img src="${pageContext.request.contextPath }${dto.imgpath }"/>

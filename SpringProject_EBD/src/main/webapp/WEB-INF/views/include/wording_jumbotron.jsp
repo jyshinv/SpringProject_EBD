@@ -37,7 +37,7 @@
   			<td>
    		 		<h1 class="display-4">
   					Jump <br /> 
-  					In to the Book !
+  					Into the Book !
   				</h1>
    		 		<p class="lead">
    		 			당신이 오늘, <br />
@@ -45,7 +45,7 @@
    		 		</p>	
    		 		<p>
 					<a href="${pageContext.request.contextPath }/wording/private/insertform.do" class="btn">
-						책 명언/글귀 작성</a>
+						조각글 작성</a>
    		 		</p>
   			</td>
   			<td>

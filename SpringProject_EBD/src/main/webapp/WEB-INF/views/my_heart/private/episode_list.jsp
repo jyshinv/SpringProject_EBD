@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>에피소드</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	/*전체 페이지 폰트 적용*/
@@ -127,11 +127,11 @@
 		<div class="row justify-content-md-center" style="margin:32px;">
 			<div class="col-8">
 				<select class="form-control" name="condition" id="condition">
-					<option value="report">공개독후감</option>
-					<option value="wording">명언/글귀</option>
+					<option value="report">독후감</option>
+					<option value="wording">글조각</option>
 					<option value="episode" selected>에피소드</option>
-					<option value="market">마켓</option>
-					<option value="file">파일</option>
+					<option value="market">북스마켓</option>
+					<option value="file">북클라우드</option>
 				</select>
 			</div>
 			<span>
@@ -150,7 +150,7 @@
 							<a href="${pageContext.request.contextPath }/episode/detail.do?num=${tmp.num }">
 								<c:choose>
 									<c:when test="${tmp.imgPath eq 'emptyImg' }">
-										<img class="card-img-top img-wrapper" id="img" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" />
+										<img class="card-img-top img-wrapper" id="img" src="${pageContext.request.contextPath}/resources/images/ebd_emptyimg.jpg" alt="EBD기본이미지"/>
 									</c:when>
 									<c:otherwise>
 										<img class="card-img-top img-wrapper" id="img" src="${pageContext.request.contextPath }${tmp.imgPath}" />

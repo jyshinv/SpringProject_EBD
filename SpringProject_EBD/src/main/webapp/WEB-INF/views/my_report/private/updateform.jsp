@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/my_report/private/updateform.jsp</title>
+<title>독후감 글 수정</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
    *{

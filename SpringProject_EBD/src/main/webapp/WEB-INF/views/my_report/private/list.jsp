@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>my_report/private/list.jsp</title>
+<title>나의 독후감</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	/*전체 페이지 폰트 적용*/

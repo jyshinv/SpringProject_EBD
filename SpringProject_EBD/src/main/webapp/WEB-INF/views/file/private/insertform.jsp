@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/file/private/insertform.jsp</title>
+<title>북클라우드 글 작성</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	/*전체 페이지 폰트 적용*/

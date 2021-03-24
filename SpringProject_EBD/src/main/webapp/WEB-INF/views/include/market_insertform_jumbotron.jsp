@@ -17,6 +17,8 @@
         <img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd4.svg" alt="대문이미지" />
      </div>
      <br />
-     <p class="lead">북스북스 회원들과 나누고, 교환하고, 판매하고 </p>
+     <p class="lead">
+     	오늘은 어떤 책을 회원들과 나누고, 교환하고, 판매하실건가요?
+     </p>
   </div>
 </div>
