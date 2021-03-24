@@ -95,8 +95,8 @@
 
 <div class="container">
 	<%-- 명언 BEST 제목 --%>
-	<h4>좋아요 TOP 3  책글귀 </h4>
-	<p class="center">북스님들에게 가장 많은 좋아요를 받은 책글귀</p>
+	<h4>하트 TOP 3  조각글 </h4>
+	<p class="center">북스님들에게 가장 많은 하트를 받은 조각글</p>
 	<br />
 	<!-- 명언 BEST 내용 -->
 	<div class="container marketing">
@@ -145,8 +145,8 @@
 	</p>
 	<br /><br /><br />
     <%-- 독후감 BEST 제목 --%>
-    <h4>좋아요 TOP 3  독후감</h4>
-	<p class="center">북스님들에게 가장 많은 좋아요를 받은 독후감</p>
+    <h4>하트 TOP 3  독후감</h4>
+	<p class="center">북스님들에게 가장 많은 하트를 받은 독후감</p>
 	<br />
 	<!-- 독후감 BEST3 내용-->
 	<div class="card-deck" >
@@ -204,8 +204,8 @@
 	</p>
 	<br /><br /><br />
 	<%-- 독후감 양식 BEST 제목 --%>
-	<h4>조회수 TOP 5  독후감 양식 공유</h4>
-	<p class="center" >북스님들에게 가장 높은 조회수를 기록한 독후감 양식</p>
+	<h4>조회수 TOP 5  북클라우드</h4>
+	<p class="center" >북스님들에게 가장 높은 조회수를 기록한 북클라우드</p>
 	<!-- 독후감 양식 BEST 내용 -->	
 	<div class="card" style="border:none;">
 		<c:forEach var="i" begin="0" end="4">
@@ -263,8 +263,8 @@
 	</p>
 	<br /><br /><br />
 	<!-- 도서매물 BEST 제목 -->
-	<h4>최신 TOP 3  도서 매물</h4>
-	<p class="center">북스님들이 갓 올린 따끈따끈한 도서 매물들</p>
+	<h4>최신 TOP 3  북스 마켓의 도서 매물</h4>
+	<p class="center">북스님들이 갓 올린 따끈따끈한 북스 마켓의 도서 매물들</p>
 	<br />
 	<!-- 도서매물 BEST 내용 -->
 	<div class="card-deck">
