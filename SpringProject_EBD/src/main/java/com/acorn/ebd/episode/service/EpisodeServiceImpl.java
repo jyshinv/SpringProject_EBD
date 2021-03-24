@@ -433,6 +433,15 @@ public class EpisodeServiceImpl implements EpisodeService {
 	@Override
 	public void getBestViewCntList(ModelAndView mView) {
 		List<EpisodeDto> list=dao.getBestViewCntList();
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(EpisodeDto tmp : list) {
+			String filename=tmp.getImgPath().substring(21);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgPath("emptyImg");
+			}
+		}
 		mView.addObject("episodeBestList",list);
 		
 	}

@@ -323,10 +323,10 @@
 				success:function(data){
 				} 				
 			});
+			$(this).text("♡");//하트로 바뀐다. 
 			$(".heart-link").css("pointer-events","none");
 			location.reload();//새로고침 
-			alert('하트 취소되었습니다. 내가 누른 하트 페이지에서 지워집니다.');
-			$(this).text("♡");//하트로 바뀐다. 
+			//alert('하트 취소되었습니다. 내가 누른 하트 페이지에서 지워집니다.');
 		}
 		
 	});

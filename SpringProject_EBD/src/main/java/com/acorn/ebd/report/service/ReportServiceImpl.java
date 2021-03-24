@@ -535,6 +535,16 @@ public class ReportServiceImpl implements ReportService{
 	@Override
 	public void getBestHeartList(ModelAndView mView) {
 		List<ReportDto> list=dao.getBestHeartList();
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(ReportDto tmp : list) {
+			String filename=tmp.getImgpath().substring(21);
+			System.out.println("리스트 filename"+filename);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgpath("emptyImg");
+			}
+		}
 		mView.addObject("reportBestList",list);
 	}
 

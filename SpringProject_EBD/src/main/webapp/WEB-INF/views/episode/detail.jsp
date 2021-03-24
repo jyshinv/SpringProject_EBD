@@ -243,19 +243,19 @@
 				</small> 
 			</span>
 		</div>
+		
 		<!-- 이미지 비어있으면 기본이미지 그렇지 않으면 저장된 이미지를 불러온다.-->
-		<c:choose>
-			<c:when test="${filename eq '' }">
-				<center class="centerimg">
+		<center class="centerimg">
+			<c:choose>
+				<c:when test="${filename eq '' }">
 					<img src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg"/>
-				</center>
-			</c:when>
-			<c:otherwise>
-				<center class="centerimg">
+				</c:when>
+				<c:otherwise>
 					<img src="${pageContext.request.contextPath }${dataDto.imgPath}"/>
-				</center>
-			</c:otherwise>
-		</c:choose>
+				</c:otherwise>
+			</c:choose>
+		</center>
+		
 		<div class="card-body">
 			<div class="row">
 				<div class="col text-left">

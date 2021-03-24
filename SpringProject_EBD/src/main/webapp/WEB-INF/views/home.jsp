@@ -169,10 +169,18 @@
 							<span class="badge badge-pill badge-secondary badge-size" id="badge-color">
 							BEST ${i+1 }</span>
 						</p>
-						<!-- 이미지 클릭하면 이동 -->
+						<!-- 이미지 클릭하면 이동 이미지가 비어있으면 기본이미지가 보여진다.  -->
 						<a href="${pageContext.request.contextPath }/public_report/detail.do?num=${reportBestList[i].num }">
-							<img class="card-img-top img-wrapper" id="img"
-						    src="${pageContext.request.contextPath }${reportBestList[i].imgpath}" alt="Card image cap">
+							<c:choose>
+								<c:when test="${reportBestList[i].imgpath eq 'emptyImg' }">
+									<img class="card-img-top img-wrapper" id="img"
+								    src="${pageContext.request.contextPath}/resources/images/ebd_emptyimg.jpg" alt="EBD기본이미지">
+								</c:when>
+								<c:otherwise>
+									<img class="card-img-top img-wrapper" id="img"
+								    src="${pageContext.request.contextPath }${reportBestList[i].imgpath}" alt="Card image cap">
+								</c:otherwise>
+							</c:choose>
 						</a>
 					    <div class="card-body">
 					      <p class="card-text">♥${reportBestList[i].heartcnt }</p>
@@ -224,8 +232,16 @@
 								 </svg><small><span class="viewcnt">&nbsp;${fileBestList[i].viewcnt}&nbsp;&nbsp;</span></small>
 							   	</div>
 							   	<div class="col-md-6">
-							   		<a href="${pageContext.request.contextPath }/file/detail.do?num=${fileBestList[i].num }" style="color:black">
-							   		${fileBestList[i].title }</a>
+							   		<c:choose>
+							   			<c:when test="${empty fileBestList[i].title }">
+									   		<a href="${pageContext.request.contextPath }/file/detail.do?num=${fileBestList[i].num }" style="color:black">
+									   		제목없음</a>
+							   			</c:when>
+							   			<c:otherwise>
+									   		<a href="${pageContext.request.contextPath }/file/detail.do?num=${fileBestList[i].num }" style="color:black">
+									   		${fileBestList[i].title }</a>
+							   			</c:otherwise>
+							   		</c:choose>
 							   	</div>
 							   	<div class="col text-right">
 							   		<span class="text-right">by. <strong>${fileBestList[i].writer }</strong></span>
@@ -276,8 +292,16 @@
 						</p>
 				 	 	<!-- 이미지 클릭하면 이동 -->
 				 		<a href="${pageContext.request.contextPath }/market/detail.do?num=${marketList[i].num }">
-				 			<img class="card-img-top img-wrapper" id="img"
-					    	src="${pageContext.request.contextPath }${marketList[i].imgpath}" alt="Card image cap">
+				 			<c:choose>
+				 				<c:when test="${marketList[i].imgpath eq 'emptyImg' }">
+						 			<img class="card-img-top img-wrapper" id="img"
+							    	src="${pageContext.request.contextPath}/resources/images/ebd_emptyimg.jpg" alt="EBD기본이미지">				 				
+				 				</c:when>
+				 				<c:otherwise>
+						 			<img class="card-img-top img-wrapper" id="img"
+							    	src="${pageContext.request.contextPath }${marketList[i].imgpath}" alt="Card image cap">				 				
+				 				</c:otherwise>
+				 			</c:choose>
 				 		</a> 
 					    <div class="card-body">
 					      <p class="card-text text-muted">
@@ -336,8 +360,16 @@
 						</p>
 						<!-- 이미지 클릭하면 이동 -->
 						<a href="${pageContext.request.contextPath }/episode/detail.do?num=${episodeBestList[i].num }">
-							<img class="card-img-top img-wrapper" id="img"
-					    	src="${pageContext.request.contextPath }${episodeBestList[i].imgPath}" alt="Card image cap">
+							<c:choose>
+								<c:when test="${episodeBestList[i].imgPath eq 'emptyImg' }">
+									<img class="card-img-top img-wrapper" id="img"
+							    	src="${pageContext.request.contextPath}/resources/images/ebd_emptyimg.jpg" alt="EBD기본이미지">
+								</c:when>
+								<c:otherwise>
+									<img class="card-img-top img-wrapper" id="img"
+							    	src="${pageContext.request.contextPath }${episodeBestList[i].imgPath}" alt="Card image cap">
+								</c:otherwise>
+							</c:choose>
 						</a>
 					    <div class="card-body">
 						    <h6 class="card-title"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="grey" class="bi bi-eye" viewBox="0 0 16 16">
