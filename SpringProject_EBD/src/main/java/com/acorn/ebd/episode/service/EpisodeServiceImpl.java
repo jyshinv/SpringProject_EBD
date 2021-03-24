@@ -440,7 +440,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 	@Override
 	public void getMyWriteList(ModelAndView mView, HttpServletRequest request) {
 		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=8;
+		final int PAGE_ROW_COUNT=9;
 		//하단 페이지를 몇개씩 표시할 것인지
 		final int PAGE_DISPLAY_COUNT=5;
 
@@ -471,9 +471,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 
 		//GalleryDao 객체를 이용해서 회원 목록을 얻어온다.
 		List<EpisodeDto> list=dao.getMyList(dto);
-		//전체 row 의 갯수
-		int totalRow=dao.getMyCount(dto);
-		
+
 		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
 		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
 		for(EpisodeDto tmp : list) {
@@ -484,6 +482,10 @@ public class EpisodeServiceImpl implements EpisodeService {
 				tmp.setImgPath("emptyImg");
 			}
 		}
+		
+		//전체 row 의 갯수
+		int totalRow=dao.getMyCount(dto);
+		
 
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
@@ -512,7 +514,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 	@Override
 	public void getMyHeartList(ModelAndView mView, HttpServletRequest request) {
 		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=8;
+		final int PAGE_ROW_COUNT=9;
 		//하단 페이지를 몇개씩 표시할 것인지
 		final int PAGE_DISPLAY_COUNT=5;
 
@@ -543,9 +545,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 
 		//GalleryDao 객체를 이용해서 회원 목록을 얻어온다.
 		List<EpisodeDto> list=dao.getMyHeartList(dto);
-		//전체 row 의 갯수
-		int totalRow=dao.getMyHeartCount(dto);
-		
+
 		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
 		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
 		for(EpisodeDto tmp : list) {
@@ -556,6 +556,10 @@ public class EpisodeServiceImpl implements EpisodeService {
 				tmp.setImgPath("emptyImg");
 			}
 		}
+		
+		//전체 row 의 갯수
+		int totalRow=dao.getMyHeartCount(dto);
+		
 
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
