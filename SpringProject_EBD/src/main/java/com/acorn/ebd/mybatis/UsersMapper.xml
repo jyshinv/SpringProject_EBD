@@ -60,7 +60,8 @@
 	<!-- 개인정보 수정 -->
 	<update id="update" parameterType="usersDto">
 		UPDATE ebd_users
-		SET nick=#{nick}, name=#{name}, gender=#{gender}, email=#{email}, phone=#{phone}
+		SET nick=#{nick}, name=#{name}, gender=#{gender}, email=#{email}, phone=#{phone},
+		birth_year=#{birth_year}, birth_month=#{birth_month}, birth_day=#{birth_day}
 		WHERE id=#{id}
 	</update>
 	
