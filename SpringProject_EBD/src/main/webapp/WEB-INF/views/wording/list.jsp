@@ -113,7 +113,9 @@
 </style>
 </head>
 <body>
-<jsp:include page="../include/navbar.jsp"></jsp:include>
+<jsp:include page="../include/navbar.jsp">
+	<jsp:param value="wording" name="thisPage"/>
+</jsp:include>
 <jsp:include page="../include/wording_jumbotron.jsp"></jsp:include>
 <div class="container" id="wording-container">
 	<!-- 검색 버튼과 form -->
