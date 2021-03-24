@@ -1,22 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<style>
-	/* 답글/수정/삭제 색 변경 */
-	.cmt-link
-	.cmt-regdate{
-   		color:grey;
-   }
-   /* 모든 a링크의 hover 색깔 변경 (임시) */
-   	a:hover{
-   		color:#F7DC6F;
-   		text-decoration: none;
-   }
-   /* 답글 아이콘 180도 회전 */
-   .reply-link{
-   		transform: rotate(180deg);
-   }
-</style>
+
 <c:forEach var="tmp" items="${commentList }">
 	<c:choose>
 		<c:when test="${tmp.deleted eq 'yes' }">

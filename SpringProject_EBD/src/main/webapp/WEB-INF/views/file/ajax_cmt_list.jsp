@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%-- file --%>
+<%-- 파일 추가 댓글 목록 ajax 요청 --%>
  <c:forEach var="tmp" items="${cmtList }">
 	<c:choose>
 		<c:when test="${tmp.deleted eq 'yes' }">
