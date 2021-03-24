@@ -162,14 +162,29 @@
 		<c:forEach var="tmp" items="${list }">
 			<div class="col"  style="margin-bottom: 15px;">
 				<div class="card" style="width: 18rem;">
-					<div style="height:255px;">
-						<figure>
-							<a href="detail.do?num=${tmp.num }">
-								<!-- 아래 코드의 src 해석결과는 spring05/upload/xxx.jpg임! DB의 imagePath컬럼에 저장된 값을 확인해볼 것 -->
-								<img class="card-img-top img-wrapper" id="img" src="${pageContext.request.contextPath }${tmp.imgPath}" />
-							</a>
-						</figure>
-					</div>
+					<!-- 이미지 비어있다면 기본이미지, 비어있지 않다면 저장된 이미지를 불러온다. -->
+					<c:choose>
+						<c:when test="${tmp.imgPath eq 'emptyImg' }">
+							<div style="height:255px;">
+								<figure>
+									<a href="detail.do?num=${tmp.num }">
+										<!-- 아래 코드의 src 해석결과는 spring05/upload/xxx.jpg임! DB의 imagePath컬럼에 저장된 값을 확인해볼 것 -->
+										<img class="card-img-top img-wrapper" id="img" src="https://pds.joins.com/news/component/htmlphoto_mmdata/202005/05/8264b551-8356-4cb4-a5df-9ae1a050c973.jpg" />
+									</a>
+								</figure>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div style="height:255px;">
+								<figure>
+									<a href="detail.do?num=${tmp.num }">
+										<!-- 아래 코드의 src 해석결과는 spring05/upload/xxx.jpg임! DB의 imagePath컬럼에 저장된 값을 확인해볼 것 -->
+										<img class="card-img-top img-wrapper" id="img" src="${pageContext.request.contextPath }${tmp.imgPath}" />
+									</a>
+								</figure>
+							</div>
+						</c:otherwise>
+					</c:choose>
 					<div class="card-body">
 						<div class="row">
 						<!-- 프로필 이미지를 넣어주세욥! -->
@@ -186,7 +201,7 @@
 			               </c:otherwise>
 			            </c:choose>
 						<p id="writer" class="col card-text"><strong>${tmp.writer }</strong></p>
-						<span class="col text-right">
+						<span class="col text-right" style="padding-top:8px">
 							<c:if test="${empty id }">
 								<span style="margin-right:5px;">
 									<c:forEach var="i" begin="<%=isCheck %>" end="<%=isCheck %>">

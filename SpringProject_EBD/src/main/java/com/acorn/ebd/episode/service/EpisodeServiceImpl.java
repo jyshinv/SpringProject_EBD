@@ -70,7 +70,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 	@Override
 	public void getList(ModelAndView mView, HttpServletRequest request) {
 		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=8;
+		final int PAGE_ROW_COUNT=9;
 		//하단 페이지를 몇개씩 표시할 것인지
 		final int PAGE_DISPLAY_COUNT=5;
 
@@ -120,6 +120,17 @@ public class EpisodeServiceImpl implements EpisodeService {
 
 		//GalleryDao 객체를 이용해서 회원 목록을 얻어온다.
 		List<EpisodeDto> list=dao.getList(dto);
+		
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(EpisodeDto tmp : list) {
+			String filename=tmp.getImgPath().substring(21);
+			System.out.println("리스트 filename"+filename);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgPath("emptyImg");
+			}
+		}
 
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
@@ -218,6 +229,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		
 		//수정폼에서 저장한 이미지의 오리지널 파일명을 불러오기 위해 문자열을 자른다.
 		String filename=dataDto.getImgPath().substring(21);
+		System.out.println("filename은"+	filename);
 		
 		
 		/*아래는 댓글 펭징 처리 관련 비즈니스 로직 입니다.*/
@@ -274,7 +286,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 			
 			// imgPath 는 /upload/~~ 로 저장되어있으므로 앞에 /upload/를 잘라준다. 
 			String filename=dto.getImgPath().substring(8);
-			System.out.println(filename);
+			System.out.println("filename2는"+filename);
 			//기존의 파일은 파일시스템에서 삭제해준다.
 			String path=request.getServletContext().getRealPath("/upload")+File.separator+filename;
 			System.out.println("path="+path);
@@ -461,6 +473,17 @@ public class EpisodeServiceImpl implements EpisodeService {
 		List<EpisodeDto> list=dao.getMyList(dto);
 		//전체 row 의 갯수
 		int totalRow=dao.getMyCount(dto);
+		
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(EpisodeDto tmp : list) {
+			String filename=tmp.getImgPath().substring(21);
+			System.out.println("리스트 filename"+filename);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgPath("emptyImg");
+			}
+		}
 
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
@@ -522,6 +545,17 @@ public class EpisodeServiceImpl implements EpisodeService {
 		List<EpisodeDto> list=dao.getMyHeartList(dto);
 		//전체 row 의 갯수
 		int totalRow=dao.getMyHeartCount(dto);
+		
+		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
+		//이때 원본 파일명이 ""와 같으면 요청한 페이지에 emptyImg로 비교해서 기본이미지를 넣도록 한다.
+		for(EpisodeDto tmp : list) {
+			String filename=tmp.getImgPath().substring(21);
+			System.out.println("리스트 filename"+filename);
+			//filename이 ""와 같으면 이미지 첨부를 안한 상태이다. imgpath에 emptyImg라고 넣어준다. 
+			if(filename.equals("")) {
+				tmp.setImgPath("emptyImg");
+			}
+		}
 
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
