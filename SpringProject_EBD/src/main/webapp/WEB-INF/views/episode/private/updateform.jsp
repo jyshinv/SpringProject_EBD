@@ -93,7 +93,7 @@
 			</div>
 		</div>
 		<div id="content"  class="text-center"  style="margin-top:30px; margin-bottom:30px;">
-			<button class="btn" type="submit" onclick="submitContents(this);">등록</button>
+			<button class="btn" type="submit" onclick="submitContents(this);">수정</button>
 		</div>
 	</form>
 </div>
