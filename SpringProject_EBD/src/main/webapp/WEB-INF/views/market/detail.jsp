@@ -193,12 +193,12 @@
    
     .bi-pencil,
 	.bi-trash{
-		color:#FFCA28;
+		color:#FFB300;
 		margin-left:5px;
 		margin-bottom:10px;
 	}
 	.bi-check-circle{
-		color:#FFCA28;
+		color:#FFB300;
 		margin-bottom:5px;
 	}
 	
@@ -262,7 +262,7 @@
 		<div class="marg">
 			<!-- 이미지 -->
 			<center class="centerimg">
-				<img src="${pageContext.request.contextPath }${dto.imgpath}" alt="마켓이미지">
+				<img src="${pageContext.request.contextPath }${dto.imgpath}" alt="북스마켓 이미지">
 			</center> 
 		</div>	  	
 		<div class="card-body">
