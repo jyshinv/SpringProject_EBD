@@ -197,7 +197,7 @@
 											<span class="cmt-link"><small>|</small></span>
 												<a class="cmt-link" href="private/updateform.do?num=${tmp.num }"><small>수정</small></a>
 											<span class="cmt-link"><small>|</small></span>
-												<a class="cmt-link" id="delete" data-num="${tmp.num }" href="javascript:deleteConfirm()"><small>삭제</small></a>	
+												<a class="cmt-link delete-link" data-num="${tmp.num }" href="javascript:"><small>삭제</small></a>	
 											</c:if>	
 										</c:if>
 									</p>
@@ -357,14 +357,19 @@
 		
 	});
 	
-	//삭제 요청 시 삭제 여부 확인하는 스크립트 코드
-	function deleteConfirm(){
-		let num=$("#delete").attr("data-num");
+	//삭제버튼 클릭 시 확인 버튼 시 확인 창 띄우기 
+	$(document).on("click",".delete-link", function(){
+		
+		let num=$(this).attr("data-num");
+		console.log(num);
 		let isDelete=confirm("삭제하시겠습니까?");
 		if(isDelete){
 			location.href="private/delete.do?num="+num;
 		}
-	}
+			
+		
+	});
+	
 	
 	
 	

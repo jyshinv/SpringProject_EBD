@@ -6,7 +6,7 @@
 <div id="wordingList">
 		<c:forEach var="tmp" items="${list }">
 			<div class="container" id="card-width">
-				<div class="card" >
+				<div class="card">
 					<div class="card-body">
 						<div class="row">
 							<div class="col-3">
@@ -16,22 +16,18 @@
 										<c:when test="${empty tmp.profile }">
 											<!-- 비어있다면 기본이미지 -->
 											<svg id="profileImage" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-										  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-												</svg>
+									  			<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+											</svg>
 										</c:when>
 										<c:otherwise>
 											<!-- 이미지를 업로드 했다면 업로드한 이미지를 불러온다.-->
 											<img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
 										</c:otherwise>
 									</c:choose>
-	
+
 								</p>
 								<!-- 닉네임  -->
-								<p id="writer">
-									<strong>
-									${tmp.writer }
-									</strong>
-								</p>
+								<p id="writer"><strong>${tmp.writer }</strong></p>
 								<p>
 									<!-- 하트, 수정, 삭제  -->
 									<c:if test="${empty id }">
@@ -55,23 +51,17 @@
 										</c:forEach>
 										<!-- 로그인이 되어있고 작성자가 같을 때만 수정과 삭제버튼이 보이게 한다. -->
 										<c:if test="${tmp.writer eq sessionScope.nick }">
-										<span class="cmt-link">
-											<small>|</small>
-										</span>
+										<span class="cmt-link"><small>|</small></span>
 											<a class="cmt-link" href="private/updateform.do?num=${tmp.num }"><small>수정</small></a>
-										<span class="cmt-link">
-											<small>|</small>
-										</span>
-											<a class="cmt-link"  href="private/delete.do?num=${tmp.num }"><small>삭제</small></a>	
+										<span class="cmt-link"><small>|</small></span>
+											<a class="cmt-link delete-link" data-num="${tmp.num }" href="javascript:"><small>삭제</small></a>	
 										</c:if>	
 									</c:if>
 								</p>
 							</div>
 							<div class="col-7">
 								<!-- 글귀와 제목, 작가 -->
-								<p>
-									<b>${tmp.content }</b>
-								</p>
+								<p><strong>${tmp.content }</strong></p>
 								<br />
 								<p id="title">
 									<small>
@@ -88,11 +78,11 @@
 								</p>
 							</div>
 						</div>
-	
+
 					</div><!-- div card-body -->
 				</div><!-- div card -->
-			</div>
+			</div><!-- div wordingList -->
 			<%isCheck++; %><!-- 바깥 for문 빠져나가기 전에 isCheck증가시키기 -->
 			<br />
 		</c:forEach><!-- 바깥 for문 -->
-</div><!-- div container -->
+</div><!-- div wordingList -->

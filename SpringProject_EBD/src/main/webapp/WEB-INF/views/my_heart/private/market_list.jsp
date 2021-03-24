@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>북스마켓</title>
+<title>내가 누른 하트-북스마켓</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	/*전체 페이지 폰트 적용*/

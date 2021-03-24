@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>조각글</title>
+<title>내가 쓴 게시글-조각글</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <!-- kakao api를 사용하기 위한 sdk를 추가해주기 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -180,7 +180,7 @@
 										<c:if test="${tmp.writer eq sessionScope.nick }">
 											<a class="cmt-link" href="${pageContext.request.contextPath }/wording/private/updateform.do?num=${tmp.num }"><small>수정</small></a>
 										<span class="cmt-link"><small>|</small></span>
-											<a class="cmt-link" id="delete" data-num="${tmp.num }" href="javascript:deleteConfirm()"><small>삭제</small></a>	
+											<a class="cmt-link delete-link" data-num="${tmp.num }" href="javascript:"><small>삭제</small></a>	
 										</c:if>	
 									</p>
 								</div>
@@ -290,14 +290,20 @@
 		
 	});
 	
-	//삭제 요청 시 삭제 여부 확인하는 스크립트 코드
-	function deleteConfirm(){
-		let num=$("#delete").attr("data-num");
+	
+	//삭제버튼 클릭 시 확인 버튼 시 확인 창 띄우기 
+	$(document).on("click",".delete-link", function(){
+		
+		let num=$(this).attr("data-num");
+		console.log(num);
 		let isDelete=confirm("삭제하시겠습니까?");
 		if(isDelete){
 			location.href="${pageContext.request.contextPath }/wording/private/delete.do?num="+num;
 		}
-	}
+			
+		
+	});
+	
 	
 	
 	

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>에피소드</title>
+<title>내가 쓴 게시글-에피소드</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
 	/*전체 페이지 폰트 적용*/

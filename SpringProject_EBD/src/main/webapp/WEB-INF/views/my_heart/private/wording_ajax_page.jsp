@@ -24,7 +24,6 @@
 												<img id="profileImage" src="${pageContext.request.contextPath }${tmp.profile}"/>
 											</c:otherwise>
 										</c:choose>
-	
 									</p>
 									<!-- 닉네임  -->
 									<p id="writer"><strong>${tmp.writer }</strong></p>
@@ -47,7 +46,7 @@
 											<span class="cmt-link"><small>|</small></span>
 												<a class="cmt-link" href="private/updateform.do?num=${tmp.num }"><small>수정</small></a>
 											<span class="cmt-link"><small>|</small></span>
-												<a class="cmt-link" id="delete" data-num="${tmp.num }" href="javascript:deleteConfirm()"><small>삭제</small></a>	
+												<a class="cmt-link delete-link" data-num="${tmp.num }" href="javascript:"><small>삭제</small></a>	
 											</c:if>	
 										</c:if>
 									</p>
@@ -78,4 +77,4 @@
 				<%isCheck++; %><!-- 바깥 for문 빠져나가기 전에 isCheck증가시키기 -->
 				<br />
 			</c:forEach><!-- 바깥 for문 -->
-</div><!-- div container -->
+	</div><!-- div wordingList -->

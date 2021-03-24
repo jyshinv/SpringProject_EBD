@@ -33,7 +33,7 @@
 										<c:if test="${tmp.writer eq sessionScope.nick }">
 											<a class="cmt-link" href="${pageContext.request.contextPath }/wording/private/updateform.do?num=${tmp.num }"><small>수정</small></a>
 										<span class="cmt-link"><small>|</small></span>
-											<a class="cmt-link" id="delete" data-num="${tmp.num }" href="javascript:deleteConfirm()"><small>삭제</small></a>	
+											<a class="cmt-link delete-link" data-num="${tmp.num }" href="javascript:"><small>삭제</small></a>	
 										</c:if>	
 									</p>
 								</div>
@@ -62,4 +62,4 @@
 				</div>
 				<br />
 			</c:forEach><!-- 바깥 for문 -->
-</div><!-- div container -->
+	</div><!-- div wordingList -->
