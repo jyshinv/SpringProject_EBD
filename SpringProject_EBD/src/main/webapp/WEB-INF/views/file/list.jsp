@@ -173,14 +173,14 @@
 							    </div>
 							    <div class="col-md-6" style="padding-top:4px;">
 							    	<div class="card-text">
-							    		<c:choose>
-									   <c:when test="${empty tmp.title}">
-									      <a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;"><strong>제목없음</strong></a>
-									   </c:when>
-									   <c:otherwise>
-									      <a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;"><strong>${tmp.title }</strong></a>
-									   </c:otherwise>
-									</c:choose>
+							    		<c:choose> 
+									   		<c:when test="${empty tmp.title}"><%-- 만일 타이틀이 없다면 제목없음으로 제목 지정 --%>
+									      		<a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;"><strong>제목없음</strong></a>
+									   		</c:when>
+									   		<c:otherwise>
+									    		<a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;"><strong>${tmp.title }</strong></a>
+									   		</c:otherwise>
+										</c:choose>
 							    	</div>
 							    </div>
 							    <div class="col text-right">
