@@ -38,8 +38,8 @@
   					Book Day !
   				</h1>
    		 		<p class="lead">
-   		 			당신이 오늘, <br />
-   		 			겪은 책과 관련된 재미있는 경험을 공유해주세요.
+   		 			당신이 오늘 겪은 <br />
+   		 			 책과 관련된 재미있는 경험을 공유해주세요.
    		 		</p>
    		 		<p>
 					<a href="${pageContext.request.contextPath }/episode/private/uploadform.do" class="btn">

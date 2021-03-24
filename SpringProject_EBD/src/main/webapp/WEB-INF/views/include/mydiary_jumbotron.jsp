@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
 	.jumbotronImg{
-		height: 350px;
+		height: 330px;
 		margin-left: 50px;
 	}
 	.jumbotron_table{
@@ -16,17 +16,15 @@
   		<tr>
   			<td>
   				<h1 class="display-4">
-  					<b>
-	  					Every moment<br/> 
-	  					written in My Diary!
-  					</b>
+	  				${sessionScope.nick}님 개인 서재
   				</h1>
    		 		<p class="lead">
+   		 			Every moment written in My Diary <br />
    		 			에브리북데이에서 함께한 시간들을 추억해 보세요.
    		 		</p>
   			</td>
   			<td>
-  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/resources/images/mydiary2.png" alt="대문이미지" />
+  				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_img7.svg" alt="대문이미지" />
   			</td>
   		</tr>
   	</table>

@@ -33,8 +33,8 @@
   		<tr>
   			<td>
    		 		<h1 class="display-4">
-   		 			Everyday <br />
-  					Books Market
+   		 			Wake Up !<br />
+  					Your Sleeping Books
   				</h1>
    		 		<p class="lead">
    		 			아직 읽지 않은 책은 숨겨진 보물 입니다. <br />

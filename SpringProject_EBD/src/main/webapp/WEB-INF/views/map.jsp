@@ -50,6 +50,9 @@
 		font-family: 'Gothic A1', sans-serif;
 		margin-top:100px;
 	}
+	.jumbotron{
+		font-family: 'Gothic A1', sans-serif;
+	}
 </style>
 </head>
 <body>

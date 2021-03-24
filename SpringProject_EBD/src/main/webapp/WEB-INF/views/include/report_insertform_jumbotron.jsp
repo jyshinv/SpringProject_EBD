@@ -7,20 +7,18 @@
 		margin-bottom:0px;
 	}
 	.jumbotronImg{
-		height: 250px;
+		width: 550px;
 	}
 </style>
 <%-- 독후감 인서트폼 점보트론 --%>
 <div class="jumbotron jumbotron-fluid">
   <div class="container text-center">
   	<div>
-  		<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd1.svg" alt="대문이미지" />
+  		<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd6.svg" alt="대문이미지" />
   	</div>
-    <h1 class="display-4">
-    	<b>
-	    Book Report
-	    </b>
-	</h1>
-    <p class="lead">당신이 남기고 싶은 책을 기록해보세요.</p>
+  	<br />
+    <p class="lead">
+    	당신이 남기고 싶은 책을 기록해보세요.
+    </p>
   </div>
 </div>

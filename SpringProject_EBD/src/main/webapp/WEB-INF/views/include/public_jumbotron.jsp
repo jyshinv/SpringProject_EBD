@@ -16,10 +16,8 @@
   		<tr>
   			<td>
   				<h1 class="display-4">
-  					<b>
-	  					Share <br/>
-	  				    Your Book Report !
-  					</b>
+  					Share <br/>
+  				    Your Book Report !
   				</h1>
    		 		<p class="lead">
    		 			당신이 경험한 새로운 세계를 다른 사람들과 공유해보세요.
