@@ -7,12 +7,10 @@
 <meta charset="UTF-8">
 <title>episode/detail.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
-<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
-
 <style>
 	*{
 		font-family: 'Gothic A1', sans-serif;
-	}
+	 }
 	/* 댓글 css */
 	/* 글 내용을 출력할 div 에 적용할 css */
 	.contents{

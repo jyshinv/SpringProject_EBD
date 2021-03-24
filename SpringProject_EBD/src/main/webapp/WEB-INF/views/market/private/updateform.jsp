@@ -9,6 +9,11 @@
 <title>/market/private/updateform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
+	/*전체 페이지 폰트 적용*/
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
+	
 	body{
 		padding-top:100px;
 	}
@@ -80,7 +85,7 @@
 	 	</div>
 	 	<div class="row">
 	 		<div class="col-2">
-	 			<label for="salesType">유형</label>
+	 			<label for="salesType">거래 유형</label>
 	 		</div>
 	 		<div class="col-8">
 		 		<select class="form-control" name="salesType" id="salesType">
@@ -141,7 +146,7 @@
 	 	</div>
 		<div class="text-center" style="margin-top:30px; margin-bottom:30px;">
 			<button class="btn" type="submit" onclick="submitContents(this);">
-			수정 완료</button>
+			수정</button>
 		</div>
 	 </form>
 </div>

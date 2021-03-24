@@ -9,6 +9,10 @@
 <jsp:include page="include/resource.jsp"></jsp:include>
 </head>
 <style>
+	/*전체 페이지 폰트 적용*/
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	/*버튼 기본 노랑*/
     .btn {
     	background-color:#F7DC6F ;

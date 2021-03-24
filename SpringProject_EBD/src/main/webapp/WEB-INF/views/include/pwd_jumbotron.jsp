@@ -6,9 +6,8 @@
 		height: 150px;
 		margin-bottom: 20px;
 	}
-	
 </style>
-
+<%-- 비밀번호변경 점보트론 --%>
 <div class="jumbotron jumbotron-fluid" style="background-color:#FEF9E7;">
 	<div class="container">
 		<div class="text-center">

@@ -9,7 +9,6 @@
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <jsp:include page="../include/episode_jumbotron.jsp"></jsp:include>
 <script src="${pageContext.request.contextPath }/resources/js/imgLiquid.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
 
 <style>
 	*{

@@ -77,7 +77,7 @@
 				<%--thisPage에 저장된 값이 "file"이면 active시켜라 포커싱된다. --%>
 				<li class="nav-item ${param.thisPage eq 'file' ? 'active':''}">
 					<%--글 목록 링크를 누르면 href로 설정한 곳으로 이동(요청) --%>
-					<a class="nav-link" href="${pageContext.request.contextPath }/file/list.do">양식공유</a>
+					<a class="nav-link" href="${pageContext.request.contextPath }/file/list.do">북클라우드</a>
 				</li>
 			</ul>
 		</div>

@@ -6,9 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>EBD 양식 공유</title>
+<title>북클라우드</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+	/*전체 페이지 폰트 적용*/
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	.card-margin{
 		margin-top: 30px;
 		margin-bottom: 30px;
@@ -23,20 +27,24 @@
 		color:grey;
 	}
 	
+	/* 하트 관련 */
 	.heart-link,
 	.heart-link:hover{
       font-size : 1.4em;
       color: red;
       text-decoration: none;
    }
-   
    	.heart-link-logout{
-   		font-size : 1.5em;
+   		font-size : 1.4em;
    		color:grey;
    	}
    	.heart-cnt-logout{
    		color:grey;
    	}   
+   
+   .viewcnt{
+   		color:grey;
+   }
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
@@ -67,18 +75,11 @@
     /*버튼 호버시 연한 노랑*/
     .btn:hover{
     	background-color:#FBEEE6;
-    	/*color:sienna;*/
      }
-    /*버튼안에 링크 걸려있을시 적용할 css*/
-    .btn-a{
-    	/*color:sienna;*/
-    }
     /* 버튼 링크 호버시 언더라인 삭제 */
     .btn-a:hover{
-    	/*color:sienna;*/
     	text-decoration:none;
     }
-    
     
      /*파일 리스트 카드*/
      .file-list{
@@ -123,14 +124,13 @@
 			</span>
 		</div>
 	</form>
-	
 	<%-- 만일 검색 키워드가 존재한다면 몇개의 글이 검색 되었는지 알려준다. --%>
 	<c:if test="${not empty keyword }">
-		<div class="alert alert-success">
+		<!-- 검색키워드 투명하게 보이기 + 가운데 정렬 -->
+		<div class="alert text-center">
 			<strong>${totalRow }</strong> 개의 자료가 검색되었습니다.
 		</div>
 	</c:if>
-	
 	<div id="fileList">
 		<!-- 바깥 forEach의 증가수 체크를 위한 isCheck -->
 	    <%int isCheck=0; %>
@@ -173,14 +173,14 @@
 							    </div>
 							    <div class="col-md-6" style="padding-top:4px;">
 							    	<div class="card-text">
-							    		<c:choose>
-									   <c:when test="${empty tmp.title}">
-									      <a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;"><strong>제목없음</strong></a>
-									   </c:when>
-									   <c:otherwise>
-									      <a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;"><strong>${tmp.title }</strong></a>
-									   </c:otherwise>
-									</c:choose>
+							    		<c:choose> 
+									   		<c:when test="${empty tmp.title}"><%-- 만일 타이틀이 없다면 제목없음으로 제목 지정 --%>
+									      		<a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;"><strong>제목없음</strong></a>
+									   		</c:when>
+									   		<c:otherwise>
+									    		<a href="${pageContext.request.contextPath }/file/detail.do?num=${tmp.num}" style="color:black;"><strong>${tmp.title }</strong></a>
+									   		</c:otherwise>
+										</c:choose>
 							    	</div>
 							    </div>
 							    <div class="col text-right">

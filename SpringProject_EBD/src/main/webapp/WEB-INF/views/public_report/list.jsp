@@ -8,6 +8,10 @@
 <title>/public_report/list.jsp</title>
 <jsp:include page="../include/resource.jsp"></jsp:include>
 <style>
+	/*전체 페이지 폰트 적용*/
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	/* card 이미지 부모요소의 높이 지정 */
 	.img-wrapper{
 		height: 250px;

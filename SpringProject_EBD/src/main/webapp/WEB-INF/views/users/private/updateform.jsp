@@ -6,9 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/users/private/updateform.jsp</title>
+<title>회원정보 수정</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
+	/*전체 페이지 폰트 적용*/
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	/* 프로필 이미지를 작은 원형으로 만든다 */
 	#profileImage{
 		width: 200px;

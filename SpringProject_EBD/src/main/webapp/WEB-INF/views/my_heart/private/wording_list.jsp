@@ -10,6 +10,10 @@
 <!-- kakao api를 사용하기 위한 sdk를 추가해주기 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
+	/*전체 페이지 폰트 적용*/
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	/*버튼 관련 css*/
 	/*버튼 기본 노랑*/
     .btn{

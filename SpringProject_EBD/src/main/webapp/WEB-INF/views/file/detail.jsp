@@ -137,6 +137,13 @@
       color:red;
       text-decoration: none;
    }
+   	.heart-link-logout{
+ 		font-size : 1.6em;
+ 		color:grey;
+   	}
+   	.heart-cnt-logout{
+   		color:grey;
+   	}   
    
    /* 프로필 이미지를 작은 원형으로 만든다 */
    #profileImage{
@@ -180,12 +187,12 @@
    
     .bi-pencil,
 	.bi-trash{
-		color:#FFCA28;
+		color:#FFB300;
 		margin-left:5px;
 		margin-bottom:10px;
 	}
 	.bi-check-circle{
-		color:#FFCA28;
+		color:#FFB300;
 		margin-bottom:5px;
 	}
 	
@@ -272,8 +279,8 @@
 				    </c:if>
 				    <!-- 로그인안했으면 하트 -->
 				    <c:if test="${empty id }">
-				            <span>♥</span>
-				            <span class="heart-cnt">${heartcnt }</span>
+				            <span class="heart-link-logout">♥</span>
+				            <span class="heart-cnt-logout heart-cnt">${heartcnt }</span>
 				    </c:if>
 					<!-- 작성자만 보이게 수정/삭제-->
 				    <c:if test="${dto.writer eq nick }">
@@ -293,9 +300,9 @@
 				<div class="col text-right">
 					<!-- 파일 다운로드 -->
 			  		${dto.orgfname } <strong>&nbsp;|&nbsp;</strong> 
-		  			<fmt:formatNumber value="${dto.fileSize }" pattern="#,###"/><strong>byte</strong>
+		  			<fmt:formatNumber value="${dto.fileSize }" pattern="#,###"/><strong>&nbsp;byte</strong>
 		  			<a href="download.do?num=${dto.num }" style="color:black;">
-		  				<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+		  				&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="#FFB300" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
 						  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
 						</svg>
 		  			</a>

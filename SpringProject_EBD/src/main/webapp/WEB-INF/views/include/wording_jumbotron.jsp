@@ -1,17 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- 폰트 링크 --%>
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Gothic+A1&family=Noto+Serif+KR:wght@500&display=swap" rel="stylesheet">
-
 <style>
-   *{
-      font-family: 'Gothic A1', sans-serif;
-   }
 	.jumbotronImg{
-		width: 350px;
-		height: 350px;
+		height: 290px;
 		margin-left: 50px;
 	}
 	.jumbotron_table{
@@ -37,8 +29,7 @@
     }  
 	
 </style>
-
-<%-- market jumbotron --%>
+<%-- wording jumbotron --%>
 <div class="jumbotron jumbotron-fluid" style="background-color: #FEF9E7;">
   <div class="container">
   	<table class="jumbotron_table">
@@ -49,9 +40,13 @@
   					In to the Book !
   				</h1>
    		 		<p class="lead">
-   		 			당신이 책 속에서 발견한 아름다운 구절을 나눠보세요.
+   		 			당신이 오늘, <br />
+   		 			책 속에서 발견한 아름다운 구절을 공유해주세요.
+   		 		</p>	
+   		 		<p>
+					<a href="${pageContext.request.contextPath }/wording/private/insertform.do" class="btn">
+						책 명언/글귀 작성</a>
    		 		</p>
-   		 		<button type="btn" class="btn"><a href="private/insertform.do">책 명언/글귀 작성</a></button>
   			</td>
   			<td>
   				<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd_wording.svg" alt="대문이미지" />

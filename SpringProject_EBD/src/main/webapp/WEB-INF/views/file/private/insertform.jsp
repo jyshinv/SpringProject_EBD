@@ -7,6 +7,10 @@
 <title>/file/private/insertform.jsp</title>
 <jsp:include page="../../include/resource.jsp"></jsp:include>
 <style>
+	/*전체 페이지 폰트 적용*/
+	*{
+		font-family: 'Gothic A1', sans-serif;
+	}
 	.head{
 		text-align: center;
 	}
