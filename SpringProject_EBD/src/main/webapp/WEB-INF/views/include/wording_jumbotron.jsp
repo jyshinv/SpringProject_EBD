@@ -29,7 +29,6 @@
     }  
 	
 </style>
-
 <%-- wording jumbotron --%>
 <div class="jumbotron jumbotron-fluid" style="background-color: #FEF9E7;">
   <div class="container">

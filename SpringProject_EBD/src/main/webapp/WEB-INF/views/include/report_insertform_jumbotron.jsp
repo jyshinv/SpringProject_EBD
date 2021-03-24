@@ -10,6 +10,7 @@
 		height: 250px;
 	}
 </style>
+<%-- 독후감 인서트폼 점보트론 --%>
 <div class="jumbotron jumbotron-fluid">
   <div class="container text-center">
   	<div>

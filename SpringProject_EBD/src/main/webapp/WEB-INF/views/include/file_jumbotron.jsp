@@ -19,14 +19,13 @@
     .btn:hover{
     	background-color:#FBEEE6;
     }
-    
+   
     /*버튼안에 링크 걸려있을시 적용할 css*/
     .btn>a{
     	color:#212529;
     	text-decoration: none;
     }
 </style>
-
 <%-- file jumbotron --%>
 <div class="jumbotron jumbotron-fluid jumbo-font" style="background-color: #FEF9E7; padding-bottom:10px;">
   <div class="container">

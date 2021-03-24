@@ -10,7 +10,6 @@
       height: 250px;
    }
 </style>
-
 <%-- wording insertform jumbotron --%>
 <div class="jumbotron jumbotron-fluid">
   <div class="container text-center">

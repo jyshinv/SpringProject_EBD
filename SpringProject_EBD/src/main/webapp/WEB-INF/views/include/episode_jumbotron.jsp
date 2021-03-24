@@ -20,16 +20,13 @@
      /*버튼안에 링크 걸려있을시 적용할 css*/
     .btn>a{
     	color:#212529;
-    	/*color:sienna;*/
     }
     /* 버튼 링크 호버시 언더라인 삭제 */
     .btn>a:hover{
     	color:#212529;
     	text-decoration:none;
     }  
-	
 </style>
-
 <%-- episode jumbotron --%>
 <div class="jumbotron jumbotron-fluid" style="background-color: #FEF9E7;">
   <div class="container">
