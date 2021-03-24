@@ -66,13 +66,13 @@
 	            	<td width="200">
 	            		<a href="${b.link }">${b.link }</a>
 	            	</td>
-	                <td width="100">
+	                <td width="200">
 			  			<form action="${pageContext.request.contextPath }/wording/private/insertform.do">
 			  				<label for="title"></label>
 			  				<input type="hidden" id="title" name="title" value="${b.title }" /> 
 			  				<label for="author"></label>
 			  				<input type="hidden" id="author" name="author" value="${b.author }" /> 
-			  				<input class="btn" type="submit" value="명언/글귀 쓰러가기 >" />
+			  				<button class="btn" type="submit">조각글 작성하기</button>
 			  			</form>
 			  			<hr />
 			  			<form action="${pageContext.request.contextPath }/my_report/private/insertform.do">
@@ -82,7 +82,7 @@
 	                		<input type="hidden" id="author" name="author" value="${b.author }"/>
 	                		<label for="link"></label>
 	                		<input type="hidden" id="link" name="link" value="${b.link }"/>
-			  				<input class="btn" type="submit" value="독후감 쓰러가기 >" />
+			  				<button class="btn" type="submit">독후감 작성하기</button>
 			  			</form>
 	                </td>
 	            </tr>
