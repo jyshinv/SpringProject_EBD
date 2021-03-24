@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
 	.jumbotronImg{
-		height: 300px;
+		height: 290px;
 		margin-left: 50px;
 	}
 	.jumbotron_table{

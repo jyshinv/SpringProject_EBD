@@ -2,11 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
-   *{
-      font-family: 'Gothic A1', sans-serif;
-   }
 	.jumbotronImg{
-		height: 350px;
+		height: 330px;
 		margin-left: 50px;
 	}
 	.jumbotron_table{
@@ -19,12 +16,11 @@
   		<tr>
   			<td>
   				<h1 class="display-4">
-	  				${sessionScope.nick}님,<br />
-	  				개인공간
+	  				${sessionScope.nick}님 개인 공간
   				</h1>
    		 		<p class="lead">
-   		 			Everyday BookDay!
-   		 			매일 매일 책 읽는 습관을 가져요
+   		 			Every Day Book Day <br />
+   		 			나의 정보를 확인 할 수 있는 공간입니다.
    		 		</p>
   			</td>
   			<td>

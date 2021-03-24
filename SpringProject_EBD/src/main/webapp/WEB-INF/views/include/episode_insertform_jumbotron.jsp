@@ -7,15 +7,15 @@
 		margin-bottom:0px;
 	}
 	.jumbotronImg{
-		height: 250px;
+		height:130px;
 	}
 </style>
 <div class="jumbotron jumbotron-fluid">
   <div class="container text-center">
   	<div>
-  		<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd1.svg" alt="대문이미지" />
+  		<img class="jumbotronImg" src="${pageContext.request.contextPath}/svg/ebd3.svg" alt="대문이미지" />
   	</div>
-    <h1 class="display-4"><b>Write Episode</b></h1>
+  	<br />
     <p class="lead">오늘은 어떤 이야기를 들려주고 싶은가요?</p>
   </div>
 </div>

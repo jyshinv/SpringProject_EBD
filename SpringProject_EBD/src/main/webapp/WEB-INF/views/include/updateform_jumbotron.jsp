@@ -12,10 +12,10 @@
   <div class="container">
  	<div class="text-center">
  		<h1 class="display-4">
-			${sessionScope.nick}님 !
+			${sessionScope.nick}님
 		</h1>
 		<p>개인정보 수정을 원하시나요? <br />
-		입력 후 수정 버튼을 꼭 눌러주세요
+		입력 후 수정 버튼을 꼭 눌러주세요 !
 		</p>
  	</div>
   </div>

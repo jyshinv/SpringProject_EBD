@@ -183,10 +183,10 @@
 				<a href="detail.do?num=${tmp.num }">
 					<!-- 이미지 -->
 					<c:choose> 
-				   		<c:when test="${empty tmp.imgpath}"><%-- 만일 타이틀이 없다면 제목없음으로 제목 지정 --%>
+				   		<c:when test="${tmp.imgpath eq 'emptyImg'}"><%-- 만일 타이틀이 없다면 제목없음으로 제목 지정 --%>
 				      		<div>	
 								<img class="card-img-top img-wrapper"
-									 src="${pageContext.request.contextPath}/svg/ebd_logo.svg" alt="북스마켓 이미지" id="img">
+									 src="${pageContext.request.contextPath}/resources/images/ebd_emptyimg.jpg" alt="EBD기본이미지" id="img">
 							</div>
 				   		</c:when>
 				   		<c:otherwise>
