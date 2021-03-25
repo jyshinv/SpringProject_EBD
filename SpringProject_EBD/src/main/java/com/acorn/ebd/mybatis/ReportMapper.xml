@@ -53,19 +53,19 @@
 				
 				<choose>
 					<when test="booktitle != null and author != null">
-						WHERE (booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%') AND (ebd_report.writer = ebd_users.nick)
+						WHERE (booktitle LIKE '%'||#{booktitle}||'%' OR author LIKE '%'||#{author}||'%') AND (ebd_report.writer = ebd_users.nick) AND (ebd_report.writer=#{nick})
 						
 					</when>
 					<when test="booktitle != null">
-						WHERE (booktitle LIKE '%'||#{booktitle}||'%') AND ebd_report.writer = ebd_users.nick
+						WHERE (booktitle LIKE '%'||#{booktitle}||'%') AND ebd_report.writer = ebd_users.nick AND (ebd_report.writer=#{nick})
 						
 					</when>
 					<when test="author != null">
-						WHERE (author LIKE '%'||#{author}||'%') AND ebd_report.writer = ebd_users.nick
+						WHERE (author LIKE '%'||#{author}||'%') AND ebd_report.writer = ebd_users.nick AND (ebd_report.writer=#{nick})
 						
 					</when>
 					<when test="author == null and booktitle==null">
-	                  WHERE ebd_report.writer = ebd_users.nick
+	                  WHERE ebd_report.writer = ebd_users.nick AND (ebd_report.writer=#{nick})
 	               </when>
 				</choose>			
 				ORDER BY num DESC)result)

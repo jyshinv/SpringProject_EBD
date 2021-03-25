@@ -148,6 +148,10 @@ public class ReportServiceImpl implements ReportService{
 			} // 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다.
 		}
 		
+		//로그인된 아이디의 nick 정보 불러오기
+		String nick=(String)request.getSession().getAttribute("nick");
+		dto.setNick(nick);
+
 		list=dao.getList(dto);
 		
 		//원본 파일명을 얻기 위해 원본파일명을 filename에 담아주는 작업을 한다.
@@ -161,9 +165,6 @@ public class ReportServiceImpl implements ReportService{
 			}
 		}
 		
-		//로그인된 아이디의 nick 정보 불러오기
-	    String nick=(String)request.getSession().getAttribute("nick");
-	    dto.setNick(nick);
 	    
 		//글의 갯수
 		totalRow=dao.getCountTotal(dto);

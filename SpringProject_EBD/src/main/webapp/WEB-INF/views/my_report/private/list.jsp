@@ -245,7 +245,7 @@
 			</div>
 		</div>
 		<c:forEach var="tmp" items="${requestScope.list }">
-		<c:if test="${nick eq tmp.writer }">
+		
 			<div class="col" style="margin-bottom:15px;">
 				<div class="card" style="width: 18rem;">
 					<c:choose>
@@ -278,7 +278,7 @@
 					</c:choose>
 				</div>
 			</div>
-		</c:if>
+		
 		</c:forEach>
 	</div>
 	<nav>
