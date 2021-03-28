@@ -138,6 +138,8 @@ public class WordingServiceImpl implements WordingService {
 			endPageNum=totalPageCount; //보정해 준다. 
 		}
 		
+		//System.out.println("확인확인"+totalRow+","+startPageNum+","+endPageNum+","+totalPageCount);
+		
 		
 		//로그인된 아이디의 nick 정보 불러오기
 		String nick=(String)request.getSession().getAttribute("nick");

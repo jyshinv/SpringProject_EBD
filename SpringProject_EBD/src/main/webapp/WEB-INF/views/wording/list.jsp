@@ -267,8 +267,8 @@
 			$.ajax({
 				url:"ajax_page.do",
 				method:"GET",
-				data:"pageNum="+currentPage,
-				//ajax_page.jsp의 내용이 data로 들어온다.
+				data:"pageNum="+currentPage+"&condition=${condition}&keyword=${keyword}",
+				//ajax_page.jsp의 내용이 data로 들어온다."pageNum="+currentPage+"&condition="${condition}+"&keyword="${keyword},
 				success:function(data){
 					console.log(data);
 					//응답된 문자열은 html 형식이다.(wording/private/ajax_page.jsp에 응답내용이 있다.)
