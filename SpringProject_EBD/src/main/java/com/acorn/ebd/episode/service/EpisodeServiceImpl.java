@@ -212,6 +212,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		EpisodeDto dataDto=dao.getData(dto);
 		//글정보
 		mView.addObject("dataDto",dataDto);
+		
 		//글 조회수를 증가시킨다.
 		dao.addViewCount(dto.getNum());
 		

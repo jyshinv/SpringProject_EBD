@@ -63,7 +63,7 @@
 	<select id="getData" parameterType="episodeDto" resultType="episodeDto">
 		SELECT r1.*, ebd_users.profile
 		FROM
-			(SELECT num, writer, title, imgPath, regdate, content,
+			(SELECT num, writer, title, imgPath, regdate, content, viewcnt,
 				LAG(num, 1, 0) OVER (ORDER BY num DESC) AS prevNum, 
 				LEAD(num, 1, 0) OVER (ORDER BY num DESC) AS nextNum 
 			FROM ebd_episode
