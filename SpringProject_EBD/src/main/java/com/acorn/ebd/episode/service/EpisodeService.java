@@ -34,7 +34,7 @@ public interface EpisodeService {
 	//새로운 댓글 List를 불러오는 메소드 
 	public void moreCommentList(HttpServletRequest request);
 	//에피소드 내용 삭제 요청처리
-	public void deleteDetail(int num);
+	public void deleteDetail(int num, HttpServletRequest request);
 	//홈화면에 조회수Best3 요청 메소드
 	public void getBestViewCntList(ModelAndView mView);
 	//나의 서재 중 내가쓴글에 리스트를 불러오는 메소드 

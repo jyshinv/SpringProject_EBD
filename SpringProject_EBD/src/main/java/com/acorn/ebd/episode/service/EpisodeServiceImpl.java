@@ -368,6 +368,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 		String nick=(String)request.getSession().getAttribute("nick");
 		//댓글의 정보를 얻어와서 댓글의 작성자와 같은지 비교 한다.
 		String writer=episodeCmtDao.getData(num).getWriter();
+		//aop로 아래 코드 구현하기 
 //		if(!writer.equals(id)) {
 //			throw new DBFailException("남의 댓글을 삭제할수 없습니다.");
 //		}
@@ -425,7 +426,7 @@ public class EpisodeServiceImpl implements EpisodeService {
 	}
 
 	@Override
-	public void deleteDetail(int num) {
+	public void deleteDetail(int num, HttpServletRequest request) {
 		dao.deleteDetail(num);
 	}
 

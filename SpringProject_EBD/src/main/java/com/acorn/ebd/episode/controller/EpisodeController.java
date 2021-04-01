@@ -152,7 +152,7 @@ public class EpisodeController {
   	//episode 글 삭제 요청처리 
   	@RequestMapping("/episode/private/delete.do")
   	public String delete(int num, HttpServletRequest request) {
-  		service.deleteDetail(num);
+  		service.deleteDetail(num, request);
   		return "episode/private/delete";
   	}
 	
