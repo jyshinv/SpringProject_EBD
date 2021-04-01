@@ -33,7 +33,7 @@
 		<form action="bookList.do">
 			<div class="row justify-content-md-center">
 				<div class="col-md-8">
-					<input class="form-control" type="text" name="keyword" />
+					<input class="form-control" type="text" name="keyword" value="${keyword }"/>
 				</div>
 				<span>
 					<input class="btn" type="submit" value="검색" />

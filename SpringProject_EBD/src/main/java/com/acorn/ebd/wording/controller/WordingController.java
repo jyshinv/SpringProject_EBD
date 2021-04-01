@@ -71,8 +71,8 @@ public class WordingController {
 	//required=false는 폼에서 넘어오는 값이 없을때에도 오류를 일으키지 않는다. 
 	@RequestMapping("/wording/private/insertform.do")
 	public ModelAndView insertform(@RequestParam(required = false)String title, String author, ModelAndView mView) {
-		mView.setViewName("wording/private/insertform");
 		service.replaceInfo(title, author, mView);
+		mView.setViewName("wording/private/insertform");
 		return mView;
 	}
 	
@@ -94,6 +94,7 @@ public class WordingController {
         {
             mav.addObject("bookList",bservice.searchBook(keyword,20,1));
         }
+        mav.addObject("keyword",keyword);
         mav.setViewName("wording/private/bookList");
         return mav;
     }
